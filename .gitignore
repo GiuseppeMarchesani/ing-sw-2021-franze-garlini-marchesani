@@ -134,7 +134,6 @@ buildNumber.properties
 # (this hidden file is created if you change the icon of a folder in Finder.app)
 Icon
 
-
 # Resource forks and xattr data on non-Apple filesystems
 ._*
 
