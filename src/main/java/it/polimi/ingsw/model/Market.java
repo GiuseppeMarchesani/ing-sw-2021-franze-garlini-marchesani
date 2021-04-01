@@ -61,13 +61,13 @@ public class Market {
     /**
      * This method is used to take resources from the market.
      * @param res (the indexes are the resources and in the array are there quantities)
-     * @param player (the player who is buying at the market)
+     * @param idPlayer (the player who is buying at the market)
      */
-    public void pickResource(int[] res, Player player){
-       HashMap<Integer, Integer> resources = new HashMap<>();
-       for(int i=0; i<res.length-1; i++) {
-           resources.put(i, res[i]);
-       }
-       Game.giveMarketRes(resources);
+    public void pickResource(int[] res, int idPlayer){
+       HashMap<ResourceType, Integer> resources = new HashMap<ResourceType, Integer>(5);
+       for(int i=0; i< res.length-1; i++){
+           resources.put(new ResourceType(i), res[i]);
+        }
+       Game.giveMarketRes(resources, idPlayer);
     }
 }
