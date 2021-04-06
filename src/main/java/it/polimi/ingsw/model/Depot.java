@@ -4,7 +4,6 @@ public class Depot {
     private ResourceType resourceType;
     private int resourceQuantity;
     private int size;
-    private boolean rearrangeable;
 
     /**
      * Class Constructor.
