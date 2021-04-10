@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
