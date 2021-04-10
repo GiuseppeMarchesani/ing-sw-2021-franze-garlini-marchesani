@@ -29,7 +29,7 @@ public class Market {
      * the marbles randomly.
      */
     private void generateMarket(){
-
+        int d=0;
         int[] marble = new int[6];
 
         marble[0]= 2; /* yellow marbles */
@@ -42,11 +42,12 @@ public class Market {
         for(int i=0; i<N_COL-1; i++){
             for(int j=0; j< N_ROW-1; j++){
                 Random n = new Random();
-                int d = 1+ n.nextInt(7);
+                d = n.nextInt(6);
                 if(marble[d] > 0) {
                     marketTray[i][j] = d;
                     marble[d]--;
                 }
+                else j--;
             }
         }
 
@@ -64,7 +65,7 @@ public class Market {
      * @param num (which column or which row)
      * @param player (the player who is buying from market)
      */
-    public HashMap<ResourceType, Integer> pickResource(boolean a, int num, Player player){
+    public HashMap<ResourceType, Integer> pickResources(boolean a, int num, Player player){
 
         ArrayList<ResourceType> marble = player.getMarbleConversion();
         HashMap<ResourceType,Integer> resources = new HashMap<>();
@@ -75,10 +76,10 @@ public class Market {
             System.arraycopy(marketTray[num], 0, res, 0, N_ROW - 1);
             for(int i=0; i<res.length-1; i++){
                 if(res[i] == 5){
-                  int n = Turn.whichMarbleConversion(marble);
-                  resources.put(new ResourceType(i), res[n]);
+                  int n = Choices.chooseMarbleConversion(player.getMarbleConversion());
+                  resources.put(new ResourceType(), res[n]);
                 }
-                else resources.put(new ResourceType(i), res[i]);
+                else resources.put(new ResourceType(), res[i]);
             }
         }
         else{
@@ -88,15 +89,14 @@ public class Market {
             }
             for(int i=0; i<res.length-1; i++){
                 if(res[i]==5){
-                    int n = Turn.whichMarbleConversion(marble);
-                    resources.put(new ResourceType(i), res[n]);
+                    int n = Choices.chooseMarbleConversion(player.getMarbleConversion());
+                    resources.put(new ResourceType(), res[n]);
                 }
-                else resources.put(new ResourceType(i), res[i]);
+                else resources.put(new ResourceType(), res[i]);
             }
         }
         replace(a, num);
-        return resources;
-
+        return player.placeResources(resources);
     }
 
     private void replace(boolean n, int x){
@@ -108,9 +108,7 @@ public class Market {
         }
         else {
             c = marketTray[0][x];
-            for(int i=0; i<N_COL-2; i++){
-                marketTray[i][x] = marketTray[i+1][x];
-            }
+            for(int i=0; i<N_COL-2; i++) marketTray[i][x] = marketTray[i + 1][x];
             marketTray[N_COL][x] = cornerMarble;
 
         }

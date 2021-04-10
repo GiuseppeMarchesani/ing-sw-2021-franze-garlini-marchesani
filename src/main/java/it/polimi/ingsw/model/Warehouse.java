@@ -4,60 +4,83 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Warehouse {
-    private ArrayList<Depot> d;
+    private ArrayList<Depot> depotList;
 
     /**
      * Class constructor.
      */
     public Warehouse(){
-        this.d = new ArrayList<>(3);
-        d.get(0).setSize(3);
-        d.get(1).setSize(2);
-        d.get(2).setSize(1);
+        this.depotList = new ArrayList<>(3);
+        depotList.get(0).setSize(3);
+        depotList.get(1).setSize(2);
+        depotList.get(2).setSize(1);
+        for(int i=0; i<3; i++){
+            depotList.get(i).setRearrangeble(1);
+        }
 
+    }
+
+    public ArrayList<Depot> getDepotList(){
+        return depotList;
     }
 
     /**
      * This method adds a special depot.
-     * @param resourceType (type of resources in leader card' ability)
+     * @param resourceType type of resources in leader card' ability
      */
     public void addDepot(ResourceType resourceType){
-        Depot depotLeader = new Depot(resourceType, 0, 2);
-        d.add(depotLeader);
+        Depot depotLeader = new Depot(resourceType, 0, 2, 0);
+        depotList.add(depotLeader);
     }
 
+    /**
+     * This method allows the player to rearrange depots
+     * @param depot1 index of the first floor
+     * @param depot2 index of the second floor
+     */
 
-    public void rearrange(int n, int m){
-        if(d.get(n).getResourceQuantity()==d.get(m).getResourceQuantity()) {
-            Depot depot = new Depot(d.get(m).getResourceType(), d.get(m).getResourceQuantity(), d.get(m).getSize());
-            d.get(m).setResourceType(d.get(n).getResourceType());
-            d.get(n).setResourceType(depot.getResourceType());
+    public void rearrange(int depot1, int depot2){
+        if(depotList.get(depot1).getResourceQuantity()==depotList.get(depot2).getResourceQuantity()) {
+            Depot depot = new Depot(depotList.get(depot2).getResourceType(), depotList.get(depot2).getResourceQuantity(),
+                    depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
+            depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
+            depotList.get(depot1).setResourceType(depot.getResourceType());
         }
     }
 
+    /**
+     *
+     * @param resource
+     * @param resourceQuantity
+     * @param floor
+     * @return
+     */
 
-
-    public HashMap<ResourceType, Integer> place(HashMap<ResourceType, Integer> res, int n){
-        HashMap<ResourceType, Integer> map = new HashMap<>();
-        for(ResourceType resourceType: res.keySet()) {
-            d.get(n).setResourceType(resourceType);
-            d.get(n).setResourceQuantity(d.get(n).getSize());
-            map.put(resourceType, res.get(resourceType) - getSpace().get(res));
+    public int place(ResourceType resource, int resourceQuantity, int floor){
+        int availableSpace = getSpace().get(floor) + resourceQuantity ;
+        int restResource=0;
+        depotList.get(floor).setResourceType(resource);
+        if(resourceQuantity>=availableSpace) {
+            depotList.get(floor).setResourceQuantity(depotList.get(floor).getSize());
+            return (resourceQuantity-depotList.get(floor).getSize());
         }
-        return map;
+        depotList.get(floor).setResourceQuantity(resourceQuantity + depotList.get(floor).getResourceQuantity());
+        return 0;
+
     }
+
 
 
     /**
      * this method is used to know if there is resource in warehouse
-     * @param res (type of resource that are you looking for)
-     * @return (i the depot that have res, -1 if the depot does not have the requested resource)
+     * @param res type of resource that are you looking for
+     * @return i the depot that have res, -1 if the depot does not have the requested resource
      */
     public int hasResource(ResourceType res){
         for(int i=0; i<4; i++){
-            if(d.get(i).getResourceType().equals(res) && d.get(i).getResourceQuantity() == d.get(i).getSize())
+            if(depotList.get(i).getResourceType().equals(res) && depotList.get(i).getResourceQuantity() == depotList.get(i).getSize())
                 return i;
-            else if(d.get(i).getResourceType() == res)
+            else if(depotList.get(i).getResourceType() == res)
                 return i;
         }
         return -1;
@@ -67,19 +90,23 @@ public class Warehouse {
      * this method is used to see if warehouse is empty
      * @return (true if warehouse is empty and false if it is not)
      */
+
     public Boolean isEmpty() {
         for(int i=0; i<3; i++){
-            if(d.get(i).getResourceQuantity() != 0)
+            if(depotList.get(i).getResourceQuantity() != 0)
                 return false;
         }
         return true;
     }
 
-
+    /**
+     *
+     * @return
+     */
     public HashMap<ResourceType, Integer> getSpace(){
         HashMap<ResourceType, Integer> space= new HashMap<>();
         for(int i=0; i<3; i++){
-            space.put(d.get(i).getResourceType(), d.get(i).getResourceQuantity());
+            space.put(depotList.get(i).getResourceType(), depotList.get(i).getSize() -depotList.get(i).getResourceQuantity());
         }
         return space;
     }

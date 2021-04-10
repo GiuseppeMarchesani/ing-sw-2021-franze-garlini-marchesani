@@ -1,14 +1,10 @@
 package it.polimi.ingsw.model;
 
 public class ResourceType {
-    private static int resource;
-
-    public ResourceType(int res){
-        resource= res;
-    }
+    private  int resource;
 
     public static String toString(int res) {
-        resource = res;
+
         String s = null;
 
         if ( res == 0) {
@@ -26,5 +22,13 @@ public class ResourceType {
         }
 
         return s;
+    }
+
+    public int getResource() {
+        return resource;
+    }
+
+    public void setResource(int res) {
+        resource = res;
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -33,6 +34,7 @@ public class Player {
 
     public int getVictoryPoint() { return victoryPoint; }
 
+
     public ArrayList<LeaderCard> getLeaderCardList() { return leaderCardList;}
 
     public void setLeaderCardList(ArrayList<LeaderCard> leaderCardList) { this.leaderCardList = leaderCardList;}
@@ -65,14 +67,6 @@ public class Player {
         return resourceDiscount;
     }
 
-    public void addDiscount(HashMap<ResourceType, Integer> resources) {
-        for (ResourceType resourceType : resources.keySet()) {
-            Integer quantity = resources.get(resourceType);
-            resourceDiscount.put(resourceType, quantity);
-        }
-
-    }
-
     public ArrayList<ResourceType> getMarbleConversion() {
         return marbleConversion;
     }
@@ -94,86 +88,95 @@ public class Player {
 
     }
 
-
+    /**
+     *
+     * @param resources
+     * @return
+     */
     public HashMap<ResourceType, Integer> placeResources(HashMap<ResourceType, Integer> resources) {
-
+        HashMap<ResourceType,Integer> resResources= new HashMap<>();
+        int []availableDepot=null;
+        int restResource=0;
         for (ResourceType resourceType : resources.keySet()) {
+
+            if(resourceType.getResource()==4){
+                increaseFaith(resources.get(resourceType));
+                resResources.put(resourceType, resources.get(resourceType));
+            }
             if (warehouse.isEmpty()) {
-                HashMap<ResourceType, Integer> n = new HashMap<>();
-                n.put(resourceType, resources.get(resourceType));
-                int d = Turn.choose();
-                return warehouse.place(n, d);
+                for(int i=0; i<3; i++){
+                    availableDepot[i]=1;
+                }
+                int d = Choices.chooseDepot(availableDepot);
+                restResource= warehouse.place(resourceType, resources.get(resourceType), d);
             } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
                     warehouse.hasResource(resourceType) == 2) {
-                HashMap<ResourceType, Integer> n = new HashMap<>();
-                n.put(resourceType, resources.get(resourceType));
-                return warehouse.place(n, warehouse.hasResource(resourceType));
-            } else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
-                HashMap<ResourceType, Integer> n = new HashMap<>();
-                n.put(resourceType, resources.get(resourceType));
-                return warehouse.place(n, warehouse.hasResource(resourceType));
+                restResource = warehouse.place(resourceType,resources.get(resourceType), warehouse.hasResource(resourceType));
             }
+            else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
+                restResource= warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
+            }
+            resResources.put(resourceType, restResource);
         }
-        return resources;
+        return resResources;
     }
 
-    public CardSlot placeDevCard(int n) {
+    /**
+     *
+     * @param devCard
+     */
+    public void placeDevCard(DevCard devCard) {
+        int level= devCard.getLevel();
         ArrayList<Integer> slot = new ArrayList<>(3);
-        int x=0;
-        for(int i=0; i<3; i++){
-            slot.set(i, developCardSlot.getLevel().get(i));
+        slot = developCardSlot.getCardAvailable(level);
+        int x = Choices.chooseDevSlot(slot);
+        developCardSlot.store(level, x);
+    }
+
+    /**
+     *
+     * @param vp
+     */
+    public void increaseVP(int vp){
+        victoryPoint += vp;
+    }
+
+    /**
+     *
+     * @param steps
+     */
+    public void increaseFaith(int steps){
+        faithSpace+=steps;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getResourcesQuantity(){
+        int resourcesQuantity=0;
+        for(int i=0; i<3;i++){
+            resourcesQuantity+= warehouse.getDepotList().get(i).getResourceQuantity();
         }
-        if(slot.get(0)==0 && slot.get(1)==0 && slot.get(2)==0){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
+        HashMap<ResourceType,Integer> strongboxRes = getStrongbox();
+        for(ResourceType res: strongboxRes.keySet()){
+            resourcesQuantity+= strongboxRes.get(res);
         }
-        else if(slot.get(0)==0 && slot.get(1)==0 || slot.get(0)==0 && slot.get(2)==0 ||
-                slot.get(1)==0 && slot.get(2)==0){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
-        }
-        else if(slot.get(0)==0 || slot.get(1)==0 || slot.get(2)==0){
-            for(int i=0; i<3; i++){
-                if(slot.get(i)==0)
-                    x=i;
-            }
-            return  developCardSlot.place(n, x);
-        }
-        else if(slot.get(0)==1 && slot.get(1)==1 && slot.get(2)==1){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
-        }
-        else if(slot.get(0)==1 && slot.get(1)==1 || slot.get(0)==1 && slot.get(2)==1 ||
-                slot.get(1)==1 && slot.get(2)==1){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
-        }
-        else if(slot.get(0)==1 || slot.get(1)==1 || slot.get(2)==1){
-            for(int i=0; i<3; i++){
-                if(slot.get(i)==1)
-                    x=i;
-            }
-            return  developCardSlot.place(n, x);
-        }
-        else if(slot.get(0)==2 && slot.get(1)==2 && slot.get(2)==2){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
-        }
-        else if(slot.get(0)==2 && slot.get(1)==2 || slot.get(0)==2 && slot.get(2)==2 ||
-                slot.get(1)==2 && slot.get(2)==2){
-            x=Turn.choose();
-            return developCardSlot.place(n,x);
-        }
-        else if(slot.get(0)==2 || slot.get(1)==2 || slot.get(2)==2){
-            for(int i=0; i<3; i++){
-                if(slot.get(i)==1)
-                    x=i;
-            }
-            return  developCardSlot.place(n, x);
-        }
-        return developCardSlot;
+        return resourcesQuantity;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getFinalVP(){
+        int resourcesQuantity= getResourcesQuantity();
+
+        return victoryPoint+= resourcesQuantity/5;
     }
 }
+
+
 
 
 

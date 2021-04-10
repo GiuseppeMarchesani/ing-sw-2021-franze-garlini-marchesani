@@ -4,6 +4,7 @@ public class Depot {
     private ResourceType resourceType;
     private int resourceQuantity;
     private int size;
+    private int rearrangeble;
 
     /**
      * Class Constructor.
@@ -11,39 +12,33 @@ public class Depot {
      * @param n (quantity of resources)
      * @param x (size of depot)
      */
-    public Depot(ResourceType res, int n, int x){
+    public Depot(ResourceType res, int n, int x, int r){
         resourceType = res;
         resourceQuantity = n;
         size = x;
+        rearrangeble=r;
     }
 
-    public ResourceType getResourceType(){
+    public ResourceType getResourceType(){ return resourceType; }
 
-        return resourceType;
-    }
+    public void setResourceType(ResourceType res){ resourceType = res; }
 
-    public void setResourceType(ResourceType res){
+    public int getResourceQuantity() { return resourceQuantity; }
 
-        resourceType = res;
-    }
+    public void setResourceQuantity(int n){ resourceQuantity = n; }
 
-    public int getResourceQuantity() {
-
-        return resourceQuantity;
-    }
-
-    public void setResourceQuantity(int n){
-
-        resourceQuantity = n;
-    }
-
-    public int getSize() {
-
-        return size;
-    }
+    public int getSize() { return size; }
 
     public int setSize(int s) {
         size = s;
         return s;
+    }
+
+    public int getRearrangeble() {
+        return rearrangeble;
+    }
+
+    public void setRearrangeble(int rearrangeble) {
+        this.rearrangeble = rearrangeble;
     }
 }
