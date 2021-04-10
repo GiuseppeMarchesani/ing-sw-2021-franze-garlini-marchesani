@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 public enum Color {
     GREEN(0),
     PURPLE(1),

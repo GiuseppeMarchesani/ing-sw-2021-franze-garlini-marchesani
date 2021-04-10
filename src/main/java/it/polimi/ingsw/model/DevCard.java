@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 import java.util.HashMap;
 public class DevCard extends Card {
     private DevCardType cardType;

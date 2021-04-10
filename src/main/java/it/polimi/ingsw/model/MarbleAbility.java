@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 public class MarbleAbility extends Ability {
         public MarbleAbility(ResourceType r) {
             super(r);

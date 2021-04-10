@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 public class DiscountAbility extends Ability{
     public DiscountAbility(ResourceType r){
         super(r);

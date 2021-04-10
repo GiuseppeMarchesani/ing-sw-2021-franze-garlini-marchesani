@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 import java.util.HashMap;
 
 public class LeaderCard extends Card{

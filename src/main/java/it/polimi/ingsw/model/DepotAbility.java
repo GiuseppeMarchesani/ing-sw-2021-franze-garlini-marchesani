@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 public class DepotAbility extends Ability {
     public DepotAbility(ResourceType r){
         super(r);

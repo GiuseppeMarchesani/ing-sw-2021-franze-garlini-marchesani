@@ -1,3 +1,5 @@
+package it.polimi.ingsw.model;
+
 public class Card {
     private int id;
     private int victoryPoints;
