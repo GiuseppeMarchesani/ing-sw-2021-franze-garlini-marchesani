@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class Player {
     private int playerID;
     private int victoryPoint = 0;
-    private CardSlot developCardSlot;
+    private DevCardSlot developCardSlot;
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
     private int faithSpace;
@@ -22,7 +22,7 @@ public class Player {
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();
         this.faithSpace = 0;
-        this.developCardSlot = new CardSlot();
+        this.developCardSlot = new DevCardSlot();
         this.marbleConversion = new ArrayList<>();
         this.resourceDiscount = new HashMap<>();
         this.victoryPoint = victoryPoint;
@@ -39,9 +39,9 @@ public class Player {
 
     public void setLeaderCardList(ArrayList<LeaderCard> leaderCardList) { this.leaderCardList = leaderCardList;}
 
-    public void setDevelopCardSlot(CardSlot developCardSlot) { this.developCardSlot = developCardSlot;}
+    public void setDevelopCardSlot(DevCardSlot developCardSlot) { this.developCardSlot = developCardSlot;}
 
-    public CardSlot getDevelopCardSlot() { return developCardSlot;}
+    public DevCardSlot getDevelopCardSlot() { return developCardSlot;}
 
     public int getFaithSpace() { return faithSpace;}
 
