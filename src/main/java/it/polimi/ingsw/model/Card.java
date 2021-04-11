@@ -13,7 +13,7 @@ public class Card {
     public void setId(int x){
         id=x;
     }
-    public int getVictoryPoints(){
+    public int getVP(){
         return victoryPoints;
     }
     public void setVictoryPoints(int x){

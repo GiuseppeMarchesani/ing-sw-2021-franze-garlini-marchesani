@@ -65,7 +65,7 @@ public class Market {
      * @param num (which column or which row)
      * @param player (the player who is buying from market)
      */
-    public HashMap<ResourceType, Integer> pickResources(boolean a, int num, Player player){
+    public HashMap<ResourceType, Integer> pickResources(Player player, Boolean a, int num){
 
         ArrayList<ResourceType> marble = player.getMarbleConversion();
         HashMap<ResourceType,Integer> resources = new HashMap<>();

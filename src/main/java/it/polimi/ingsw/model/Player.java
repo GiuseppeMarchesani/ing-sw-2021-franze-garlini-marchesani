@@ -126,11 +126,11 @@ public class Player {
      * @param devCard
      */
     public void placeDevCard(DevCard devCard) {
-        int level= devCard.getLevel();
+        int level= devCard.getCardType().getLevel();
         ArrayList<Integer> slot = new ArrayList<>(3);
-        slot = developCardSlot.getCardAvailable(level);
+        slot = developCardSlot.getAvailableSlots(level);
         int x = Choices.chooseDevSlot(slot);
-        developCardSlot.store(level, x);
+        developCardSlot.getSlotDev().get(x).add(devCard);
     }
 
     /**
@@ -145,8 +145,9 @@ public class Player {
      *
      * @param steps
      */
-    public void increaseFaith(int steps){
+    public int increaseFaith(int steps){
         faithSpace+=steps;
+        return faithSpace;
     }
 
     /**

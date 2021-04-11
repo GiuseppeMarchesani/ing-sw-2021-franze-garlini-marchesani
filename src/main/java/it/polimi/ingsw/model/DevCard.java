@@ -24,9 +24,6 @@ public class DevCard extends Card {
     public HashMap<ResourceType, Integer> getProductionCost(){
         return productionCost;
     }
-    public HashMap<ResourceType, Integer> getProductionCost(){
-        return productionCost;
-    }
     public void setCardType(DevCardType x)
     {
         cardType=x;
@@ -42,5 +39,8 @@ public class DevCard extends Card {
     public void setProductionIncome(HashMap<ResourceType, Integer> x)
     {
         productionIncome=x;
+    }
+    public HashMap<ResourceType, Integer> getProductionIncome() {
+        return productionIncome;
     }
 }

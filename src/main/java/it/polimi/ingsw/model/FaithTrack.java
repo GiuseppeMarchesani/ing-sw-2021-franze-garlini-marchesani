@@ -35,7 +35,7 @@ public class FaithTrack {
     }
 
     public Boolean isInFaithZone(int position, int whichFaithZone) {
-        return (position >= faithZones.get(whichFaithZone).getStart() && position <= faithZones.get(whichFaithZone).getEnd())
+        return (position >= faithZones.get(whichFaithZone).getStart() && position <= faithZones.get(whichFaithZone).getEnd());
     }
 
     public int isOnPopeSpace(int position) {
@@ -63,3 +63,4 @@ public class FaithTrack {
         return VPForPosition;
     }
 }
+

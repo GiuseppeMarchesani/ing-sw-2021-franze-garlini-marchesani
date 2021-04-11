@@ -19,7 +19,7 @@ public class DevCardSlot {
     public ArrayList<LeaderCard> getSlotLeader(){
         return slotLeader;
     }
-    public int cardQuantity(){
+    public int getCardQuantity(){
         return slotDev.get(0).size()+slotDev.get(1).size()+slotDev.get(2).size();
     }
 

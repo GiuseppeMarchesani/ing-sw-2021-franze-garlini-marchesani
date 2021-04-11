@@ -17,9 +17,11 @@ public class Game {
      * @throws IOException
      */
     public Game(ArrayList<Player> playersList) throws IOException {
+        //TODO: COSTRUIRE I VARI PLAYER
         Collections.shuffle(playersList);
         market = new Market();
         faithTrack = new FaithTrack();
+        //TODO: PASSARE DECK
         cardMarket = new CardMarket();
         this.playersList = playersList;
     }
@@ -102,9 +104,9 @@ public class Game {
      * @param devCard The DevCard the player wants to buy.
      */
     public void pickDevCard(Player player, DevCard devCard) {
-        int numOfCards = player.placeDevCard(devCard);
+        player.placeDevCard(devCard);
         giveVP(player, devCard.getVP());
-        if(numOfCards == 7){
+        if(player.getDevelopCardSlot().getCardQuantity() == 7){
             endGame(player);
         }
     }
@@ -137,7 +139,8 @@ public class Game {
             }
 
             //If it's the last pope space
-            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithZones.size()-1))) {
+            //TODO ultimo elemento lista
+            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithTrack.getFaithZones().size()-1))) {
                 for(Player p: playersList) {
                     //Players gain extra VP according to their final position
                     giveVP(p, faithTrack.getAssociatedVP(p.getFaithSpace()) );
