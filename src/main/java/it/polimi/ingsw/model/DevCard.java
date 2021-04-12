@@ -14,6 +14,15 @@ public class DevCard extends Card {
         productionCost=pc;
         productionIncome=pi;
     }
+    public DevCard(){
+        super(0,0);
+        cardType=null;
+        cardCost=null;
+        productionCost= new HashMap<ResourceType, Integer>();
+        productionCost.put(new ResourceType(0), Integer.valueOf(2));
+        productionIncome= new HashMap<ResourceType, Integer>();
+        productionIncome.put(new ResourceType(0), Integer.valueOf(1));
+    }
     public DevCardType getCardType()
     {
         return cardType;

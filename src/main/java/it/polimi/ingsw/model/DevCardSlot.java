@@ -23,19 +23,9 @@ public class DevCardSlot {
         return slotDev.get(0).size()+slotDev.get(1).size()+slotDev.get(2).size();
     }
 
-    public ArrayList<Integer> placeChoices(int level){
-        ArrayList<Integer> levels= new ArrayList<Integer>();
-        for(int i=0; i<3;i++){
-
-            if(level==slotDev.get(i).size()+1){
-                levels.add(Integer.valueOf(i+1));
-
-            }
-        }
-        return levels;
-    }
     public ArrayList<Card> getCardsAvailable(){
         ArrayList<Card> cards= new ArrayList<Card>();
+        cards.add(new DevCard());
         for (int i = 0; i < 3; i++) {
                 try{
                     cards.add(slotDev.get(i).get(slotDev.size()-1));
@@ -48,5 +38,14 @@ public class DevCardSlot {
         }catch(IndexOutOfBoundsException e){}
     }
         return cards;
+    }
+    public ArrayList<Integer> getAvailableSlots(int level){
+        ArrayList<Integer> free=new ArrayList<>();
+                for(int i=0; i<3; i++){
+                    if((slotDev.get(i).size()+1)==level){
+                        free.add(Integer.valueOf(i));
+                    }
+                }
+                return free;
     }
 }
