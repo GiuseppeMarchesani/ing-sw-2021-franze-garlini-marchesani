@@ -34,7 +34,6 @@ public class Player {
 
     public int getVictoryPoint() { return victoryPoint; }
 
-
     public ArrayList<LeaderCard> getLeaderCardList() { return leaderCardList;}
 
     public void setLeaderCardList(ArrayList<LeaderCard> leaderCardList) { this.leaderCardList = leaderCardList;}
@@ -93,6 +92,9 @@ public class Player {
      * @param resources
      * @return
      */
+
+
+
     public HashMap<ResourceType, Integer> placeResources(HashMap<ResourceType, Integer> resources) {
         HashMap<ResourceType,Integer> resResources= new HashMap<>();
         int []availableDepot=null;
@@ -104,10 +106,11 @@ public class Player {
                 resResources.put(resourceType, resources.get(resourceType));
             }
             if (warehouse.isEmpty()) {
-                for(int i=0; i<3; i++){
-                    availableDepot[i]=1;
+                ArrayList<Integer> freeDepot= new ArrayList<>();
+                for(int i=0; i<warehouse.getDepotList().size(); i++){
+                    freeDepot.add(i, 1);
                 }
-                int d = Choices.chooseDepot(availableDepot);
+                int d = choose(freeDepot);
                 restResource= warehouse.place(resourceType, resources.get(resourceType), d);
             } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
                     warehouse.hasResource(resourceType) == 2) {
@@ -129,7 +132,7 @@ public class Player {
         int level= devCard.getCardType().getLevel();
         ArrayList<Integer> slot = new ArrayList<>(3);
         slot = developCardSlot.getAvailableSlots(level);
-        int x = Choices.chooseDevSlot(slot);
+        int x = choose(slot);
         developCardSlot.getSlotDev().get(x).add(devCard);
     }
 
@@ -138,6 +141,7 @@ public class Player {
      * @param vp
      */
     public void increaseVP(int vp){
+
         victoryPoint += vp;
     }
 
@@ -174,6 +178,12 @@ public class Player {
         int resourcesQuantity= getResourcesQuantity();
 
         return victoryPoint+= resourcesQuantity/5;
+    }
+
+    public int choose(ArrayList<?> T){
+        int n=0;
+
+        return n;
     }
 }
 

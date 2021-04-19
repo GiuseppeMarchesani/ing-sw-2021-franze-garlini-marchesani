@@ -11,13 +11,13 @@ public class Warehouse {
      */
     public Warehouse(){
         this.depotList = new ArrayList<>(3);
-        depotList.get(0).setSize(3);
-        depotList.get(1).setSize(2);
-        depotList.get(2).setSize(1);
-        for(int i=0; i<3; i++){
-            depotList.get(i).setRearrangeble(1);
-        }
+        int sizeD = depotList.size();
 
+        for(int i=0; i<depotList.size(); i++){
+            depotList.get(i).setSize(sizeD);
+            depotList.get(i).setRearrangeble(1);
+            sizeD--;
+        }
     }
 
     public ArrayList<Depot> getDepotList(){
@@ -77,7 +77,7 @@ public class Warehouse {
      * @return i the depot that have res, -1 if the depot does not have the requested resource
      */
     public int hasResource(ResourceType res){
-        for(int i=0; i<4; i++){
+        for(int i=0; i<depotList.size(); i++){
             if(depotList.get(i).getResourceType().equals(res) && depotList.get(i).getResourceQuantity() == depotList.get(i).getSize())
                 return i;
             else if(depotList.get(i).getResourceType() == res)
@@ -92,7 +92,7 @@ public class Warehouse {
      */
 
     public Boolean isEmpty() {
-        for(int i=0; i<3; i++){
+        for(int i=0; i<depotList.size(); i++){
             if(depotList.get(i).getResourceQuantity() != 0)
                 return false;
         }
@@ -105,8 +105,9 @@ public class Warehouse {
      */
     public HashMap<ResourceType, Integer> getSpace(){
         HashMap<ResourceType, Integer> space= new HashMap<>();
-        for(int i=0; i<3; i++){
-            space.put(depotList.get(i).getResourceType(), depotList.get(i).getSize() -depotList.get(i).getResourceQuantity());
+        for(int i=0; i<depotList.size(); i++){
+            space.put(depotList.get(i).getResourceType(),
+                    depotList.get(i).getSize() - depotList.get(i).getResourceQuantity());
         }
         return space;
     }

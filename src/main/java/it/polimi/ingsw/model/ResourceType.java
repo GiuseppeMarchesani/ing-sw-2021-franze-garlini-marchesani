@@ -1,26 +1,30 @@
 package it.polimi.ingsw.model;
 
 public class ResourceType {
-    private  int resource;
+    private int resource;
 
-    public static String toString(int res) {
-
+    public String toString(int res) {
         String s = null;
-
-        if ( res == 0) {
-            s = "COIN";
-        } else if (res == 1) {
-            s = "STONE";
-        } else if (res == 2) {
-            s = "SERVANT";
-        } else if (res == 3) {
-            s = "SHIELD";
-        } else if (res == 4) {
-            s = "FAITH";
-        } else if(res == 5){
-            s = "EMPTY";
+        switch (res){
+            case 0:
+                s="COIN";
+                break;
+            case 1:
+                s= "STONE";
+                break;
+            case 2:
+                s="SERVANT";
+                break;
+            case 3:
+                s="SHIELD";
+                break;
+            case 4:
+                s="FAITH";
+                break;
+            case 5:
+                s="EMPTY";
+                break;
         }
-
         return s;
     }
 
