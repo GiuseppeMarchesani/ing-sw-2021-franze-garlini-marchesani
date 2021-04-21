@@ -4,7 +4,7 @@ public class Marble {
     private ResourceType resourceType;
 
 
-    public ResourceType getType() {
+    public ResourceType getResourceType() {
         return resourceType;
     }
 

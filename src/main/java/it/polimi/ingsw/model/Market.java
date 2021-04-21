@@ -11,15 +11,15 @@ public class Market {
     private Marble cornerMarble;
     private final int N_COL = 4;
     private final int N_ROW = 3;
-    private HashMap<Marble, Integer> totalMarbles;
+    private ArrayList<Marble> totalMarbles;
 
     /**
      * Market class constructor.
      */
-    public Market(){
+    public Market(ArrayList<Marble> totalMarbles){
         this.marketTray = new Marble[N_COL][N_ROW];
         this.cornerMarble = new Marble();
-        this.totalMarbles= new HashMap<>();
+        this.totalMarbles = totalMarbles;
         generateMarket();
     }
 
@@ -29,16 +29,15 @@ public class Market {
      */
     private void generateMarket(){
         int d=0;
-        ArrayList<Marble> marbles = new ArrayList<>();
-        Collections.shuffle(marbles);
+        Collections.shuffle(totalMarbles);
 
         for(int i=0; i<N_COL; i++){
             for(int j=0; j< N_ROW; j++){
-                marketTray[i][j]= marbles.get(d);
+                marketTray[i][j]= totalMarbles.get(d);
                 d++;
             }
         }
-        cornerMarble= marbles.get(d);
+        cornerMarble= totalMarbles.get(d);
     }
 
     /**
@@ -49,53 +48,58 @@ public class Market {
      */
     public HashMap<ResourceType, Integer> pickResources(Player player, Boolean a, int num) {
 
-        ArrayList<ResourceType> marble = player.getMarbleConversion();
-        ArrayList<Marble> boughtResources = new ArrayList<>();
-        HashMap<ResourceType, Integer> resources = new HashMap<>();
+        ArrayList<ResourceType> whiteMarbleRes = player.getMarbleConversion();
 
+        HashMap<ResourceType, Integer> resources = new HashMap<>();
 
         if (a) {
             for (int i = 0; i < N_ROW; i++) {
-                if (marketTray[num][i].getType().getResource() == 5) {
-                    int n = player.choose(marble);
-                    if (resources.containsKey(marble.get(n))) {
-                        resources.put(marble.get(n), resources.get(marble.get(n)) + 1);
-                    } else resources.put(marble.get(n), 1);
-                } else if (resources.containsKey(marketTray[num][i].getType())) {
-                    resources.put(marketTray[num][i].getType(), resources.get(marketTray[num][i]) + 1);
-                } else resources.put(marketTray[num][i].getType(), 1);
+                if (marketTray[num][i].getResourceType().getResource() == 5) {
+                    //n = -1 if whiteMarbleRes is empty
+                    int n = player.choose(whiteMarbleRes);
+                    if(n>-1) {
+                        if (resources.containsKey(whiteMarbleRes.get(n))) {
+                            resources.put(whiteMarbleRes.get(n), resources.get(whiteMarbleRes.get(n)) + 1);
+                        } else resources.put(whiteMarbleRes.get(n), 1);
+                    }
+                } else if (resources.containsKey(marketTray[num][i].getResourceType())) {
+                    resources.put(marketTray[num][i].getResourceType(), resources.get(marketTray[num][i].getResourceType()) + 1);
+                } else resources.put(marketTray[num][i].getResourceType(), 1);
             }
         } else {
             for (int i = 0; i < N_COL; i++) {
-                if (marketTray[i][num].getType().getResource() == 5) {
-                    int n = player.choose(marble);
-                    if (resources.containsKey(marble.get(n))) {
-                        resources.put(marble.get(n), resources.get(marble.get(n)) + 1);
-                    } else resources.put(marble.get(n), 1);
-                } else if (resources.containsKey(marketTray[i][num].getType())) {
-                    resources.put(marketTray[i][num].getType(), resources.get(marketTray[N_COL][i]) + 1);
-                } else resources.put(marketTray[i][num].getType(), 1);
+                if (marketTray[i][num].getResourceType().getResource() == 5) {
+                    //n = -1 if whiteMarbleRes is empty
+                    int n = player.choose(whiteMarbleRes);
+                    if(n>-1) {
+                        if (resources.containsKey(whiteMarbleRes.get(n))) {
+                            resources.put(whiteMarbleRes.get(n), resources.get(whiteMarbleRes.get(n)) + 1);
+                        } else resources.put(whiteMarbleRes.get(n), 1);
+                    }
+                } else if (resources.containsKey(marketTray[i][num].getResourceType())) {
+                    resources.put(marketTray[i][num].getResourceType(), resources.get(marketTray[N_COL][i].getResourceType()) + 1);
+                } else resources.put(marketTray[i][num].getResourceType(), 1);
             }
         }
         replace(a, num);
         return player.placeResources(resources);
     }
 
-    private void replace (boolean n, int x) {
+    private void replace (boolean a, int num) {
         Marble c;
-        if(n){
-            c=marketTray[x][0];
+        if(a){
+            c=marketTray[num][0];
             for(int i=0; i<N_ROW-1; i++){
-                marketTray[x][i]=marketTray[x][i+1];
+                marketTray[num][i]=marketTray[num][i+1];
             }
-            marketTray[x][N_ROW]=cornerMarble;
+            marketTray[num][N_ROW-1]=cornerMarble;
         }
         else {
-            c = marketTray[0][x];
+            c = marketTray[0][num];
             for(int i=0; i<N_COL-1; i++){
-                marketTray[i][x] = marketTray[i + 1][x];
+                marketTray[i][num] = marketTray[i + 1][num];
             }
-            marketTray[N_COL][x] = cornerMarble;
+            marketTray[N_COL-1][num] = cornerMarble;
         }
         cornerMarble = c;
     }

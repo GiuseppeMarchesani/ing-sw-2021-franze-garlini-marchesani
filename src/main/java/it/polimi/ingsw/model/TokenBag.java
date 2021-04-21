@@ -34,7 +34,9 @@ public class TokenBag {
      * This method fills the TokenBag with the Action Tokens.
      * @throws IOException
      */
-    private void generateTokenBag() throws IOException {
+
+    //rimettere private
+    public void generateTokenBag() throws IOException {
         List<ActionToken> bufferToken;
 
         //ActionDiscard generation

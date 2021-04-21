@@ -1,5 +1,12 @@
 package it.polimi.ingsw.model;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -16,13 +23,12 @@ public class Game {
      * @param playersList List of the players.
      * @throws IOException
      */
-    public Game(ArrayList<Player> playersList) throws IOException {
-        //TODO: COSTRUIRE I VARI PLAYER
+    public Game(ArrayList<Player> playersList) {
+        //TODO: COSTRUIRE I VARI PLAYER - il primo che ariva costruisce la stanza
         Collections.shuffle(playersList);
-        market = new Market();
-        faithTrack = new FaithTrack();
-        //TODO: PASSARE DECK
-        cardMarket = new CardMarket();
+        market = new Market(generateMarbles());
+        faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
+        cardMarket = new CardMarket(generateDevCardDeck());
         this.playersList = playersList;
     }
 
@@ -206,6 +212,63 @@ public class Game {
         return winnerID;
     }
 
+    private ArrayList<DevCard> generateDevCardDeck() {
+        //DevCard generation
+        ArrayList<DevCard> devCardDeck = null;
+        try {
+            String devCardListJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/dev-cards.JSON")));
+            Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
+            devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
+        } catch(IOException e) {
+            System.out.println("File dev-cards.JSON not found");
+        } finally {
+            return devCardDeck;
+        }
+    }
+
+    private ArrayList<FaithZone> generateFaithTrack() {
+        ArrayList<FaithZone> faithZones = null;
+        try {
+            //Faith Zone generation
+            String faithZonesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/faith-track.JSON")));
+            Type foundListType = new TypeToken<ArrayList<FaithZone>>(){}.getType();
+            faithZones = new Gson().fromJson(faithZonesJson, foundListType);
+
+        } catch (IOException e) {
+            System.out.println("File faith-track.JSON not found");
+        } finally {
+            return faithZones;
+        }
+    }
+
+    private HashMap<Integer, Integer> generateVPspaces() {
+        //VPspaces generation
+        HashMap<Integer, Integer> VPspaces = null;
+        try {
+            String VPspacesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/vp-spaces.JSON")));
+            Type foundHashMapType = new TypeToken<HashMap<Integer, Integer>>(){}.getType();
+            VPspaces = new Gson().fromJson(VPspacesJson, foundHashMapType);
+        } catch (IOException e) {
+            System.out.println("File vp-spaces.JSON not found");
+        } finally {
+            return VPspaces;
+        }
+
+    }
+
+    private ArrayList<Marble>  generateMarbles() {
+        //Marble generation
+        ArrayList<Marble> totalMarbles = null;
+        try {
+            String marbleJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/marbles.JSON")));
+            Type foundHashMapType = new TypeToken<ArrayList<Marble>>(){}.getType();
+            totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
+        } catch (IOException e) {
+            System.out.println("File marbles.JSON not found");
+        } finally {
+            return totalMarbles;
+        }
+    }
 
     public Market getMarket() {
         return market;

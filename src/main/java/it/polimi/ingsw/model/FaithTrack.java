@@ -19,15 +19,11 @@ public class FaithTrack {
 
     /**
      * Class constructor.
-     * @throws IOException
      */
-    public FaithTrack() throws IOException {
-        //Faith Zone generation
-        String faithZonesJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/faith-track.JSON")));
-        Type foundListType = new TypeToken<ArrayList<FaithZone>>(){}.getType();
-        faithZones = new Gson().fromJson(faithZonesJson, foundListType);
+    public FaithTrack(ArrayList<FaithZone> faithZones, HashMap<Integer, Integer> VPspaces) {
+        this.faithZones = faithZones;
+        this.VPspaces = VPspaces;
 
-        //TODO: VPspaces generation
     }
 
     public Boolean isOnFinalPosition(int position) {
@@ -51,6 +47,18 @@ public class FaithTrack {
 
     public List<FaithZone> getFaithZones() {
         return faithZones;
+    }
+
+    public HashMap<Integer, Integer> getVPspaces() {
+        return VPspaces;
+    }
+
+    public void setFaithZones(List<FaithZone> faithZones) {
+        this.faithZones = faithZones;
+    }
+
+    public void setVPspaces(HashMap<Integer, Integer> VPspaces) {
+        this.VPspaces = VPspaces;
     }
 
     public int getAssociatedVP(int playerPosition) {
