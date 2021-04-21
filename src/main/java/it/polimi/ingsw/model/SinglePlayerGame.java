@@ -73,7 +73,7 @@ public class SinglePlayerGame extends Game {
 
         //ActionDiscard generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-discard.JSON")));
+            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-discard.JSON")));
         } catch (IOException e) {
             System.out.println("Error while reading token-discard.JSON");
         }
@@ -84,7 +84,7 @@ public class SinglePlayerGame extends Game {
 
         //ActionShuffle generation
         try{
-            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-shuffle.JSON")));
+            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-shuffle.JSON")));
         } catch (IOException e) {
             System.out.println("Error while reading token-shuffle.JSON");
         }
@@ -94,7 +94,7 @@ public class SinglePlayerGame extends Game {
 
         //ActionCross generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-cross.JSON")));
+            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-cross.JSON")));
         } catch (IOException e) {
             System.out.println("Error while reading token-cross.JSON");
         }

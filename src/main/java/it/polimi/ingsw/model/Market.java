@@ -82,6 +82,8 @@ public class Market {
             }
         }
         replace(a, num);
+
+
         return player.placeResources(resources);
     }
 
@@ -102,6 +104,18 @@ public class Market {
             marketTray[N_COL-1][num] = cornerMarble;
         }
         cornerMarble = c;
+    }
+
+    public String toString(){
+        String marketString="";
+        for(int i=0; i<N_COL;i++){
+            for(int j=0; j<N_ROW; j++){
+                marketString.concat(" ");
+                marketString.concat((marketTray[i][j].toString()));
+            }
+
+        }
+        return marketString;
     }
 
 }

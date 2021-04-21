@@ -1,15 +1,15 @@
 [
-  {"resourceType": 0},
-  {"resourceType": 0},
-  {"resourceType": 1},
-  {"resourceType": 1},
-  {"resourceType": 2},
-  {"resourceType": 2},
-  {"resourceType": 3},
-  {"resourceType": 3},
-  {"resourceType": 4},
-  {"resourceType": 5},
-  {"resourceType": 5},
-  {"resourceType": 5},
-  {"resourceType": 5}
+  {"resourceType": "COIN"},
+  {"resourceType": "COIN"},
+  {"resourceType": "STONE"},
+  {"resourceType": "STONE"},
+  {"resourceType": "SERVANT"},
+  {"resourceType": "SERVANT"},
+  {"resourceType": "SHIELD"},
+  {"resourceType": "SHIELD"},
+  {"resourceType": "FAITH"},
+  {"resourceType": "EMPTY"},
+  {"resourceType": "EMPTY"},
+  {"resourceType": "EMPTY"},
+  {"resourceType": "EMPTY"}
 ]

@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Player {
     private int playerID;
-    private int victoryPoint = 0;
+    private int victoryPoint;
     private DevCardSlot developCardSlot;
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
@@ -16,7 +16,7 @@ public class Player {
     private ArrayList<ResourceType> marbleConversion;
 
 
-    public Player(int playerID, int victoryPoint) {
+    public Player(int playerID) {
         this.playerID = playerID;
         this.leaderCardList = null;
         this.strongbox = new HashMap<>();
@@ -25,7 +25,7 @@ public class Player {
         this.developCardSlot = new DevCardSlot();
         this.marbleConversion = new ArrayList<>();
         this.resourceDiscount = new HashMap<>();
-        this.victoryPoint = victoryPoint;
+        this.victoryPoint = 0;
     }
 
     public int getPlayerID() {
@@ -100,26 +100,26 @@ public class Player {
         int []availableDepot=null;
         int restResource=0;
         for (ResourceType resourceType : resources.keySet()) {
-
-            if(resourceType.getResource()==4){
-                increaseFaith(resources.get(resourceType));
-                resResources.put(resourceType, resources.get(resourceType));
-            }
-            if (warehouse.isEmpty()) {
-                ArrayList<Integer> freeDepot= new ArrayList<>();
-                for(int i=0; i<warehouse.getDepotList().size(); i++){
-                    freeDepot.add(i, 1);
+            if(resourceType.getResource() != 4){
+                if (warehouse.isEmpty()) {
+                    ArrayList<Integer> freeDepot= new ArrayList<>();
+                    for(int i=0; i<warehouse.getDepotList().size(); i++){
+                        freeDepot.add(i, 1);
+                    }
+                    int d = choose(freeDepot);
+                    restResource= warehouse.place(resourceType, resources.get(resourceType), d);
+                } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
+                        warehouse.hasResource(resourceType) == 2) {
+                    restResource = warehouse.place(resourceType,resources.get(resourceType), warehouse.hasResource(resourceType));
                 }
-                int d = choose(freeDepot);
-                restResource= warehouse.place(resourceType, resources.get(resourceType), d);
-            } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
-                    warehouse.hasResource(resourceType) == 2) {
-                restResource = warehouse.place(resourceType,resources.get(resourceType), warehouse.hasResource(resourceType));
+                else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
+                    restResource= warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
+                }
+                resResources.put(resourceType, restResource);
             }
-            else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
-                restResource= warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
+            else{
+                resResources.put(resourceType,resources.get(resourceType));
             }
-            resResources.put(resourceType, restResource);
         }
         return resResources;
     }

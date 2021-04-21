@@ -215,7 +215,7 @@ public class Game {
         //DevCard generation
         ArrayList<DevCard> devCardDeck = null;
         try {
-            String devCardListJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/dev-cards.JSON")));
+            String devCardListJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\dev-cards.JSON")));
             Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
             devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
         } catch(IOException e) {
@@ -231,7 +231,7 @@ public class Game {
 
         //Faith Zone generation
         try {
-            faithZonesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/faith-track.JSON")));
+            faithZonesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\faith-track.JSON")));
 
         } catch (IOException e) {
             System.out.println("Error while reading faith-track.JSON");
@@ -247,7 +247,7 @@ public class Game {
         //VPspaces generation
         HashMap<Integer, Integer> VPspaces = null;
         try {
-            VPspacesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/vp-spaces.JSON")));
+            VPspacesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\vp-spaces.JSON")));
         } catch (IOException e) {
             System.out.println("Error while reading vp-spaces.JSON");
         }
@@ -263,7 +263,7 @@ public class Game {
         //Marble generation
         ArrayList<Marble> totalMarbles = null;
         try {
-            marbleJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/marbles.JSON")));
+            marbleJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\marbles.JSON")));
         } catch (IOException e) {
             System.out.println("Error while reading marbles.JSON");
         }

@@ -6,7 +6,7 @@ public class ProductionAbility extends Ability {
     }
 
     public void activateAbility(Player P) {
-            P.getDevCardSlot.getSlotLeader().add(resourceAbility);
+        P.getDevCardSlot.getSlotLeader().add(resourceAbility);
 
     }
 }
