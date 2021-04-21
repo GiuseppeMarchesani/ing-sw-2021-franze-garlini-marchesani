@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -16,15 +15,14 @@ public class Game {
     private Market market ;
     private FaithTrack faithTrack ;
     private CardMarket cardMarket;
-    private List<Player> playersList = new ArrayList<Player>();
+    private List<Player> playersList;
 
     /**
      * Class constructor.
-     * @param playersList List of the players.
-     * @throws IOException
+     * @param playersList An ArrayList containing all the players.
      */
     public Game(ArrayList<Player> playersList) {
-        //TODO: COSTRUIRE I VARI PLAYER - il primo che ariva costruisce la stanza
+        //TODO: COSTRUIRE I VARI PLAYER - il primo che arriva costruisce la stanza
         Collections.shuffle(playersList);
         market = new Market(generateMarbles());
         faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
@@ -33,7 +31,7 @@ public class Game {
     }
 
     public void start() {
-        List<LeaderCard> leadCardDeck = new ArrayList<LeaderCard>();
+        List<LeaderCard> leadCardDeck;
         //TODO: LeaderCard generation
     }
 
@@ -63,7 +61,7 @@ public class Game {
             }
         }
 
-        int pPosition = 0;
+        int pPosition;
 
         for(Player p: playersList) {
             if(!(p.equals(player))){
@@ -76,7 +74,7 @@ public class Game {
     /**
      * Gets the income of the Development Cards production passed as parameters and calls the Player's methods in order to store the resources in the Strongbox and increase his faith space..
      * @param player The player who is going to take the resources.
-     * @param devCardList The ArrayList of Development Card chosen by the player.
+     * @param devCardList The ArrayList of DevCards chosen by the player.
      */
     public void pickProductionRes(Player player, ArrayList<DevCard> devCardList) {
         HashMap<ResourceType, Integer> resources = null;
@@ -101,6 +99,7 @@ public class Game {
             }
         }
         int position = player.increaseFaith(faithSpaceToInc);
+        updateFaithTrack(player, position);
         player.storeResources(resources);
     }
 
@@ -220,7 +219,7 @@ public class Game {
             Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
             devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
         } catch(IOException e) {
-            System.out.println("File dev-cards.JSON not found");
+            System.out.println("Error while reading dev-cards.JSON");
         } finally {
             return devCardDeck;
         }
@@ -228,46 +227,49 @@ public class Game {
 
     private ArrayList<FaithZone> generateFaithTrack() {
         ArrayList<FaithZone> faithZones = null;
+        String faithZonesJson = "";
+
+        //Faith Zone generation
         try {
-            //Faith Zone generation
-            String faithZonesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/faith-track.JSON")));
-            Type foundListType = new TypeToken<ArrayList<FaithZone>>(){}.getType();
-            faithZones = new Gson().fromJson(faithZonesJson, foundListType);
+            faithZonesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/faith-track.JSON")));
 
         } catch (IOException e) {
-            System.out.println("File faith-track.JSON not found");
-        } finally {
-            return faithZones;
+            System.out.println("Error while reading faith-track.JSON");
         }
+        Type foundListType = new TypeToken<ArrayList<FaithZone>>(){}.getType();
+        faithZones = new Gson().fromJson(faithZonesJson, foundListType);
+        return faithZones;
     }
 
     private HashMap<Integer, Integer> generateVPspaces() {
+        String VPspacesJson = "";
+
         //VPspaces generation
         HashMap<Integer, Integer> VPspaces = null;
         try {
-            String VPspacesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/vp-spaces.JSON")));
+            VPspacesJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/vp-spaces.JSON")));
+        } catch (IOException e) {
+            System.out.println("Error while reading vp-spaces.JSON");
+        }
             Type foundHashMapType = new TypeToken<HashMap<Integer, Integer>>(){}.getType();
             VPspaces = new Gson().fromJson(VPspacesJson, foundHashMapType);
-        } catch (IOException e) {
-            System.out.println("File vp-spaces.JSON not found");
-        } finally {
             return VPspaces;
-        }
 
     }
 
     private ArrayList<Marble>  generateMarbles() {
+        String marbleJson ="";
+
         //Marble generation
         ArrayList<Marble> totalMarbles = null;
         try {
-            String marbleJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/marbles.JSON")));
-            Type foundHashMapType = new TypeToken<ArrayList<Marble>>(){}.getType();
-            totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
+            marbleJson = new String(Files.readAllBytes(Paths.get("/ing-sw-2021-franze-garlini-marchesani/src/main/resources/marbles.JSON")));
         } catch (IOException e) {
-            System.out.println("File marbles.JSON not found");
-        } finally {
-            return totalMarbles;
+            System.out.println("Error while reading marbles.JSON");
         }
+        Type foundHashMapType = new TypeToken<ArrayList<Marble>>(){}.getType();
+        totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
+        return totalMarbles;
     }
 
     public Market getMarket() {

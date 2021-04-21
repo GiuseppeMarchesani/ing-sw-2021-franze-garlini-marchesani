@@ -1,8 +1,13 @@
 package it.polimi.ingsw.model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,12 +20,11 @@ public class SinglePlayerGame extends Game {
     /**
      * SinglePlayerGame class constructor.
      * @param playersList The Array containing all the players, in this case contains just the solo-mode player.
-     * @throws IOException
      */
-    public SinglePlayerGame(ArrayList<Player> playersList) throws IOException {
+    public SinglePlayerGame(ArrayList<Player> playersList) {
         super(playersList);
         blackCross = new BlackCross();
-        tokenBag = new TokenBag();
+        tokenBag = new TokenBag(generateTokenBag());
     }
 
     /**
@@ -42,14 +46,16 @@ public class SinglePlayerGame extends Game {
 
         if(actionToken.toString() == "Action Discard") {
             getCardMarket().discardDevCard(((ActionDiscard)actionToken).getColor());
-
+            //Check if deck in cardMarket is empty and then call endGame
         }
         else if(actionToken.toString()=="Action Shuffle") {
             blackCross.increaseBlackCross(((ActionShuffle)actionToken).getSpaces());
             tokenBag.shuffle();
+            //Check if blackCross reaches the end
         }
         else if(actionToken.toString()=="Action Cross") {
             blackCross.increaseBlackCross(((ActionCross)actionToken).getSpaces());
+            //Check if blackCross reaches the end
         }
     }
 
@@ -59,7 +65,44 @@ public class SinglePlayerGame extends Game {
      */
     public void endGame() {
             //TODO
+    }
+
+    private ArrayList<ActionToken> generateTokenBag() {
+        ArrayList<ActionToken> tokens = new ArrayList<>();
+        String actionTokenJson = "";
+
+        //ActionDiscard generation
+        try {
+            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-discard.JSON")));
+        } catch (IOException e) {
+            System.out.println("Error while reading token-discard.JSON");
         }
+
+        Type foundListType = new TypeToken<ArrayList<ActionDiscard>>(){}.getType();
+        tokens = new Gson().fromJson(actionTokenJson, foundListType);
+
+
+        //ActionShuffle generation
+        try{
+            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-shuffle.JSON")));
+        } catch (IOException e) {
+            System.out.println("Error while reading token-shuffle.JSON");
+        }
+        foundListType = new TypeToken<ArrayList<ActionShuffle>>(){}.getType();
+        tokens.addAll(new Gson().fromJson(actionTokenJson, foundListType));
+
+
+        //ActionCross generation
+        try {
+            actionTokenJson = new String(Files.readAllBytes(Paths.get("ing-sw-2021-franze-garlini-marchesani/src/main/resources/token-cross.JSON")));
+        } catch (IOException e) {
+            System.out.println("Error while reading token-cross.JSON");
+        }
+        foundListType = new TypeToken<ArrayList<ActionCross>>(){}.getType();
+        tokens.addAll(new Gson().fromJson(actionTokenJson, foundListType));
+
+        return tokens;
+    }
 
     public BlackCross getBlackCross() {
         return blackCross;
