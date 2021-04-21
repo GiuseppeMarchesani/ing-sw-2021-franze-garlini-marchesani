@@ -8,13 +8,11 @@ public class Depot {
 
     /**
      * Class Constructor.
-     * @param res (type of resource in the depot)
-     * @param n (quantity of resources)
      * @param x (size of depot)
      */
-    public Depot(ResourceType res, int n, int x, int r){
-        resourceType = res;
-        resourceQuantity = n;
+    public Depot(int x, int r){
+        resourceType = null;
+        resourceQuantity = 0;
         size = x;
         rearrangeble=r;
     }

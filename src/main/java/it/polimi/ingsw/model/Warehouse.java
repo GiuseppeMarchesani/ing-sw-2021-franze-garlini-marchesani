@@ -4,18 +4,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Warehouse {
+    private int initialDepot = 3;
     private ArrayList<Depot> depotList;
 
     /**
      * Class constructor.
      */
     public Warehouse(){
-        this.depotList = new ArrayList<>(3);
-        int sizeD = depotList.size();
+        this.depotList = new ArrayList<>(initialDepot);
 
-        for(int i=0; i<depotList.size(); i++){
-            depotList.get(i).setSize(sizeD);
-            depotList.get(i).setRearrangeble(1);
+        int sizeD = initialDepot;
+
+        for(int i=0; i<initialDepot; i++){
+            depotList.set(i, new Depot(sizeD, 1));
             sizeD--;
         }
     }
@@ -29,7 +30,8 @@ public class Warehouse {
      * @param resourceType type of resources in leader card' ability
      */
     public void addDepot(ResourceType resourceType){
-        Depot depotLeader = new Depot(resourceType, 0, 2, 0);
+        Depot depotLeader = new Depot(2, 0);
+        depotLeader.setResourceType(resourceType);
         depotList.add(depotLeader);
     }
 
@@ -40,12 +42,19 @@ public class Warehouse {
      */
 
     public void rearrange(int depot1, int depot2){
-        if(depotList.get(depot1).getResourceQuantity()==depotList.get(depot2).getResourceQuantity()) {
-            Depot depot = new Depot(depotList.get(depot2).getResourceType(), depotList.get(depot2).getResourceQuantity(),
-                    depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
-            depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
-            depotList.get(depot1).setResourceType(depot.getResourceType());
-        }
+        //From depot2 to tempDepot
+        Depot depot = new Depot(depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
+        depot.setResourceType(depotList.get(depot2).getResourceType());
+        depot.setResourceQuantity(depotList.get(depot2).getResourceQuantity());
+
+        //From depot1 to depot2
+        depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
+        depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
+
+        //From tempDepot to depot1
+        depotList.get(depot1).setResourceType(depot.getResourceType());
+        depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
+
     }
 
     /**
@@ -57,15 +66,17 @@ public class Warehouse {
      */
 
     public int place(ResourceType resource, int resourceQuantity, int floor){
-        int availableSpace = getSpace().get(floor) + resourceQuantity ;
-        int restResource=0;
+        int leftResources = resourceQuantity - getSpace().get(floor);
         depotList.get(floor).setResourceType(resource);
-        if(resourceQuantity>=availableSpace) {
+        if(leftResources>0) {
             depotList.get(floor).setResourceQuantity(depotList.get(floor).getSize());
-            return (resourceQuantity-depotList.get(floor).getSize());
+            return leftResources;
         }
-        depotList.get(floor).setResourceQuantity(resourceQuantity + depotList.get(floor).getResourceQuantity());
-        return 0;
+        else {
+            depotList.get(floor).setResourceQuantity(resourceQuantity + depotList.get(floor).getResourceQuantity());
+            return 0;
+        }
+
 
     }
 
