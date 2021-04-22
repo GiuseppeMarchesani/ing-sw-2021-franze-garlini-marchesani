@@ -18,6 +18,8 @@ public class Game {
     private Market market ;
     private FaithTrack faithTrack ;
     private CardMarket cardMarket;
+
+    //METTERE I PLAYER IN TURN
     private List<Player> playersList;
 
     /**
@@ -25,17 +27,12 @@ public class Game {
      * @param playersList An ArrayList containing all the players.
      */
     public Game(ArrayList<Player> playersList) {
-        //TODO: COSTRUIRE I VARI PLAYER - il primo che arriva costruisce la stanza
+        //METTERE I PLAYER IN TURN
         Collections.shuffle(playersList);
         market = new Market(generateMarbles());
         faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
         cardMarket = new CardMarket(generateDevCardDeck());
         this.playersList = playersList;
-    }
-
-    public void start() {
-        List<LeaderCard> leadCardDeck;
-        //TODO: LeaderCard generation
     }
 
 
@@ -74,7 +71,6 @@ public class Game {
 
     /**
      * Calls the method pickResources from the class Market and handles the left resources in order to discard them.
-     * @param player The player who is going to take the resources.
      * @param rowOrCol False stands for row, true stands for column.
      * @param rowOrColNumber The number of the row/column. Starts from 0.
      */
@@ -85,7 +81,6 @@ public class Game {
 
     /**
      * Gets the income of the Development Cards production passed as parameters and calls the Player's methods in order to store the resources in the Strongbox and increase his faith space..
-     * @param player The player who is going to take the resources.
      * @param devCardList The ArrayList of DevCards chosen by the player.
      */
     public HashMap<ResourceType, Integer> pickProductionRes(ArrayList<DevCard> devCardList) {
@@ -112,8 +107,6 @@ public class Game {
 
     /**
      * Uses placeDevCard in order to place the DevCard, passed as parameter, in the player's Development Card Slot and give VP to the player.
-     * @param player The player who wants to buy a new Development Card.
-     * @param devCard The DevCard the player wants to buy.
      */
     public DevCard pickDevCard(int color, int level) throws IndexOutOfBoundsException{
         ArrayList<ArrayList<ArrayList<DevCard>>> temp=cardMarket.getDevCardGrid();
@@ -123,7 +116,6 @@ public class Game {
 
     /**
      * This method checks if the player activates a new faith zone or if he reaches the final space.
-     * @param player The player to submit to the test.
      * @param position The player's position.
      */
     //RIGUARDARE!!!!!!!!!!!!!!!!!!!!!!! HashMap inviata da turno????????????????????????????
@@ -149,7 +141,7 @@ public class Game {
      * @param player The player who called the end game. Will be used to determine the next and lasts turns.
      */
     public void endGame(Player player) {
-        //TODO: Last turns
+        //TODO: Last turns ci pensa Turn
 
         //Getting results as an array
         int numOfPlayers = playersList.size();
@@ -201,28 +193,31 @@ public class Game {
 
     private ArrayList<DevCard> generateDevCardDeck() {
         //DevCard generation
+        String devCardListJson ="";
         ArrayList<DevCard> devCardDeck = null;
+
         try {
-            String devCardListJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\dev-cards.JSON")));
-            Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
-            devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
+            devCardListJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\dev-cards.JSON")));
+
         } catch(IOException e) {
-            System.out.println("Error while reading dev-cards.JSON");
-        } finally {
-            return devCardDeck;
+            e.printStackTrace();
         }
+        Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
+        devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
+        return devCardDeck;
+
     }
 
     private ArrayList<FaithZone> generateFaithTrack() {
-        ArrayList<FaithZone> faithZones = null;
-        String faithZonesJson = "";
-
         //Faith Zone generation
+        String faithZonesJson = "";
+        ArrayList<FaithZone> faithZones = null;
+
         try {
             faithZonesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\faith-track.JSON")));
 
         } catch (IOException e) {
-            System.out.println("Error while reading faith-track.JSON");
+            e.printStackTrace();
         }
         Type foundListType = new TypeToken<ArrayList<FaithZone>>(){}.getType();
         faithZones = new Gson().fromJson(faithZonesJson, foundListType);
@@ -230,14 +225,14 @@ public class Game {
     }
 
     private HashMap<Integer, Integer> generateVPspaces() {
-        String VPspacesJson = "";
-
         //VPspaces generation
+        String VPspacesJson = "";
         HashMap<Integer, Integer> VPspaces = null;
+
         try {
             VPspacesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\vp-spaces.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading vp-spaces.JSON");
+            e.printStackTrace();
         }
             Type foundHashMapType = new TypeToken<HashMap<Integer, Integer>>(){}.getType();
             VPspaces = new Gson().fromJson(VPspacesJson, foundHashMapType);
@@ -245,16 +240,15 @@ public class Game {
 
     }
 
-    // MODIFICHE DA MARBLE -> RESOURCETYPE
-    private ArrayList<Marble>  generateMarbles() {
-        String marbleJson ="";
-
+    private ArrayList<ResourceType>  generateMarbles() {
         //Marble generation
-        ArrayList<Marble> totalMarbles = null;
+        String marbleJson ="";
+        ArrayList<ResourceType> totalMarbles = null;
+
         try {
             marbleJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\marbles.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading marbles.JSON");
+            e.printStackTrace();
         }
         Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>(){}.getType();
         totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);

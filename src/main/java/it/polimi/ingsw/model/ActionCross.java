@@ -10,7 +10,7 @@ public class ActionCross implements ActionToken {
         this.spaces = spaces;
     }
 
-    public void doOperation() {
+    public void doOperation(SinglePlayerGame singlePlayerGame) {
 
     }
 

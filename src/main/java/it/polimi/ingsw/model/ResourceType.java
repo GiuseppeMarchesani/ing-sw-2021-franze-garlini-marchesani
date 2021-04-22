@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 public class ResourceType {
     private int resource;
+
     public ResourceType(int x){
         resource=x;
     }
@@ -31,7 +32,7 @@ public class ResourceType {
         }
     }
     public String toString(int res) {
-        String s = null;
+        String s;
         switch (res){
 
             case 1:
@@ -61,6 +62,7 @@ public class ResourceType {
     public int getResource() {
         return resource;
     }
+
     public void setResource(int res) {
         resource = res;
     }

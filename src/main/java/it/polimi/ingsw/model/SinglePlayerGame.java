@@ -75,7 +75,8 @@ public class SinglePlayerGame extends Game {
         try {
             actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-discard.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading token-discard.JSON");
+            e.printStackTrace();
+            //DA AGG A TUTTI
         }
 
         Type foundListType = new TypeToken<ArrayList<ActionDiscard>>(){}.getType();

@@ -17,7 +17,6 @@ public class Market{
      */
     public Market(ArrayList<ResourceType> totalMarbles){
         this.marketTray = new ResourceType[N_COL][N_ROW];
-        this.cornerMarble = new ResourceType();
 
         int d=0;
         Collections.shuffle(totalMarbles);
@@ -34,7 +33,6 @@ public class Market{
      *
      * @param a (true column and false row)
      * @param num (which column or which row)
-     * @param player (the player who is buying from market)
      */
     public HashMap<ResourceType, Integer> pickResources(Boolean a, int num) {
 
