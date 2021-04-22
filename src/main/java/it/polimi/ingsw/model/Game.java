@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -35,40 +38,49 @@ public class Game {
         //TODO: LeaderCard generation
     }
 
+
+    public void start() throws FileNotFoundException {
+        Scanner input = new Scanner(new File("Leaders.txt"));
+        input.useDelimiter("-|\n");
+
+        List<LeaderCard> leadCardDeck = new ArrayList<LeaderCard>();
+        while(input.hasNext()) {
+            int id = input.nextInt();
+            int vp = input.nextInt();
+            HashMap<ResourceType, Integer> resReq = new HashMap<ResourceType,Integer>();
+            for(int i=0; i<6;i++){
+                ResourceType resource=new ResourceType(i+1);
+                int quantity=input.nextInt();
+                if(quantity>0){
+                    resReq.put(resource,quantity);
+                }
+            }
+            HashMap<DevCardType, Integer> cardReq = new HashMap<DevCardType,Integer>();
+            for(int i=0; i<4;i++){
+                int level=input.nextInt();
+                int quantity=input.nextInt();
+                if(quantity>0){
+                    cardReq.put(new DevCardType(i,level),quantity);
+                }
+            }
+            String ability=input.next();
+            ResourceType resourceAbility=new ResourceType(input.nextInt());
+
+            LeaderCard leader = new LeaderCard(id,vp,resReq,cardReq,ability,resourceAbility);
+            leadCardDeck.add(leader);
+        }
+    }
+
+
     /**
      * Calls the method pickResources from the class Market and handles the left resources in order to discard them.
      * @param player The player who is going to take the resources.
      * @param rowOrCol False stands for row, true stands for column.
      * @param rowOrColNumber The number of the row/column. Starts from 0.
      */
-    public void pickMarketRes(Player player, Boolean rowOrCol, int rowOrColNumber) {
 
-        //Resources to discard plus faith points to deliver to the player who got resources from market
-        HashMap<ResourceType, Integer> leftResources = market.pickResources(player, rowOrCol, rowOrColNumber);
-
-        //This variable counts the amount of left resources in order to increase the other players' position
-        int faithSpaceToInc = 0;
-
-        //Converting the faith resources in faith points
-        for(ResourceType resource: leftResources.keySet()) {
-            if(resource.getResource() == 4) {
-                int position = player.increaseFaith(leftResources.get(resource));
-                updateFaithTrack(player, position);
-            }
-            else{
-                //Counting resources that will be discarded in order to increase players' position
-                faithSpaceToInc += leftResources.get(resource);
-            }
-        }
-
-        int pPosition;
-
-        for(Player p: playersList) {
-            if(!(p.equals(player))){
-                pPosition = p.increaseFaith(faithSpaceToInc);
-                updateFaithTrack(p, pPosition);
-            }
-        }
+    public HashMap<ResourceType, Integer> pickMarketRes(Boolean rowOrCol, int rowOrColNumber) {
+        return market.pickResources(rowOrCol,rowOrColNumber);
     }
 
     /**
@@ -76,84 +88,60 @@ public class Game {
      * @param player The player who is going to take the resources.
      * @param devCardList The ArrayList of DevCards chosen by the player.
      */
-    public void pickProductionRes(Player player, ArrayList<DevCard> devCardList) {
-        HashMap<ResourceType, Integer> resources = null;
-        int faithSpaceToInc = 0;
+    public HashMap<ResourceType, Integer> pickProductionRes(ArrayList<DevCard> devCardList) {
 
-        //Scanning the DevCards
+        HashMap<ResourceType, Integer> resources = new HashMap<ResourceType, Integer>();
+
         for(int i=0; i<devCardList.size(); i++) {
-            HashMap<ResourceType, Integer> productionIncome = devCardList.get(i).getProductionIncome();
-            if(i==0) {
-                resources = new HashMap<ResourceType, Integer>(productionIncome);
-            }
-            else {
-                //Building a new HashMap containing the sum of the income of each DevCard
-                for(ResourceType res: resources.keySet()) {
-                    if(res.getResource() == 4) {
-                        faithSpaceToInc += resources.get(res);
+            HashMap<ResourceType, Integer> temp= devCardList.get(i).getProductionIncome();
+
+            for(int j=2; j<7;j++){
+                ResourceType h=new ResourceType(j);
+                if(temp.containsKey(h)){
+                    if(resources.containsKey(h)){
+                        resources.put(h,resources.get(h)+temp.get(h));
                     }
-                    else {
-                        resources.replace(res, resources.get(res) + productionIncome.get(res));
-                    }
+                    else  resources.put(h,temp.get(h));
                 }
             }
         }
-        int position = player.increaseFaith(faithSpaceToInc);
-        updateFaithTrack(player, position);
-        player.storeResources(resources);
+        return resources;
     }
+
+
 
     /**
      * Uses placeDevCard in order to place the DevCard, passed as parameter, in the player's Development Card Slot and give VP to the player.
      * @param player The player who wants to buy a new Development Card.
      * @param devCard The DevCard the player wants to buy.
      */
-    public void pickDevCard(Player player, DevCard devCard) {
-        player.placeDevCard(devCard);
-        giveVP(player, devCard.getVP());
-        if(player.getDevelopCardSlot().getCardQuantity() == 7){
-            endGame(player);
-        }
+    public DevCard pickDevCard(int color, int level) throws IndexOutOfBoundsException{
+        ArrayList<ArrayList<ArrayList<DevCard>>> temp=cardMarket.getDevCardGrid();
+        return temp.get(level).get(color).get(temp.get(level).get(color).size()-1);
     }
 
-    /**
-     * Calls the increaseVP method from the player class in order to increase Victory Points.
-     * @param VP The amount of Victory Points to add.
-     * @param player The player who earned new Victory Points.
-     */
-    public void giveVP(Player player, int VP) {
-        player.increaseVP(VP);
-    }
 
     /**
      * This method checks if the player activates a new faith zone or if he reaches the final space.
      * @param player The player to submit to the test.
      * @param position The player's position.
      */
-    public void updateFaithTrack(Player player, int position) {
-
+    //RIGUARDARE!!!!!!!!!!!!!!!!!!!!!!! HashMap inviata da turno????????????????????????????
+    public HashMap<Player, Integer> updateFaithTrack(int position) {
+        HashMap<Player, Integer> faith = new HashMap<Player, Integer>();
         //Checking if the player is in a pope space
         int whichFaithZone = faithTrack.isOnPopeSpace(position);
-        if(whichFaithZone > 0) {
-
+        if(whichFaithZone >= 0) {
+            int vp=faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP();
             //Delivering faith zone VP
             for(Player p: playersList) {
                 if(faithTrack.isInFaithZone(p.getFaithSpace(), whichFaithZone)) {
-                    giveVP(p, faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP());
+                    faith.put(p,vp);
                 }
             }
 
-            //If it's the last pope space
-            //TODO ultimo elemento lista
-            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithTrack.getFaithZones().size()-1))) {
-                for(Player p: playersList) {
-                    //Players gain extra VP according to their final position
-                    giveVP(p, faithTrack.getAssociatedVP(p.getFaithSpace()) );
-                }
-                endGame(player);
-            }
         }
-
+        return faith;
     }
 
     /**
@@ -257,6 +245,7 @@ public class Game {
 
     }
 
+    // MODIFICHE DA MARBLE -> RESOURCETYPE
     private ArrayList<Marble>  generateMarbles() {
         String marbleJson ="";
 
@@ -267,7 +256,7 @@ public class Game {
         } catch (IOException e) {
             System.out.println("Error while reading marbles.JSON");
         }
-        Type foundHashMapType = new TypeToken<ArrayList<Marble>>(){}.getType();
+        Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>(){}.getType();
         totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
         return totalMarbles;
     }

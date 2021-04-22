@@ -70,10 +70,6 @@ public class Player {
         return marbleConversion;
     }
 
-    public void marbleConversion(ResourceType resourceType) {
-        marbleConversion.add(resourceType);
-    }
-
     public void storeResources(HashMap<ResourceType, Integer> resources) {
         for (ResourceType resourceType : resources.keySet()) {
             Integer quantity;
@@ -87,11 +83,9 @@ public class Player {
 
     }
 
-    /**
-     *
-     * @param resources
-     * @return
-     */
+    public DevCardSlot getDevCardSlot(){
+        return developCardSlot;
+    }
 
 
 
