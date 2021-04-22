@@ -3,9 +3,9 @@ package it.polimi.ingsw.model;
 public class DevCardType{
     private Color color;
     private int level;
-    public DevCardType(Color c, int x){
+    public DevCardType(int c, int x){
         checkLevelIsOk(x);
-        color=c;
+        color=new Color(c);
         level=x;
     }
     public Color getColor(){

@@ -6,12 +6,11 @@ package it.polimi.ingsw.model;
 public class ActionDiscard implements ActionToken {
     private Color color;
 
-    public ActionDiscard(Color color) {
-        this.color = color;
+    public ActionDiscard(int color) {
+        this.color = new Color(color);
     }
-
-    public void doOperation() {
-
+    public void doOperation(SinglePlayerGame game) {
+        game.getCardMarket().discardDevCard(color);
     }
 
     public Color getColor() {
