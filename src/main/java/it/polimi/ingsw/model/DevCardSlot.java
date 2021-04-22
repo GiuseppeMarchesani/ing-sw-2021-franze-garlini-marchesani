@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 public class DevCardSlot {
     ArrayList<ArrayList<DevCard>> slotDev;
-    ArrayList<LeaderCard> slotLeader;
+    ArrayList<DevCard> slotLeader;
 
     public DevCardSlot(){
         slotDev= new ArrayList<ArrayList<DevCard>>(3);
         for(int i=0; i<3;i++){
             slotDev.add(new ArrayList<DevCard>());
         }
-        slotLeader= new ArrayList<LeaderCard>();
+        slotLeader= new ArrayList<DevCard>();
     }
     public ArrayList<ArrayList<DevCard>> getSlotDev(){
         return slotDev;
     }
-    public ArrayList<LeaderCard> getSlotLeader(){
+    public ArrayList<DevCard> getSlotLeader(){
         return slotLeader;
     }
     public int getCardQuantity(){
