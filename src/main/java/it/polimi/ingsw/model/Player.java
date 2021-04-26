@@ -16,8 +16,7 @@ public class Player {
     private ArrayList<ResourceType> marbleConversion;
 
 
-    public Player(int playerID) {
-        this.playerID = playerID;
+    public Player() {
         this.leaderCardList = null;
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();

@@ -18,25 +18,24 @@ public class Game {
     private Market market ;
     private FaithTrack faithTrack ;
     private CardMarket cardMarket;
+    private boolean ongoing;
 
-    //METTERE I PLAYER IN TURN
-    private List<Player> playersList;
 
-    /**
-     * Class constructor.
-     * @param playersList An ArrayList containing all the players.
-     */
-    public Game(ArrayList<Player> playersList) {
-        //METTERE I PLAYER IN TURN
-        Collections.shuffle(playersList);
+    public Game() {
         market = new Market(generateMarbles());
         faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
         cardMarket = new CardMarket(generateDevCardDeck());
-        this.playersList = playersList;
+        ongoing=false;
     }
 
 
+
+    public boolean status(){
+        return ongoing;
+    }
+
     public void start() throws FileNotFoundException {
+        ongoing=true;
         Scanner input = new Scanner(new File("Leaders.txt"));
         input.useDelimiter("-|\n");
 
@@ -66,6 +65,7 @@ public class Game {
             LeaderCard leader = new LeaderCard(id,vp,resReq,cardReq,ability,resourceAbility);
             leadCardDeck.add(leader);
         }
+        ongoing=true;
     }
 
 
