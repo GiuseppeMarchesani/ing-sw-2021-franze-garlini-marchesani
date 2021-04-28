@@ -31,6 +31,11 @@ public class ResourceType {
                 resource=0;
         }
     }
+
+    public ResourceType() {
+
+    }
+
     public String toString(int res) {
         String s;
         switch (res){

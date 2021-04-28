@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,11 +13,10 @@ public class Warehouse {
      */
     public Warehouse(){
         this.depotList = new ArrayList<>(initialDepot);
-
         int sizeD = initialDepot;
 
         for(int i=0; i<initialDepot; i++){
-            depotList.set(i, new Depot(sizeD, 1));
+            depotList.add(i, new Depot(sizeD, 1));
             sizeD--;
         }
     }
@@ -41,19 +41,21 @@ public class Warehouse {
      * @param depot2 index of the second floor
      */
 
-    public void rearrange(int depot1, int depot2){
+    public void rearrange(int depot1, int depot2) throws InvalidParameterException{
         //From depot2 to tempDepot
-        Depot depot = new Depot(depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
-        depot.setResourceType(depotList.get(depot2).getResourceType());
-        depot.setResourceQuantity(depotList.get(depot2).getResourceQuantity());
+        if(getDepotList().get(depot1).getRearrangeble()==1 && getDepotList().get(depot2).getRearrangeble()==1) {
+            Depot depot = new Depot(depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
+            depot.setResourceType(depotList.get(depot2).getResourceType());
+            depot.setResourceQuantity(depotList.get(depot2).getResourceQuantity());
 
-        //From depot1 to depot2
-        depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
-        depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
+            //From depot1 to depot2
+            depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
+            depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
 
-        //From tempDepot to depot1
-        depotList.get(depot1).setResourceType(depot.getResourceType());
-        depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
+            //From tempDepot to depot1
+            depotList.get(depot1).setResourceType(depot.getResourceType());
+            depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
+        } else throw new InvalidParameterException();
 
     }
 

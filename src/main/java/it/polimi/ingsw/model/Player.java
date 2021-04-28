@@ -1,13 +1,15 @@
 package it.polimi.ingsw.model;
 
 import java.awt.*;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
     private int playerID;
+    private String username;
     private int victoryPoint;
-    private DevCardSlot developCardSlot;
+    private DevCardSlot devCardSlot;
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
     private int faithSpace;
@@ -15,18 +17,23 @@ public class Player {
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 
+    public Player(String name){
+        this.username= name;
+    }
 
     public Player() {
         this.leaderCardList = null;
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();
         this.faithSpace = 0;
-        this.developCardSlot = new DevCardSlot();
+        this.devCardSlot = new DevCardSlot();
         this.marbleConversion = new ArrayList<>();
         this.resourceDiscount = new HashMap<>();
         this.victoryPoint = 0;
     }
-
+    public String getUsername(){
+        return username;
+    }
     public int getPlayerID() {
         return playerID;
     }
@@ -37,9 +44,11 @@ public class Player {
 
     public void setLeaderCardList(ArrayList<LeaderCard> leaderCardList) { this.leaderCardList = leaderCardList;}
 
-    public void setDevelopCardSlot(DevCardSlot developCardSlot) { this.developCardSlot = developCardSlot;}
+    public void setDevCardSlot(DevCardSlot developCardSlot) { this.devCardSlot = developCardSlot;}
 
-    public DevCardSlot getDevelopCardSlot() { return developCardSlot;}
+    public DevCardSlot getDevCardSlot(){
+        return devCardSlot;
+    }
 
     public int getFaithSpace() { return faithSpace;}
 
@@ -69,50 +78,49 @@ public class Player {
         return marbleConversion;
     }
 
-    public void storeResources(HashMap<ResourceType, Integer> resources) {
+    public void storeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException {
         for (ResourceType resourceType : resources.keySet()) {
-            Integer quantity;
-            if (strongbox.containsKey(resourceType))
-                quantity = strongbox.get(resourceType) + resources.get(resourceType);
-            else {
-                quantity = resources.get(resourceType);
-            }
-            strongbox.put(resourceType, quantity);
+            if(resourceType.getResource()>1 && resourceType.getResource()<6){
+                Integer quantity;
+                if (strongbox.containsKey(resourceType))
+                    quantity = strongbox.get(resourceType) + resources.get(resourceType);
+                else {
+                    quantity = resources.get(resourceType);
+                }
+                strongbox.put(resourceType, quantity);
+            } else throw new InvalidParameterException();
         }
-
-    }
-
-    public DevCardSlot getDevCardSlot(){
-        return developCardSlot;
     }
 
 
 
-    public HashMap<ResourceType, Integer> placeResources(HashMap<ResourceType, Integer> resources) {
+
+
+    public HashMap<ResourceType, Integer> placeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException{
         HashMap<ResourceType,Integer> resResources= new HashMap<>();
         int []availableDepot=null;
         int restResource=0;
         for (ResourceType resourceType : resources.keySet()) {
-            if(resourceType.getResource() != 4){
-                if (warehouse.isEmpty()) {
-                    ArrayList<Integer> freeDepot= new ArrayList<>();
-                    for(int i=0; i<warehouse.getDepotList().size(); i++){
-                        freeDepot.add(i, 1);
+            if(resourceType.getResource()!=0 && resourceType.getResource()!=1) {
+                if (resourceType.getResource() != 6) {
+                    if (warehouse.isEmpty()) {
+                        ArrayList<Integer> freeDepot = new ArrayList<>();
+                        for (int i = 0; i < warehouse.getDepotList().size(); i++) {
+                            freeDepot.add(i, 1);
+                        }
+                        int d = choose(freeDepot);
+                        restResource = warehouse.place(resourceType, resources.get(resourceType), d);
+                    } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
+                            warehouse.hasResource(resourceType) == 2) {
+                        restResource = warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
+                    } else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
+                        restResource = warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
                     }
-                    int d = choose(freeDepot);
-                    restResource= warehouse.place(resourceType, resources.get(resourceType), d);
-                } else if (warehouse.hasResource(resourceType) == 0 || warehouse.hasResource(resourceType) == 1 ||
-                        warehouse.hasResource(resourceType) == 2) {
-                    restResource = warehouse.place(resourceType,resources.get(resourceType), warehouse.hasResource(resourceType));
+                    resResources.put(resourceType, restResource);
+                } else {
+                    resResources.put(resourceType, resources.get(resourceType));
                 }
-                else if (warehouse.getSpace().get(0) == 0 || warehouse.getSpace().get(1) == 0 || warehouse.getSpace().get(2) == 0) {
-                    restResource= warehouse.place(resourceType, resources.get(resourceType), warehouse.hasResource(resourceType));
-                }
-                resResources.put(resourceType, restResource);
-            }
-            else{
-                resResources.put(resourceType,resources.get(resourceType));
-            }
+            } else throw new InvalidParameterException();
         }
         return resResources;
     }
@@ -124,9 +132,13 @@ public class Player {
     public void placeDevCard(DevCard devCard) {
         int level= devCard.getCardType().getLevel();
         ArrayList<Integer> slot = new ArrayList<>(3);
-        slot = developCardSlot.getAvailableSlots(level);
+
+         //TODO
+        /* slot = developCardSlot.getAvailableSlots(level);
+
+         */
         int x = choose(slot);
-        developCardSlot.getSlotDev().get(x).add(devCard);
+        devCardSlot.getSlotDev().get(x).add(devCard);
     }
 
     /**
