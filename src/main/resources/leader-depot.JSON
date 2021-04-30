@@ -1,0 +1,6 @@
+[
+  {"resourceReq":{"COIN":5, "STONE": 0, "SERVANT": 0, "SHIELD": 0},"resourceAbility":"STONE","id":4,"victoryPoints":3},
+  {"resourceReq":{"COIN":0, "STONE": 5, "SERVANT": 0, "SHIELD": 0},"resourceAbility":"SERVANT","id":5,"victoryPoints":3},
+  {"resourceReq":{"COIN":0, "STONE": 0, "SERVANT": 5, "SHIELD": 0},"resourceAbility":"SHIELD","id":6,"victoryPoints":3},
+  {"resourceReq":{"COIN":0, "STONE": 0, "SERVANT": 0, "SHIELD": 5},"resourceAbility":"COIN","id":7,"victoryPoints":3}
+]

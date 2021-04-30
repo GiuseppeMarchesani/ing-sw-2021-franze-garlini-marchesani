@@ -3,12 +3,12 @@ package it.polimi.ingsw.model;
 import java.util.HashMap;
 
 public class LeaderMarble extends Card implements LeaderCard {
-    private HashMap<DevCardType, Integer> devCardTypeReq;
+    private HashMap<Color, Integer> colorReq;
     private ResourceType resourceAbility;
 
-    public LeaderMarble(int id, int victoryPoints, HashMap<DevCardType, Integer> devCardTypeReq, ResourceType resourceAbility) {
+    public LeaderMarble(int id, int victoryPoints, HashMap<Color, Integer> colorReq, ResourceType resourceAbility) {
             super(id, victoryPoints);
-            this.devCardTypeReq = devCardTypeReq;
+            this.colorReq = colorReq;
             this.resourceAbility = resourceAbility;
     }
 
@@ -20,12 +20,12 @@ public class LeaderMarble extends Card implements LeaderCard {
         }
     }
 
-    public HashMap<DevCardType, Integer> getDevCardTypeReq() {
-        return devCardTypeReq;
+    public HashMap<Color, Integer> getDevCardTypeReq() {
+        return colorReq;
     }
 
-    public void setDevCardTypeReq(HashMap<DevCardType, Integer> devCardTypeReq) {
-        this.devCardTypeReq = devCardTypeReq;
+    public void setDevCardTypeReq(HashMap<Color, Integer> colorReq) {
+        this.colorReq = colorReq;
     }
 
     public ResourceType getResourceAbility() {

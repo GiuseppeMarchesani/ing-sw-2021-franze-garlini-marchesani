@@ -1,0 +1,6 @@
+[
+  {"colorReq":{"YELLOW":2,"BLUE":1},"resourceAbility":"SERVANT","id":8,"victoryPoints":5},
+  {"colorReq":{"GREEN":2,"PURPLE":1},"resourceAbility":"SHIELD","id":9,"victoryPoints":5},
+  {"colorReq":{"BLUE":2,"YELLOW":1},"resourceAbility":"STONE","id":10,"victoryPoints":5},
+  {"colorReq":{"PURPLE":2,"GREEN":1},"resourceAbility":"COIN","id":11,"victoryPoints":5}
+]
