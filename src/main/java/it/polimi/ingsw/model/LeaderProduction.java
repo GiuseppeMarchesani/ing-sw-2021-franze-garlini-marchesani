@@ -21,4 +21,27 @@ public class LeaderProduction extends Card implements LeaderCard  {
         player.getDevCardSlot().getSlotLeader().add(new DevCard(resourceAbility, productionIncome));
     }
 
+    public HashMap<DevCardType, Integer> getDevCardTypeReq() {
+        return devCardTypeReq;
+    }
+
+    public void setDevCardTypeReq(HashMap<DevCardType, Integer> devCardTypeReq) {
+        this.devCardTypeReq = devCardTypeReq;
+    }
+
+    public HashMap<ResourceType, Integer> getProductionIncome() {
+        return productionIncome;
+    }
+
+    public void setProductionIncome(HashMap<ResourceType, Integer> productionIncome) {
+        this.productionIncome = productionIncome;
+    }
+
+    public ResourceType getResourceAbility() {
+        return resourceAbility;
+    }
+
+    public void setResourceAbility(ResourceType resourceAbility) {
+        this.resourceAbility = resourceAbility;
+    }
 }

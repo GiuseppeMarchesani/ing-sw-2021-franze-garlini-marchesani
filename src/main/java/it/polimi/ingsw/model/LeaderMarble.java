@@ -19,4 +19,20 @@ public class LeaderMarble extends Card implements LeaderCard {
             player.getMarbleConversion().add(resourceAbility);
         }
     }
+
+    public HashMap<DevCardType, Integer> getDevCardTypeReq() {
+        return devCardTypeReq;
+    }
+
+    public void setDevCardTypeReq(HashMap<DevCardType, Integer> devCardTypeReq) {
+        this.devCardTypeReq = devCardTypeReq;
+    }
+
+    public ResourceType getResourceAbility() {
+        return resourceAbility;
+    }
+
+    public void setResourceAbility(ResourceType resourceAbility) {
+        this.resourceAbility = resourceAbility;
+    }
 }

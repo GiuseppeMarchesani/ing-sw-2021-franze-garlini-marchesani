@@ -29,4 +29,12 @@ public class LeaderDepot extends Card implements LeaderCard  {
         return resourceAbility;
     }
 
+    public void setResourceReq(HashMap<ResourceType, Integer> resourceReq) {
+        this.resourceReq = resourceReq;
+    }
+
+    public void setResourceAbility(ResourceType resourceAbility) {
+        this.resourceAbility = resourceAbility;
+    }
+
 }
