@@ -22,18 +22,9 @@ public class SinglePlayerGame extends Game {
      * @param playersList The Array containing all the players, in this case contains just the solo-mode player.
      */
     public SinglePlayerGame(ArrayList<Player> playersList) {
-        super(playersList);
+        //super(playersList);
         blackCross = new BlackCross();
         tokenBag = new TokenBag(generateTokenBag());
-    }
-
-    /**
-     * Sets all the components up, gives the Leader Cards to the player and starts the game.
-     */
-    public void start() {
-        List<LeaderCard> leadCardDeck = new ArrayList<LeaderCard>();
-        //TODO: LeaderCard generation
-        //Cambia qualcosa dallo start del MultiPlayerGame?
     }
 
     /**
@@ -63,8 +54,17 @@ public class SinglePlayerGame extends Game {
      * Ends the game and communicate the result.
      *
      */
-    public void endGame() {
+    public void endGame(int endGameCode) {
             //TODO
+        if(endGameCode == 0) {
+            //DevCard not available
+        }
+        else if(endGameCode == 1) {
+            //BlackCross reached the final space
+        }
+        else if(endGameCode == 2) {
+
+        }
     }
 
     private ArrayList<ActionToken> generateTokenBag() {

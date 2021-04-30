@@ -3,21 +3,26 @@ package it.polimi.ingsw.model;
 public class Card {
     private int id;
     private int victoryPoints;
-    public Card(int i, int v){
-        id=i;
-        victoryPoints=v;
+
+    public Card(int id, int victoryPoints){
+        this.id = id;
+        this.victoryPoints = victoryPoints;
     }
+
     public int getId(){
         return id;
     }
-    public void setId(int x){
-        id=x;
+
+    public void setId(int id){
+        this.id = id;
     }
+
     public int getVP(){
         return victoryPoints;
     }
-    public void setVictoryPoints(int x){
-        victoryPoints=x;
+
+    public void setVP(int victoryPoints){
+        this.victoryPoints = victoryPoints;
     }
 
 }

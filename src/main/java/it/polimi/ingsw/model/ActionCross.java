@@ -10,8 +10,11 @@ public class ActionCross implements ActionToken {
         this.spaces = spaces;
     }
 
-    public void doOperation(SinglePlayerGame singlePlayerGame) {
-
+    public void doOperation(SinglePlayerGame game) {
+        int blackCrossPosition = game.getBlackCross().increaseBlackCross(spaces);
+        if(game.getFaithTrack().isOnFinalPosition(blackCrossPosition)) {
+            game.endGame(1);
+        }
     }
 
     public int getSpaces() {
@@ -20,6 +23,6 @@ public class ActionCross implements ActionToken {
 
     @Override
     public String toString() {
-        return "Action Cross";
+        return "Action Cross " + "+2";
     }
 }

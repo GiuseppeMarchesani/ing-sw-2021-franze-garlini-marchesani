@@ -1,74 +1,22 @@
 package it.polimi.ingsw.model;
 
-public class ResourceType {
+public enum ResourceType {
+    ANY(-1),
+    COIN(0),
+    STONE(1),
+    SERVANT(2),
+    SHIELD(3),
+    FAITH(4),
+    EMPTY(5);
+
     private int resource;
 
-    public ResourceType(int x){
-        resource=x;
-    }
-    public ResourceType(String x){
-        switch (x){
-
-            case "ANY":
-               resource=1;
-                break;
-            case "SERVANT":
-                resource=2;
-                break;
-            case "SHIELD":
-                resource=3;
-                break;
-            case "STONE":
-                resource=4;
-                break;
-            case "COIN":
-                resource=5;
-                break;
-            case "FAITH":
-                resource=6;
-                break;
-            default:
-                resource=0;
-        }
+    ResourceType(int resource) {
+        this.resource = resource;
     }
 
-    public ResourceType() {
-
-    }
-
-    public String toString(int res) {
-        String s;
-        switch (res){
-
-            case 1:
-                s= "ANY";
-                break;
-            case 2:
-                s="SERVANT";
-                break;
-            case 3:
-                s="SHIELD";
-                break;
-            case 4:
-                s="STONE";
-                break;
-            case 5:
-                s="COIN";
-                break;
-            case 6:
-                s="FAITH";
-                break;
-            default:
-                s="EMPTY";
-        }
-        return s;
-    }
-
-    public int getResource() {
+    public int getVal(){
         return resource;
     }
 
-    public void setResource(int res) {
-        resource = res;
-    }
 }

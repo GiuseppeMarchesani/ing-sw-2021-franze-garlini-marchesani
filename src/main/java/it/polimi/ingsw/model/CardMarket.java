@@ -1,17 +1,14 @@
 package it.polimi.ingsw.model;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardMarket {
     public ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
 
-    public CardMarket(ArrayList<DevCard> deck) {
+    public CardMarket(ArrayList<DevCard> devCardDeck) {
         devCardGrid = new ArrayList<ArrayList<ArrayList<DevCard>>>();
-        Collections.shuffle(deck);
+        Collections.shuffle(devCardDeck);
         for (int i = 0; i < 3; i++) {
             devCardGrid.add(new ArrayList<ArrayList<DevCard>>());
             for (int j = 0; j < 4; j++) {
@@ -20,10 +17,10 @@ public class CardMarket {
         }
         int l;
         int c;
-        for (int i = 0; i < deck.size(); i++) {
-            l = deck.get(i).getCardType().getLevel();
-            c = deck.get(i).getCardType().getColor().getVal();
-            devCardGrid.get(l).get(c).add(deck.get(i));
+        for (int i = 0; i < devCardDeck.size(); i++) {
+            l = devCardDeck.get(i).getCardType().getLevel();
+            c = devCardDeck.get(i).getCardType().getColor().getVal();
+            devCardGrid.get(l).get(c).add(devCardDeck.get(i));
         }
 
     }
@@ -34,7 +31,9 @@ public class CardMarket {
             for (int j = 0; j < 4; j++) {
                 try {
                     available.add(devCardGrid.get(i).get(j).get(devCardGrid.get(i).get(j).size() - 1));
-                } catch (IndexOutOfBoundsException e) {}//carta non disponibile
+                } catch (IndexOutOfBoundsException e) {
+
+                }//carta non disponibile
 
             }
 
@@ -45,6 +44,7 @@ public class CardMarket {
         return devCardGrid;
 
     }
+
     //ritorna -1 se le carte di un colore sono finite, 0 se ce ne sono disponibili.
     public int discardDevCard(Color color) {
         int val = color.getVal();

@@ -10,8 +10,13 @@ public class ActionShuffle implements ActionToken{
         this.spaces = spaces;
     }
 
-    public void doOperation(SinglePlayerGame singlePlayerGame) {
+    public void doOperation(SinglePlayerGame game) {
+        game.getTokenBag().shuffle();
 
+        int blackCrossPosition = game.getBlackCross().increaseBlackCross(spaces);
+        if(game.getFaithTrack().isOnFinalPosition(blackCrossPosition)) {
+            game.endGame(1);
+        }
     }
 
     @Override

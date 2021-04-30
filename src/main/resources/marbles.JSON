@@ -1,15 +1,15 @@
 [
-  {"resource": 5},
-  {"resource": 5},
-  {"resource": 4},
-  {"resource": 4},
-  {"resource": 2},
-  {"resource": 2},
-  {"resource": 3},
-  {"resource": 3},
-  {"resource": 6},
-  {"resource": 0},
-  {"resource": 0},
-  {"resource": 0},
-  {"resource": 0}
+  {"resource": "SERVANT"},
+  {"resource": "SERVANT"},
+  {"resource": "STONE"},
+  {"resource": "STONE"},
+  {"resource": "COIN"},
+  {"resource": "COIN"},
+  {"resource": "SHIELD"},
+  {"resource": "SHIELD"},
+  {"resource": "FAITH"},
+  {"resource": "EMPTY"},
+  {"resource": "EMPTY"},
+  {"resource": "EMPTY"},
+  {"resource": "EMPTY"}
 ]

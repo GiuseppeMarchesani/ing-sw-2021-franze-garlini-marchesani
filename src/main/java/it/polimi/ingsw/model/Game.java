@@ -28,46 +28,14 @@ public class Game {
         ongoing=false;
     }
 
-
-
     public boolean status(){
         return ongoing;
     }
 
-    public void start() throws FileNotFoundException {
+    public ArrayList<LeaderCard> start() {
         ongoing=true;
-        Scanner input = new Scanner(new File("Leaders.txt"));
-        input.useDelimiter("-|\n");
-
-        List<LeaderCard> leadCardDeck = new ArrayList<LeaderCard>();
-        while(input.hasNext()) {
-            int id = input.nextInt();
-            int vp = input.nextInt();
-            HashMap<ResourceType, Integer> resReq = new HashMap<ResourceType,Integer>();
-            for(int i=0; i<6;i++){
-                ResourceType resource=new ResourceType(i+1);
-                int quantity=input.nextInt();
-                if(quantity>0){
-                    resReq.put(resource,quantity);
-                }
-            }
-            HashMap<DevCardType, Integer> cardReq = new HashMap<DevCardType,Integer>();
-            for(int i=0; i<4;i++){
-                int level=input.nextInt();
-                int quantity=input.nextInt();
-                if(quantity>0){
-                    cardReq.put(new DevCardType(i,level),quantity);
-                }
-            }
-            String ability=input.next();
-            ResourceType resourceAbility=new ResourceType(input.nextInt());
-
-            LeaderCard leader = new LeaderCard(id,vp,resReq,cardReq,ability,resourceAbility);
-            leadCardDeck.add(leader);
-        }
-        ongoing=true;
+        return generateLeaderCards();
     }
-
 
     /**
      * Calls the method pickResources from the class Market and handles the left resources in order to discard them.
@@ -75,7 +43,7 @@ public class Game {
      * @param rowOrColNumber The number of the row/column. Starts from 0.
      */
 
-    public HashMap<ResourceType, Integer> pickMarketRes(Boolean rowOrCol, int rowOrColNumber) {
+    public HashMap<ResourceType, Integer> pickMarketRes(char rowOrCol, int rowOrColNumber) {
         return market.pickResources(rowOrCol,rowOrColNumber);
     }
 
@@ -84,24 +52,27 @@ public class Game {
      * @param devCardList The ArrayList of DevCards chosen by the player.
      */
     public HashMap<ResourceType, Integer> pickProductionRes(ArrayList<DevCard> devCardList) {
+        HashMap<ResourceType, Integer> resources = null;
 
-        HashMap<ResourceType, Integer> resources = new HashMap<ResourceType, Integer>();
+        //Scanning the DevCards
+        for (int i = 0; i < devCardList.size(); i++) {
+            HashMap<ResourceType, Integer> productionIncome = devCardList.get(i).getProductionIncome();
+            if (i == 0) {
+                resources = new HashMap<ResourceType, Integer>(productionIncome);
+            } else {
 
-        for(int i=0; i<devCardList.size(); i++) {
-            HashMap<ResourceType, Integer> temp= devCardList.get(i).getProductionIncome();
-
-            for(int j=2; j<7;j++){
-                ResourceType h=new ResourceType(j);
-                if(temp.containsKey(h)){
-                    if(resources.containsKey(h)){
-                        resources.put(h,resources.get(h)+temp.get(h));
-                    }
-                    else  resources.put(h,temp.get(h));
+                //Building a new HashMap containing the sum of the income of each DevCard
+                for (ResourceType res : resources.keySet()) {
+                    resources.replace(res, resources.get(res) + productionIncome.get(res));
                 }
             }
         }
+
         return resources;
     }
+
+
+
 
 
 
@@ -118,7 +89,7 @@ public class Game {
      * This method checks if the player activates a new faith zone or if he reaches the final space.
      * @param position The player's position.
      */
-    //RIGUARDARE!!!!!!!!!!!!!!!!!!!!!!! HashMap inviata da turno????????????????????????????
+    /*RIGUARDARE!!!!!!!!!!!!!!!!!!!!!!! HashMap inviata da turno????????????????????????????
     public HashMap<Player, Integer> updateFaithTrack(int position) {
         HashMap<Player, Integer> faith = new HashMap<Player, Integer>();
         //Checking if the player is in a pope space
@@ -134,13 +105,13 @@ public class Game {
 
         }
         return faith;
-    }
+    }*/
 
     /**
      * Ends the game and communicate the result.
      * @param player The player who called the end game. Will be used to determine the next and lasts turns.
      */
-    public void endGame(Player player) {
+    /*public void endGame(Player player) {
         //TODO: Last turns ci pensa Turn
 
         //Getting results as an array
@@ -170,14 +141,13 @@ public class Game {
 
         //TODO: Communicate the Winner
 
-    }
+    }*/
 
     /**
      * Finds the winner between those players who have the same and the highest score.
-     * @param maxScoreRepetition The amount of players who have the best score.
      * @return The ID of the winner.
      */
-    private int whoWin(int maxScoreRepetition) {
+    /*private int whoWin(int maxScoreRepetition) {
         int maxNumOfResources = 0;
         int winnerID=playersList.size()-1;
 
@@ -189,7 +159,7 @@ public class Game {
             }
         }
         return winnerID;
-    }
+    }*/
 
     private ArrayList<DevCard> generateDevCardDeck() {
         //DevCard generation
@@ -255,6 +225,52 @@ public class Game {
         return totalMarbles;
     }
 
+    private ArrayList<LeaderCard> generateLeaderCards() {
+        //LeaderCard generation
+        String leaderJson="";
+        ArrayList<LeaderCard> leaderCardDeck = null;
+
+        //LeaderDepot generation
+        try {
+            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-depot.JSON")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Type foundHashMapType = new TypeToken<ArrayList<LeaderDepot>>(){}.getType();
+        leaderCardDeck = new Gson().fromJson(leaderJson, foundHashMapType);
+
+
+        //LeaderDiscount generation
+        try {
+            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-discount.JSON")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        foundHashMapType = new TypeToken<ArrayList<LeaderDiscount>>(){}.getType();
+        leaderCardDeck.addAll(new Gson().fromJson(leaderJson, foundHashMapType));
+
+        //LeaderMarble generation
+        try {
+            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-marble.JSON")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        foundHashMapType = new TypeToken<ArrayList<LeaderMarble>>(){}.getType();
+        leaderCardDeck.addAll(new Gson().fromJson(leaderJson, foundHashMapType));
+
+        //LeaderMarble production
+        try {
+            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-production.JSON")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        foundHashMapType = new TypeToken<ArrayList<LeaderProduction>>(){}.getType();
+        leaderCardDeck.addAll(new Gson().fromJson(leaderJson, foundHashMapType));
+
+        return leaderCardDeck;
+    }
+
+
     public Market getMarket() {
         return market;
     }
@@ -267,7 +283,4 @@ public class Game {
         return faithTrack;
     }
 
-    public List<Player> getPlayersList() {
-        return playersList;
-    }
 }

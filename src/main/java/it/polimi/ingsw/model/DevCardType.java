@@ -3,25 +3,31 @@ package it.polimi.ingsw.model;
 public class DevCardType{
     private Color color;
     private int level;
-    public DevCardType(int c, int x){
-        checkLevelIsOk(x);
-        color=new Color(c);
-        level=x;
+
+    public DevCardType(Color color, int level){
+        checkLevelIsOk(level);
+        this.color = color;
+        this.level = level;
     }
+
     public Color getColor(){
         return color;
     }
-    public void setColor(Color x){
-        color=x;
+
+    public void setColor(Color color){
+        this.color = color;
     }
+
     public int getLevel(){
         return level;
     }
-    public void setLevel(int x){
-        checkLevelIsOk(x);
-        level=x;
+
+    public void setLevel(int level){
+        checkLevelIsOk(level);
+        this.level = level;
     }
-    private void checkLevelIsOk(int x){
-        if (x<0||x>3)  throw new ArithmeticException("An incorrect level was passed as input! Make sure level is between 0 and 3.");
+
+    private void checkLevelIsOk(int level){
+        if (level<0 || level>3)  throw new ArithmeticException("An incorrect level was passed as input! Make sure level is between 0 and 3.");
     }
 }

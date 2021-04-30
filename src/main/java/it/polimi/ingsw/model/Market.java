@@ -43,14 +43,14 @@ public class Market{
 
     /**
      *
-     * @param a (true column and false row)
-     * @param num (which column or which row)
+     * @param rowOrCol 'c' stands for column, 'r' stands for row
+     * @param num which column or which row
      */
-    public HashMap<ResourceType, Integer> pickResources(Boolean a, int num) throws InvalidParameterException {
+    public HashMap<ResourceType, Integer> pickResources(char rowOrCol, int num) throws InvalidParameterException {
 
         HashMap<ResourceType, Integer> resources = new HashMap<>();
 
-        if (a) {
+        if (rowOrCol == 'c') {
                 if(num<N_ROW){
                     for (int i = 0; i < N_ROW; i++) {
                         if (resources.containsKey(marketTray[num][i])){
@@ -62,7 +62,7 @@ public class Market{
 
 
 
-        } else {
+        } else if(rowOrCol == 'r'){
             if(num<N_COL){
                 for (int i = 0; i < N_COL; i++) {
                     if (resources.containsKey(marketTray[i][num])){
@@ -73,20 +73,20 @@ public class Market{
             else throw new InvalidParameterException();
         }
 
-        replace(a, num);
+        replace(rowOrCol, num);
         return resources;
     }
 
-    private void replace (boolean n, int x) {
-        ResourceType c;
-        if(n){
+    private void replace (char rowOrCol, int x) {
+        ResourceType c = null;
+        if(rowOrCol == 'c'){
             c=marketTray[x][0];
             for(int i=0; i<N_ROW-1; i++){
                 marketTray[x][i]=marketTray[x][i+1];
             }
             marketTray[x][N_ROW-1]=cornerMarble;
         }
-        else {
+        else if(rowOrCol == 'r') {
             c = marketTray[0][x];
             for(int i=0; i<N_COL-1; i++){
                 marketTray[i][x] = marketTray[i + 1][x];

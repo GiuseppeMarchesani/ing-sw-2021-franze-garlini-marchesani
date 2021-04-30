@@ -6,11 +6,14 @@ package it.polimi.ingsw.model;
 public class ActionDiscard implements ActionToken {
     private Color color;
 
-    public ActionDiscard(int color) {
-        this.color = new Color(color);
+    public ActionDiscard(Color color) {
+        this.color = color;
     }
     public void doOperation(SinglePlayerGame game) {
-        game.getCardMarket().discardDevCard(color);
+        int endGame = game.getCardMarket().discardDevCard(color);
+        if(endGame == -1) {
+            game.endGame(0);
+        }
     }
 
     public Color getColor() {
@@ -19,6 +22,6 @@ public class ActionDiscard implements ActionToken {
 
     @Override
     public String toString() {
-        return "Action Discard";
+        return "Action Discard " + color;
     }
 }

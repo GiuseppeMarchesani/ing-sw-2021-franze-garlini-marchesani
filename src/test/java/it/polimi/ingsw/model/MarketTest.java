@@ -29,33 +29,32 @@ public class MarketTest {
         } catch (IOException e) {
             System.out.println("Error while reading marbles.JSON");
         }
-        Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>() {
-        }.getType();
+        Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>() {}.getType();
         totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
         testMarket = new Market(totalMarbles);
 
 
     }
-/*
+
     @Test
 
     public void testGetMarketTray() {
         ResourceType[][] testMarketTray = testMarket.getMarketTray();
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++) {
-                System.out.print(testMarketTray[i][j].getResource());
+                System.out.print(testMarketTray[i][j].getVal());
                 System.out.print(" ");
             }
             System.out.println("");
         }
 
     }
-*/
+
     @Test
     public void testPickResources() {
         ResourceType[][] testMarketTray = testMarket.getMarketTray();
         HashMap<ResourceType, Integer> test = new HashMap<>();
-        test = testMarket.pickResources(true, 2);
+        test = testMarket.pickResources('c', 2);
 
         ArrayList<ResourceType> lKey = new ArrayList<>();
         for (ResourceType key : test.keySet()) {

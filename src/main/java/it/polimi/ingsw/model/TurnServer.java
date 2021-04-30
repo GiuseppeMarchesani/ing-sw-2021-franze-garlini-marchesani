@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class TurnServer {
     //RIVEDERE
-    public static final int SOCKET_PORT = ;
+    public static final int SOCKET_PORT = 0 ;
 
     TurnServer(){}
 

@@ -17,8 +17,9 @@ public class BlackCross {
      * Increase the BlackCross position.
      * @param spaces The number of spaces the black cross is going to move forward.
      */
-    public void increaseBlackCross(int spaces) {
+    public int increaseBlackCross(int spaces) {
         faithSpace = faithSpace + spaces;
+        return faithSpace;
     }
 
     public int getFaithSpace() {
