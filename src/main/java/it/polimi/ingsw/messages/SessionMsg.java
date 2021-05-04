@@ -29,7 +29,7 @@ public class SessionMsg extends CommandMsg{
 
             }
             else{
-                Turn newGame= new Turn();
+                Turn newGame = new Turn();
                 clientHandler.setTurnHandler(newGame);
                 activeGames.getActiveGames().put(gameId,newGame);
                 clientHandler.getTurnHandler().setActivePlayer(clientHandler);
@@ -37,6 +37,10 @@ public class SessionMsg extends CommandMsg{
 
             }
             clientHandler.getTurnHandler().addPlayer(clientHandler);
+
+            //Costruire un player e inviarlo al game come sotto?
+            //clientHandler.getTurnHandler().getGameSession().addPlayer(player);
+
         }catch (Exception e){
             answerMsg = new SessionAnswerMsg(this, "Game creation failed.", false);
         }

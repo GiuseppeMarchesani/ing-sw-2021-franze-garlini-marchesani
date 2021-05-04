@@ -10,11 +10,16 @@ public class Turn {
 
     public Turn(){
         gameSession=new Game();
-        players=new ArrayList<ClientHandler>();
+        players = new ArrayList<ClientHandler>();
     }
 
     public void startGame() {
-        ArrayList<LeaderCard> leaderCardDeck = gameSession.start();
+        try {
+            ArrayList<LeaderCard> leaderCardDeck = gameSession.start();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         //TODO: Give 4 leader cards per player and let them choose 2 cards
     }
 
@@ -22,10 +27,11 @@ public class Turn {
         return gameSession.pickMarketRes(rowOrCol, index);
     }
 
-    public DevCard buyDevCard(int color ,int level ){
+    public DevCard buyDevCard(Color color ,int level ){
         return gameSession.pickDevCard(color, level);
     }
 
+    //calls the Player's methods in order to store the resources in the Strongbox and increase his faith space..
     public void devIncome(ArrayList<DevCard> list){
         HashMap<ResourceType, Integer> productionIncome = gameSession.pickProductionRes(list);
         //TODO: lanciare choose per ogni any in productionIncome
@@ -52,6 +58,7 @@ public class Turn {
     public ArrayList<ClientHandler> getPlayers() {
         return players;
     }
+
     public void addPlayer(ClientHandler client){
         players.add(client);
     }

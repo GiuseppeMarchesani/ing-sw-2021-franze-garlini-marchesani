@@ -40,9 +40,10 @@ public class CardMarket {
         }
         return available;
     }
+
+
     public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
         return devCardGrid;
-
     }
 
     //ritorna -1 se le carte di un colore sono finite, 0 se ce ne sono disponibili.
@@ -62,7 +63,6 @@ public class CardMarket {
         if(lvl>=3||((devCardGrid.get(0).get(val).size()+devCardGrid.get(1).get(val).size()+devCardGrid.get(2).get(val).size())==0)){
             c=-1;
         }
-
         return c;
     }
 }

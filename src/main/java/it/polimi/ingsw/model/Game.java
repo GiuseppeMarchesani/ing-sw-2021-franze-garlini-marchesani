@@ -3,8 +3,6 @@ package it.polimi.ingsw.model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -18,38 +16,61 @@ public class Game {
     private Market market ;
     private FaithTrack faithTrack ;
     private CardMarket cardMarket;
+    private ArrayList<Player> playersList;
     private boolean ongoing;
 
 
+    /**
+     * Game constructor.
+     */
     public Game() {
+        playersList = new ArrayList<Player>();
         market = new Market(generateMarbles());
         faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
         cardMarket = new CardMarket(generateDevCardDeck());
         ongoing=false;
     }
 
+
+    /**
+     * Return if the game has started.
+     * @return ongoing true if the game has already started, otherwise false.
+     */
     public boolean status(){
         return ongoing;
     }
 
-    public ArrayList<LeaderCard> start() {
-        ongoing=true;
-        return generateLeaderCards();
-    }
 
     /**
-     * Calls the method pickResources from the class Market and handles the left resources in order to discard them.
-     * @param rowOrCol False stands for row, true stands for column.
-     * @param rowOrColNumber The number of the row/column. Starts from 0.
+     * The start-game method which sets ongoin attribute on 'true' and return the Leader Card Deck.
+     * @return An ArrayList of LeaderCard class representing the Leader Card Deck
+     * @throws Exception If it's asked to start the game but the players are less than two.
      */
+    public ArrayList<LeaderCard> start() throws Exception {
+        if(playersList.size()>=2) {
+            ongoing=true;
+            return generateLeaderCards();
+        } else {
+            throw new Exception("You can't start a game without any players");
+        }
+    }
 
+
+    /**
+     * Calls the method pickResources from the class Market and returns the resources.
+     * @param rowOrCol 'c' stands for column, 'r' stands for row.
+     * @param rowOrColNumber The number of the row/column. Starts from 0.
+     * @return The HashMap representing the resources list.
+     */
     public HashMap<ResourceType, Integer> pickMarketRes(char rowOrCol, int rowOrColNumber) {
         return market.pickResources(rowOrCol,rowOrColNumber);
     }
 
+
     /**
-     * Gets the income of the Development Cards production passed as parameters and calls the Player's methods in order to store the resources in the Strongbox and increase his faith space..
+     * Gets the income of the Development Cards production passed as parameters.
      * @param devCardList The ArrayList of DevCards chosen by the player.
+     * @return The resources in an HashMap.
      */
     public HashMap<ResourceType, Integer> pickProductionRes(ArrayList<DevCard> devCardList) {
         HashMap<ResourceType, Integer> resources = null;
@@ -67,53 +88,65 @@ public class Game {
                 }
             }
         }
-
         return resources;
     }
 
 
-
-
-
-
     /**
-     * Uses placeDevCard in order to place the DevCard, passed as parameter, in the player's Development Card Slot and give VP to the player.
+     * Pick the Development Card with the features passed as parameters.
+     * @param color The chosen Development Card color.
+     * @param level The chosen Development Card level.
+     * @return The chosen Development Card.
      */
-    public DevCard pickDevCard(int color, int level) throws IndexOutOfBoundsException{
-        ArrayList<ArrayList<ArrayList<DevCard>>> temp=cardMarket.getDevCardGrid();
-        return temp.get(level).get(color).get(temp.get(level).get(color).size()-1);
+    public DevCard pickDevCard(Color color, int level) throws IndexOutOfBoundsException{
+        ArrayList<ArrayList<ArrayList<DevCard>>> temp = cardMarket.getDevCardGrid();
+        return temp.get(level).get(color.getVal()).get(temp.get(level).get(color.getVal()).size()-1);
     }
 
 
     /**
      * This method checks if the player activates a new faith zone or if he reaches the final space.
+     * @param playerID The player's ID who must update his position.
      * @param position The player's position.
+     * @return the ID of the player who calls the endgame, if the endgame is not called the method returns -1.
      */
-    /*RIGUARDARE!!!!!!!!!!!!!!!!!!!!!!! HashMap inviata da turno????????????????????????????
-    public HashMap<Player, Integer> updateFaithTrack(int position) {
-        HashMap<Player, Integer> faith = new HashMap<Player, Integer>();
+    public int updateFaithTrack(int playerID, int position) {
+        int endGame = -1;
+
         //Checking if the player is in a pope space
         int whichFaithZone = faithTrack.isOnPopeSpace(position);
         if(whichFaithZone >= 0) {
-            int vp=faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP();
+            int vp = faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP();
+
             //Delivering faith zone VP
             for(Player p: playersList) {
                 if(faithTrack.isInFaithZone(p.getFaithSpace(), whichFaithZone)) {
-                    faith.put(p,vp);
+
                 }
             }
 
+            //If it's the last pope space
+            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithTrack.getFaithZones().size()-1))) {
+                for(Player p: playersList) {
+                    //Players gain extra VP according to their final position
+                    p.increaseVP(faithTrack.getAssociatedVP(p.getFaithSpace()));
+                }
+                //endGame(playersList.get(playerID));
+                endGame = playerID;
+            }
         }
-        return faith;
-    }*/
+        return endGame;
+    }
 
     /**
      * Ends the game and communicate the result.
-     * @param player The player who called the end game. Will be used to determine the next and lasts turns.
+     * @return the ID of the winner.
      */
-    /*public void endGame(Player player) {
-        //TODO: Last turns ci pensa Turn
 
+    public int endGame() {
+        //Turn has already let players to play the last turn.
+
+        int winnerID = -1;
         //Getting results as an array
         int numOfPlayers = playersList.size();
         int[] results = new int[numOfPlayers];
@@ -133,35 +166,36 @@ public class Game {
 
         //The winner is...
         if(maxScoreRepetition==1) {
-            int winnerID=playersList.size()-1;
+            winnerID = playersList.size()-1;
         }
+
         else if(maxScoreRepetition>1) {
-            int winnerID = whoWin(maxScoreRepetition);
+            winnerID = whoWin(maxScoreRepetition);
         }
-
-        //TODO: Communicate the Winner
-
-    }*/
+        //ongoing = false;
+        return winnerID;
+    }
 
     /**
      * Finds the winner between those players who have the same and the highest score.
      * @return The ID of the winner.
      */
-    /*private int whoWin(int maxScoreRepetition) {
-        int maxNumOfResources = 0;
+    private int whoWin(int maxScoreRepetition) {
+        int maxNumOfResources = -1;
         int winnerID=playersList.size()-1;
 
         //Checking the real winner between players who have the same and the maximum game score
-        for(int i=playersList.size() - maxScoreRepetition; i<playersList.size(); i++) {
+        for(int i = playersList.size() - maxScoreRepetition; i<playersList.size(); i++) {
             if(maxNumOfResources < playersList.get(i).getResourcesQuantity()) {
                 maxNumOfResources = playersList.get(i).getResourcesQuantity();
                 winnerID=i;
             }
         }
         return winnerID;
-    }*/
+    }
 
     private ArrayList<DevCard> generateDevCardDeck() {
+
         //DevCard generation
         String devCardListJson ="";
         ArrayList<DevCard> devCardDeck = null;
@@ -270,6 +304,9 @@ public class Game {
         return leaderCardDeck;
     }
 
+    public void addPlayer(Player player) {
+        playersList.add(player);
+    }
 
     public Market getMarket() {
         return market;
