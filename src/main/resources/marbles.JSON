@@ -1,15 +1,15 @@
 [
-  {"resource": "SERVANT"},
-  {"resource": "SERVANT"},
-  {"resource": "STONE"},
-  {"resource": "STONE"},
-  {"resource": "COIN"},
-  {"resource": "COIN"},
-  {"resource": "SHIELD"},
-  {"resource": "SHIELD"},
-  {"resource": "FAITH"},
-  {"resource": "EMPTY"},
-  {"resource": "EMPTY"},
-  {"resource": "EMPTY"},
-  {"resource": "EMPTY"}
+  "SERVANT",
+  "SERVANT",
+  "STONE",
+  "STONE",
+  "COIN",
+  "COIN",
+  "SHIELD",
+  "SHIELD",
+  "FAITH",
+  "EMPTY",
+  "EMPTY",
+  "EMPTY",
+  "EMPTY"
 ]

@@ -1,10 +1,14 @@
 package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
@@ -20,18 +24,23 @@ public class MarketTest {
 
     @Before
     public void setUp() throws Exception {
+
         String marbleJson = "";
-        //Marble generation
-        ArrayList<ResourceType> totalMarbles;
+        ArrayList<ResourceType> totalMarbles = null;
+
+
         try {
-            System.out.println(System.getProperty("user.dir") + "\\src\\main\\resources\\marbles.JSON");
-            marbleJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir") + "\\src\\main\\resources\\marbles.JSON")));
+            marbleJson =(String) new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\marbles.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading marbles.JSON");
+            e.printStackTrace();
         }
-        Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>() {}.getType();
+        Type foundHashMapType = new TypeToken<ArrayList<ResourceType>>(){}.getType();
         totalMarbles = new Gson().fromJson(marbleJson, foundHashMapType);
+
+
         testMarket = new Market(totalMarbles);
+
+
 
 
     }
@@ -54,6 +63,7 @@ public class MarketTest {
     public void testPickResources() {
         ResourceType[][] testMarketTray = testMarket.getMarketTray();
         HashMap<ResourceType, Integer> test = new HashMap<>();
+        ResourceType testCorner = testMarket.getCornerMarble();
         test = testMarket.pickResources('c', 2);
 
         ArrayList<ResourceType> lKey = new ArrayList<>();
@@ -64,8 +74,15 @@ public class MarketTest {
         assertTrue(lKey.contains(testMarketTray[2][1]));
         assertTrue(lKey.contains(testMarketTray[2][2]));
 
+        ResourceType[][] testMarketTrayPost = testMarket.getMarketTray();
+        ResourceType testCornerPost = testMarket.getCornerMarble();
+        assertTrue(testMarketTray[2][1].getVal() == testMarketTrayPost[2][0].getVal());
+        assertTrue(testCornerPost.getVal() == testMarketTray[2][0].getVal());
+        assertTrue(testMarketTray[2][2].getVal() == testMarketTrayPost[2][1].getVal());
+        assertTrue(testMarketTrayPost[2][2].getVal() == testCorner.getVal());
 
     }
+
 
 
 }
