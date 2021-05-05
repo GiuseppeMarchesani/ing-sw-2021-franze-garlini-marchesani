@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import java.awt.*;
+import java.io.ObjectInputStream;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,9 +18,6 @@ public class Player {
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 
-    public Player(String name){
-        this.username= name;
-    }
 
     public Player() {
         this.leaderCardList = null;
@@ -31,6 +29,7 @@ public class Player {
         this.resourceDiscount = new HashMap<>();
         this.victoryPoint = 0;
     }
+    public void setUsername(String name){this.username= name; }
     public String getUsername(){
         return username;
     }
@@ -91,7 +90,7 @@ public class Player {
             } else throw new InvalidParameterException();
         }
     }
-
+/*
     public HashMap<ResourceType, Integer> placeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException{
         HashMap<ResourceType,Integer> leftResources= new HashMap<>();
         int []availableDepot=null;
@@ -130,6 +129,25 @@ public class Player {
         return leftResources;
     }
 
+ */
+
+    public int addInDepot(ResourceType res, int resQuantity, int floor) throws InvalidParameterException{
+        int leftRes=0;
+        if(res.getVal() >= 0 && res.getVal()<=4){
+            int newQuantity = warehouse.getDepotList().get(floor).getResourceQuantity() + resQuantity;
+            warehouse.getDepotList().get(floor).setResourceType(res);
+
+            if( newQuantity > warehouse.getDepotList().get(floor).getSize()){
+                warehouse.getDepotList().get(floor).setResourceQuantity(warehouse.getDepotList().get(floor).getSize());
+                leftRes= newQuantity - warehouse.getDepotList().get(floor).getSize();
+            }
+            else {
+                warehouse.getDepotList().get(floor).setResourceQuantity(newQuantity);
+            }
+        }
+        else throw new InvalidParameterException();
+        return  leftRes;
+    }
     /**
      *
      * @param devCard
@@ -189,7 +207,6 @@ public class Player {
 
     public int choose(ArrayList<?> T){
         int n=0;
-        //TODO
         return n;
     }
 }

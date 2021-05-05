@@ -31,6 +31,11 @@ public class Market{
         cornerMarble= totalMarbles.get(d);
     }
 
+    public ResourceType getCornerMarble() {
+        return cornerMarble;
+    }
+
+
     public ResourceType[][] getMarketTray() {
         ResourceType[][] market= new ResourceType[N_COL][N_ROW];
         for (int i=0; i<N_COL; i++){

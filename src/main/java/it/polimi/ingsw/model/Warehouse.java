@@ -17,6 +17,8 @@ public class Warehouse {
 
         for(int i=0; i<initialDepot; i++){
             depotList.add(i, new Depot(sizeD, 1));
+            depotList.get(i).setResourceQuantity(0);
+            depotList.get(i).setResourceType(ResourceType.ANY);
             sizeD--;
         }
     }
@@ -41,22 +43,37 @@ public class Warehouse {
      * @param depot2 index of the second floor
      */
 
-    public void rearrange(int depot1, int depot2) throws InvalidParameterException{
+    public HashMap<ResourceType, Integer> rearrange(int depot1, int depot2) throws InvalidParameterException{
+        HashMap<ResourceType, Integer> discardingResources = new HashMap<>();
+
         //From depot2 to tempDepot
         if(getDepotList().get(depot1).getRearrangeble()==1 && getDepotList().get(depot2).getRearrangeble()==1) {
             Depot depot = new Depot(depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
             depot.setResourceType(depotList.get(depot2).getResourceType());
             depot.setResourceQuantity(depotList.get(depot2).getResourceQuantity());
 
-            //From depot1 to depot2
+            // if depot1's quantity > depot2's size
+            if(depotList.get(depot1).getResourceQuantity() > depotList.get(depot2).getSize()){
+                discardingResources.put(depotList.get(depot1).getResourceType(),
+                        depotList.get(depot1).getResourceQuantity() - depotList.get(depot2).getSize());
+                depotList.get(depot2).setResourceQuantity(depotList.get(depot2).getSize());
+            }
+            // if depot2's quantity > depot1's size
+            else if(depot.getResourceQuantity() > depotList.get(depot1).getSize()){
+                discardingResources.put(depot.getResourceType(), depot.getResourceQuantity() - depotList.get(depot1).getSize());
+                depotList.get(depot1).setResourceQuantity(depotList.get(depot1).getSize());
+            }
+
+            else {
+                depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
+                depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
+            }
+
             depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
-            depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
-
-            //From tempDepot to depot1
             depotList.get(depot1).setResourceType(depot.getResourceType());
-            depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
-        } else throw new InvalidParameterException();
 
+        } else throw new InvalidParameterException();
+        return discardingResources;
     }
 
     /**
@@ -106,7 +123,7 @@ public class Warehouse {
 
     public Boolean isEmpty() {
         for(int i=0; i<depotList.size(); i++){
-            if(depotList.get(i).getResourceQuantity() != 0)
+            if(depotList.get(i).getResourceQuantity() != 0 && depotList.get(i).getResourceType().getVal() != -1)
                 return false;
         }
         return true;
@@ -116,11 +133,10 @@ public class Warehouse {
      *
      * @return
      */
-    public HashMap<ResourceType, Integer> getSpace(){
-        HashMap<ResourceType, Integer> space= new HashMap<>();
+    public ArrayList<Integer> getSpace(){
+        ArrayList<Integer> space= new ArrayList<>();
         for(int i=0; i<depotList.size(); i++){
-            space.put(depotList.get(i).getResourceType(),
-                    depotList.get(i).getSize() - depotList.get(i).getResourceQuantity());
+            space.add(i,depotList.get(i).getSize() - depotList.get(i).getResourceQuantity());
         }
         return space;
     }
