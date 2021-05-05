@@ -1,5 +1,9 @@
 package it.polimi.ingsw.messages;
 
+import it.polimi.ingsw.model.ClientHandler;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.UUID;
 
     public abstract class AnswerMsg extends NetworkMsg
@@ -26,5 +30,6 @@ import java.util.UUID;
         {
             return parentIdentifier;
         }
+        public abstract void processMessage(ObjectOutputStream output) throws IOException;
     }
 

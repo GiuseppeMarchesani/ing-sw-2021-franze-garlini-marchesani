@@ -5,45 +5,43 @@ import it.polimi.ingsw.model.GameList;
 import it.polimi.ingsw.model.Turn;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class SessionMsg extends CommandMsg{
-    private int gameId;
+    private String gameId;
 
 
-
-    public SessionMsg(int gameId)
+    public SessionMsg(String gameId)
     {
-        this.gameId = gameId;
+        this.gameId=gameId.toUpperCase(Locale.ROOT);
+
     }
 
 
     @Override
     public void processMessage(ClientHandler clientHandler) throws IOException
     {
+
         SessionAnswerMsg answerMsg;
         GameList activeGames= GameList.getInstance();
-        try{
-            if(activeGames.getActiveGames().containsKey(gameId)&&!(activeGames.getActiveGames().get(gameId).getGameSession().status())){
-                clientHandler.setTurnHandler(activeGames.getActiveGames().get(gameId));
-                answerMsg = new SessionAnswerMsg(this, "Game "+ gameId + " joined.", true);
+                if(activeGames.getActiveGames().get(gameId)==null){
+                    Turn newGame = new Turn();
+                    clientHandler.setTurnHandler(newGame);
+                    clientHandler.getTurnHandler().setActivePlayer(clientHandler);
+                    clientHandler.getTurnHandler().addPlayer(clientHandler);
+                    activeGames.getActiveGames().put(gameId,newGame);
+                    answerMsg = new SessionAnswerMsg(this, SessionAnswerMsg.Result.CREATED);
+                }
+                else if(activeGames.getActiveGames().get(gameId).getPlayers().size()<4&&!(activeGames.getActiveGames().get(gameId).status())){
+                    clientHandler.setTurnHandler(activeGames.getActiveGames().get(gameId));
+                    clientHandler.getTurnHandler().addPlayer(clientHandler);
+                    answerMsg = new SessionAnswerMsg(this, SessionAnswerMsg.Result.JOINED);
+                }
+                else{
+                    answerMsg = new SessionAnswerMsg(this, SessionAnswerMsg.Result.FAILED);
+                }
 
-            }
-            else{
-                Turn newGame = new Turn();
-                clientHandler.setTurnHandler(newGame);
-                activeGames.getActiveGames().put(gameId,newGame);
-                clientHandler.getTurnHandler().setActivePlayer(clientHandler);
-                answerMsg = new SessionAnswerMsg(this, "Game "+ gameId + " created. Type S when 2 or more players have joined.", true);
 
-            }
-            clientHandler.getTurnHandler().addPlayer(clientHandler);
-
-            //Costruire un player e inviarlo al game come sotto?
-            //clientHandler.getTurnHandler().getGameSession().addPlayer(player);
-
-        }catch (Exception e){
-            answerMsg = new SessionAnswerMsg(this, "Game creation failed.", false);
-        }
         clientHandler.sendAnswerMessage(answerMsg);
     }
 }

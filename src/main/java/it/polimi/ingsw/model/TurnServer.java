@@ -12,14 +12,20 @@ import java.util.HashMap;
 
 public class TurnServer {
     //RIVEDERE
-    public static final int SOCKET_PORT = 0 ;
+
 
     TurnServer(){}
 
     public static void main(String args[]) {
+        if (args.length < 1) {
+            System.out.println("Error: Input port missing");
+            System.exit(1);
+        }
+
+        int port = Integer.parseInt(args[0]);
         ServerSocket socket;
         try {
-            socket = new ServerSocket(SOCKET_PORT);
+            socket = new ServerSocket(port);
         } catch (IOException e) {
             System.out.println("cannot open server socket");
             System.exit(1);

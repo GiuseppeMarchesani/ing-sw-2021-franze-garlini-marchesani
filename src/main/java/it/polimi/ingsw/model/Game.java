@@ -17,7 +17,7 @@ public class Game {
     private FaithTrack faithTrack ;
     private CardMarket cardMarket;
     private ArrayList<Player> playersList;
-    private boolean ongoing;
+    private ArrayList<LeaderCard> leaderCards;
 
 
     /**
@@ -28,31 +28,8 @@ public class Game {
         market = new Market(generateMarbles());
         faithTrack = new FaithTrack(generateFaithTrack(), generateVPspaces());
         cardMarket = new CardMarket(generateDevCardDeck());
-        ongoing=false;
-    }
-
-
-    /**
-     * Return if the game has started.
-     * @return ongoing true if the game has already started, otherwise false.
-     */
-    public boolean status(){
-        return ongoing;
-    }
-
-
-    /**
-     * The start-game method which sets ongoin attribute on 'true' and return the Leader Card Deck.
-     * @return An ArrayList of LeaderCard class representing the Leader Card Deck
-     * @throws Exception If it's asked to start the game but the players are less than two.
-     */
-    public ArrayList<LeaderCard> start() throws Exception {
-        if(playersList.size()>=2) {
-            ongoing=true;
-            return generateLeaderCards();
-        } else {
-            throw new Exception("You can't start a game without any players");
-        }
+        leaderCards = generateLeaderCards();
+        Collections.shuffle(leaderCards);
     }
 
 
@@ -319,5 +296,9 @@ public class Game {
     public FaithTrack getFaithTrack() {
         return faithTrack;
     }
-
+    public LeaderCard drawCard(){
+        LeaderCard temp=leaderCards.get(0);
+        leaderCards.remove(0);
+        return temp;
+    }
 }

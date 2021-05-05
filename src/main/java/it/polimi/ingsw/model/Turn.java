@@ -7,15 +7,17 @@ public class Turn {
     private Game gameSession;
     private ArrayList<ClientHandler> players;
     private ClientHandler activePlayer;
-
+    private boolean ongoing;
     public Turn(){
-        gameSession=new Game();
         players = new ArrayList<ClientHandler>();
+        ongoing=false;
     }
 
     public void startGame() {
         try {
-            ArrayList<LeaderCard> leaderCardDeck = gameSession.start();
+            if(players.size()==1) gameSession=new SinglePlayerGame();
+            else gameSession=new Game();
+            ongoing=true;
         } catch (Exception e)
         {
             e.printStackTrace();
@@ -42,6 +44,9 @@ public class Turn {
         player.storeResources(resources);  */
     }
 
+    public boolean status(){
+        return ongoing;
+    }
 
     public Game getGameSession() {
         return gameSession;
@@ -61,5 +66,13 @@ public class Turn {
 
     public void addPlayer(ClientHandler client){
         players.add(client);
+    }
+
+    public ArrayList<LeaderCard> drawLeaders(){
+        ArrayList<LeaderCard> cards=new ArrayList<LeaderCard>();
+        for(int i=0; i<4;i++){
+            cards.add(gameSession.drawCard());
+        }
+        return cards;
     }
 }

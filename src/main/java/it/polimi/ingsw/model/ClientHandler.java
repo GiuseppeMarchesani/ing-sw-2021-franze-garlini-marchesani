@@ -34,13 +34,11 @@ public class ClientHandler implements Runnable
             System.out.println("Connected to " + client.getInetAddress());
 
             try {
-                String answerMsg="Please type the id of the game you would like to join.";
-                output.writeObject((Object)answerMsg);
                 handleMessage();
-
             } catch (IOException e) {
-                System.out.println(client.getInetAddress() + ": connection dropped.");
+                e.printStackTrace();
             }
+
 
         }
 

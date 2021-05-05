@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.messages.AnswerMsg;
+import it.polimi.ingsw.messages.CommandMsg;
+import it.polimi.ingsw.messages.SessionAnswerMsg;
 import it.polimi.ingsw.messages.SessionMsg;
 
 import java.io.IOException;
@@ -14,19 +17,19 @@ public class PlayerClient {
 
 
     public static void main(String[] args) {
-        Player playerData;
+        if (args.length < 2) return;
+
+        String hostname = args[0];
+        int port = Integer.parseInt(args[1]);
+
         ObjectOutputStream output;
         ObjectInputStream input;
 
-        playerData=new Player();
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Insert Server IP Address: ");
-        String ip = scanner.nextLine();
 
         Socket server;
         try {
-            server = new Socket(ip, TurnServer.SOCKET_PORT);
+            server = new Socket(hostname, port);
             output = new ObjectOutputStream(server.getOutputStream());
             input = new ObjectInputStream(server.getInputStream());
         } catch (IOException e) {
@@ -35,13 +38,19 @@ public class PlayerClient {
         }
 
         System.out.println("Connected");
-
+        AnswerMsg answer;
+        System.out.println("Inserisci il numero di giocatori e l'id della partita composto da soli caratteri. (Esempio: 4GAMES");
+        String gameId = scanner.nextLine();
         try {
-            System.out.println("Inserisci ID della partita:");
-            int gameId= scanner.nextInt();
-            output.writeObject((Object)new SessionMsg(gameId));
-        } catch (IOException e) {
+                output.writeObject((Object) new SessionMsg(gameId));
+                while(true) {
+                    Object next = input.readObject();
+                    answer = (AnswerMsg) next;
+                    answer.processMessage(output);
+                }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
