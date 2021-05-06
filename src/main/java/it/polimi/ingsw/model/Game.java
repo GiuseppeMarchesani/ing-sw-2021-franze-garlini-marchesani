@@ -222,17 +222,17 @@ public class Game {
         return faithZones;
     }
 
-    private HashMap<Integer, Integer> generateVPspaces() {
+    private LinkedHashMap<Integer, Integer> generateVPspaces() {
         //VPspaces generation
         String VPspacesJson = "";
-        HashMap<Integer, Integer> VPspaces = null;
+        LinkedHashMap<Integer, Integer> VPspaces = null;
 
         try {
             VPspacesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\vp-spaces.JSON")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-            Type foundHashMapType = new TypeToken<HashMap<Integer, Integer>>(){}.getType();
+            Type foundHashMapType = new TypeToken<LinkedHashMap<Integer, Integer>>(){}.getType();
             VPspaces = new Gson().fromJson(VPspacesJson, foundHashMapType);
             return VPspaces;
 

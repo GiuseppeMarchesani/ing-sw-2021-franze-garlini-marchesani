@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,12 +16,12 @@ import com.google.gson.reflect.TypeToken;
  */
 public class FaithTrack {
     private List<FaithZone> faithZones = new ArrayList<>();
-    private HashMap<Integer, Integer> VPspaces = new HashMap<Integer, Integer>();
+    private LinkedHashMap<Integer, Integer> VPspaces = new LinkedHashMap<>();
 
     /**
      * Class constructor.
      */
-    public FaithTrack(ArrayList<FaithZone> faithZones, HashMap<Integer, Integer> VPspaces) {
+    public FaithTrack(ArrayList<FaithZone> faithZones, LinkedHashMap<Integer, Integer> VPspaces) {
         this.faithZones = faithZones;
         this.VPspaces = VPspaces;
 
@@ -45,6 +46,16 @@ public class FaithTrack {
         return -1;
     }
 
+    public int getAssociatedVP(int playerPosition) {
+        int VPForPosition = 0;
+        for(int position: VPspaces.keySet()) {
+            if(playerPosition >= position) {
+                VPForPosition = VPspaces.get(position);
+            }
+        }
+        return VPForPosition;
+    }
+
     public List<FaithZone> getFaithZones() {
         return faithZones;
     }
@@ -57,18 +68,10 @@ public class FaithTrack {
         this.faithZones = faithZones;
     }
 
-    public void setVPspaces(HashMap<Integer, Integer> VPspaces) {
+    public void setVPspaces(LinkedHashMap<Integer, Integer> VPspaces) {
         this.VPspaces = VPspaces;
     }
 
-    public int getAssociatedVP(int playerPosition) {
-        int VPForPosition = 0;
-        for(int position: VPspaces.keySet()) {
-            if(playerPosition >= position) {
-                VPForPosition = VPspaces.get(position);
-            }
-        }
-        return VPForPosition;
-    }
+
 }
 
