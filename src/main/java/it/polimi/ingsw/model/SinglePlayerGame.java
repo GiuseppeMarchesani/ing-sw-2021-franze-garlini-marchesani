@@ -21,6 +21,7 @@ public class SinglePlayerGame extends Game {
      * SinglePlayerGame class constructor.
      */
     public SinglePlayerGame() {
+        super();
         blackCross = new BlackCross();
         tokenBag = new TokenBag(generateTokenBag());
     }
