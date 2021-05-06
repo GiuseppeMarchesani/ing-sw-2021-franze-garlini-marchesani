@@ -19,52 +19,43 @@ public class SinglePlayerGame extends Game {
 
     /**
      * SinglePlayerGame class constructor.
-     * @param playersList The Array containing all the players, in this case contains just the solo-mode player.
      */
-    public SinglePlayerGame(ArrayList<Player> playersList) {
-        //super(playersList);
+    public SinglePlayerGame() {
         blackCross = new BlackCross();
         tokenBag = new TokenBag(generateTokenBag());
     }
 
     /**
      * This method activates an ActionToken each turn.
+     * @return An int representing the endgame code if it's > 0 or -1 if the endgame mustn't be called yet.
      */
-    public void turnAction() {
+    public int turnAction() {
         ActionToken actionToken = tokenBag.drawToken();
-
-        //actionToken.doOperation();
-
-        if(actionToken.toString() == "Action Discard") {
-            getCardMarket().discardDevCard(((ActionDiscard)actionToken).getColor());
-            //Check if deck in cardMarket is empty and then call endGame
-        }
-        else if(actionToken.toString()=="Action Shuffle") {
-            blackCross.increaseBlackCross(((ActionShuffle)actionToken).getSpaces());
-            tokenBag.shuffle();
-            //Check if blackCross reaches the end
-        }
-        else if(actionToken.toString()=="Action Cross") {
-            blackCross.increaseBlackCross(((ActionCross)actionToken).getSpaces());
-            //Check if blackCross reaches the end
-        }
+        return actionToken.doOperation(this);
     }
 
-    /**
-     * Ends the game and communicate the result.
-     *
-     */
-    public void endGame(int endGameCode) {
-            //TODO
-        if(endGameCode == 0) {
-            //DevCard not available
-        }
-        else if(endGameCode == 1) {
-            //BlackCross reached the final space
-        }
-        else if(endGameCode == 2) {
+    public Boolean updateFaithTrack(int position) {
 
+        //Checking if the player is in a pope space
+        FaithTrack faithTrack = getFaithTrack();
+        int whichFaithZone = faithTrack.isOnPopeSpace(position);
+        if(whichFaithZone >= 0) {
+            int vp = faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP();
+
+            //Delivering faith zone VP
+            Player player = getPlayersList().get(0);
+            if(faithTrack.isInFaithZone(player.getFaithSpace(), whichFaithZone)) {
+                player.increaseVP(faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP());
+            }
+
+            //If it's the last pope space
+            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithTrack.getFaithZones().size()-1))) {
+                //Player gain extra VP according to their final position
+                player.increaseVP(faithTrack.getAssociatedVP(player.getFaithSpace()));
+                return true;
+            }
         }
+        return false;
     }
 
     private ArrayList<ActionToken> generateTokenBag() {

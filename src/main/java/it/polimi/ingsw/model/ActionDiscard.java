@@ -6,14 +6,20 @@ package it.polimi.ingsw.model;
 public class ActionDiscard implements ActionToken {
     private Color color;
 
+    /**
+     * ActionDiscard class constructor.
+     * @param color The color of the Development Card that must be discarded.
+     */
     public ActionDiscard(Color color) {
         this.color = color;
     }
-    public void doOperation(SinglePlayerGame game) {
-        int endGame = game.getCardMarket().discardDevCard(color);
-        if(endGame == -1) {
-            game.endGame(0);
-        }
+
+    /**
+     * Discards a Development Card from the Card Market and calls the endgame if there are no more available cards in a deck in the Card Market.
+     * @param game The ongoing Game.
+     */
+    public int doOperation(SinglePlayerGame game) {
+        return game.getCardMarket().discardDevCard(color);
     }
 
     public Color getColor() {

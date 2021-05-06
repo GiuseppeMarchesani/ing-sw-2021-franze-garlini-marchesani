@@ -20,8 +20,9 @@ public class Game {
     private ArrayList<LeaderCard> leaderCards;
 
 
+
     /**
-     * Game constructor.
+     * Game class constructor.
      */
     public Game() {
         playersList = new ArrayList<Player>();
@@ -30,6 +31,25 @@ public class Game {
         cardMarket = new CardMarket(generateDevCardDeck());
         leaderCards = generateLeaderCards();
         Collections.shuffle(leaderCards);
+    }
+
+    /**
+     * This method adds a player in the playersList.
+     * @param player The player who has just joined.
+     */
+    public void addPlayer(Player player) {
+        playersList.add(player);
+    }
+
+
+    /**
+     * This method is used to draw a Leader Card from the deck.
+     * @return The drawn Leader Card.
+     */
+    public LeaderCard drawCard(){
+        LeaderCard temp = leaderCards.get(0);
+        leaderCards.remove(0);
+        return temp;
     }
 
 
@@ -83,12 +103,11 @@ public class Game {
 
     /**
      * This method checks if the player activates a new faith zone or if he reaches the final space.
-     * @param playerID The player's ID who must update his position.
      * @param position The player's position.
-     * @return the ID of the player who calls the endgame, if the endgame is not called the method returns -1.
+     * @return An int representing if Turn must call the endgame or not.
      */
-    public int updateFaithTrack(int playerID, int position) {
-        int endGame = -1;
+    public Boolean updateFaithTrack(int position) {
+        Boolean endGame = false;
 
         //Checking if the player is in a pope space
         int whichFaithZone = faithTrack.isOnPopeSpace(position);
@@ -98,7 +117,7 @@ public class Game {
             //Delivering faith zone VP
             for(Player p: playersList) {
                 if(faithTrack.isInFaithZone(p.getFaithSpace(), whichFaithZone)) {
-
+                    p.increaseVP(faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP());
                 }
             }
 
@@ -108,8 +127,7 @@ public class Game {
                     //Players gain extra VP according to their final position
                     p.increaseVP(faithTrack.getAssociatedVP(p.getFaithSpace()));
                 }
-                //endGame(playersList.get(playerID));
-                endGame = playerID;
+                endGame = true;
             }
         }
         return endGame;
@@ -119,7 +137,6 @@ public class Game {
      * Ends the game and communicate the result.
      * @return the ID of the winner.
      */
-
     public int endGame() {
         //Turn has already let players to play the last turn.
 
@@ -281,9 +298,6 @@ public class Game {
         return leaderCardDeck;
     }
 
-    public void addPlayer(Player player) {
-        playersList.add(player);
-    }
 
     public Market getMarket() {
         return market;
@@ -296,9 +310,13 @@ public class Game {
     public FaithTrack getFaithTrack() {
         return faithTrack;
     }
-    public LeaderCard drawCard(){
-        LeaderCard temp=leaderCards.get(0);
-        leaderCards.remove(0);
-        return temp;
+
+    public ArrayList<Player> getPlayersList() {
+        return playersList;
     }
+
+    public ArrayList<LeaderCard> getLeaderCards() {
+        return leaderCards;
+    }
+
 }
