@@ -1,14 +1,14 @@
 [
   {
-    "color": {"color": 0}
+    "color": "GREEN"
   },
   {
-    "color": {"color": 1}
+    "color": "PURPLE"
   },
   {
-    "color": {"color": 2}
+    "color": "YELLOW"
   },
   {
-    "color": {"color": 3}
+    "color": "BLUE"
   }
 ]

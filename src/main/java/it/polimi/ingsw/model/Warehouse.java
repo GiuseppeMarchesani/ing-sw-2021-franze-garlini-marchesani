@@ -141,4 +141,14 @@ public class Warehouse {
         return space;
     }
 
+    public ArrayList<Integer> availableDepot(ResourceType res){
+        ArrayList<Integer> freeDepot = new ArrayList<>();
+        for(int i=0; i< getDepotList().size(); i++){
+            if(hasResource(res)==i || getSpace().get(i)==getDepotList().get(i).getSize()){
+                freeDepot.add(i);
+            }
+        }
+        return freeDepot;
+    }
+
 }

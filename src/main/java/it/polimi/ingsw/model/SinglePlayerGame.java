@@ -81,8 +81,8 @@ public class SinglePlayerGame extends Game {
         } catch (IOException e) {
             System.out.println("Error while reading token-shuffle.JSON");
         }
-        foundListType = new TypeToken<ArrayList<ActionShuffle>>(){}.getType();
-        tokens.addAll(new Gson().fromJson(actionTokenJson, foundListType));
+        foundListType = new TypeToken<ActionShuffle>(){}.getType();
+        tokens.add(new Gson().fromJson(actionTokenJson, foundListType));
 
 
         //ActionCross generation
