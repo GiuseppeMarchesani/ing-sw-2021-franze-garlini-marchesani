@@ -69,16 +69,8 @@ public class CardMarketTest {
     @Test
     public void testDiscardDevCard() {
         int cardOfAColor = cardMarket.getDevCardGrid().get(0).size() * cardMarket.getDevCardGrid().get(0).get(0).size();
-        System.out.println(cardMarket.getDevCardGrid().get(0).get(0).size());
-        System.out.println(cardMarket.getDevCardGrid().get(0).get(1).size());
-        System.out.println(cardMarket.getDevCardGrid().get(0).get(2).size());
-        System.out.println("-");
         for(int i=0; i < cardOfAColor-1; i++) {
             assertEquals(-1, cardMarket.discardDevCard(Color.GREEN));
-            System.out.println(cardMarket.getDevCardGrid().get(0).get(0).size());
-            System.out.println(cardMarket.getDevCardGrid().get(0).get(1).size());
-            System.out.println(cardMarket.getDevCardGrid().get(0).get(2).size());
-            System.out.println("-");
         }
         assertEquals(0, cardMarket.discardDevCard(Color.GREEN));
         assertEquals(0, cardMarket.discardDevCard(Color.GREEN));
