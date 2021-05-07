@@ -19,6 +19,7 @@ public class ActionDiscard implements ActionToken {
      * @param game The ongoing Game.
      */
     public int doOperation(SinglePlayerGame game) {
+        game.getCardMarket().discardDevCard(color);
         return game.getCardMarket().discardDevCard(color);
     }
 
