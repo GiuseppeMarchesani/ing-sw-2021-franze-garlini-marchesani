@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.exceptions.InvalidFloor;
-import it.polimi.ingsw.model.exceptions.InvalidResourceType;
-
 import java.awt.*;
 import java.io.ObjectInputStream;
 import java.security.InvalidParameterException;

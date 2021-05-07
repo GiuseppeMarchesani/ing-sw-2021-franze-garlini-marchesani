@@ -38,10 +38,12 @@ public class CardMarket {
         for (int i=0; i<4; i++) {
             for (int j=0; j<3; j++) {
                 try {
-                    available.add(devCardGrid.get(i).get(j).get(devCardGrid.get(i).get(j).size() - 1));
+                    if(devCardGrid.get(i).get(j).size() > 0) {
+                        available.add(devCardGrid.get(i).get(j).get(devCardGrid.get(i).get(j).size() - 1));
+                    }
                 } catch (IndexOutOfBoundsException e) {
-
-                }//carta non disponibile
+                    e.printStackTrace();
+                }
 
             }
 
@@ -54,23 +56,22 @@ public class CardMarket {
         return devCardGrid;
     }
 
-    //ritorna -1 se le carte di un colore sono finite, 0 se ce ne sono disponibili.
     public int discardDevCard(Color color) {
-        int val = color.getVal();
-        int c = 2;
-        int lvl = 0;
-        while (lvl < 3 && c > 0) {
+        int availableDeck = 3;
+        int j;
 
-            try {
-                devCardGrid.remove(devCardGrid.get(lvl).get(val).size() - 1);
-                c--;
-            } catch (IndexOutOfBoundsException e) {
-                lvl++;
+        for (j=0; j<3; j++) {
+            if(devCardGrid.get(color.getVal()).get(j).size() > 0) {
+                devCardGrid.get(color.getVal()).get(j).remove(devCardGrid.get(color.getVal()).get(j).size()-1);
+                break;
             }
         }
-        if(lvl>=3||((devCardGrid.get(0).get(val).size()+devCardGrid.get(1).get(val).size()+devCardGrid.get(2).get(val).size())==0)){
-            c=-1;
+
+        if(j>=2 && devCardGrid.get(color.getVal()).get(2).size() == 0 ) {
+            return 0;
         }
-        return c;
+        else {
+            return -1;
+        }
     }
 }

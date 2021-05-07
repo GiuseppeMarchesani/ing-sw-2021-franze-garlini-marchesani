@@ -28,7 +28,7 @@ public class SinglePlayerGame extends Game {
 
     /**
      * This method activates an ActionToken each turn.
-     * @return An int representing the endgame code if it's > 0 or -1 if the endgame mustn't be called yet.
+     * @return An int representing the endgame code if it's >= 0 or -1 if the endgame mustn't be called yet.
      */
     public int turnAction() {
         ActionToken actionToken = tokenBag.drawToken();
