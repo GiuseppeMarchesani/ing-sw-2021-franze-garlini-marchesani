@@ -21,6 +21,14 @@ public class TokenBag {
         Collections.shuffle(availableTokens);
     }
 
+    public List<ActionToken> getAvailableTokens() {
+        return availableTokens;
+    }
+
+    public List<ActionToken> getUsedTokens() {
+        return usedTokens;
+    }
+
     /**
      * This method pick a random Action Token from the Token Bag.
      * @return The drawn Action Token.
@@ -42,4 +50,5 @@ public class TokenBag {
         usedTokens.clear();
         Collections.shuffle(availableTokens);
     }
+
 }

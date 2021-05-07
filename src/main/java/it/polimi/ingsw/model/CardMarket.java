@@ -32,6 +32,16 @@ public class CardMarket {
             }
         }
     }
+    public DevCard pickCard(Color color, int level) throws IllegalArgumentException{
+        DevCard requestCard = new DevCard();
+        if(devCardGrid.get(color.getVal()).get(level).size() > 0){
+            requestCard = devCardGrid.get(color.getVal()).get(level).get(devCardGrid.get(color.getVal()).get(level).size()-1);
+            devCardGrid.get(color.getVal()).get(level).remove(devCardGrid.get(color.getVal()).get(level).size()-1);
+        }
+        else throw new IllegalArgumentException();
+
+        return requestCard;
+    }
 
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
