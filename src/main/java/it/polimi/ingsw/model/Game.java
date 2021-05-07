@@ -176,12 +176,20 @@ public class Game {
      */
     private int whoWin(int maxScoreRepetition) {
         int maxNumOfResources = -1;
+        int currNumOfResources = 0;
+        HashMap<ResourceType, Integer> allResources = new HashMap<>();
         int winnerID=playersList.size()-1;
 
         //Checking the real winner between players who have the same and the maximum game score
         for(int i = playersList.size() - maxScoreRepetition; i<playersList.size(); i++) {
-            if(maxNumOfResources < playersList.get(i).getResourcesQuantity()) {
-                maxNumOfResources = playersList.get(i).getResourcesQuantity();
+
+            allResources = playersList.get(i).getAllResources();
+            for(ResourceType res: allResources.keySet()) {
+                currNumOfResources += allResources.get(res);
+            }
+
+            if(maxNumOfResources < currNumOfResources) {
+                maxNumOfResources = currNumOfResources;
                 winnerID=i;
             }
         }
