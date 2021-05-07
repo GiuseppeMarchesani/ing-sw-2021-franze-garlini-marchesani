@@ -37,8 +37,11 @@ public class Game {
      * This method adds a player in the playersList.
      * @param player The player who has just joined.
      */
-    public void addPlayer(Player player) {
-        playersList.add(player);
+    public void addPlayer(Player player) throws IOException{
+        if(playersList.size()<4){
+            playersList.add(player);
+        }
+        else throw new IOException();
     }
 
 
