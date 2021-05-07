@@ -41,6 +41,8 @@ public class Player {
     }
 
     public int getVictoryPoint() { return victoryPoint; }
+    public void setVictoryPoint(int VP){ this.victoryPoint=VP;
+    }
 
     public ArrayList<LeaderCard> getLeaderCardList() { return leaderCardList;}
 
