@@ -9,7 +9,7 @@ public class DevCardSlot {
 
 
     public DevCardSlot(){
-        slotDev = new ArrayList<ArrayList<DevCard>>(slotNum);
+        slotDev = new ArrayList<ArrayList<DevCard>>();
         for(int i=0; i<slotNum;i++){
             slotDev.add(new ArrayList<DevCard>());
         }
@@ -40,7 +40,7 @@ public class DevCardSlot {
         cards.add(new DevCard());
         for (int i=0; i<slotNum; i++) {
                 try{
-                    cards.add(slotDev.get(i).get(slotDev.size()-1));
+                    cards.add(getSlotDev().get(i).get(getSlotDev().get(i).size()-1));
                 }catch(IndexOutOfBoundsException e){
 
                 }

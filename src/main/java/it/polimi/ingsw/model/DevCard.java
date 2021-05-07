@@ -18,7 +18,7 @@ public class DevCard extends Card {
 
     //This constructor is used for base production (scroll)
     public DevCard(){
-        super(0,0);
+        super(-1,0);
         cardType=null;
         cardCost=null;
         productionCost= new HashMap<ResourceType, Integer>();
@@ -28,8 +28,8 @@ public class DevCard extends Card {
     }
 
     //This constructor is used for LeaderCard Production
-    public DevCard(ResourceType resourceAbility, HashMap<ResourceType, Integer> productionIncome) {
-        super(-1,0);
+    public DevCard(int id, ResourceType resourceAbility, HashMap<ResourceType, Integer> productionIncome) {
+        super(id,0);
         this.cardType = null;
         this.cardCost = null;
         this.productionCost = new HashMap<ResourceType, Integer>();
