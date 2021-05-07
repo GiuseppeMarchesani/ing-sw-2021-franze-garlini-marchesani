@@ -4,31 +4,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CardMarket {
-    public ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
+    private ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
 
     public CardMarket(ArrayList<DevCard> devCardDeck) {
+        //Creating instances
         devCardGrid = new ArrayList<ArrayList<ArrayList<DevCard>>>();
-        Collections.shuffle(devCardDeck);
-        for (int i = 0; i < 3; i++) {
+        for (int i=0; i<4; i++) {
             devCardGrid.add(new ArrayList<ArrayList<DevCard>>());
-            for (int j = 0; j < 4; j++) {
+            for (int j=0; j<3; j++) {
                 devCardGrid.get(i).add(new ArrayList<DevCard>());
             }
         }
-        int l;
-        int c;
-        for (int i = 0; i < devCardDeck.size(); i++) {
-            l = devCardDeck.get(i).getCardType().getLevel();
-            c = devCardDeck.get(i).getCardType().getColor().getVal();
-            devCardGrid.get(l).get(c).add(devCardDeck.get(i));
-        }
 
+
+        //Putting the cards in the grid
+        ArrayList<DevCard> temp = new ArrayList<>();
+        for(Color color: Color.values()) {
+            for(int level=1; level<=3; level++) {
+                for(int i=0; i<devCardDeck.size(); i++) {
+                    if (devCardDeck.get(i).getCardType().getColor().equals(color) && devCardDeck.get(i).getCardType().getLevel() == level) {
+                        temp.add(devCardDeck.get(i));
+                    }
+                }
+                Collections.shuffle(temp);
+                devCardGrid.get(color.getVal()).get(level-1).addAll(temp);
+                temp.clear();
+            }
+        }
     }
 
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<3; j++) {
                 try {
                     available.add(devCardGrid.get(i).get(j).get(devCardGrid.get(i).get(j).size() - 1));
                 } catch (IndexOutOfBoundsException e) {
