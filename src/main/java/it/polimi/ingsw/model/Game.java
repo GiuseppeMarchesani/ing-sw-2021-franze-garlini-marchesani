@@ -296,7 +296,7 @@ public class Game {
         foundHashMapType = new TypeToken<ArrayList<LeaderMarble>>(){}.getType();
         leaderCardDeck.addAll(new Gson().fromJson(leaderJson, foundHashMapType));
 
-        //LeaderMarble production
+        //LeaderProduction generation
         try {
             leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-production.JSON")));
         } catch (IOException e) {

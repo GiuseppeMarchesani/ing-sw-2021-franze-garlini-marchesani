@@ -17,7 +17,6 @@ public class LeaderDepot extends Card implements LeaderCard  {
 
     @Override
     public void activateAbility(Player player) {
-        //TODO: Check if the player can activate it
         player.getWarehouse().addDepot(resourceAbility);
     }
 

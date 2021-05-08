@@ -14,7 +14,6 @@ public class LeaderMarble extends Card implements LeaderCard {
 
     @Override
     public void activateAbility(Player player) {
-        //TODO: Check if player can activate it
         if (!(player.getMarbleConversion().contains(resourceAbility))) {
             player.getMarbleConversion().add(resourceAbility);
         }

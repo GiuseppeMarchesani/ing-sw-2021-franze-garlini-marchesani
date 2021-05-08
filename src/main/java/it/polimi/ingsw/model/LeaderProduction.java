@@ -17,7 +17,6 @@ public class LeaderProduction extends Card implements LeaderCard  {
 
     @Override
     public void activateAbility(Player player) {
-        //TODO: Check if player can activate it
         player.getDevCardSlot().getSlotLeader().add(new DevCard(getId(), resourceAbility, productionIncome));
     }
 

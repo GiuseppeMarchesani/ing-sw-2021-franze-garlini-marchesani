@@ -14,7 +14,6 @@ public class LeaderDiscount extends Card implements LeaderCard  {
 
     @Override
     public void activateAbility(Player player) {
-        //TODO: Check if the player can activate it
         if(player.getResourceDiscount().containsKey(resourceAbility)) {
             player.getResourceDiscount().put(resourceAbility, player.getResourceDiscount().get(resourceAbility)+1);
         }

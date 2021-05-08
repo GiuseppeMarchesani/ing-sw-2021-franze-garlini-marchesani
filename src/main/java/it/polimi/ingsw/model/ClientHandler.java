@@ -2,7 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.messages.AnswerMsg;
 import it.polimi.ingsw.messages.CommandMsg;
-
+import it.polimi.ingsw.controller.Turn;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;

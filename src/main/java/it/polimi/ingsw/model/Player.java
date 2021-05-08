@@ -81,7 +81,7 @@ public class Player {
 
     public void storeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException {
         for (ResourceType resourceType : resources.keySet()) {
-            if(resourceType.getVal()>=0 && resourceType.getVal()<5){
+            if(resourceType.getVal()>=0 && resourceType.getVal()<4){
                 Integer quantity;
                 if (strongbox.containsKey(resourceType))
                     quantity = strongbox.get(resourceType) + resources.get(resourceType);

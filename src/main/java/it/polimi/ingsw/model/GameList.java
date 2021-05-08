@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.Turn;
+
 import java.util.HashMap;
 
 public class GameList {
