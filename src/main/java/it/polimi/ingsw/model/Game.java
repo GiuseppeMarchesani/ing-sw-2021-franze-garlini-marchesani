@@ -99,8 +99,7 @@ public class Game {
      * @return The chosen Development Card.
      */
     public DevCard pickDevCard(Color color, int level) throws IndexOutOfBoundsException{
-        ArrayList<ArrayList<ArrayList<DevCard>>> temp = cardMarket.getDevCardGrid();
-        return temp.get(level).get(color.getVal()).get(temp.get(level).get(color.getVal()).size()-1);
+        return cardMarket.pickCard(color, level);
     }
 
 
