@@ -24,7 +24,7 @@ public class GameTest {
     }
 
     @Test
-    public void testAddPlayer() throws IOException {
+    public void testAddPlayer() throws Exception {
         Player player1=new Player();
         Player player2=new Player();
         Player player3=new Player();
@@ -134,7 +134,7 @@ public class GameTest {
     }
 
     @Test
-    public void playerIsOnPopeSpace() throws IOException {
+    public void playerIsOnPopeSpace() throws Exception {
         testGame.addPlayer(new Player());
         testGame.addPlayer(new Player());
         testGame.addPlayer(new Player());
@@ -155,12 +155,136 @@ public class GameTest {
     }
 
     @Test
-    public void playerIsOnLastPopeSpace(){
+    public void playerIsOnLastPopeSpace() throws Exception {
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.getPlayersList().get(2).setVictoryPoint(10);
+        testGame.getPlayersList().get(0).setVictoryPoint(12);
+        testGame.getPlayersList().get(1).setVictoryPoint(7);
+        testGame.getPlayersList().get(0).setFaithSpace(7);
+        testGame.getPlayersList().get(1).setFaithSpace(16);
+        testGame.getPlayersList().get(2).setFaithSpace(24);
 
+        testGame.updateFaithTrack(8);
+        testGame.updateFaithTrack(16);
+        testGame.updateFaithTrack(24);
+
+        Assert.assertEquals(testGame.getPlayersList().get(2).getVictoryPoint(), 34);
+        Assert.assertEquals(testGame.getPlayersList().get(0).getVictoryPoint(), 16);
+        Assert.assertEquals(testGame.getPlayersList().get(1).getVictoryPoint(), 19);
 
     }
 
     @Test
-    public void endGame() {
+    public void testEndGameWhoWin() throws Exception {
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.getPlayersList().get(0).setVictoryPoint(50);
+        testGame.getPlayersList().get(1).setVictoryPoint(35);
+        testGame.getPlayersList().get(2).setVictoryPoint(50);
+
+        HashMap<ResourceType, Integer> strongbox1 = new HashMap<>();
+        strongbox1.put(ResourceType.COIN, 40);
+        strongbox1.put(ResourceType.STONE, 25);
+        strongbox1.put(ResourceType.SERVANT, 30);
+        strongbox1.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(0).setStrongbox(strongbox1);
+
+        HashMap<ResourceType, Integer> strongbox2 = new HashMap<>();
+        strongbox2.put(ResourceType.COIN, 20);
+        strongbox2.put(ResourceType.STONE, 15);
+        strongbox2.put(ResourceType.SERVANT, 12);
+        strongbox2.put(ResourceType.SHIELD, 5);
+        testGame.getPlayersList().get(2).setStrongbox(strongbox2);
+
+        assertEquals(2, testGame.endGame());
     }
+
+    @Test
+    public void testEndGameFullWhoWin() throws Exception {
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.getPlayersList().get(0).setVictoryPoint(50);
+        testGame.getPlayersList().get(1).setVictoryPoint(50);
+        testGame.getPlayersList().get(2).setVictoryPoint(50);
+        testGame.getPlayersList().get(2).setVictoryPoint(50);
+
+        HashMap<ResourceType, Integer> strongbox1 = new HashMap<>();
+        strongbox1.put(ResourceType.COIN, 40);
+        strongbox1.put(ResourceType.STONE, 25);
+        strongbox1.put(ResourceType.SERVANT, 30);
+        strongbox1.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(0).setStrongbox(strongbox1);
+
+        HashMap<ResourceType, Integer> strongbox2 = new HashMap<>();
+        strongbox2.put(ResourceType.COIN, 20);
+        strongbox2.put(ResourceType.STONE, 15);
+        strongbox2.put(ResourceType.SERVANT, 12);
+        strongbox2.put(ResourceType.SHIELD, 5);
+        testGame.getPlayersList().get(1).setStrongbox(strongbox2);
+
+        HashMap<ResourceType, Integer> strongbox3 = new HashMap<>();
+        strongbox3.put(ResourceType.COIN, 7);
+        strongbox3.put(ResourceType.STONE, 45);
+        strongbox3.put(ResourceType.SERVANT, 12);
+        strongbox3.put(ResourceType.SHIELD, 90);
+        testGame.getPlayersList().get(2).setStrongbox(strongbox3);
+
+        HashMap<ResourceType, Integer> strongbox4 = new HashMap<>();
+        strongbox4.put(ResourceType.COIN, 7);
+        strongbox4.put(ResourceType.STONE, 20);
+        strongbox4.put(ResourceType.SERVANT, 12);
+        strongbox4.put(ResourceType.SHIELD, 17);
+        testGame.getPlayersList().get(2).setStrongbox(strongbox4);
+
+        assertEquals(3, testGame.endGame());
+    }
+
+    @Test
+    public void testEndGameAllWinners() throws Exception {
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.addPlayer(new Player());
+        testGame.getPlayersList().get(0).setVictoryPoint(50);
+        testGame.getPlayersList().get(1).setVictoryPoint(50);
+        testGame.getPlayersList().get(2).setVictoryPoint(50);
+        testGame.getPlayersList().get(2).setVictoryPoint(50);
+
+        HashMap<ResourceType, Integer> strongbox1 = new HashMap<>();
+        strongbox1.put(ResourceType.COIN, 40);
+        strongbox1.put(ResourceType.STONE, 25);
+        strongbox1.put(ResourceType.SERVANT, 30);
+        strongbox1.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(0).setStrongbox(strongbox1);
+
+        HashMap<ResourceType, Integer> strongbox2 = new HashMap<>();
+        strongbox2.put(ResourceType.COIN, 40);
+        strongbox2.put(ResourceType.STONE, 25);
+        strongbox2.put(ResourceType.SERVANT, 30);
+        strongbox2.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(1).setStrongbox(strongbox2);
+
+        HashMap<ResourceType, Integer> strongbox3 = new HashMap<>();
+        strongbox3.put(ResourceType.COIN, 40);
+        strongbox3.put(ResourceType.STONE, 25);
+        strongbox3.put(ResourceType.SERVANT, 30);
+        strongbox3.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(2).setStrongbox(strongbox3);
+
+        HashMap<ResourceType, Integer> strongbox4 = new HashMap<>();
+        strongbox4.put(ResourceType.COIN, 40);
+        strongbox4.put(ResourceType.STONE, 25);
+        strongbox4.put(ResourceType.SERVANT, 30);
+        strongbox4.put(ResourceType.SHIELD, 15);
+        testGame.getPlayersList().get(3).setStrongbox(strongbox4);
+
+        assertEquals(3, testGame.endGame());
+    }
+
+
 }
