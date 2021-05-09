@@ -1,8 +1,11 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.messages.GeneralMessage;
+import it.polimi.ingsw.messages.MessageType;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.enumeration.TurnState;
 import it.polimi.ingsw.network.ClientHandler;
-import it.polimi.ingsw.networking.ClientHandler;
+import it.polimi.ingsw.controller.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,19 +16,57 @@ public class Turn {
     private ClientHandler activePlayer;
     private boolean ongoing;
     private boolean endGame;
+    private TurnState turnState;
+    private GameController gameController;
 
     public Turn(){
         players = new ArrayList<ClientHandler>();
         ongoing=false;
         endGame=false;
+        activePlayer =  players.get(0);
+        turnState= TurnState.LOGIN;
     }
+
+    public void whichTurnState(GeneralMessage msg){
+        switch (turnState){
+            case LOGIN:
+                login(msg);
+            case CREATE_GAME:
+                createGame(msg);
+            case IN_GAME:
+                inGame(msg);
+            case END_GAME:
+                endGameMethod(msg);
+
+        }
+
+    }
+
+    private void login(GeneralMessage msg){
+
+    }
+
+    private void createGame(GeneralMessage msg){
+
+    }
+
+    private void inGame(GeneralMessage msg){
+
+    }
+
+    private void endGameMethod(GeneralMessage msg){
+
+    }
+
 
     public void startGame() {
         try {
-            if(players.size()==1) gameSession = new SinglePlayerGame();
-            else gameSession = new Game();
+            if(players.size()==1){
+                gameController = new GameController('s');
+            }
+            else gameController = new GameController('m');
             ongoing=true;
-        } catch (Exception e)
+        } catch (IllegalArgumentException e)
         {
             e.printStackTrace();
         }
@@ -40,7 +81,7 @@ public class Turn {
     }
 
 
-    public void drawToken() {
+    private void drawToken() {
         int endGameCode = ((SinglePlayerGame) gameSession).turnAction();
         if(endGameCode == 0) {
             //No more Development Card in a deck - You lose.
@@ -52,7 +93,7 @@ public class Turn {
             //You win - Total score:
         }
     }
-
+/*
     public HashMap<ResourceType, Integer> buyMarbles(char rowOrCol, int index){
         return gameSession.pickMarketRes(rowOrCol, index);
     }
@@ -85,16 +126,29 @@ public class Turn {
 
     }
 
+ */
+
     public void addPlayer(ClientHandler client){
         players.add(client);
     }
 
-    public ArrayList<LeaderCard> drawLeaders(){
+    private ArrayList<LeaderCard> drawLeaders(){
         ArrayList<LeaderCard> cards=new ArrayList<LeaderCard>();
         for(int i=0; i<4;i++){
             cards.add(gameSession.drawCard());
         }
         return cards;
+    }
+
+    public void  proxPlayer(){
+        int player = players.indexOf(activePlayer);
+        if(player +1 < gameSession.getPlayersList().size()){
+            player = player +1;
+        }
+        else {
+            player = 0;
+        }
+        activePlayer = players.get(player);
     }
 
     public boolean status(){
@@ -119,3 +173,4 @@ public class Turn {
 
 
 }
+
