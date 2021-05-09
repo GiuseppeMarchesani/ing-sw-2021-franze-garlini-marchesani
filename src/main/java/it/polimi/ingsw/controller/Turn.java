@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.networking.ClientHandler;
 
 import java.util.ArrayList;

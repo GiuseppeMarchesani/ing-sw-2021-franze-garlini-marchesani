@@ -1,7 +1,5 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.ClientHandler;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.UUID;

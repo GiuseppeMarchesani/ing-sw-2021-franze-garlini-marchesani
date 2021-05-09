@@ -1,6 +1,5 @@
 package it.polimi.ingsw.messages;
-import it.polimi.ingsw.model.ClientHandler;
-import it.polimi.ingsw.model.GameList;
+import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.model.LeaderCard;
 import it.polimi.ingsw.controller.Turn;
 
