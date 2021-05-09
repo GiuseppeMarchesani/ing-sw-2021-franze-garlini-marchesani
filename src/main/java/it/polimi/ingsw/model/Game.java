@@ -308,7 +308,6 @@ public class Game {
         return leaderCardDeck;
     }
 
-
     public Market getMarket() {
         return market;
     }
