@@ -34,7 +34,7 @@ public class GameController {
      *
      */
 
-    public void getMessage (CommandMsg receivedMessage){
+    public void getMessage (GeneralMessage receivedMessage){
         switch (gameState){
             case MAIN_ACTION:
                 mainAction(receivedMessage);
