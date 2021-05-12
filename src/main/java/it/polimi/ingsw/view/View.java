@@ -83,6 +83,12 @@ public interface View {
     public void askGetMarketRes(char rowOrCol, int rowOrColNum);
 
     /**
+     * Shows the Market.
+     * @param market the market to be shown.
+     */
+    public void showMarket(Market market);
+
+    /**
      * Allows the player to activate Development Card production.
      * @param devCardList the list of available Development Card for production.
      */
