@@ -49,7 +49,7 @@ public class GameController {
         }
     }
 
-    private void mainAction(CommandMsg msg){
+    private void mainAction(GeneralMessage msg){
         if(msg.getMessageType() == PICK_DEVCARD){
             pickDevCard((DevCardMsg) msg);
         }
@@ -65,7 +65,7 @@ public class GameController {
 
     }
 
-    private void leaderAction(CommandMsg msg){
+    private void leaderAction(GeneralMessage msg){
         if(msg.getMessageType() == PLAYLEADER){
             playLeader((PlayLeaderMsg) msg);
         }

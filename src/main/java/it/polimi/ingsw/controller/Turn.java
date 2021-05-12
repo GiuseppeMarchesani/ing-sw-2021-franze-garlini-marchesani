@@ -30,7 +30,7 @@ public class Turn {
         }
     }
 
-    public void whichTurnState(CommandMsg msg){
+    public void whichTurnState(GeneralMessage msg){
         switch (turnState){
             case LOGIN:
                 login((LoginMsg) msg);
@@ -49,15 +49,15 @@ public class Turn {
 
     }
 
-    private void createGame(CommandMsg msg){
+    private void createGame(GeneralMessage msg){
 
     }
 
-    private void inGame(CommandMsg msg){
+    private void inGame(GeneralMessage msg){
 
     }
 
-    private void endGameMethod(CommandMsg msg){
+    private void endGameMethod(GeneralMessage msg){
 
     }
 

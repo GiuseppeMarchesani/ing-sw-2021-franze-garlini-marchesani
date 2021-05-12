@@ -6,7 +6,7 @@ import it.polimi.ingsw.controller.Turn;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class StartGameMsg extends CommandMsg{
+public class StartGameMsg extends GeneralMessage{
 
     public StartGameMsg(int playerId, MessageType messageType) {
         super(playerId, messageType);
