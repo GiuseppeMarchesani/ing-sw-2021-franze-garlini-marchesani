@@ -66,4 +66,14 @@ public class DevCardSlot {
                 }
                 return free;
     }
+
+    public ArrayList<DevCard> getAllDevCards(){
+        ArrayList<DevCard> devCards = new ArrayList<>();
+        for(int i=0; i<getSlotDev().size(); i++){
+            for(int j=0; j<getSlotDev().get(i).size(); j++){
+                devCards.add(getSlotDev().get(i).get(j));
+            }
+        }
+        return devCards;
+    }
 }

@@ -22,6 +22,11 @@ public class LeaderDiscount extends Card implements LeaderCard  {
         };
     }
 
+    @Override
+    public int getLeaderID() {
+        return this.getId();
+    }
+
     public HashMap<Color, Integer> getDevCardTypeReq() {
         return colorReq;
     }

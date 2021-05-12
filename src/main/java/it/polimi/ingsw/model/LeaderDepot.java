@@ -20,6 +20,11 @@ public class LeaderDepot extends Card implements LeaderCard  {
         player.getWarehouse().addDepot(resourceAbility);
     }
 
+    @Override
+    public int getLeaderID() {
+        return this.getId();
+    }
+
     public HashMap<ResourceType, Integer> getResourceReq(){
         return resourceReq;
     }

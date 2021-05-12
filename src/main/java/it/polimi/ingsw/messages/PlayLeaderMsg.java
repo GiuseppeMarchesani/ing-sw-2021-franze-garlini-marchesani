@@ -1,4 +1,15 @@
 package it.polimi.ingsw.messages;
 
-public class PlayLeaderMsg {
+import it.polimi.ingsw.model.LeaderCard;
+
+public class PlayLeaderMsg extends CommandMsg{
+    private LeaderCard leaderCard;
+    public PlayLeaderMsg(int playerID, LeaderCard leaderCard) {
+        super(playerID, MessageType.PLAYLEADER);
+        this.leaderCard = leaderCard;
+    }
+
+    public LeaderCard getLeaderCard(){
+        return leaderCard;
+    }
 }

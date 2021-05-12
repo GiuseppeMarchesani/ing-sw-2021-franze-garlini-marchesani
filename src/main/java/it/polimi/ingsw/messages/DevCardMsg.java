@@ -1,4 +1,17 @@
 package it.polimi.ingsw.messages;
 
-public class DevCardMsg {
+import it.polimi.ingsw.model.Color;
+import it.polimi.ingsw.model.DevCard;
+
+public class DevCardMsg extends CommandMsg{
+    DevCard devCard;
+    public DevCardMsg(int playerID, MessageType messageType, DevCard devCard) {
+        super(playerID, MessageType.PICK_DEVCARD);
+        this.devCard= devCard;
+
+    }
+
+    public DevCard getDevCard(){
+        return devCard;
+    }
 }

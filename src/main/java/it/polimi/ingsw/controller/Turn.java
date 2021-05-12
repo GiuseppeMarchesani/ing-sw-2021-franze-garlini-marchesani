@@ -1,19 +1,19 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.messages.CommandMsg;
 import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.messages.MessageType;
+import it.polimi.ingsw.messages.LoginMsg;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.TurnState;
 import it.polimi.ingsw.network.ClientHandler;
-import it.polimi.ingsw.controller.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Turn {
-    private Game gameSession;
     private ArrayList<ClientHandler> players;
-    private ClientHandler activePlayer;
+    private HashMap<ClientHandler, Boolean> activePlayer;
+    private ClientHandler playingPlayer;
     private boolean ongoing;
     private boolean endGame;
     private TurnState turnState;
@@ -23,14 +23,17 @@ public class Turn {
         players = new ArrayList<ClientHandler>();
         ongoing=false;
         endGame=false;
-        activePlayer =  players.get(0);
+        playingPlayer =  players.get(0);
         turnState= TurnState.LOGIN;
+        for(int i=0; i<players.size(); i++){
+            activePlayer.put(players.get(i), true);
+        }
     }
 
-    public void whichTurnState(GeneralMessage msg){
+    public void whichTurnState(CommandMsg msg){
         switch (turnState){
             case LOGIN:
-                login(msg);
+                login((LoginMsg) msg);
             case CREATE_GAME:
                 createGame(msg);
             case IN_GAME:
@@ -42,19 +45,19 @@ public class Turn {
 
     }
 
-    private void login(GeneralMessage msg){
+    private void login(LoginMsg msg){
 
     }
 
-    private void createGame(GeneralMessage msg){
+    private void createGame(CommandMsg msg){
 
     }
 
-    private void inGame(GeneralMessage msg){
+    private void inGame(CommandMsg msg){
 
     }
 
-    private void endGameMethod(GeneralMessage msg){
+    private void endGameMethod(CommandMsg msg){
 
     }
 
@@ -72,7 +75,7 @@ public class Turn {
         }
 
         //TODO: Give 4 leader cards per player and let them choose 2 cards
-        ArrayList<Player> playersList = gameSession.getPlayersList();
+        ArrayList<Player> playersList = gameController.getGameSession().getPlayersList();
         for(Player p: playersList) {
             ArrayList<LeaderCard> drawnLeaders = drawLeaders();
             //Invocare metodo ClientHandler per far scegliere al player le carte?
@@ -82,7 +85,7 @@ public class Turn {
 
 
     private void drawToken() {
-        int endGameCode = ((SinglePlayerGame) gameSession).turnAction();
+        int endGameCode = ((SinglePlayerGame) gameController.getGameSession()).turnAction();
         if(endGameCode == 0) {
             //No more Development Card in a deck - You lose.
         }
@@ -93,15 +96,8 @@ public class Turn {
             //You win - Total score:
         }
     }
+
 /*
-    public HashMap<ResourceType, Integer> buyMarbles(char rowOrCol, int index){
-        return gameSession.pickMarketRes(rowOrCol, index);
-    }
-
-    public DevCard buyDevCard(Color color ,int level ){
-        return gameSession.pickDevCard(color, level);
-    }
-
     //calls the Player's methods in order to store the resources in the Strongbox and increase his faith space..
     public void devIncome(ArrayList<DevCard> list){
         HashMap<ResourceType, Integer> productionIncome = gameSession.pickProductionRes(list);
@@ -125,46 +121,44 @@ public class Turn {
 
 
     }
-
  */
-
     public void addPlayer(ClientHandler client){
         players.add(client);
     }
 
-    private ArrayList<LeaderCard> drawLeaders(){
+    public ArrayList<LeaderCard> drawLeaders(){
         ArrayList<LeaderCard> cards=new ArrayList<LeaderCard>();
         for(int i=0; i<4;i++){
-            cards.add(gameSession.drawCard());
+            cards.add(gameController.getGameSession().drawCard());
         }
         return cards;
     }
 
     public void  proxPlayer(){
-        int player = players.indexOf(activePlayer);
-        if(player +1 < gameSession.getPlayersList().size()){
+        int player = players.indexOf(playingPlayer);
+        if(player +1 < gameController.getGameSession().getPlayersList().size()){
             player = player +1;
         }
         else {
             player = 0;
         }
-        activePlayer = players.get(player);
+        playingPlayer = players.get(player);
     }
 
     public boolean status(){
         return ongoing;
     }
 
-    public Game getGameSession() {
-        return gameSession;
+    public GameController getGameController() {
+        return gameController;
     }
 
     public ClientHandler getActivePlayer() {
-        return activePlayer;
+        return playingPlayer;
     }
 
     public void setActivePlayer(ClientHandler activePlayer) {
-        this.activePlayer = activePlayer;
+        this.playingPlayer = activePlayer;
     }
 
     public ArrayList<ClientHandler> getPlayers() {

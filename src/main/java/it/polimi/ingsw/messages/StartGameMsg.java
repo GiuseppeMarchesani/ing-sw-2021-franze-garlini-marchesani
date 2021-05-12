@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class StartGameMsg extends CommandMsg{
 
+    public StartGameMsg(int playerId, MessageType messageType) {
+        super(playerId, messageType);
+    }
+
     public void processMessage(ClientHandler clientHandler) throws IOException{
         Turn turn=clientHandler.getTurnHandler();
         turn.startGame();

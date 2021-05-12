@@ -328,4 +328,12 @@ public class Game {
         return leaderCards;
     }
 
+    public ArrayList<Integer> getPlayerListByID(){
+        ArrayList<Integer> playerList = new ArrayList<>();
+        for(int i=0; i<getPlayersList().size(); i++){
+            playerList.add(getPlayersList().get(i).getPlayerID());
+        }
+        return playerList;
+    }
+
 }

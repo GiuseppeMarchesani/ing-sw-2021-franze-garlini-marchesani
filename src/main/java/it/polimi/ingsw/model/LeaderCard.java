@@ -5,4 +5,6 @@ public interface LeaderCard {
 
     public void activateAbility(Player player);
 
+    public int getLeaderID();
+
 }

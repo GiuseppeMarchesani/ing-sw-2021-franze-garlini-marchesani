@@ -1,4 +1,15 @@
 package it.polimi.ingsw.messages;
 
-public class ProductionMsg {
+import it.polimi.ingsw.model.DevCard;
+
+public class ProductionMsg extends CommandMsg{
+    DevCard devCard;
+    public ProductionMsg(int playerID, MessageType messageType, DevCard devCard) {
+        super(playerID, MessageType.ACTIVATE_PRODUCTION);
+        this.devCard=devCard;
+    }
+
+    public DevCard getDevCard(){
+        return devCard;
+    }
 }
