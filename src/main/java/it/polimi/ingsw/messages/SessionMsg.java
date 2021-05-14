@@ -1,7 +1,6 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.network.ClientHandler;
-import it.polimi.ingsw.network.GameList;
 import it.polimi.ingsw.controller.Turn;
 
 import java.io.IOException;

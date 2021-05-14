@@ -15,7 +15,7 @@ public class ClientHandler implements Runnable
         private ObjectInputStream input;
         private Turn turnHandler;
 
-        ClientHandler(Socket client)
+        ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
         }
@@ -55,11 +55,9 @@ public class ClientHandler implements Runnable
         }
 
 
-
     public void setTurnHandler(Turn turnHandler) {
         this.turnHandler = turnHandler;
     }
-
     public Turn getTurnHandler() {
         return turnHandler;
     }
@@ -67,4 +65,5 @@ public class ClientHandler implements Runnable
     {
         output.writeObject((Object)answerMsg);
     }
+
 }

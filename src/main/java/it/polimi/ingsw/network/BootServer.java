@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TurnServer {
+public class BootServer {
     //RIVEDERE
 
 
-    TurnServer(){}
+    BootServer(){}
 
     public static void main(String args[]) {
         if (args.length < 1) {
@@ -17,6 +17,7 @@ public class TurnServer {
         }
 
         int port = Integer.parseInt(args[0]);
+
         ServerSocket socket;
         try {
             socket = new ServerSocket(port);
@@ -25,11 +26,11 @@ public class TurnServer {
             System.exit(1);
             return;
         }
-
+        LobbyServer lobbyServer= new LobbyServer();
         while (true) {
             try {
                 Socket client = socket.accept();
-                ClientHandler clientHandler = new ClientHandler(client);
+                ClientHandler clientHandler = new ClientHandler(client, lobbyServer);
                 Thread thread = new Thread(clientHandler, "server_" + client.getInetAddress());
                 thread.start();
             } catch (IOException e) {

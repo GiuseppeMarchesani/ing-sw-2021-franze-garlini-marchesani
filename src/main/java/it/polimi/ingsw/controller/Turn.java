@@ -7,17 +7,18 @@ import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.TurnState;
 import it.polimi.ingsw.network.ClientHandler;
 
-import it.polimi.ingsw.network.GameList;
 import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Turn {
 
-    private HashMap<ClientHandler, Boolean> activePlayer;
+    private HashMap<String, Boolean> activePlayer;
     private View view;
-    private ClientHandler playingPlayer;
+    private String playingPlayer;
     private boolean ongoing;
     private boolean endGame;
     private TurnState turnState;
@@ -218,6 +219,17 @@ public class Turn {
 
     public void setPhaseTurn(PhaseTurn phaseTurn) {
         this.phaseTurn = phaseTurn;
+    }
+    public void disconnect(String username){
+        activePlayer.put(username,false);
+    }
+    //TODO: Testing if it works
+    public boolean hasInactivePlayers(){
+        return(inactivePlayers()!=null);
+    }
+    public Map<String, Boolean> inactivePlayers(){
+        return activePlayer.entrySet().stream().filter(entry -> (!entry.getValue()))
+                .collect(Collectors.toMap(entry-> entry.getKey(), entry -> entry.getValue()));
     }
 }
 

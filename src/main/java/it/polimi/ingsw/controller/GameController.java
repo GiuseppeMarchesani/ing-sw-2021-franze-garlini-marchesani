@@ -13,6 +13,7 @@ import it.polimi.ingsw.view.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
@@ -273,6 +274,19 @@ public class GameController implements VirtualController {
 
     public Turn getTurnController() {
         return turnController;
+    }
+
+    public void disconnect(String username){
+        turnController.disconnect(username);
+    }
+    public boolean status(){
+        return turnController.status();
+    }
+    public Map<String, Boolean> inactivePlayers(){
+       return turnController.inactivePlayers();
+    }
+    public boolean hasInactivePlayers(){
+        return turnController.hasInactivePlayers();
     }
 
 }
