@@ -1,7 +1,7 @@
 package it.polimi.ingsw.messages;
 
 public class PickResMsg extends GeneralMessage{
-    public PickResMsg(int playerID, MessageType messageType) {
-        super(playerID, MessageType.PICK_MARKETRES);
+    public PickResMsg(String username, MessageType messageType) {
+        super(username, MessageType.PICK_MARKETRES);
     }
 }

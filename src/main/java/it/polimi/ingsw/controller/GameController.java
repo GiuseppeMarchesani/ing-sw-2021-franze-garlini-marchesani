@@ -2,33 +2,46 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.model.Board.FaithTrack;
+import it.polimi.ingsw.model.Card.*;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
+import it.polimi.ingsw.model.enumeration.ResourceType;
+import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.view.*;
 
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
-public class GameController {
+public class GameController implements VirtualController {
     private Game gameSession;
-    private View view;
+    private int gameID;
+    private ArrayList<ClientHandler> players;
+    private VirtualView virtualView;
     private Turn turnController;
     private GameState gameState;
+    private int maxPlayers;
 
-    public GameController(char gameType) throws IllegalArgumentException {
-
-        if(gameType == 's' || gameType=='S'){
-            gameSession = new SinglePlayerGame();
+    public GameController(int gameID, int maxPlayers){
+        this.players = new ArrayList<>();
+        this.gameID = gameID;
+        this.maxPlayers = maxPlayers;
+        this.turnController= new Turn(this);
+        if(maxPlayers == 1){
+            this.gameSession= new SinglePlayerGame();
         }
-        else if(gameType=='m' || gameType=='M'){
-            gameSession = new Game();
-        }
-        else throw new IllegalArgumentException();
+        else this.gameSession= new Game();
     }
 
+
+
+    public void newPlayer(String username) throws Exception {
+        players.add(new ClientHandler(new Socket()));
+        this.gameSession.addPlayer(new Player(username));
+    }
 
     /** Turn state.
      *
@@ -38,20 +51,32 @@ public class GameController {
         switch (gameState){
             case MAIN_ACTION:
                 mainAction(receivedMessage);
-                break;
             case LEADER_ACTION:
                 leaderAction(receivedMessage);
-                break;
+            case CHECK:
+                check(receivedMessage);
             default:
                 //non deve mai succedere, da scrivere
                 break;
 
         }
     }
+    //non so se davvero utile dato che ci penserà la gui
+    private void check(GeneralMessage msg){
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+        virtualView.showFaithTrack(gameSession.getFaithTrack());
+        virtualView.showMarket(gameSession.getMarket());
+        virtualView.showLeaderCards(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList());
+
+    }
 
     private void mainAction(GeneralMessage msg){
+
         if(msg.getMessageType() == PICK_DEVCARD){
-            pickDevCard((DevCardMsg) msg);
+            showDevCard((DevCardMsg) msg);
+        }
+        else if(msg.getMessageType() == DEVCARD_REPLY){
+            pickDevCard((DevCardReplyMessage) msg);
         }
         else if(msg.getMessageType() == ACTIVATE_PRODUCTION){
             activateProduction((ProductionMsg) msg);
@@ -59,11 +84,18 @@ public class GameController {
         else if(msg.getMessageType() == PICK_MARKETRES){
             pickMarketRes((PickResMsg) msg);
         }
+        else if(msg.getMessageType()== ROW_OR_COL){
+        rowOrCol((RowOrColMsg) msg);
+        }
+        else if(msg.getMessageType()==PLACE_RES) {
+            placeRes((PlaceMsg) msg);
+        }
         else{
             //error's message
         }
 
     }
+
 
     private void leaderAction(GeneralMessage msg){
         if(msg.getMessageType() == PLAYLEADER){
@@ -77,19 +109,17 @@ public class GameController {
         }
     }
 
-
-
-    private void discardLeader(DiscardLeaderMsg msg){
-        int indexPlayer = gameSession.getPlayerListByID().indexOf(msg.getPlayerID());
+    public void discardLeader(DiscardLeaderMsg msg){
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         if(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().contains(msg.getLeaderCard())){
             gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().remove(msg.getLeaderCard());
         }
         //altrimenti ritorno un'eccezione o errore?
     }
 
-    private void playLeader(PlayLeaderMsg msg) {
+    public void playLeader(PlayLeaderMsg msg) {
         boolean activable = false;
-        int indexPlayer = gameSession.getPlayerListByID().indexOf(msg.getPlayerID());
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player = gameSession.getPlayersList().get(indexPlayer);
         LeaderCard leaderCard = msg.getLeaderCard();
         if (player.getLeaderCardList().contains(leaderCard)) {
@@ -141,29 +171,30 @@ public class GameController {
         }
     }
 
-    private void pickDevCard(DevCardMsg msg){
-        int indexPlayer = gameSession.getPlayerListByID().indexOf(msg.getPlayerID());
+
+    private void showDevCard(DevCardMsg msg){
+        virtualView.showCardMarket(gameSession.getCardMarket());
+        virtualView.askCooseDevCard();
+    }
+
+    public void pickDevCard(DevCardReplyMessage msg){
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player= gameSession.getPlayersList().get(indexPlayer);
 
-        view.showResources(player.getStrongbox(), player.getWarehouse());
-        for (ResourceType res: msg.getDevCard().getCardCost().keySet()){
-            //metodo della view che passa quali risorse ha scelto e dove
-
-        }
-
+        virtualView.showResources(player.getStrongbox(), player.getWarehouse());
+        virtualView.askResToPay(msg.getDevCard().getCardCost().keySet());
         gameSession.pickDevCard(msg.getDevCard().getCardType().getColor(), msg.getDevCard().getCardType().getLevel());
-        view.showDevCardMarket(gameSession.getCardMarket());
+        // TODO: view.showDevCardMarket(gameSession.getCardMarket());
 
     }
 
-    private void activateProduction(ProductionMsg msg){
-        int indexPlayer = gameSession.getPlayerListByID().indexOf(msg.getPlayerID());
+    public void activateProduction(ProductionMsg msg){
+
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player = gameSession.getPlayersList().get(indexPlayer);
 
-        view.chooseResToPay(player.getStrongbox(), player.getWarehouse());
-        //turnController.getActivePlayer().sendAnswerMessage();
+        virtualView.chooseResToPay(player.getStrongbox(), player.getWarehouse());
         for (ResourceType res: msg.getDevCard().getProductionCost().keySet()){
-
 
         }
 
@@ -175,15 +206,73 @@ public class GameController {
         //TODO: notifare alla view le modifiche
     }
 
+    //chiede alla view di fargli vedere la market per scegliere e la view gli chiede di comunicare la scelta
     public void pickMarketRes(PickResMsg msg){
-        ArrayList<ResourceType> resources = view.showMarket(gameSession.getMarket());
-        //il player deve decidere dove metterle
+        virtualView.showMarket(gameSession.getMarket());
+        virtualView.askRowOrCol();
+    }
 
+    //viene passata la scelta con row or col e numero; si controlla la biglia bianca
+    //le biglie rosse sono già state tolte?
+    public void rowOrCol(RowOrColMsg msg){
+        HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
+        int indexPlayer = this.getPlayers().indexOf(turnController.getActivePlayer());
+        for(ResourceType res: resources.keySet()){
+            if(res == ResourceType.EMPTY){
+                if(gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().size()==1){
+                    ResourceType conversion = gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().get(0);
+                    int numWhiteMarble= resources.get(ResourceType.EMPTY);
+                    resources.remove(ResourceType.EMPTY);
+                    resources.put(conversion, numWhiteMarble);
+                }
+                else if(gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().size()>1){
+                    virtualView.askChooseMarbleConversion(resources.get(res));
+                }
+                else{
+                    resources.remove(ResourceType.EMPTY);
+                }
+            }
+            else{
+                virtualView.askFloor(res, resources.get(res));
+            }
+        }
+
+
+    }
+
+    //nel caso di più abilità con biglia bianca si fa scegliere la risorsa e si chiede dove si vuole posizionare
+    public void chosenMarbleConversion(WhiteConversionMsg msg){
+        virtualView.askFloor(msg.getRes(), msg.getQuantity());
+    }
+
+    //si posizionano le risorse nei piani scelti della warehouse
+    public void placeRes(PlaceMsg msg){
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+        this.gameSession.getPlayersList().get(indexPlayer).placeResources(msg.getRes(), msg.getQuantity(), msg.getFloor());
 
     }
 
     public Game getGameSession(){
         return gameSession;
+    }
+    public ArrayList<ClientHandler> getPlayers() {
+        return players;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
+
+    public Turn getTurnController() {
+        return turnController;
     }
 
 }

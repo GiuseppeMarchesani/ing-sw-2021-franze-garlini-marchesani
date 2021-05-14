@@ -1,15 +1,15 @@
 package it.polimi.ingsw.messages;
 
 public abstract class GeneralMessage {
-    private final int playerID;
+    private final String username;
     private final MessageType messageType;
 
-    public GeneralMessage(int playerID, MessageType messageType){
-        this.playerID= playerID;
+    public GeneralMessage(String username, MessageType messageType){
+        this.username= username;
         this.messageType=messageType;
     }
 
-    public int getPlayerID(){ return playerID;}
+    public String getUsername(){ return username;}
     public MessageType getMessageType(){
         return messageType;
     }

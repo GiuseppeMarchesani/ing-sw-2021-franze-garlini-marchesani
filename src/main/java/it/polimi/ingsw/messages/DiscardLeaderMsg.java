@@ -1,12 +1,12 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.Card.LeaderCard;
 
 public class DiscardLeaderMsg extends GeneralMessage{
 
     public LeaderCard leaderCard;
-    public DiscardLeaderMsg(int playerID, LeaderCard leaderCard) {
-        super(playerID, MessageType.DISCARDLEADER);
+    public DiscardLeaderMsg(String username, LeaderCard leaderCard) {
+        super(username, MessageType.DISCARDLEADER);
         this.leaderCard=leaderCard;
     }
 

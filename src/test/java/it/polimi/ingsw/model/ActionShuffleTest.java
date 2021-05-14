@@ -1,10 +1,9 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.Action.ActionShuffle;
 import org.junit.Before;
 import org.junit.Test;
 import org.testng.Assert;
-
-import static org.junit.Assert.*;
 
 public class ActionShuffleTest {
     private ActionShuffle testActionShuffle;
