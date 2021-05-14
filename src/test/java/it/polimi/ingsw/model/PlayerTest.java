@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Board.Warehouse;
+import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -15,12 +18,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
-
 import org.junit.jupiter.api.Assertions;
-import org.junit.platform.commons.JUnitException;
-import org.junit.rules.ExpectedException;
-import org.testng.asserts.Assertion;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class PlayerTest {

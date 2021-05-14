@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model;
 
-import java.awt.*;
-import java.io.ObjectInputStream;
+import it.polimi.ingsw.model.Board.Warehouse;
+import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.DevCardSlot;
+import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.ResourceType;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +24,16 @@ public class Player {
 
 
     public Player() {
+        this.leaderCardList = null;
+        this.strongbox = new HashMap<>();
+        this.warehouse = new Warehouse();
+        this.faithSpace = 0;
+        this.devCardSlot = new DevCardSlot();
+        this.marbleConversion = new ArrayList<>();
+        this.resourceDiscount = new HashMap<>();
+        this.victoryPoint = 0;
+    }
+    public Player(String username){
         this.leaderCardList = null;
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();

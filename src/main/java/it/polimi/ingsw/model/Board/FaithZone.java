@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Board;
 
 /**
  * This class represents the Vatican Report section.

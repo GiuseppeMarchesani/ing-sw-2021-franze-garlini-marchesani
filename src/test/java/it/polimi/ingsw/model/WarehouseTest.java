@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model;
 
-import org.junit.After;
+import it.polimi.ingsw.model.Board.Depot;
+import it.polimi.ingsw.model.Board.Warehouse;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
 

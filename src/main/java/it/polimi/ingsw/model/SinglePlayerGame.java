@@ -2,13 +2,14 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Action.*;
+import it.polimi.ingsw.model.Board.FaithTrack;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is used for solo-mode and it's the intermediary between all the game's components.

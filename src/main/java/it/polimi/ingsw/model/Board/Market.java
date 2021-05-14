@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Board;
+
+import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.security.InvalidParameterException;
 import java.util.*;

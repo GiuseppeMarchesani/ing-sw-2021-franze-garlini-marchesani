@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Action;
+
+import it.polimi.ingsw.model.Action.ActionToken;
 
 import java.util.ArrayList;
 import java.util.Collections;

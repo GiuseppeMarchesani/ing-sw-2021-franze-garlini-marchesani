@@ -1,18 +1,18 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Action;
+
+import it.polimi.ingsw.model.SinglePlayerGame;
 
 /**
- * This class represent the Action Token which shuffle the TokenBag.
+ * This class represent the Action Token which increase the Black Cross position by 2.
  */
-public class ActionShuffle implements ActionToken{
+public class ActionCross implements ActionToken {
     private int spaces;
 
-    public ActionShuffle(int spaces) {
+    public ActionCross(int spaces) {
         this.spaces = spaces;
     }
 
     public int doOperation(SinglePlayerGame game) {
-        game.getTokenBag().shuffle();
-
         int blackCrossPosition = game.getBlackCross().increaseBlackCross(spaces);
         if(game.getFaithTrack().isOnFinalPosition(blackCrossPosition)) {
             return 1; //endGameCode = 1 -> Lorenzo has passed the final space
@@ -20,12 +20,12 @@ public class ActionShuffle implements ActionToken{
         else return -1;
     }
 
-    @Override
-    public String toString() {
-        return "Action Shuffle";
-    }
-
     public int getSpaces() {
         return spaces;
+    }
+
+    @Override
+    public String toString() {
+        return "Action Cross " + "+2";
     }
 }

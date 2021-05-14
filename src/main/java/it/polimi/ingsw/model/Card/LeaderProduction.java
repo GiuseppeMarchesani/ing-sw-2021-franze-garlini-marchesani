@@ -1,4 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Card;
+
+import it.polimi.ingsw.model.enumeration.Color;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 

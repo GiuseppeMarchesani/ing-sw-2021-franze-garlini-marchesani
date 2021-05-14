@@ -2,6 +2,9 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Board.CardMarket;
+import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.enumeration.Color;
 import org.junit.Before;
 import org.junit.Test;
 

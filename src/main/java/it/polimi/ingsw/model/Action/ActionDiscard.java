@@ -1,4 +1,7 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Action;
+
+import it.polimi.ingsw.model.SinglePlayerGame;
+import it.polimi.ingsw.model.enumeration.Color;
 
 /**
  * This class represent the Action Token that will discard a DevCard.

@@ -2,6 +2,13 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Board.CardMarket;
+import it.polimi.ingsw.model.Board.FaithTrack;
+import it.polimi.ingsw.model.Board.FaithZone;
+import it.polimi.ingsw.model.Board.Market;
+import it.polimi.ingsw.model.Card.*;
+import it.polimi.ingsw.model.enumeration.Color;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -328,10 +335,10 @@ public class Game {
         return leaderCards;
     }
 
-    public ArrayList<Integer> getPlayerListByID(){
-        ArrayList<Integer> playerList = new ArrayList<>();
+    public ArrayList<String> getPlayerListByUsername(){
+        ArrayList<String> playerList = new ArrayList<>();
         for(int i=0; i<getPlayersList().size(); i++){
-            playerList.add(getPlayersList().get(i).getPlayerID());
+            playerList.add(getPlayersList().get(i).getUsername());
         }
         return playerList;
     }

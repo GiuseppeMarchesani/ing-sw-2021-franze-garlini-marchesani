@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Card;
 
-import java.lang.reflect.Constructor;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enumeration.ResourceType;
+
 import java.util.HashMap;
 
 public class LeaderDepot extends Card implements LeaderCard  {

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Card.LeaderDiscount;
 import org.junit.Before;
 import org.junit.Test;
 
