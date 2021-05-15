@@ -11,6 +11,7 @@ import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -225,11 +226,14 @@ public class Turn {
     }
     //TODO: Testing if it works
     public boolean hasInactivePlayers(){
-        return(inactivePlayers()!=null);
+        return(getInactivePlayers()!=null);
     }
-    public Map<String, Boolean> inactivePlayers(){
+    public List<String> getInactivePlayers(){
         return activePlayer.entrySet().stream().filter(entry -> (!entry.getValue()))
-                .collect(Collectors.toMap(entry-> entry.getKey(), entry -> entry.getValue()));
+                .map(entry-> entry.getKey()).collect(Collectors.toList());
+    }
+    public void reconnect(String username){
+        activePlayer.put(username, true);
     }
 }
 

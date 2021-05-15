@@ -1,15 +1,14 @@
 package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.messages.GeneralMessage;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lobby {
-    private Map<String, ClientHandler> clientHandlerMap;
+    private Map<ClientHandler, String> clientHandlerMap;
     private GameController gameController;
 
     public Lobby() {
@@ -24,16 +23,20 @@ public class Lobby {
         while(clientHandlerMap.containsKey(s)){
             s=username+"("+i+")";
         }
-        clientHandlerMap.put(username, clientHandler);
+        clientHandlerMap.put(clientHandler, username);
     }
-    public void removePlayer(String username){
-        clientHandlerMap.remove(username);
+    public void removePlayer(ClientHandler clientHandler){
+        clientHandlerMap.remove(clientHandler);
     }
     public void disconnect(ClientHandler clientHandler){
-            String username = clientHandlerMap.entrySet().stream().filter(entry -> clientHandler.equals(entry.getValue())).map(Map.Entry::getKey).findFirst().orElse(null);
-            gameController.disconnect(username);
-    }
 
+            gameController.disconnect(clientHandlerMap.get(clientHandler));
+            removePlayer(clientHandler);
+    }
+    public void reconnect(String username, ClientHandler clientHandler){
+        clientHandlerMap.put(clientHandler, username);;
+        gameController.reconnect(username);
+    }
    public boolean status(){
         if(gameController==null){
             return false;
@@ -47,17 +50,17 @@ public class Lobby {
            return false;
 
    }
-   public Map<String, Boolean> inactivePlayers(){
-       if(gameController==null){
-           return null;
-       }
-        return gameController.inactivePlayers();
-   }
-
+    public List<String> getInactivePlayers(){
+        return gameController.getInactivePlayers();
+    }
     public boolean hasInactivePLayers(){
         if(gameController==null){
             return false;
         }
         return gameController.hasInactivePlayers();
+    }
+    public void getMessage(GeneralMessage generalMessage){
+        gameController.getMessage(generalMessage);
+
     }
 }

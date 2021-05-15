@@ -3,6 +3,9 @@ package it.polimi.ingsw.network;
 import it.polimi.ingsw.messages.AnswerMsg;
 import it.polimi.ingsw.messages.CommandMsg;
 import it.polimi.ingsw.controller.Turn;
+import it.polimi.ingsw.messages.GeneralMessage;
+import it.polimi.ingsw.messages.MessageType;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,24 +16,23 @@ public class ClientHandler implements Runnable
         private Socket client;
         private ObjectOutputStream output;
         private ObjectInputStream input;
-        private Turn turnHandler;
-
+        private String lobby;
+        private LobbyServer lobbyServer;
         ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
+            this.lobbyServer=lobbyServer;
+            try {
+                output = new ObjectOutputStream(client.getOutputStream());
+                input = new ObjectInputStream(client.getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void run()
         {
-            try {
-                output = new ObjectOutputStream(client.getOutputStream());
-                input = new ObjectInputStream(client.getInputStream());
-            } catch (IOException e) {
-                System.out.println("Connection to " + client.getInetAddress()+ " FAILED.");
-                return;
-            }
-
             System.out.println("Connected to " + client.getInetAddress());
 
             try {
@@ -45,25 +47,37 @@ public class ClientHandler implements Runnable
         private void handleMessage() throws IOException
         {
             try {
-                    Object next = input.readObject();
-                    CommandMsg command = (CommandMsg)next;
-                    command.processMessage(this);
+                while(true) {
+                    GeneralMessage message = (GeneralMessage) input.readObject();
 
+                    if(message.getMessageType()== MessageType.LOGIN) {
+                      lobbyServer.joinLobby(message.getGameID(), message.getUsername(), this);
+                    }
+                }
             } catch (ClassNotFoundException | ClassCastException e) {
                 System.out.println("invalid stream from client");
             }
         }
 
 
-    public void setTurnHandler(Turn turnHandler) {
-        this.turnHandler = turnHandler;
-    }
-    public Turn getTurnHandler() {
-        return turnHandler;
-    }
-    public void sendAnswerMessage(AnswerMsg answerMsg) throws IOException
+    public void sendAnswerMessage(GeneralMessage message) throws IOException
     {
-        output.writeObject((Object)answerMsg);
+       try{
+           output.writeObject((Object)message);
+       }
+       catch(IOException e){
+           e.printStackTrace();
+           try {
+               if (!client.isClosed()) {
+                   client.close();
+               }
+           } catch (IOException ee) {
+               ee.printStackTrace();
+           }
+           Thread.currentThread().interrupt();
+           lobbyServer.leaveLobby(lobby, this);
+       }
+
     }
 
 }

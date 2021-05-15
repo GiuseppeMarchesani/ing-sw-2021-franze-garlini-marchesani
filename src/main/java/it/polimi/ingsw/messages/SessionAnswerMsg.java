@@ -1,7 +1,5 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.PlayerClient;
-
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.Scanner;

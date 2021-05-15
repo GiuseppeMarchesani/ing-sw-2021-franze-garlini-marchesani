@@ -42,6 +42,7 @@ public class Player {
         this.marbleConversion = new ArrayList<>();
         this.resourceDiscount = new HashMap<>();
         this.victoryPoint = 0;
+        this.username=username;
     }
     public void setUsername(String name){this.username= name; }
     public String getUsername(){

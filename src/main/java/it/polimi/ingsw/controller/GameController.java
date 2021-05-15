@@ -13,22 +13,19 @@ import it.polimi.ingsw.view.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
 public class GameController implements VirtualController {
     private Game gameSession;
-    private int gameID;
-    private ArrayList<ClientHandler> players;
     private VirtualView virtualView;
     private Turn turnController;
     private GameState gameState;
     private int maxPlayers;
 
     public GameController(int gameID, int maxPlayers){
-        this.players = new ArrayList<>();
-        this.gameID = gameID;
         this.maxPlayers = maxPlayers;
         this.turnController= new Turn(this);
         if(maxPlayers == 1){
@@ -260,9 +257,6 @@ public class GameController implements VirtualController {
         return players;
     }
 
-    public int getGameID() {
-        return gameID;
-    }
 
     public int getMaxPlayers() {
         return maxPlayers;
@@ -282,11 +276,13 @@ public class GameController implements VirtualController {
     public boolean status(){
         return turnController.status();
     }
-    public Map<String, Boolean> inactivePlayers(){
-       return turnController.inactivePlayers();
+    public List<String> getInactivePlayers(){
+        return turnController.getInactivePlayers();
     }
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
-
+    public void reconnect(String username){
+        turnController.reconnect(username);
+    }
 }
