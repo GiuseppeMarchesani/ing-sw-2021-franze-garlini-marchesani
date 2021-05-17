@@ -100,6 +100,7 @@ public class FaithTrackTest {
         assertEquals(faithTrack.getAssociatedVP(23),16);
         assertEquals(faithTrack.getAssociatedVP(24),20);
         assertEquals(faithTrack.getAssociatedVP(27),20);
+
     }
 
 }
