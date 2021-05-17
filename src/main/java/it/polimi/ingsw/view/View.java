@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Board.Market;
+import it.polimi.ingsw.model.Board.Warehouse;
+import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 
 /**
  * This class represents the generic View which will be implemented by the CLI or GUI
@@ -23,9 +28,9 @@ public interface View {
 
 
     /**
-     * Asks the user to create a new lobby.
+     * Asks the user to create a new game.
      */
-    public void askLobbyCreation();
+    public void askGameCreation();
 
     /**
      * Asks how many players the game is going to have.
@@ -71,16 +76,14 @@ public interface View {
 
     /**
      * Allows the player to buy a Development Card.
-     * @param devCardList the list of Development Card the player can choose between.
+     * @param availableCards the list of Development Card the player can choose between.
      */
-    public void askBuyDevCard(List<DevCard> devCardList);
+    public void askBuyDevCard(List<DevCard> availableCards);
 
     /**
      * Allows the player to get Market Resources.
-     * @param rowOrCol indicates if the player choose a row or a column. 'r' for row, 'c' for column.
-     * @param rowOrColNum indicates the number of row or column chosen.
      */
-    public void askGetMarketRes(char rowOrCol, int rowOrColNum);
+    public void askGetMarketRes();
 
     /**
      * Shows the Market.
@@ -90,9 +93,9 @@ public interface View {
 
     /**
      * Allows the player to activate Development Card production.
-     * @param devCardList the list of available Development Card for production.
+     * @param availableCards the list of available Development Card for production.
      */
-    public void askActivateProduction(List<DevCard> devCardList);
+    public void askActivateProduction(List<DevCard> availableCards);
 
     /**
      * Shows the player the resources he owns.
@@ -100,6 +103,12 @@ public interface View {
      * @param warehouse the player's warehouse.
      */
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
+
+    /**
+     * Shows the player an error message.
+     * @param message
+     */
+    public void showErrorMsg(String message);
 
     /**
      * Shows the player the Faith Track state.
@@ -137,10 +146,8 @@ public interface View {
 
     /**
      * Allows the player to rearrange depot.
-     * @param depot1 the first Depot which it contents will be switched.
-     * @param depot2 the second Depot which it contents will be switched.
      */
-    public void askRearrangeDepot(Depot depot1, Depot depot2);
+    public void askRearrangeDepot();
 
     /**
      * Allows the player to play a Leader Carder.

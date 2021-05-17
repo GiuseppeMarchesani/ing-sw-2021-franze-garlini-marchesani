@@ -3,7 +3,14 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.messages.GeneralMessage;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.Board.Market;
+import it.polimi.ingsw.model.Board.Warehouse;
+import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
+import it.polimi.ingsw.observer.Observer;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,7 +18,7 @@ import java.util.List;
  * Hides the network implementation from the controller.
  * The controller calls methods from this class instead of calling methods from the view.
  */
-public class VirtualView implements View {
+public class VirtualView implements View, Observer {
     private final ClientHandler clientHandler;
 
     /**
@@ -33,8 +40,8 @@ public class VirtualView implements View {
     }
 
     @Override
-    public void askLobbyCreation() {
-        //clientHandler.sendMessage(new LobbyRequest());
+    public void askGameCreation() {
+        //clientHandler.sendMessage(new NewGameRequest());
     }
 
     @Override
@@ -78,7 +85,7 @@ public class VirtualView implements View {
     }
 
     @Override
-    public void askGetMarketRes(char rowOrCol, int rowOrColNum) {
+    public void askGetMarketRes() {
         //clientHandler.sendMessage(new GetMarketRequest(rowOrCol, rowOrColNum));
     }
 
@@ -95,6 +102,11 @@ public class VirtualView implements View {
     @Override
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
         //clientHandler.sendMessage(new ShowResourcesMsg(strongbox, warehouse));
+    }
+
+    @Override
+    public void showErrorMsg(String message) {
+        //clientHandler.sendMessage(new
     }
 
     @Override
@@ -128,7 +140,7 @@ public class VirtualView implements View {
     }
 
     @Override
-    public void askRearrangeDepot(Depot depot1, Depot depot2) {
+    public void askRearrangeDepot() {
         //clientHandler.sendMessage(new RearrangeRequest(depot1, depot2));
     }
 
@@ -145,5 +157,15 @@ public class VirtualView implements View {
     @Override
     public void showWinMessage(String winnerUser) {
         //clientHandler.sendMessage(new WinMessage(winner))
+    }
+
+    /**
+     * Receives an update message from the model.
+     * The message is sent over the network to the client.
+     * @param message the update message.
+     */
+    @Override
+    public void update(GeneralMessage message) {
+        //clientHandler.sendMessage(message);
     }
 }
