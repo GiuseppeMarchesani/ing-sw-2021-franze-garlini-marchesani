@@ -100,14 +100,6 @@ public class FaithTrackTest {
         assertEquals(faithTrack.getAssociatedVP(23),16);
         assertEquals(faithTrack.getAssociatedVP(24),20);
         assertEquals(faithTrack.getAssociatedVP(27),20);
-        System.out.println("\n"+
-                "    __  __           _                     __   _____      _                                          " + "\n" +
-                "	|  \\/  |         | |                   / _| |  __ \\    (_)                                         " + "\n" +
-                "	| \\  / | __ _ ___| |_ ___ _ __    ___ | |_  | |__) |___ _ _ __   __ _ ___ ___  __ _ _ __   ___ ___ " + "\n" +
-                "	| |\\/| |/ _` / __| __/ _ \\ '__|  / _ \\|  _| |  _  // _ \\ | '_ \\ / _` / __/ __|/ _` | '_ \\ / __/ _ \\ "+ "\n" +
-                "	| |  | | (_| \\__ \\ ||  __/ |    | (_) | |   | | \\ \\  __/ | | | | (_| \\__ \\__ \\ (_| | | | | (_|  __/ "+ "\n" +
-                "	|_|  |_|\\__,_|___/\\__\\___|_|     \\___/|_|   |_|  \\_\\___|_|_| |_|\\__,_|___/___/\\__,_|_| |_|\\___\\___| "+ "\n");
-        System.out.println("Welcome to Santorini Board Game!");
     }
 
 }
