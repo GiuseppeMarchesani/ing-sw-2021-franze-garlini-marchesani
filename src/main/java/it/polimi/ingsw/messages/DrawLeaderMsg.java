@@ -1,6 +1,6 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.LeaderCard;
+import it.polimi.ingsw.model.Card.LeaderCard;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

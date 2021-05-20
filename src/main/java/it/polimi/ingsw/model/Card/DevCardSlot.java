@@ -33,14 +33,14 @@ public class DevCardSlot {
     }
 
 
-    public ArrayList<Card> getCardsAvailable(){
-        ArrayList<Card> cards= new ArrayList<Card>();
+    public ArrayList<DevCard> getCardsAvailable(){
+        ArrayList<DevCard> devCards= new ArrayList<DevCard>();
 
         //Base production (scroll)
-        cards.add(new DevCard());
+        devCards.add(new DevCard());
         for (int i=0; i<slotNum; i++) {
                 try{
-                    cards.add(getSlotDev().get(i).get(getSlotDev().get(i).size()-1));
+                    devCards.add(getSlotDev().get(i).get(getSlotDev().get(i).size()-1));
                 }catch(IndexOutOfBoundsException e){
 
                 }
@@ -48,12 +48,12 @@ public class DevCardSlot {
 
         for (int i=0; i<slotLeader.size(); i++) {
         try{
-            cards.add(slotLeader.get(i));
+            devCards.add(slotLeader.get(i));
         }catch(IndexOutOfBoundsException e){
 
         }
     }
-        return cards;
+        return devCards;
     }
 
 
