@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
@@ -36,6 +37,11 @@ public interface View {
      * Asks how many players the game is going to have.
      */
     public void askPlayersNumber();
+
+    /**
+     * Asks the player his next action.
+     */
+    public void askAction();
 
     /**
      * Shows the user if the login succeeded.
@@ -69,21 +75,15 @@ public interface View {
     public void showLeaderCards(List<LeaderCard> leaderCards);
 
     /**
-     * Asks the player to choose the two Leader Cards to discard.
-     * @param leaderCards to choose between.
-     */
-    public void askChooseLeaderCards(List<LeaderCard> leaderCards);
-
-    /**
      * Allows the player to buy a Development Card.
      * @param availableCards the list of Development Card the player can choose between.
      */
-    public void askBuyDevCard(List<DevCard> availableCards);
+    public void askDevCardToBuy(List<DevCard> availableCards);
 
     /**
      * Allows the player to get Market Resources.
      */
-    public void askGetMarketRes();
+    public void askMarketLineToGet();
 
     /**
      * Shows the Market.
@@ -95,7 +95,7 @@ public interface View {
      * Allows the player to activate Development Card production.
      * @param availableCards the list of available Development Card for production.
      */
-    public void askActivateProduction(List<DevCard> availableCards);
+    public void askCardsToActivateProd(List<DevCard> availableCards);
 
     /**
      * Shows the player the resources he owns.
@@ -106,7 +106,7 @@ public interface View {
 
     /**
      * Shows the player an error message.
-     * @param message
+     * @param message the message to be shown.
      */
     public void showErrorMsg(String message);
 
@@ -114,52 +114,43 @@ public interface View {
      * Shows the player the Faith Track state.
      * @param faithTrackState list of the player's faith points.
      */
-    public void showFaithTrack(List<Integer> faithTrackState);
+    public void showFaithTrack(HashMap<String, Integer> faithTrackState);
 
     /**
      * Shows the player his actual Victory Points.
      * @param victoryPoints the player's Victory Points to be shown.
      */
-    public void showActualVP(int victoryPoints);
+    public void showCurrentVP(int victoryPoints);
 
     /**
-     * Allows the player to see his resources.
+     * Shows the player his Card Slot.
+     * @param devCardSlot the player's Card Slot.
      */
-    public void askToShowResources();
-
-    /**
-     * Allows the player see the Faith Track state.
-     */
-    public void askToShowFaithTrack();
-
-    /**
-     * Allows the player to see his actual Victory Points.
-     */
-    public void askToShowActualVP();
+    public void showSlots(DevCardSlot devCardSlot);
 
     /**
      * Allows the player to choose resources for payment.
      * @param strongbox the player's strongbox.
      * @param warehouse the player's warehouse.
      */
-    public void chooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
+    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
 
     /**
      * Allows the player to rearrange depot.
      */
-    public void askRearrangeDepot();
+    public void askDepotToRearrange();
 
     /**
      * Allows the player to play a Leader Carder.
      * @param leaderCards the list of Leader Cards the player can activate.
      */
-    public void playLeaderCard(List<LeaderCard> leaderCards);
+    public void askLeaderCardToPlay(List<LeaderCard> leaderCards);
 
     /**
      * Allows the player to discard a Leader Card.
      * @param leaderCards the list of Leader Cards the player can discard.
      */
-    public void discardLeaderCard(List<LeaderCard> leaderCards);
+    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards);
 
     /**
      * Shows the winner.

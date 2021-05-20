@@ -39,10 +39,10 @@ public interface ObserverView {
     public void updatePlayersNumber(int playersNumber);
 
     /**
-     * Sends a message to the server with the chosen LeaderCard .
-     * @param leaderCard the chosen LeaderCard.
+     * Sends a message to the server containing the action the player wants to do.
+     * @param command the action type the player wants to do.
      */
-    public void updateChooseLeaderCard(LeaderCard leaderCard);
+    public void updateAction(String command);
 
     /**
      * Sends a message to the server with the chosen DevCard.
@@ -64,23 +64,8 @@ public interface ObserverView {
     public void updateActivateProduction(List<DevCard> chosenCards);
 
     /**
-     * Sends a message to the server asking to show the player's resources.
-     */
-    public void updateShowResources();
-
-    /**
-     * Sends a message to the server asking to show the FaithTrack.
-     */
-    public void updateShowFaithTrack();
-
-    /**
-     * Sends a message to the server asking to show the player's VictoryPoints.
-     */
-    public void updateShowActualVP();
-
-    /**
      * Sends a message to the server containing the resources of the warehouse to be used as payment.
-     * @param chosenRes the hashmap containing the warehouse's resources the player is going to use as a payment.
+     * @param chosenRes the hashmap containing the warehouse's resources the player is going to use as a payment, all the remaining resources needed for payment will be taken from the strongbox.
      */
     public void updateResToPay(HashMap<ResourceType, Integer> chosenRes);
 
@@ -89,7 +74,7 @@ public interface ObserverView {
      * @param depot1 the first depot to be sent.
      * @param depot2 the second depot to be sent.
      */
-    public void updateRearrange(Depot depot1, Depot depot2);
+    public void updateRearrange(int depot1, int depot2);
 
     /**
      * Sends a message to the server containing the chosen LeaderCard to play.
@@ -101,6 +86,6 @@ public interface ObserverView {
      * Sends a message to the server containing the chosen LeaderCard to discard.
      * @param leaderCard the LeaderCard to be discarded.
      */
-    public void discardLeaderCard(LeaderCard leaderCard);
+    public void updateDiscardLeader(LeaderCard leaderCard);
 
 }

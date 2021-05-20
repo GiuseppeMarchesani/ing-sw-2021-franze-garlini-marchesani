@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
@@ -50,6 +51,11 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
+    public void askAction() {
+        //clientHandler.sendMessage(new ActionMsg());
+    }
+
+    @Override
     public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username) {
         //clientHandler.sendMessage(new LoginReply(usernameAccepted, connectionSuccessful));
     }
@@ -75,17 +81,12 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askChooseLeaderCards(List<LeaderCard> leaderCards) {
-        //clientHandler.sendMessage(new LeaderCardChooseMsg(leaderCards));
-    }
-
-    @Override
-    public void askBuyDevCard(List<DevCard> devCardList) {
+    public void askDevCardToBuy(List<DevCard> devCardList) {
         //clientHandler.sendMessage(new BuyDevCardRequest(devCardList));
     }
 
     @Override
-    public void askGetMarketRes() {
+    public void askMarketLineToGet() {
         //clientHandler.sendMessage(new GetMarketRequest(rowOrCol, rowOrColNum));
     }
 
@@ -95,7 +96,7 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askActivateProduction(List<DevCard> devCardList) {
+    public void askCardsToActivateProd(List<DevCard> devCardList) {
         //clientHandler.sendMessage(new ActivateProductionRequest(devCardList));
     }
 
@@ -110,47 +111,38 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showFaithTrack(List<Integer> faithTrackState) {
+    public void showFaithTrack(HashMap<String, Integer> faithTrackState) {
         //clientHandler.sendMessage(new ShowFaithTrackMsg(faithTrackState));
     }
 
     @Override
-    public void showActualVP(int victoryPoints) {
+    public void showCurrentVP(int victoryPoints) {
         //clientHandler.sendMessage(new ShowActualVPMsg(victoryPoints));
     }
 
     @Override
-    public void askToShowResources() {
-        //clientHandler.sendMessage(new ShowResourcesRequest());
+    public void showSlots(DevCardSlot devCardSlot) {
+
     }
 
-    @Override
-    public void askToShowFaithTrack() {
-        //clientHandler.sendMessage(new ShowFaithTrackRequest());
-    }
 
     @Override
-    public void askToShowActualVP() {
-        //clientHandler.sendMessage(new ShowActualVPRequest());
-    }
-
-    @Override
-    public void chooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
+    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
         //clientHandler.sendMessage(new ResourceToPayMsg(strongbox, warehouse));
     }
 
     @Override
-    public void askRearrangeDepot() {
+    public void askDepotToRearrange() {
         //clientHandler.sendMessage(new RearrangeRequest(depot1, depot2));
     }
 
     @Override
-    public void playLeaderCard(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
         //clientHandler.sendMessage(new PlayLeaderRequest(leaderCards));
     }
 
     @Override
-    public void discardLeaderCard(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards) {
         //clientHandler.sendMessage(new DiscardLeaderRequest(leaderCards));
     }
 
@@ -164,6 +156,7 @@ public class VirtualView implements View, Observer {
      * The message is sent over the network to the client.
      * @param message the update message.
      */
+
     @Override
     public void update(GeneralMessage message) {
         //clientHandler.sendMessage(message);
