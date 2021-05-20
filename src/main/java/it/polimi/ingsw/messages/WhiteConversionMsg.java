@@ -6,8 +6,8 @@ public class WhiteConversionMsg extends GeneralMessage{
     private ResourceType res;
     private int quantity;
     private char wOrS;
-    public WhiteConversionMsg(String username, MessageType messageType, ResourceType res, int quantity, char wOrS) {
-        super(username, messageType);
+    public WhiteConversionMsg(String username, MessageType messageType, String gameID, ResourceType res, int quantity, char wOrS) {
+        super(username, messageType, gameID);
         this.res=res;
         this.quantity=quantity;
         this.wOrS=wOrS;

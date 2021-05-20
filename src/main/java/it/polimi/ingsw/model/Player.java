@@ -94,7 +94,8 @@ public class Player {
         return marbleConversion;
     }
 
-    public void storeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException {
+    public HashMap<ResourceType, Integer> storeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException {
+        HashMap<ResourceType,Integer> rest = new HashMap<>();
         for (ResourceType resourceType : resources.keySet()) {
             if(resourceType.getVal()>=0 && resourceType.getVal()<4){
                 Integer quantity;
@@ -104,14 +105,18 @@ public class Player {
                     quantity = resources.get(resourceType);
                 }
                 strongbox.put(resourceType, quantity);
-            } else throw new InvalidParameterException();
+            }
+            else if(resourceType.getVal()==-1 || resourceType.getVal()==4){
+                rest.put(resourceType, resources.get(resourceType));
+            }
         }
+        return rest;
     }
 
     public int placeResources(ResourceType res, int resQuantity, int floor)
             throws InvalidParameterException, IndexOutOfBoundsException {
         int leftRes=0;
-        ArrayList<Integer> freeDepot = new ArrayList<>();
+        ArrayList<Integer> freeDepot;
         if (res.getVal() >= 0 && res.getVal() < 4) {
             freeDepot = warehouse.availableDepot(res);
             if(freeDepot.contains(floor)){
@@ -128,6 +133,27 @@ public class Player {
         }
         else throw new InvalidParameterException();
         return  leftRes;
+    }
+
+    public int removeRes(ResourceType res, int resQuantity) throws InvalidParameterException, IllegalArgumentException{
+        int x=0;
+        if (res.getVal() >= 0 && res.getVal() < 4) {
+            int floor = warehouse.hasResource(res);
+            if(floor > 0){
+                int newQuantity = warehouse.getDepotList().get(floor).getResourceQuantity() - resQuantity;
+                if (newQuantity < 0) {
+                    warehouse.getDepotList().get(floor).setResourceQuantity(0);
+                    warehouse.getDepotList().get(floor).setResourceType(ResourceType.ANY);
+                    x=resQuantity;
+                } else {
+                    warehouse.getDepotList().get(floor).setResourceQuantity(newQuantity);
+                }
+            }
+            else throw new IllegalArgumentException();
+
+        }
+        else throw new InvalidParameterException();
+        return x;
     }
     /**
      *

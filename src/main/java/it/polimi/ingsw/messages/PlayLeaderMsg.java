@@ -4,8 +4,8 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 
 public class PlayLeaderMsg extends GeneralMessage{
     private LeaderCard leaderCard;
-    public PlayLeaderMsg(String username, LeaderCard leaderCard) {
-        super(username, MessageType.PLAYLEADER);
+    public PlayLeaderMsg(String username, LeaderCard leaderCard, String gameID) {
+        super(username, MessageType.PLAYLEADER, gameID);
         this.leaderCard = leaderCard;
     }
 
