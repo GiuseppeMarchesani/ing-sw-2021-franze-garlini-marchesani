@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Board.FaithTrack;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
@@ -14,20 +13,19 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
 public class GameController implements VirtualController {
     private Game gameSession;
     private VirtualView virtualView;
-    private Turn turnController;
+    private TurnController turnController;
     private GameState gameState;
     private int maxPlayers;
 
     public GameController(int gameID, int maxPlayers){
         this.maxPlayers = maxPlayers;
-        this.turnController= new Turn(this);
+        this.turnController= new TurnController(this);
         if(maxPlayers == 1){
             this.gameSession= new SinglePlayerGame();
         }
@@ -266,7 +264,7 @@ public class GameController implements VirtualController {
         this.maxPlayers = maxPlayers;
     }
 
-    public Turn getTurnController() {
+    public TurnController getTurnController() {
         return turnController;
     }
 

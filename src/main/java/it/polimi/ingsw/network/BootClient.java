@@ -14,7 +14,7 @@ import java.rmi.registry.Registry;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class PlayerClient {
+public class BootClient {
 
 
     public static void main(String[] args) {

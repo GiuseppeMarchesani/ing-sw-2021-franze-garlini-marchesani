@@ -1,7 +1,7 @@
 package it.polimi.ingsw.messages;
 import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.model.Card.LeaderCard;
-import it.polimi.ingsw.controller.Turn;
+import it.polimi.ingsw.controller.TurnController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,10 +13,10 @@ public class StartGameMsg extends GeneralMessage{
     }
 
     public void processMessage(ClientHandler clientHandler) throws IOException{
-        Turn turn=clientHandler.getTurnHandler();
-        turn.startGame();
+        TurnController turnController =clientHandler.getTurnHandler();
+        turnController.startGame();
         ArrayList<LeaderCard> cards= new ArrayList<LeaderCard>();
-        cards=turn.drawLeaders();
+        cards= turnController.drawLeaders();
         // DrawLeaderMsg answerMsg= new DrawLeaderMsg(this, cards);
         // clientHandler.sendAnswerMessage(answerMsg);
     };

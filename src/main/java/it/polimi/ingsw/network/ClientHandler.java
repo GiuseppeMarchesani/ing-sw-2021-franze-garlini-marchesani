@@ -1,8 +1,5 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.messages.AnswerMsg;
-import it.polimi.ingsw.messages.CommandMsg;
-import it.polimi.ingsw.controller.Turn;
 import it.polimi.ingsw.messages.GeneralMessage;
 import it.polimi.ingsw.messages.MessageType;
 
@@ -64,6 +61,7 @@ public class ClientHandler implements Runnable
     {
        try{
            output.writeObject((Object)message);
+           output.reset();
        }
        catch(IOException e){
            e.printStackTrace();

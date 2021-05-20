@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Turn {
+public class TurnController {
 
     private HashMap<String, Boolean> activePlayer;
     private View view;
@@ -27,7 +27,7 @@ public class Turn {
     private ArrayList<GameController> gameList;
     private PhaseTurn phaseTurn;
 
-    public Turn(GameController gameController){
+    public TurnController(GameController gameController){
         ongoing=false;
         endGame=false;
         this.gameController=gameController;
