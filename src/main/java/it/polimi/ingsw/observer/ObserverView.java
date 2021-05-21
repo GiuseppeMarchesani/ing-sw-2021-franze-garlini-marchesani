@@ -64,17 +64,42 @@ public interface ObserverView {
     public void updateActivateProduction(List<DevCard> chosenCards);
 
     /**
-     * Sends a message to the server containing the resources of the warehouse to be used as payment.
-     * @param chosenRes the hashmap containing the warehouse's resources the player is going to use as a payment, all the remaining resources needed for payment will be taken from the strongbox.
+     * Sends a message to the server containing the destination used for pay.
+     * @param destination could be "warehouse" or "strongbox".
      */
-    public void updateResToPay(HashMap<ResourceType, Integer> chosenRes);
+    public void updateResToPay(String destination);
+
+    /**
+     * Sends a message to the server containing the initial resource chosen by the player.
+     * @param chosenRes the chosen resource.
+     */
+    public void updateChooseOneRes(ResourceType chosenRes);
+
+    /**
+     * Sends a message to the server containing the chosen depot to put a resource.
+     * @param chosenDepot the chosen depot.
+     */
+    public void updateChooseFloor(int chosenDepot);
+
+    /**
+     * Sends a message to the server containing a resource type representing the white marble conversion the player chose.
+     * @param resource the chose resource type.
+     */
+    public void updateChooseMarbleConv(ResourceType resource);
+
+    /**
+     * Sends a message to the server containing the chosen slot by the player.
+     * @param chosenSlot the chosen slot.
+     */
+    public void updateAskSlot(int chosenSlot);
 
     /**
      * Sends a message to the server containing the depots to be rearranged.
+     * @param rearrange a boolean representing if the player want to rearrange or not.
      * @param depot1 the first depot to be sent.
      * @param depot2 the second depot to be sent.
      */
-    public void updateRearrange(int depot1, int depot2);
+    public void updateRearrange(boolean rearrange, int depot1, int depot2);
 
     /**
      * Sends a message to the server containing the chosen LeaderCard to play.

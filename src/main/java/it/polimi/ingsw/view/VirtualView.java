@@ -2,7 +2,7 @@ package it.polimi.ingsw.view;
 
 
 import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,123 +33,152 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askUsername() {
-        //clientHandler.sendMessage(new LoginReply());
+        clientHandler.sendMessage(new LoginReply());
     }
 
     @Override
     public void askGameID() {
-        //clientHandler.sendMessage(new GameIDRequest());
+        clientHandler.sendMessage(new GameIDRequest());
     }
 
     @Override
     public void askGameCreation() {
-        //clientHandler.sendMessage(new NewGameRequest());
+        clientHandler.sendMessage(new NewGameRequest());
     }
 
     @Override
     public void askPlayersNumber() {
-        //clientHandler.sendMessage(new PlayersNumberRequest());
+        clientHandler.sendMessage(new PlayersNumberRequest());
     }
 
     @Override
     public void askAction() {
-        //clientHandler.sendMessage(new ActionMsg());
+        clientHandler.sendMessage(new ActionRequest());
     }
 
     @Override
     public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username) {
-        //clientHandler.sendMessage(new LoginReply(usernameAccepted, connectionSuccessful));
+        clientHandler.sendMessage(new LoginReply(usernameAccepted, connectionSuccessful));
     }
 
     @Override
     public void showMessage(String message) {
-        //clientHandler.sendMessage(new GeneralMessage(message));
+        clientHandler.sendMessage(new GeneralMessage(message));
     }
 
     @Override
     public void showDisconnectionMsg(String disconnectedUser, String message) {
-        //clientHandler.sendMessage(new DisconnectionMessage(disconnectedUser, message));
+        clientHandler.sendMessage(new DisconnectionMessage(disconnectedUser, message));
     }
 
     @Override
     public void showMatchInfo(List<String> players, String activePlayer) {
-        //clientHandler.sendMessage(new MatchInfoRequest(players, activePlayer));
+        clientHandler.sendMessage(new MatchInfoRequest(players, activePlayer));
     }
 
     @Override
-    public void showLeaderCards(List<LeaderCard> leaderCards) {
-        //clientHandler.sendMessage(new LeaderCardShowReq(leaderCards));
+    public void showLeaderCards(List<LeaderCard> leaderCards, String username) {
+        clientHandler.sendMessage(new LeaderCardShowReq(leaderCards, username));
     }
 
     @Override
     public void askDevCardToBuy(List<DevCard> devCardList) {
-        //clientHandler.sendMessage(new BuyDevCardRequest(devCardList));
+        clientHandler.sendMessage(new BuyDevCardRequest(devCardList));
     }
 
     @Override
-    public void askMarketLineToGet() {
-        //clientHandler.sendMessage(new GetMarketRequest(rowOrCol, rowOrColNum));
+    public void askMarketLineToGet(Market market) {
+        clientHandler.sendMessage(new GetMarketLineRequest(market));
     }
 
     @Override
     public void showMarket(Market market) {
-        //clientHandler.sendMessage(new MarketMessage());
+        clientHandler.sendMessage(new ShowMarketMsg(market)));
+    }
+
+    @Override
+    public void showDevMarket(List<DevCard> availableCards) {
+        clientHandler.sendMessage(new ShowDevMarket(availableCards));
     }
 
     @Override
     public void askCardsToActivateProd(List<DevCard> devCardList) {
-        //clientHandler.sendMessage(new ActivateProductionRequest(devCardList));
+        clientHandler.sendMessage(new ActivateProductionMsg(devCardList));
+    }
+
+    @Override
+    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
+        clientHandler.sendMessage(new ShowResourcesRequest(strongbox, warehouse, username));
     }
 
     @Override
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
-        //clientHandler.sendMessage(new ShowResourcesMsg(strongbox, warehouse));
+        clientHandler.sendMessage(new ShowResourcesRequest(strongbox, warehouse));
     }
 
     @Override
     public void showErrorMsg(String message) {
-        //clientHandler.sendMessage(new
+        clientHandler.sendMessage(new ErrorMsg(message));
     }
 
     @Override
     public void showFaithTrack(HashMap<String, Integer> faithTrackState) {
-        //clientHandler.sendMessage(new ShowFaithTrackMsg(faithTrackState));
+        clientHandler.sendMessage(new ShowFaithTrackMsg(faithTrackState));
     }
 
     @Override
-    public void showCurrentVP(int victoryPoints) {
-        //clientHandler.sendMessage(new ShowActualVPMsg(victoryPoints));
+    public void showCurrentVP(int victoryPoints, String username) {
+        clientHandler.sendMessage(new ShowActualVPMsg(victoryPoints, username));
     }
 
     @Override
-    public void showSlots(DevCardSlot devCardSlot) {
-
-    }
-
-
-    @Override
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
-        //clientHandler.sendMessage(new ResourceToPayMsg(strongbox, warehouse));
+    public void showSlots(DevCardSlot devCardSlot, String username) {
+        clientHandler.sendMessage(new ShowSlotsMsg(victoryPoints, username));
     }
 
     @Override
-    public void askDepotToRearrange() {
-        //clientHandler.sendMessage(new RearrangeRequest(depot1, depot2));
+    public void askSlot(ArrayList<Integer> availableSlots) {
+        clientHandler.sendMessage(new SlotRequest(availableSlots));
+    }
+
+    @Override
+    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
+        clientHandler.sendMessage(new WhiteConversionMsg(availableConversions));
+    }
+
+    @Override
+    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
+        clientHandler.sendMessage(new ResToPayRequest(strongbox, warehouse, resource));
+    }
+
+    @Override
+    public void askChooseOneRes(ArrayList<String> resources, String message) {
+        clientHandler.sendMessage(new ResourceRequest(resources, message));
+    }
+
+    @Override
+    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
+        clientHandler.sendMessage(new PlaceMsg(warehouse, resToPlace));
+    }
+
+    @Override
+    public void askRearrange(Warehouse warehouse) {
+        clientHandler.sendMessage(new RearrangeMsg(warehouse));
     }
 
     @Override
     public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
-        //clientHandler.sendMessage(new PlayLeaderRequest(leaderCards));
+        clientHandler.sendMessage(new PlayLeaderMsg(leaderCards));
     }
 
     @Override
     public void askLeaderCardToDiscard(List<LeaderCard> leaderCards) {
-        //clientHandler.sendMessage(new DiscardLeaderRequest(leaderCards));
+        clientHandler.sendMessage(new DiscardLeaderRequest(leaderCards));
     }
 
     @Override
     public void showWinMessage(String winnerUser) {
-        //clientHandler.sendMessage(new WinMessage(winner))
+        clientHandler.sendMessage(new WinMessage(winner));
     }
 
     /**
@@ -159,6 +189,6 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void update(GeneralMessage message) {
-        //clientHandler.sendMessage(message);
+        clientHandler.sendMessage(message);
     }
 }

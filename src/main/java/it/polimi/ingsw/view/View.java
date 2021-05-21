@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -21,12 +22,10 @@ public interface View {
      */
     public void askUsername();
 
-
     /**
      * Asks the user to enter the GameID.
      */
     public void askGameID();
-
 
     /**
      * Asks the user to create a new game.
@@ -59,20 +58,24 @@ public interface View {
 
     /**
      * Shows the player a disconnection message.
+     * @param disconnectedUser the username of the disconnected player.
+     * @param message the message to be shown.
      */
     public void showDisconnectionMsg(String disconnectedUser, String message);
 
     /**
      * Shows the player the numbers of players, their usernames and other info.
      * @param players the list of the playing players.
+     * @param activePlayer the active player's username.
      */
     public void showMatchInfo(List<String> players, String activePlayer);
 
     /**
      * Shows the player his Leader Cards.
      * @param leaderCards the list of the Leader Cards to be shown.
+     * @param username the username of the player who owns the leader cards.
      */
-    public void showLeaderCards(List<LeaderCard> leaderCards);
+    public void showLeaderCards(List<LeaderCard> leaderCards, String username);
 
     /**
      * Allows the player to buy a Development Card.
@@ -82,8 +85,9 @@ public interface View {
 
     /**
      * Allows the player to get Market Resources.
+     * @param market the market to be shown.
      */
-    public void askMarketLineToGet();
+    public void askMarketLineToGet(Market market);
 
     /**
      * Shows the Market.
@@ -92,10 +96,24 @@ public interface View {
     public void showMarket(Market market);
 
     /**
+     * Shows the player Development Cards from the market.
+     * @param availableCards the list of Development Card on the top of the DevMarket.
+     */
+    public void showDevMarket(List<DevCard> availableCards);
+
+    /**
      * Allows the player to activate Development Card production.
      * @param availableCards the list of available Development Card for production.
      */
     public void askCardsToActivateProd(List<DevCard> availableCards);
+
+    /**
+     * Shows the resources owned by a player.
+     * @param strongbox the player's strongbox.
+     * @param warehouse the player's warehouse.
+     * @param username the username of the player who owns the resources.
+     */
+    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username);
 
     /**
      * Shows the player the resources he owns.
@@ -117,28 +135,58 @@ public interface View {
     public void showFaithTrack(HashMap<String, Integer> faithTrackState);
 
     /**
-     * Shows the player his actual Victory Points.
-     * @param victoryPoints the player's Victory Points to be shown.
+     * Shows the player an amount of actual Victory Points.
+     * @param victoryPoints the amount of Victory Points to be shown.
+     * @param username the player who owns the Victory Points.
      */
-    public void showCurrentVP(int victoryPoints);
+    public void showCurrentVP(int victoryPoints, String username);
 
     /**
-     * Shows the player his Card Slot.
-     * @param devCardSlot the player's Card Slot.
+     * Shows the player a Card Slot.
+     * @param devCardSlot the Card Slot to be shown.
+     * @param username the player who owns the CardSlot.
      */
-    public void showSlots(DevCardSlot devCardSlot);
+    public void showSlots(DevCardSlot devCardSlot, String username);
+
+    /**
+     * Asks the player to choose one slot among the slots in the list passed as parameter.
+     * @param availableSlots the list of the available slot the player can choose.
+     */
+    public void askSlot(ArrayList<Integer> availableSlots);
+
+    /**
+     * Asks the player to choose a white marble conversion among the available conversions.
+     * @param availableConversions the list of the available resource type for conversion.
+     */
+    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions);
 
     /**
      * Allows the player to choose resources for payment.
      * @param strongbox the player's strongbox.
      * @param warehouse the player's warehouse.
+     * @param resource the resource that must be paid.
      */
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
+    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource);
 
     /**
-     * Allows the player to rearrange depot.
+     * Allows the player to choose a resource.
+     * @param resources the list of resources available for choosing.
+     * @param message the message to be shown.
      */
-    public void askDepotToRearrange();
+    public void askChooseOneRes(ArrayList<String> resources, String message);
+
+    /**
+     * Allows the player to choose the Warehouse floor to put the resource.
+     * @param warehouse the player's warehouse.
+     * @param resToPlace the resource to be placed.
+     */
+    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace);
+
+    /**
+     * Asks the player if he wants to rearrange depots.
+     * @param warehouse the player's warehouse.
+     */
+    public void askRearrange(Warehouse warehouse);
 
     /**
      * Allows the player to play a Leader Carder.
