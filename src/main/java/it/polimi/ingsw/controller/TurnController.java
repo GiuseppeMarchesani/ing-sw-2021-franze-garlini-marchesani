@@ -391,7 +391,7 @@ public class TurnController {
             }
             else{
                 for(int i=0; i<rest.get(res); i++){
-                    ArrayList<String> resourceTypes= gameController.availableRes();
+                    ArrayList<String> resourceTypes= gameController.availableResToString();
                     allVirtualView.get(playingPlayer).askChooseOneRes(resourceTypes, "Choose resource by typing COIN, SHIELD, SERVANT or STONE");
                     if(player.getStrongbox().containsKey(msg.getRes())){
                        int quantity= player.getStrongbox().get(msg.getRes());
@@ -450,14 +450,14 @@ public class TurnController {
                     resources.put(conversion, numWhiteMarble);
                     for(int i=0; i<resources.get(res); i++){
                         allVirtualView.get(playingPlayer).askRearrange(player.getWarehouse());
-                        allVirtualView.get(playingPlayer).askFloor(player.getWarehouse(), res);
+                        allVirtualView.get(playingPlayer).askChooseFloor(player.getWarehouse(), res);
 
                     }
 
                 }
                 else if(player.getMarbleConversion().size()>1){
                     for(int i=0; i<resources.get(res); i++){
-                        allVirtualView.get(playingPlayer).askChooseMarbleConversion();
+                        allVirtualView.get(playingPlayer).askChooseMarbleConversion(gameController.availableRes());
                     }
                 }
                 else{
@@ -473,7 +473,7 @@ public class TurnController {
             }
             else{
                 for (int i=0; i<resources.get(res); i++) {
-                    allVirtualView.get(playingPlayer).askFloor(player.getWarehouse(), res);
+                    allVirtualView.get(playingPlayer).askChooseFloor(player.getWarehouse(), res);
                 }
             }
         }
@@ -483,9 +483,8 @@ public class TurnController {
      * only if the player has more than one marble's ability.
      */
     private void chosenMarbleConversion(WhiteConversionMsg msg, Player player){
-        allVirtualView.get(playingPlayer).askFloor(player.getWarehouse());
+        allVirtualView.get(playingPlayer).askChooseFloor(player.getWarehouse(), msg.getRes());
     }
-
     private void askRearrange(RearrangeMsg msg, Player player){
         if(msg.isRearrange()){
             allVirtualView.get(playingPlayer).askDepotToRearrange();
@@ -548,7 +547,7 @@ public class TurnController {
         }
         else if(endGameCode == -1) {
             int finalVP= gameSession.getPlayersList().get(0).getFinalVP();
-            allVirtualView.get(playingPlayer).showCurrentVP(finalVP);
+            allVirtualView.get(playingPlayer).showCurrentVP(finalVP, playingPlayer);
             allVirtualView.get(playingPlayer).showWinMessage(playingPlayer);
             gameController.setGameState(GameState.END_GAME);
         }
@@ -576,6 +575,10 @@ public class TurnController {
 
     public void addPlayer(String username){
         gameController.getPlayers().add(username);
+    }
+
+    public boolean isEndGame() {
+        return endGame;
     }
 
     public String getActivePlayer() {

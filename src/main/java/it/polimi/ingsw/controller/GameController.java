@@ -228,7 +228,7 @@ public class GameController {
         }
 
         //deliver initial faith points and resources
-        ArrayList<String> resource= this.availableRes();
+        ArrayList<String> resource= this.availableResToString();
         //if there are 4 players
         if(gameSession.getPlayersList().size()==4){
             gameSession.getPlayersList().get(2).increaseFaith(1);
@@ -273,7 +273,7 @@ public class GameController {
      * @param player (who send message)
      */
     private void choseInitialRes(ResourceReply msg, Player player){
-        allVirtualView.get(player.getUsername()).askFloor(player.getStrongbox(), player.getWarehouse(), msg.getRes());
+        allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
     }
 
     /**
@@ -285,12 +285,12 @@ public class GameController {
             int x = player.placeResources(msg.getRes(), 1, msg.getFloor());
             if(x == -1){
                 allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-                allVirtualView.get(player.getUsername()).askFloor(player.getStrongbox(), player.getWarehouse(), msg.getRes());
+                allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
             }
         }
         else{
             allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-            allVirtualView.get(player.getUsername()).askFloor(player.getStrongbox(), player.getWarehouse(), msg.getRes());
+            allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
         }
     }
 
@@ -304,8 +304,6 @@ public class GameController {
         firstPlayer = rand.nextInt(gameSession.getPlayersList().size());
         return firstPlayer;
     }
-
-
 
     public boolean getStatus(){
         return ongoing;
@@ -328,7 +326,7 @@ public class GameController {
         turnController.disconnect(username);
     }
     public boolean status(){
-        return turnController.status();
+        return turnController.isEndGame();
     }
     public List<String> getInactivePlayers(){
         return turnController.getInactivePlayers();
@@ -339,10 +337,19 @@ public class GameController {
     public void reconnect(String username){
         turnController.reconnect(username);
     }
-    public ArrayList<String> availableRes(){
-        ArrayList<String> resource= new ArrayList<>();
+    public ArrayList<ResourceType> availableRes(){
+        ArrayList<ResourceType> resource= new ArrayList<>();
         for(ResourceType resourceType: ResourceType.values()){
             if(!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
+                    !resourceType.equals(ResourceType.FAITH))
+                resource.add(resourceType);
+        }
+        return resource;
+    }
+    public ArrayList<String> availableResToString() {
+        ArrayList<String> resource = new ArrayList<>();
+        for (ResourceType resourceType : ResourceType.values()) {
+            if (!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
                     !resourceType.equals(ResourceType.FAITH))
                 resource.add(resourceType.toString());
         }
