@@ -28,10 +28,8 @@ public class TurnController {
     private int leaderAction=0;
     private Game gameSession;
     private TurnState turnState;
-    private GameController gameController;
+    private final GameController gameController;
     private PhaseTurn phaseTurn;
-    private ResourceType resTmp;
-    private int resQuantityTmp;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -57,7 +55,7 @@ public class TurnController {
                 action(receivedMessage);
                 break;
             case NEXT_TURN:
-                endTurn(receivedMessage);
+                endTurn((EndTurnMsg) receivedMessage);
                 break;
             default:
                 allVirtualView.get(playingPlayer).showErrorMsg("Error!");
@@ -117,41 +115,46 @@ public class TurnController {
     }
 
     private void action(GeneralMessage msg){
+        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+        Player player = gameSession.getPlayersList().get(indexPlayer);
         if(msg.getMessageType() == PLAYLEADER){
-            showLeaderCards((PlayLeaderMsg) msg);
+            showLeaderCards((PlayLeaderMsg) msg, player);
         }
         else if(msg.getMessageType() == LEADER_REPLY){
-            playLeader((ChoseLeadersMsg) msg);
+            playLeader((ChoseLeadersMsg) msg, player);
         }
         else if(msg.getMessageType() == PICK_DEVCARD){
             showDevCardMarket((DevCardMsg) msg);
         }
         else if(msg.getMessageType() == DEVCARD_REPLY){
-            pickDevCard((DevCardReplyMessage) msg);
+            pickDevCard((DevCardReplyMessage) msg, player);
         }
         else if(msg.getMessageType()== PLACE_CARD){
-            placeCard((PlaceCardMsg) msg);
+            placeCard((PlaceCardMsg) msg, player);
         }
         else if(msg.getMessageType() == ACTIVATE_PRODUCTION){
-            activateProduction((ActivateProductionMsg) msg);
+            activateProduction((ActivateProductionMsg) msg, player);
         }
         else if(msg.getMessageType() == PRODUCTION_RES){
-            productionRes((ProductionMsg) msg);
+            productionRes((ProductionMsg) msg, player);
         }
         else if(msg.getMessageType()== PAY_RES){
-            resToPay((ResToPayMsg) msg);
+            resToPay((ResToPayMsg) msg, player);
         }
         else if(msg.getMessageType() == PICK_MARKETRES){
-            pickMarketRes((PickResMsg) msg);
+            pickMarketRes((PickResMsg) msg, player);
         }
         else if(msg.getMessageType()== ROW_OR_COL){
-            rowOrCol((RowOrColMsg) msg);
+            rowOrCol((GetMarketLineReply) msg, player);
         }
         else if(msg.getMessageType()== WHITE_CONVERSION){
-            chosenMarbleConversion((WhiteConversionMsg) msg);
+            chosenMarbleConversion((WhiteConversionMsg) msg, player);
+        }
+        else if(msg.getMessageType()== REARRANGE_REPLY){
+            askRearrange((RearrangeMsg) msg, player);
         }
         else if(msg.getMessageType()==PLACE_RES) {
-            placeRes((PlaceMsg) msg);
+            placeRes((PlaceMsg) msg, player);
         }
         else{
             allVirtualView.get(playingPlayer).showErrorMsg("Invalid action. Try again!");
@@ -159,13 +162,11 @@ public class TurnController {
 
     }
 
-    public void showLeaderCards(PlayLeaderMsg msg){
+    private void showLeaderCards(PlayLeaderMsg msg, Player player){
         if(leaderAction!=2 && !mainAction) {
-            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-
             ArrayList<LeaderCard> availableCards = new ArrayList<>();
-            for (LeaderCard leaderCard : gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().keySet()) {
-                if (gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().get(leaderCard)) {
+            for (LeaderCard leaderCard : player.getLeaderCardList().keySet()) {
+                if (player.getLeaderCardList().get(leaderCard)) {
                     availableCards.add(leaderCard);
                 }
             }
@@ -179,20 +180,16 @@ public class TurnController {
         else {
             allVirtualView.get(playingPlayer).showErrorMsg("You can't do other action in this turn.");
         }
-
     }
 
-    public void playLeader(ChoseLeadersMsg msg){
+    private void playLeader(ChoseLeadersMsg msg, Player player){
         if(msg.getDisOrPlay() == 'D' || msg.getDisOrPlay() == 'd'){
-            int indexPlayer = gameController.getGameSession().getPlayerListByUsername().indexOf(msg.getUsername());
-            if(gameController.getGameSession().getPlayersList().get(indexPlayer).getLeaderCardList().containsKey(msg.getLeaderCard())) {
-                gameController.getGameSession().getPlayersList().get(indexPlayer).getLeaderCardList().remove(msg.getLeaderCard());
+            if(player.getLeaderCardList().containsKey(msg.getLeaderCard())) {
+                player.getLeaderCardList().remove(msg.getLeaderCard());
             }
         }
         else if(msg.getDisOrPlay() == 'P'|| msg.getDisOrPlay()=='p'){
-            boolean activable = false;
-            int indexPlayer = gameController.getGameSession().getPlayerListByUsername().indexOf(msg.getUsername());
-            Player player = gameController.getGameSession().getPlayersList().get(indexPlayer);
+            boolean activate = false;
             LeaderCard leaderCard = msg.getLeaderCard();
             if (player.getLeaderCardList().containsKey(leaderCard)) {
                 int idCard = leaderCard.getLeaderID();
@@ -217,9 +214,9 @@ public class TurnController {
                             }
                         }
                         if (quantity == 0) {
-                            activable = true;
+                            activate = true;
                         } else {
-                            activable = false;
+                            activate = false;
                             break;
                         }
                     }
@@ -228,14 +225,14 @@ public class TurnController {
                     HashMap<ResourceType, Integer> leaderReq = leaderDepot.getResourceReq();
                     for (ResourceType res : leaderReq.keySet()) {
                         if (player.getAllResources().get(res) >= leaderReq.get(res)) {
-                            activable = true;
+                            activate = true;
                         } else {
-                            activable = false;
+                            activate = false;
                             break;
                         }
                     }
                 }
-                if(activable){
+                if(activate){
                    msg.getLeaderCard().activateAbility(player);
                 }
 
@@ -248,7 +245,7 @@ public class TurnController {
         }
     }
 
-    public void showDevCardMarket(DevCardMsg msg){
+    private void showDevCardMarket(DevCardMsg msg){
         if (!mainAction) {
             mainAction=true;
             allVirtualView.get(playingPlayer).askDevCardToBuy(gameSession.getCardMarket().availableCards());
@@ -258,49 +255,48 @@ public class TurnController {
         }
     }
 
-    public void pickDevCard(DevCardReplyMessage msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        Player player= gameSession.getPlayersList().get(indexPlayer);
+    private void pickDevCard(DevCardReplyMessage msg, Player player){
         for(ResourceType res: msg.getDevCard().getCardCost().keySet()){
             for(int i=0; i<msg.getDevCard().getCardCost().get(res); i++){
-                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse());
+                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse(), res);
             }
         }
         gameSession.pickDevCard(msg.getDevCard().getCardType().getColor(), msg.getDevCard().getCardType().getLevel());
         for(VirtualView vv: allVirtualView.values()){
             vv.showDevMarket(gameSession.getCardMarket().availableCards());
         }
-        allVirtualView.get(playingPlayer).askSlot(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(),
-                gameSession.getPlayersList().get(indexPlayer).getDevCardSlot().getAvailableSlots(msg.getDevCard().getCardType().getLevel()));
+        allVirtualView.get(playingPlayer).askSlot(player.getDevCardSlot().getAvailableSlots(msg.getDevCard().getCardType().getLevel()));
 
     }
 
-    public void resToPay(ResToPayMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(playingPlayer);
+    public void resToPay(ResToPayMsg msg, Player player){
         if(msg.getWorS().equals("W") || msg.getWorS().equals("w")){
-            int depot = gameSession.getPlayersList().get(indexPlayer).getWarehouse().hasResource(msg.getRes());
+            int depot = player.getWarehouse().hasResource(msg.getRes());
             if(depot >= 0){
-                gameSession.getPlayersList().get(indexPlayer).removeRes(msg.getRes(), 1);
-                allVirtualView.get(playingPlayer).showWarehouse(gameSession.getPlayersList().get(indexPlayer).getWarehouse());
+                player.removeRes(msg.getRes(), 1);
+                allVirtualView.get(playingPlayer).showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
             }
             else{
                 allVirtualView.get(playingPlayer).showErrorMsg("Invalid depot. Try again!");
+                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse(), msg.getRes());
             }
         }
         else if(msg.getWorS().equals("S") || msg.getWorS().equals("s")){
-            int quantity = gameSession.getPlayersList().get(indexPlayer).getStrongbox().get(msg.getRes());
+            int quantity = player.getStrongbox().get(msg.getRes());
             if(quantity > 1){
-                gameSession.getPlayersList().get(indexPlayer).getStrongbox().remove(msg.getRes(), quantity);
-                gameSession.getPlayersList().get(indexPlayer).getStrongbox().put(msg.getRes(), quantity-msg.getQuantity());
-                allVirtualView.get(playingPlayer).showStrongbox(gameSession.getPlayersList().get(indexPlayer).getStrongbox());
+                player.getStrongbox().remove(msg.getRes(), quantity);
+                player.getStrongbox().put(msg.getRes(), quantity-1);
+                allVirtualView.get(playingPlayer).showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
             }
             else if(quantity == 1){
-                gameSession.getPlayersList().get(indexPlayer).getStrongbox().remove(msg.getRes(), quantity);
-                allVirtualView.get(playingPlayer).showStrongbox(gameSession.getPlayersList().get(indexPlayer).getStrongbox());
+                player.getStrongbox().remove(msg.getRes(), quantity);
+                allVirtualView.get(playingPlayer).showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
 
             }
             else {
+
                 allVirtualView.get(playingPlayer).showErrorMsg("You don't have enough resources. Try again!");
+                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse(), msg.getRes());
             }
         }
         else {
@@ -308,52 +304,47 @@ public class TurnController {
         }
     }
 
-    public void placeCard(PlaceCardMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        gameSession.getPlayersList().get(indexPlayer).placeDevCard(msg.getDevCard(), msg.getSlot());
+    public void placeCard(PlaceCardMsg msg, Player player){
+        player.placeDevCard(msg.getDevCard(), msg.getSlot());
         for(VirtualView vv: allVirtualView.values()){
-            vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(), msg.getUsername());
+            vv.showSlots(player.getDevCardSlot(), msg.getUsername());
         }
         mainAction=true;
     }
 
-    public void activateProduction(ActivateProductionMsg msg){
+    public void activateProduction(ActivateProductionMsg msg, Player player){
         if(!mainAction) {
             mainAction=true;
-            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-            allVirtualView.get(playingPlayer).askActivateProduction(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot().getCardsAvailable());
+            allVirtualView.get(playingPlayer).askCardsToActivateProd(player.getDevCardSlot().getCardsAvailable());
         }
         else {
             allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
         }
     }
 
-    public void productionRes(ProductionMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        Player player = gameSession.getPlayersList().get(indexPlayer);
-        ArrayList<DevCard> devCards = msg.getDevCards();
-        for(DevCard devCard : devCards){
+    public void productionRes(ProductionMsg msg, Player player){
+        for(DevCard devCard : msg.getDevCards()){
             for(ResourceType res : devCard.getProductionCost().keySet()) {
                 for(int i=0; i< devCard.getProductionCost().get(res); i++) {
-                    allVirtualView.get(playingPlayer).chooseResToPay(res, devCard.getProductionCost().get(res));
+                    allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse(), res);
                 }
             }
         }
-        HashMap<ResourceType, Integer> rest = player.storeResources(gameSession.pickProductionRes(devCards));
+        HashMap<ResourceType, Integer> rest = player.storeResources(gameSession.pickProductionRes(msg.getDevCards()));
         for(ResourceType res: rest.keySet()){
-            if(res==ResourceType.FAITH){
-                gameSession.getPlayersList().get(indexPlayer).increaseFaith(rest.get(res));
+            if(res == ResourceType.FAITH){
+                player.increaseFaith(rest.get(res));
             }
             else{
                 for(int i=0; i<rest.get(res); i++){
-                    allVirtualView.get(playingPlayer).askChooseRes();
-                    if(gameSession.getPlayersList().get(indexPlayer).getStrongbox().containsKey(msg.getRes())){
-                       int quantity= gameSession.getPlayersList().get(indexPlayer).getStrongbox().get(msg.getRes());
-                       gameSession.getPlayersList().get(indexPlayer).getStrongbox().remove(msg.getRes(), quantity);
-                       gameSession.getPlayersList().get(indexPlayer).getStrongbox().put(msg.getRes(), quantity+1);
+                    ArrayList<String> resourceTypes= gameController.availableRes();
+                    allVirtualView.get(playingPlayer).askChooseOneRes(resourceTypes, "Choose resource by typing COIN, SHIELD, SERVANT or STONE");
+                    if(player.getStrongbox().containsKey(msg.getRes())){
+                       int quantity= player.getStrongbox().get(msg.getRes());
+                       player.getStrongbox().replace(msg.getRes(), quantity+1);
                     }
                     else{
-                        gameSession.getPlayersList().get(indexPlayer).getStrongbox().put(msg.getRes(), 1);
+                        player.getStrongbox().put(msg.getRes(), 1);
                     }
                 }
             }
@@ -365,11 +356,21 @@ public class TurnController {
 
     }
 
+    private void placeChooseRes(ResourceReply msg, Player player){
+        if(player.getStrongbox().containsKey(msg.getRes())){
+            player.getStrongbox().replace(msg.getRes(), player.getStrongbox().get(msg.getRes())+1);
+        }
+        else{
+            player.getStrongbox().put(msg.getRes(), 1);
+        }
+    }
+
     /**
      * if the player wants to buy from the marbles market.
      * @param msg
+     * @param player
      */
-    public void pickMarketRes(PickResMsg msg){
+    public void pickMarketRes(PickResMsg msg, Player player){
         if(!mainAction){
             mainAction=true;
             allVirtualView.get(playingPlayer).askMarketLineToGet(gameSession.getMarket());
@@ -383,44 +384,41 @@ public class TurnController {
      * the choice of which row or column is passed; control of white and red marbles.
      * @param msg
      */
-    public void rowOrCol(RowOrColMsg msg){
+    public void rowOrCol(GetMarketLineReply msg, Player player){
         HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
         for(VirtualView vv: allVirtualView.values()){
             vv.showMarket(gameSession.getMarket());
         }
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         for(ResourceType res: resources.keySet()){
             if(res == ResourceType.EMPTY){
 
-                if(gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().size()==1){
-                    ResourceType conversion = gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().get(0);
+                if(player.getMarbleConversion().size()==1){
+                    ResourceType conversion = player.getMarbleConversion().get(0);
                     int numWhiteMarble= resources.get(ResourceType.EMPTY);
                     resources.remove(ResourceType.EMPTY);
                     resources.put(conversion, numWhiteMarble);
                     for(int i=0; i<resources.get(res); i++){
-                        allVirtualView.get(playingPlayer).askFloor(gameSession.getPlayersList().get(indexPlayer).getWarehouse(), res);
+                        allVirtualView.get(playingPlayer).askRearrange(player.getWarehouse());
+                        allVirtualView.get(playingPlayer).askFloor(player.getWarehouse(), res);
 
                     }
 
                 }
-                else if(gameSession.getPlayersList().get(indexPlayer).getMarbleConversion().size()>1){
+                else if(player.getMarbleConversion().size()>1){
                     for(int i=0; i<resources.get(res); i++){
                         allVirtualView.get(playingPlayer).askChooseMarbleConversion();
                     }
-
                 }
                 else{
                     resources.remove(ResourceType.EMPTY);
                 }
             }
             else if(res == ResourceType.FAITH){
-                gameSession.getPlayersList().get(indexPlayer).increaseFaith(resources.get(res));
+                player.increaseFaith(resources.get(res));
             }
             else{
-                resTmp=res;
-                resQuantityTmp=resources.get(res);
                 for (int i=0; i<resources.get(res); i++) {
-                    allVirtualView.get(playingPlayer).askFloor(gameSession.getPlayersList().get(indexPlayer).getWarehouse(), res);
+                    allVirtualView.get(playingPlayer).askFloor(player.getWarehouse(), res);
                 }
             }
         }
@@ -429,45 +427,47 @@ public class TurnController {
     /**
      * only if the player has more than one marble's ability.
      * @param msg
+     * @param player
      */
-    public void chosenMarbleConversion(WhiteConversionMsg msg){
-        allVirtualView.get(playingPlayer).askFloor(gameSession.getPlayersList().get(indexPlayer).getWarehouse());
+    private void chosenMarbleConversion(WhiteConversionMsg msg, Player player){
+        allVirtualView.get(playingPlayer).askFloor(player.getWarehouse());
     }
 
+    private void askRearrange(RearrangeMsg msg, Player player){
+        if(msg.isRearrange()){
+            allVirtualView.get(playingPlayer).askDepotToRearrange();
+            player.getWarehouse().rearrange(msg.getDepot1(), msg.getDepot2());
+        }
+    }
     /**
      * place the resources in the chosen depot.
      * @param msg
+     * @param player
      */
-    public void placeRes(PlaceMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        Player player= gameSession.getPlayersList().get(indexPlayer);
-        if(msg.isRearrange()){
-           gameSession.getPlayersList().get(indexPlayer).getWarehouse().rearrange(msg.getDepot1(), msg.getDepot2());
+    public void placeRes(PlaceMsg msg, Player player){
+        if(msg.getFloor()>0){
+            int restRes = player.placeResources(msg.getRes(), 1, msg.getFloor());
+            if (restRes>0){
+                for(int i=0; i<gameSession.getPlayersList().size(); i++){
+                    if(gameSession.getPlayersList().indexOf(player)!=i){
+                        gameSession.getPlayersList().get(i).increaseFaith(restRes);
+                    }
+                }
+            }
         }
         else{
-            if(msg.getFloor()>0){
-                int restRes = this.gameSession.getPlayersList().get(indexPlayer).placeResources(msg.getRes(), 1, msg.getFloor());
-                if (restRes>0){
-                    for(int i=0; i<gameSession.getPlayersList().size(); i++){
-                        if(indexPlayer!=i){
-                            gameSession.getPlayersList().get(i).increaseFaith(restRes);
-                        }
-                    }
-                }
-            }
-            else{
-                for(int i=0; i<gameSession.getPlayersList().size(); i++){
-                    if(indexPlayer!=i){
-                        gameSession.getPlayersList().get(i).increaseFaith(1);
-                    }
+            for(int i=0; i<gameSession.getPlayersList().size(); i++){
+                if(gameSession.getPlayersList().indexOf(player)!=i){
+                    gameSession.getPlayersList().get(i).increaseFaith(1);
                 }
             }
         }
+
         for(VirtualView vv: allVirtualView.values()){
             vv.showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
         }
         mainAction=true;
-    }
+}
 
     private void endTurn(EndTurnMsg msg){
         if(gameController.getGameSession().getPlayersList().size() == 1){
@@ -483,7 +483,6 @@ public class TurnController {
             mainAction=false;
         }
     }
-
 
     private void drawToken() {
         int endGameCode = ((SinglePlayerGame) gameController.getGameSession()).turnAction();
@@ -503,8 +502,6 @@ public class TurnController {
         }
     }
 
-
-
     public void  proxPlayer(){
         int player = gameController.getPlayers().indexOf(playingPlayer);
         if(player +1 < gameController.getGameSession().getPlayersList().size()){
@@ -515,7 +512,6 @@ public class TurnController {
         }
         playingPlayer = gameController.getPlayers().get(player);
     }
-
 
     public void newTurn(){
         VirtualView vv = allVirtualView.get(playingPlayer);

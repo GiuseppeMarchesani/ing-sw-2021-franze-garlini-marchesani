@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+/**
+ * reply message to choose marble conversion
+ */
 public class WhiteConversionMsg extends GeneralMessage{
     private ResourceType res;
     private int quantity;
