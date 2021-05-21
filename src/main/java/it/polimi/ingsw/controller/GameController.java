@@ -173,13 +173,14 @@ public class GameController {
             turnController.getMessage(msg);
         }
         else if(msg.getMessageType() == ACTIVATE_PRODUCTION){
-            activateProduction((ActivateProductionMsg) msg);
+            turnController.setPhaseTurn(PhaseTurn.ACTION);
+            turnController.getMessage(msg);
         }
         else if(msg.getMessageType() == PRODUCTION_RES){
-            productionRes((ProductionMsg) msg);
+            turnController.getMessage(msg);
         }
         else if(msg.getMessageType()== PAY_RES){
-            resToPay((ResToPayMsg) msg);
+            turnController.getMessage(msg);
         }
         else if(msg.getMessageType() == PICK_MARKETRES){
             pickMarketRes((PickResMsg) msg);
@@ -202,25 +203,7 @@ public class GameController {
         }
     }
 
-    private void showLeaderCards(PlayLeaderMsg msg){
-        turnController.setPhaseTurn(PhaseTurn.ACTION);
-        turnController.getMessage(msg);
-    }
-    public void playLeader(ChoseLeadersMsg msg){
 
-    }
-    public void showDevCardMarket(DevCardMsg msg){
-        turnController.setPhaseTurn(PhaseTurn.ACTION);
-        turnController.getMessage(msg);
-    }
-    public void pickDevCard(DevCardReplyMessage msg){
-        turnController.setPhaseTurn(PhaseTurn.ACTION);
-        turnController.getMessage(msg);
-    }
-    public void placeCard(PlaceCardMsg msg){
-        turnController.setPhaseTurn(PhaseTurn.ACTION);
-        turnController.getMessage(msg);
-    }
     public void  activateProduction(ActivateProductionMsg msg){
         turnController.setPhaseTurn(PhaseTurn.ACTION);
         turnController.getMessage(msg);

@@ -72,13 +72,13 @@ public class TurnController {
         if(msg.getMessageType() == SHOW_LEADER){
             ArrayList<LeaderCard> leaderCards= new ArrayList<>();
             leaderCards.addAll(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().keySet());
-            vv.showLeaderCards(leaderCards);
+            vv.showLeaderCards(leaderCards, msg.getUsername());
         }
         else if(msg.getMessageType()==SHOW_MARKET){
             vv.showMarket(gameSession.getMarket());
         }
         else if(msg.getMessageType()== SHOW_DEV_MARKET){
-            vv.showDevMarket(gameSession.getCardMarket());
+            vv.showDevMarket(gameSession.getCardMarket().availableCards());
         }
         else if(msg.getMessageType()== SHOW_SLOT){
             vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(), msg.getUsername());
@@ -241,13 +241,17 @@ public class TurnController {
 
             }
         }
+        ArrayList<LeaderCard> leaderCard= new ArrayList<>();
+        leaderCard.add(msg.getLeaderCard());
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showLeaderCards(leaderCard, msg.getUsername());
+        }
     }
 
     public void showDevCardMarket(DevCardMsg msg){
         if (!mainAction) {
             mainAction=true;
-            allVirtualView.get(playingPlayer).askDevCardToBuy(gameSession.getCardMarket(),
-                    gameSession.getCardMarket().availableCards());
+            allVirtualView.get(playingPlayer).askDevCardToBuy(gameSession.getCardMarket().availableCards());
         }
         else {
             allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
@@ -257,15 +261,18 @@ public class TurnController {
     public void pickDevCard(DevCardReplyMessage msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player= gameSession.getPlayersList().get(indexPlayer);
-
         for(ResourceType res: msg.getDevCard().getCardCost().keySet()){
             for(int i=0; i<msg.getDevCard().getCardCost().get(res); i++){
-                allVirtualView.get(playingPlayer).askResToPay(player.getStrongbox(), player.getWarehouse());
+                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse());
             }
         }
         gameSession.pickDevCard(msg.getDevCard().getCardType().getColor(), msg.getDevCard().getCardType().getLevel());
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showDevMarket(gameSession.getCardMarket().availableCards());
+        }
         allVirtualView.get(playingPlayer).askSlot(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(),
                 gameSession.getPlayersList().get(indexPlayer).getDevCardSlot().getAvailableSlots(msg.getDevCard().getCardType().getLevel()));
+
     }
 
     public void resToPay(ResToPayMsg msg){
@@ -304,7 +311,9 @@ public class TurnController {
     public void placeCard(PlaceCardMsg msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         gameSession.getPlayersList().get(indexPlayer).placeDevCard(msg.getDevCard(), msg.getSlot());
-        allVirtualView.get(playingPlayer).showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot());
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(), msg.getUsername());
+        }
         mainAction=true;
     }
 
@@ -349,7 +358,9 @@ public class TurnController {
                 }
             }
         }
-        allVirtualView.get(playingPlayer).showStrongbox(player.getStrongbox());
+        for(VirtualView vv: allVirtualView.values()) {
+            vv.showResources(player.getStrongbox(), player.getWarehouse(), msg.getUsername());
+        }
 
 
     }
@@ -361,13 +372,11 @@ public class TurnController {
     public void pickMarketRes(PickResMsg msg){
         if(!mainAction){
             mainAction=true;
-            allVirtualView.get(playingPlayer).showMarket(gameSession.getMarket());
-            allVirtualView.get(playingPlayer).askGetMarketRes();
+            allVirtualView.get(playingPlayer).askMarketLineToGet(gameSession.getMarket());
         }
         else {
             allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
         }
-
     }
 
     /**
@@ -376,6 +385,9 @@ public class TurnController {
      */
     public void rowOrCol(RowOrColMsg msg){
         HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showMarket(gameSession.getMarket());
+        }
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         for(ResourceType res: resources.keySet()){
             if(res == ResourceType.EMPTY){
@@ -428,6 +440,7 @@ public class TurnController {
      */
     public void placeRes(PlaceMsg msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+        Player player= gameSession.getPlayersList().get(indexPlayer);
         if(msg.isRearrange()){
            gameSession.getPlayersList().get(indexPlayer).getWarehouse().rearrange(msg.getDepot1(), msg.getDepot2());
         }
@@ -449,6 +462,9 @@ public class TurnController {
                     }
                 }
             }
+        }
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
         }
         mainAction=true;
     }
@@ -503,7 +519,8 @@ public class TurnController {
 
     public void newTurn(){
         VirtualView vv = allVirtualView.get(playingPlayer);
-        vv.showMessage("It's your turn, choose action!");
+        vv.showMessage("It's your turn");
+        vv.askAction();
     }
     public GameController getGameController() {
         return gameController;
