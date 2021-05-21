@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.model.Card.LeaderCard;
-import it.polimi.ingsw.controller.Turn;
+import it.polimi.ingsw.controller.TurnController;
 
 import java.io.IOException;
 import java.util.ArrayList;

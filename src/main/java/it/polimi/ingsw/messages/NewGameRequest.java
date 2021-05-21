@@ -1,15 +1,10 @@
 package it.polimi.ingsw.messages;
 
 public class NewGameRequest extends GeneralMessage {
-    private int gameID;
     private int numOfPlayers;
-    public NewGameRequest(String username, MessageType messageType, int gameID, int numOfPlayers) {
-        super(username, messageType);
-        this.gameID= gameID;
+    public NewGameRequest(String username, MessageType messageType, String gameID, int numOfPlayers) {
+        super(username, messageType, gameID);
         this.numOfPlayers= numOfPlayers;
-    }
-    public int getGameID(){
-        return gameID;
     }
 
     public int getNumOfPlayers(){

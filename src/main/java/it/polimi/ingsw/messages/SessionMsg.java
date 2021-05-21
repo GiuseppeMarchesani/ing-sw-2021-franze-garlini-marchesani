@@ -1,7 +1,7 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.network.ClientHandler;
-import it.polimi.ingsw.controller.Turn;
+import it.polimi.ingsw.controller.TurnController;
 
 import java.io.IOException;
 import java.util.Locale;
@@ -20,7 +20,7 @@ public class SessionMsg extends CommandMsg{
     @Override
     public void processMessage(ClientHandler clientHandler) throws IOException
     {
-
+/*
         SessionAnswerMsg answerMsg;
         GameList activeGames= GameList.getInstance();
                 if(activeGames.getActiveGames().get(gameId)==null){
@@ -42,5 +42,9 @@ public class SessionMsg extends CommandMsg{
 
 
         clientHandler.sendAnswerMessage(answerMsg);
+
+ */
     }
+
+
 }

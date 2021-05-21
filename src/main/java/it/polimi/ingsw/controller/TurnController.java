@@ -3,10 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Card.*;
-import it.polimi.ingsw.model.enumeration.Color;
-import it.polimi.ingsw.model.enumeration.PhaseTurn;
-import it.polimi.ingsw.model.enumeration.ResourceType;
-import it.polimi.ingsw.model.enumeration.TurnState;
+import it.polimi.ingsw.model.enumeration.*;
 import it.polimi.ingsw.network.ClientHandler;
 
 import it.polimi.ingsw.view.View;
@@ -21,14 +18,14 @@ import java.util.stream.Collectors;
 import static it.polimi.ingsw.messages.MessageType.*;
 import static it.polimi.ingsw.messages.MessageType.PLACE_RES;
 
-public class Turn {
+public class TurnController {
 
     private HashMap<String, Boolean> activePlayer;
     private HashMap<String, VirtualView> allVirtualView;
     private String playingPlayer;
     private boolean endGame;
     private boolean mainAction;
-    private boolean leaderAction;
+    private int leaderAction=0;
     private Game gameSession;
     private TurnState turnState;
     private GameController gameController;
@@ -36,18 +33,17 @@ public class Turn {
     private ResourceType resTmp;
     private int resQuantityTmp;
 
-    public Turn(GameController gameController){
+    public TurnController(GameController gameController){
         endGame=false;
         mainAction=false;
-        leaderAction=false;
+        leaderAction=0;
         this.gameController=gameController;
         playingPlayer =  gameController.getGameSession().getPlayersList().get(0).getUsername();
         phaseTurn = PhaseTurn.START_TURN;
         this.gameSession = gameController.getGameSession();
         for(int i=0; i<gameController.getPlayers().size(); i++){
             activePlayer.put(gameController.getPlayers().get(i), true);
-            allVirtualView.put(gameController.getGameSession().getPlayersList().get(i).getUsername(),
-                    gameController.getAllVirtualView().get(i));
+            allVirtualView = gameController.getAllVirtualView();
         }
 
     }
@@ -56,10 +52,13 @@ public class Turn {
         switch (phaseTurn){
             case START_TURN:
                 startTurn(receivedMessage);
+                break;
             case ACTION:
                 action(receivedMessage);
+                break;
             case NEXT_TURN:
                 endTurn(receivedMessage);
+                break;
             default:
                 allVirtualView.get(playingPlayer).showErrorMsg("Error!");
                 break;
@@ -70,8 +69,10 @@ public class Turn {
     private void startTurn(GeneralMessage msg){
         VirtualView vv = allVirtualView.get(playingPlayer);
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        if(msg.getMessageType()== SHOW_LEADER){
-            vv.showLeaderCards(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList());
+        if(msg.getMessageType() == SHOW_LEADER){
+            ArrayList<LeaderCard> leaderCards= new ArrayList<>();
+            leaderCards.addAll(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().keySet());
+            vv.showLeaderCards(leaderCards);
         }
         else if(msg.getMessageType()==SHOW_MARKET){
             vv.showMarket(gameSession.getMarket());
@@ -80,21 +81,23 @@ public class Turn {
             vv.showDevMarket(gameSession.getCardMarket());
         }
         else if(msg.getMessageType()== SHOW_SLOT){
-            vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot());
+            vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(), msg.getUsername());
         }
         else if(msg.getMessageType() == SHOW_ALL_SLOT){
             for(int i=0; i<gameSession.getPlayersList().size(); i++){
-                vv.showSlots(gameSession.getPlayersList().get(i).getDevCardSlot());
+                vv.showSlots(gameSession.getPlayersList().get(i).getDevCardSlot(),
+                        gameSession.getPlayersList().get(i).getUsername());
             }
         }
-        else if(msg.getMessageType()== SHOW_RES){
+        else if(msg.getMessageType() == SHOW_RES){
             vv.showResources(gameSession.getPlayersList().get(indexPlayer).getStrongbox(),
-                    gameSession.getPlayersList().get(indexPlayer).getWarehouse());
+                    gameSession.getPlayersList().get(indexPlayer).getWarehouse(), msg.getUsername());
         }
         else if(msg.getMessageType()== SHOW_ALL_RES){
             for(int i=0; i<gameSession.getPlayersList().size(); i++){
                 vv.showResources(gameSession.getPlayersList().get(i).getStrongbox(),
-                        gameSession.getPlayersList().get(i).getWarehouse());
+                        gameSession.getPlayersList().get(i).getWarehouse(),
+                        gameSession.getPlayersList().get(i).getUsername());
             }
         }
         else if(msg.getMessageType()== SHOW_FAITH_TRACK){
@@ -157,14 +160,24 @@ public class Turn {
     }
 
     public void showLeaderCards(PlayLeaderMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+        if(leaderAction!=2 && !mainAction) {
+            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
 
-        if(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().size()>0){
-            leaderAction=true;
-            allVirtualView.get(playingPlayer).askChooseLeader(gameSession.getPlayersList().get(indexPlayer).getLeaderCardList());
+            ArrayList<LeaderCard> availableCards = new ArrayList<>();
+            for (LeaderCard leaderCard : gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().keySet()) {
+                if (gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().get(leaderCard)) {
+                    availableCards.add(leaderCard);
+                }
+            }
+            if (!availableCards.isEmpty()) {
+                leaderAction++;
+                allVirtualView.get(playingPlayer).askLeaderCardToPlay(availableCards);
+            } else {
+                allVirtualView.get(playingPlayer).showErrorMsg("You don't have available leader's card.");
+            }
         }
         else {
-            allVirtualView.get(playingPlayer).showErrorMsg("You don't have available leader's card.");
+            allVirtualView.get(playingPlayer).showErrorMsg("You can't do other action in this turn.");
         }
 
     }
@@ -172,7 +185,7 @@ public class Turn {
     public void playLeader(ChoseLeadersMsg msg){
         if(msg.getDisOrPlay() == 'D' || msg.getDisOrPlay() == 'd'){
             int indexPlayer = gameController.getGameSession().getPlayerListByUsername().indexOf(msg.getUsername());
-            if(gameController.getGameSession().getPlayersList().get(indexPlayer).getLeaderCardList().contains(msg.getLeaderCard())) {
+            if(gameController.getGameSession().getPlayersList().get(indexPlayer).getLeaderCardList().containsKey(msg.getLeaderCard())) {
                 gameController.getGameSession().getPlayersList().get(indexPlayer).getLeaderCardList().remove(msg.getLeaderCard());
             }
         }
@@ -181,8 +194,7 @@ public class Turn {
             int indexPlayer = gameController.getGameSession().getPlayerListByUsername().indexOf(msg.getUsername());
             Player player = gameController.getGameSession().getPlayersList().get(indexPlayer);
             LeaderCard leaderCard = msg.getLeaderCard();
-            if (player.getLeaderCardList().contains(leaderCard)) {
-                int indexLeader = gameSession.getPlayersList().get(indexPlayer).getLeaderCardList().indexOf(msg.getLeaderCard());
+            if (player.getLeaderCardList().containsKey(leaderCard)) {
                 int idCard = leaderCard.getLeaderID();
                 if ((idCard >= 48 && idCard <= 51)||(idCard>=56 && idCard<=59) || (idCard>=60 && idCard<=63)) {
                     ArrayList<DevCard> devCardsPlayer = player.getDevCardSlot().getAllDevCards();
@@ -224,7 +236,7 @@ public class Turn {
                     }
                 }
                 if(activable){
-                    player.getLeaderCardList().get(indexLeader).activateAbility(player);
+                   msg.getLeaderCard().activateAbility(player);
                 }
 
             }
@@ -232,8 +244,14 @@ public class Turn {
     }
 
     public void showDevCardMarket(DevCardMsg msg){
-        allVirtualView.get(playingPlayer).askBuyDevCard(gameSession.getCardMarket(),
-                gameSession.getCardMarket().availableCards());
+        if (!mainAction) {
+            mainAction=true;
+            allVirtualView.get(playingPlayer).askDevCardToBuy(gameSession.getCardMarket(),
+                    gameSession.getCardMarket().availableCards());
+        }
+        else {
+            allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
+        }
     }
 
     public void pickDevCard(DevCardReplyMessage msg){
@@ -290,14 +308,15 @@ public class Turn {
         mainAction=true;
     }
 
-
-
     public void activateProduction(ActivateProductionMsg msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        allVirtualView.get(playingPlayer).askActivateProduction(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot().getCardsAvailable());
-        // controllo sulle risorse per scegliere ANY e togliere FAITH
-        // aggiungere quelle rimanenti nella strongbox
-        //TODO: notifare alla view le modifiche
+        if(!mainAction) {
+            mainAction=true;
+            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+            allVirtualView.get(playingPlayer).askActivateProduction(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot().getCardsAvailable());
+        }
+        else {
+            allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
+        }
     }
 
     public void productionRes(ProductionMsg msg){
@@ -340,8 +359,15 @@ public class Turn {
      * @param msg
      */
     public void pickMarketRes(PickResMsg msg){
-        allVirtualView.get(playingPlayer).showMarket(gameSession.getMarket());
-        allVirtualView.get(playingPlayer).askGetMarketRes();
+        if(!mainAction){
+            mainAction=true;
+            allVirtualView.get(playingPlayer).showMarket(gameSession.getMarket());
+            allVirtualView.get(playingPlayer).askGetMarketRes();
+        }
+        else {
+            allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
+        }
+
     }
 
     /**
@@ -427,14 +453,17 @@ public class Turn {
         mainAction=true;
     }
 
-    private void endTurn(GeneralMessage msg){
+    private void endTurn(EndTurnMsg msg){
         if(gameController.getGameSession().getPlayersList().size() == 1){
             drawToken();
+            proxPlayer();
         }
         else{
             proxPlayer();
             setPhaseTurn(PhaseTurn.START_TURN);
-            leaderAction=false;
+            allVirtualView.get(playingPlayer).showMessage("It's your turn!");
+            allVirtualView.get(playingPlayer).askAction();
+            leaderAction=0;
             mainAction=false;
         }
     }
@@ -442,16 +471,22 @@ public class Turn {
 
     private void drawToken() {
         int endGameCode = ((SinglePlayerGame) gameController.getGameSession()).turnAction();
-        if(endGameCode == 0) {
-            //No more Development Card in a deck - You lose.
+        if(endGameCode == 1) {
+            HashMap<String, Integer> faithTrack= new HashMap<>();
+            faithTrack.put(playingPlayer, gameSession.getPlayersList().get(0).getFaithSpace());
+            faithTrack.put("Lorenzo il Magnifico", ((SinglePlayerGame) gameSession).getBlackCross().getFaithSpace());
+            allVirtualView.get(playingPlayer).showFaithTrack(faithTrack);
+            allVirtualView.get(playingPlayer).showWinMessage("Lorenzo il Magnifico");
+            gameController.setGameState(GameState.END_GAME);
         }
-        else if(endGameCode == 1) {
-            //Lorenzo reached the last faith space - You lose.
-        }
-        else if(endGameCode == 2) {
-            //You win - Total score:
+        else if(endGameCode == -1) {
+            int finalVP= gameSession.getPlayersList().get(0).getFinalVP();
+            allVirtualView.get(playingPlayer).showCurrentVP(finalVP);
+            allVirtualView.get(playingPlayer).showWinMessage(playingPlayer);
+            gameController.setGameState(GameState.END_GAME);
         }
     }
+
 
 
     public void  proxPlayer(){
@@ -466,7 +501,10 @@ public class Turn {
     }
 
 
-
+    public void newTurn(){
+        VirtualView vv = allVirtualView.get(playingPlayer);
+        vv.showMessage("It's your turn, choose action!");
+    }
     public GameController getGameController() {
         return gameController;
     }
@@ -493,7 +531,7 @@ public class Turn {
     public void disconnect(String username){
         activePlayer.put(username,false);
     }
-    //TODO: Testing if it works
+
     public boolean hasInactivePlayers(){
         return(getInactivePlayers()!=null);
     }

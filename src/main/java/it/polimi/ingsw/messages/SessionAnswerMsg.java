@@ -47,7 +47,7 @@ public class SessionAnswerMsg extends AnswerMsg{
                 System.out.println("Partita creata con successo.\n");
                 System.out.println("Premi Invio per iniziare la partita.\n");
                 scanner.nextLine();
-                output.writeObject((Object) new StartGameMsg());
+                // output.writeObject((Object) new StartGameMsg(,MessageType.START_GAME));
         }
 
     }

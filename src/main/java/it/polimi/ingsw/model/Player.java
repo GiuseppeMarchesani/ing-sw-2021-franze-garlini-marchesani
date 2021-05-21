@@ -18,7 +18,7 @@ public class Player {
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
     private int faithSpace;
-    private ArrayList<LeaderCard> leaderCardList;
+    private  HashMap<LeaderCard, Boolean> leaderCardList;
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 
@@ -56,9 +56,9 @@ public class Player {
     public void setVictoryPoint(int VP){ this.victoryPoint=VP;
     }
 
-    public ArrayList<LeaderCard> getLeaderCardList() { return leaderCardList;}
+    public HashMap<LeaderCard, Boolean> getLeaderCardList() { return leaderCardList;}
 
-    public void setLeaderCardList(ArrayList<LeaderCard> leaderCardList) { this.leaderCardList = leaderCardList;}
+    public void setLeaderCardList(HashMap<LeaderCard, Boolean> leaderCardList) { this.leaderCardList = leaderCardList;}
 
     public void setDevCardSlot(DevCardSlot developCardSlot) { this.devCardSlot = developCardSlot;}
 
