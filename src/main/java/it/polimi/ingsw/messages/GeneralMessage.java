@@ -10,7 +10,6 @@ public abstract class GeneralMessage {
         this.messageType=messageType;
         this.gameID=gameID;
     }
-
     public String getUsername(){ return username;}
     public MessageType getMessageType(){
         return messageType;

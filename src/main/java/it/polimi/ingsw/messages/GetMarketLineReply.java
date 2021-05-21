@@ -1,9 +1,9 @@
 package it.polimi.ingsw.messages;
 
-public class RowOrColMsg extends GeneralMessage{
+public class GetMarketLineReply extends GeneralMessage{
     private char rowOrCol;
     private int num;
-    public RowOrColMsg(String username, MessageType messageType, String gameID, char rowOrCol, int num) {
+    public GetMarketLineReply(String username, MessageType messageType, String gameID, char rowOrCol, int num) {
         super(username, messageType, gameID);
         this.rowOrCol = rowOrCol;
         this.num = num;

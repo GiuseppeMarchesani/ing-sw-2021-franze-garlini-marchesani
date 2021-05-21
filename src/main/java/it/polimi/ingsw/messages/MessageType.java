@@ -17,6 +17,8 @@ public enum MessageType {
     SHOW_ALL_RES,
     SHOW_INFO,
     DRAW_LEADER,
+    REARRANGE_REPLY,
+    DEPOT_TO_REARRANGE,
     START_GAME,
     PLAYLEADER,
     LEADER_REPLY,

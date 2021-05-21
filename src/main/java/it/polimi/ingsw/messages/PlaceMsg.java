@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+/**
+ * message to reply at floor request
+ */
 public class PlaceMsg extends GeneralMessage{
     private ResourceType res;
     private int floor;
