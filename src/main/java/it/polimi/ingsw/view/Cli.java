@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
@@ -8,7 +7,6 @@ import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.observer.Observer;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -37,6 +35,9 @@ public class Cli extends ObservableView implements View{
      */
     public Cli() {
         out = System.out;
+        for(Command command: Command.values()) {
+            commandList.add(command.getVal());
+        }
     }
 
 
@@ -66,10 +67,6 @@ public class Cli extends ObservableView implements View{
      * Starts the command-line interface.
      */
     public void init() {
-        for(Command command: Command.values()) {
-            commandList.add(command.getVal());
-        }
-
         out.println("\n"+
                 "    __  __           _                     __   _____      _                                          " + "\n" +
                 "	|  \\/  |         | |                   / _| |  __ \\    (_)                                         " + "\n" +
@@ -107,7 +104,6 @@ public class Cli extends ObservableView implements View{
     public void askGameCreation() {
         //TODO: askGameCreation()
     }
-
 
     @Override
     public void askPlayersNumber() {
@@ -174,7 +170,8 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showLeaderCards(List<LeaderCard> leaderCards) {
+    public void showLeaderCards(List<LeaderCard> leaderCards, String username) {
+        out.println(username);
         for(LeaderCard leader: leaderCards) {
             out.println(leader.toString());
         }
@@ -189,10 +186,8 @@ public class Cli extends ObservableView implements View{
 
         while(!checkId) {
             if(i>0) out.println(STR_WRONG_INPUT);
-            out.println("Choose between one of these Development Card to buy by typing its id.");
-            for(DevCard devCard: devCardList) {
-                out.println(devCard.toString());
-            }
+            out.println("Choose among one of these Development Card to buy by typing its id.");
+            showDevMarket(devCardList);
             try {
                 id = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
@@ -213,9 +208,9 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askMarketLineToGet() {
+    public void askMarketLineToGet(Market market) {
         char rowOrCol = '0';
-
+        showMarket(market);
         out.println("Do you want to pick a ROW or a COL?");
         try {
             while(true) {
@@ -254,14 +249,16 @@ public class Cli extends ObservableView implements View{
         for(int i=0; i<4; i++) {
             for(int j=0; j<3; j++) {
                 ResourceType res = market.getMarketTray()[i][j];
-                if(res.equals(ResourceType.COIN)) out.print(ANSI_YELLOW + " @ " + ANSI_RESET);
-                else if(res.equals(ResourceType.SERVANT)) out.print(ANSI_PURPLE+ " @ " + ANSI_RESET);
-                else if(res.equals(ResourceType.FAITH)) out.print(ANSI_RED+ " @ " + ANSI_RESET);
-                else if(res.equals(ResourceType.EMPTY)) out.print(ANSI_WHITE+ " @ " + ANSI_RESET);
-                else if(res.equals(ResourceType.STONE)) out.print(ANSI_BLACK+ " @ " + ANSI_RESET);
-                else if(res.equals(ResourceType.SHIELD)) out.print(ANSI_BLUE+ " @ " + ANSI_RESET);
+                out.print(getAnsiColor(res) + " @ " + ANSI_RESET);
             }
             out.println("\n");
+        }
+    }
+
+    @Override
+    public void showDevMarket(List<DevCard> availableCards) {
+        for(DevCard devCard: availableCards) {
+            out.println(devCard.toString());
         }
     }
 
@@ -314,24 +311,28 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
+    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
         String ansiColor = null;
-
+        out.println("Player: " + username);
         out.println("Warehouse: ");
         for(int i=0; i<warehouse.getDepotList().size(); i++) {
-            if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.COIN)) ansiColor = ANSI_YELLOW;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.SERVANT)) ansiColor = ANSI_PURPLE;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.SHIELD)) ansiColor = ANSI_BLUE;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.STONE)) ansiColor = ANSI_BLACK;
-            out.println(ansiColor + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
+            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
         }
         out.println("\nStrongbox: ");
         for(ResourceType res: strongbox.keySet()) {
-            if(res.equals(ResourceType.COIN)) ansiColor = ANSI_YELLOW;
-            else if(res.equals(ResourceType.SERVANT)) ansiColor = ANSI_PURPLE;
-            else if(res.equals(ResourceType.SHIELD)) ansiColor = ANSI_BLUE;
-            else if(res.equals(ResourceType.STONE)) ansiColor = ANSI_BLACK;
-            out.println(ansiColor + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
+            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
+        }
+    }
+
+    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
+        String ansiColor = null;
+        out.println("Your Warehouse: ");
+        for(int i=0; i<warehouse.getDepotList().size(); i++) {
+            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
+        }
+        out.println("\nYour Strongbox: ");
+        for(ResourceType res: strongbox.keySet()) {
+            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
         }
     }
 
@@ -348,12 +349,13 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showCurrentVP(int victoryPoints) {
-        out.println("Your current Victory Points: " + victoryPoints);
+    public void showCurrentVP(int victoryPoints, String username) {
+        out.println("Player: " + username);
+        out.println("Victory Points: " + victoryPoints);
     }
 
     @Override
-    public void showSlots(DevCardSlot devCardSlot) {
+    public void showSlots(DevCardSlot devCardSlot, String username) {
         int slotNumber = 0;
         for(int i=0; i<devCardSlot.getSlotDev().size(); i++) {
             slotNumber = i+1;
@@ -366,55 +368,170 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
-        int resQuantity = 0;
-        String ansiColor = null;
-        boolean any = false;
-        HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();
-        paymentWarehouse.put(ResourceType.COIN, 0);
-        paymentWarehouse.put(ResourceType.SERVANT, 0);
-        paymentWarehouse.put(ResourceType.SHIELD, 0);
-        paymentWarehouse.put(ResourceType.STONE, 0);
+    public void askSlot(ArrayList<Integer> availableSlots) {
+        int chosenSlot = -1;
+        boolean checkSlot = false;
 
-        showResources(strongbox, warehouse);
-        out.println("\nSelecting resources from Warehouse, all the other resources will be taken from the strongbox:");
-        for(int i=0; i<warehouse.getDepotList().size(); i++) {
-            if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.COIN)) ansiColor = ANSI_YELLOW;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.SERVANT)) ansiColor = ANSI_PURPLE;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.SHIELD)) ansiColor = ANSI_BLUE;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.STONE)) ansiColor = ANSI_BLACK;
-            else if(warehouse.getDepotList().get(i).getResourceType().equals(ResourceType.ANY)) any = true;
-            if(!any) out.println(ansiColor + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": ");
+        while(!checkSlot) {
             try {
-                resQuantity = Integer.parseInt(readLine());
+                chosenSlot = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
                 out.println(STR_WRONG_INPUT);
             }
-            paymentWarehouse.put(warehouse.getDepotList().get(i).getResourceType(), resQuantity);
+            if(availableSlots.contains(chosenSlot-1)) {
+                checkSlot = true;
+                int finalChosenSlot = chosenSlot;
+                notifyObserver(obs -> obs.updateAskSlot(finalChosenSlot -1));
+            }
         }
-        notifyObserver(obs -> obs.updateResToPay(paymentWarehouse));
     }
 
     @Override
-    public void askDepotToRearrange() {
-        int depot1=0, depot2=0;
+    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
+        boolean checkChose = false;
+        String chosenResource ="";
 
-        out.println("Which depots do you want to swap? (ex. \"1 3\")");
-        try {
-            depot1 = Integer.parseInt(readLine());
-        } catch (ExecutionException e) {
-            out.println(STR_WRONG_INPUT);
+        out.println("Choose the resource type you want to exchange the white marble with: ");
+        while(!checkChose) {
+            try {
+                chosenResource = readLine();
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+            for(ResourceType res: availableConversions) {
+                if(res.toString().toLowerCase().equals(chosenResource.toLowerCase())) {
+                    checkChose = true;
+                    notifyObserver(obs -> obs.updateChooseMarbleConv(res));
+                    break;
+                }
+            }
+
         }
-        try {
-            depot2 = Integer.parseInt(readLine());
-        } catch (ExecutionException e) {
-            out.println(STR_WRONG_INPUT);
+    }
+
+    @Override
+    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
+        char destination ='0';
+        String ansiColor = null;
+        boolean checkChar = false;
+
+
+        while(!checkChar) {
+            out.println("\nChoose were to get " + getAnsiColor(resource) + resource.toString() + ANSI_RESET + ". Type 'w' for warehouse, 's' for strongbox.");
+            showResources(strongbox, warehouse);
+            try {
+                destination = readLine().toLowerCase().charAt(0);
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+            if(destination=='s') {
+                checkChar = true;
+                notifyObserver(obs -> obs.updateResToPay("strongbox"));
+            }
+            else if(destination=='w') {
+                checkChar = true;
+                notifyObserver(obs -> obs.updateResToPay("warehouse"));
+            }
         }
-        depot1--;
-        depot2--;
-        int firstDepot = depot1;
-        int secondDepot = depot2;
-        notifyObserver(obs -> obs.updateRearrange(firstDepot, secondDepot));
+
+    }
+
+    @Override
+    public void askChooseOneRes(ArrayList<String> resources, String message) {
+        String resource = "";
+        boolean checkRes = false;
+
+        out.println(message);
+        while(!checkRes) {
+            try {
+                resource = readLine();
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+            for(String res: resources) {
+                if(resource.equals(res)) {
+                    checkRes = true;
+                    for(ResourceType resourceType: ResourceType.values()) {
+                        if(resourceType.toString().equals(resource)) {
+                            notifyObserver(obs -> obs.updateChooseOneRes(resourceType));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
+        boolean checkDepot = false;
+        int chosenDepot = -1;
+
+        out.println("Your Warehouse: ");
+        for(int i=0; i<warehouse.getDepotList().size(); i++) {
+            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
+        }
+        out.println("\nChoose in which depot you want to place " + getAnsiColor(resToPlace) + resToPlace.toString() + ANSI_RESET + ".");
+        while(!checkDepot) {
+            try {
+                chosenDepot = Integer.parseInt(readLine());
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+            if(chosenDepot >= 1 && chosenDepot <= 3 && (warehouse.getDepotList().get(chosenDepot-1).getResourceType().toString().equals(ResourceType.ANY) || warehouse.getDepotList().get(chosenDepot-1).getResourceType().toString().equals(resToPlace.toString())) && warehouse.getDepotList().get(chosenDepot-1).getResourceQuantity() < warehouse.getDepotList().get(chosenDepot-1).getSize()) {
+                checkDepot = true;
+                int finalChosenDepot = chosenDepot;
+                notifyObserver(obs -> obs.updateChooseFloor(finalChosenDepot -1));
+            }
+        }
+    }
+
+    @Override
+    public void askRearrange(Warehouse warehouse) {
+        String reply = "";
+        boolean checkReply = false;
+        boolean checkDepot = false;
+
+        out.println("Do you want to rearrange? (Yes/No)");
+        while(!checkReply) {
+            try {
+                reply = readLine();
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+            if(reply.toLowerCase().equals("yes")) {
+                checkReply = true;
+                int depot1=0, depot2=0;
+                while(!checkDepot) {
+                    out.println("Which depots do you want to swap? (ex. \"1 3\")");
+                    try {
+                        depot1 = Integer.parseInt(readLine());
+                    } catch (ExecutionException e) {
+                        out.println(STR_WRONG_INPUT);
+                    }
+
+                    try {
+                        depot2 = Integer.parseInt(readLine());
+                    } catch (ExecutionException e) {
+                        out.println(STR_WRONG_INPUT);
+                    }
+
+                    if(depot1>=1 && depot1<=3 && depot2>=1 && depot2<=3 && depot1!=depot2) {
+                        depot1--;
+                        depot2--;
+                        int firstDepot = depot1;
+                        int secondDepot = depot2;
+                        checkDepot = true;
+                        notifyObserver(obs -> obs.updateRearrange(true, firstDepot, secondDepot));
+                        break;
+                    }
+                }
+            } else if(reply.toLowerCase().equals("no")) {
+                checkReply = true;
+                notifyObserver(obs -> obs.updateRearrange(false, -1, -1));
+                break;
+            }
+        }
     }
 
     @Override
@@ -485,5 +602,14 @@ public class Cli extends ObservableView implements View{
     public void showWinMessage(String winnerUser) {
         out.println("Game finished: " + winnerUser + " WINS!");
         System.exit(0);
+    }
+
+    public String getAnsiColor(ResourceType resourceType) {
+        if(resourceType.equals(ResourceType.COIN)) return ANSI_YELLOW;
+        else if(resourceType.equals(ResourceType.SERVANT)) return ANSI_PURPLE;
+        else if(resourceType.equals(ResourceType.SHIELD)) return ANSI_BLUE;
+        else if(resourceType.equals(ResourceType.STONE)) return ANSI_BLACK;
+        else if(resourceType.equals(ResourceType.FAITH)) return ANSI_RED;
+        else return ANSI_RESET;
     }
 }
