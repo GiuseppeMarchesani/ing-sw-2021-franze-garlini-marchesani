@@ -114,7 +114,7 @@ public class Player {
     }
 
     public int placeResources(ResourceType res, int resQuantity, int floor)
-            throws InvalidParameterException, IndexOutOfBoundsException {
+            throws InvalidParameterException{
         int leftRes=0;
         ArrayList<Integer> freeDepot;
         if (res.getVal() >= 0 && res.getVal() < 4) {
@@ -129,7 +129,7 @@ public class Player {
                     warehouse.getDepotList().get(floor).setResourceQuantity(newQuantity);
                 }
             }
-            else throw new IndexOutOfBoundsException();
+            else return -1;
         }
         else throw new InvalidParameterException();
         return  leftRes;

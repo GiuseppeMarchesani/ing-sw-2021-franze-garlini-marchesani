@@ -1,12 +1,15 @@
 package it.polimi.ingsw.messages;
 
 public enum MessageType {
+    //game's messages
     LOGIN,
-    IN_GAME,
-    END_GAME,
-    START_TURN,
-    ACTION,
+    START_GAME,
+    //LEADER_REPLY for the initial state
+
+    //end turn message
     END_TURN,
+
+    //show messages
     SHOW_LEADER,
     SHOW_MARKET,
     SHOW_DEV_MARKET,
@@ -16,23 +19,26 @@ public enum MessageType {
     SHOW_ALL_SLOT,
     SHOW_ALL_RES,
     SHOW_INFO,
-    DRAW_LEADER,
+
+    //action
+    PLAYLEADER,
+    PICK_DEVCARD,
+    PICK_MARKETRES,
+    ACTIVATE_PRODUCTION,
+
+    //intermediate message
+    CHOOSE_RES,
     REARRANGE_REPLY,
     DEPOT_TO_REARRANGE,
-    START_GAME,
-    PLAYLEADER,
     LEADER_REPLY,
-    PICK_DEVCARD,
     DEVCARD_REPLY,
     PLACE_CARD,
-    PICK_MARKETRES,
     ROW_OR_COL,
     WHITE_CONVERSION,
     PLACE_RES,
-    ACTIVATE_PRODUCTION,
     PRODUCTION_RES,
     PAY_RES,
-    REARRANGE,
+
     ERROR,
     WIN,
     DISCONNECTION,

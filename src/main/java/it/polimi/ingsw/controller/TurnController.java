@@ -64,6 +64,9 @@ public class TurnController {
         }
     }
 
+    /**
+     * contains all the requests to show something
+     */
     private void startTurn(GeneralMessage msg){
         VirtualView vv = allVirtualView.get(playingPlayer);
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
@@ -114,6 +117,9 @@ public class TurnController {
         }
     }
 
+    /**
+     * contains all the possible actions
+     */
     private void action(GeneralMessage msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player = gameSession.getPlayersList().get(indexPlayer);
@@ -129,7 +135,7 @@ public class TurnController {
         else if(msg.getMessageType() == DEVCARD_REPLY){
             pickDevCard((DevCardReplyMessage) msg, player);
         }
-        else if(msg.getMessageType()== PLACE_CARD){
+        else if(msg.getMessageType() == PLACE_CARD){
             placeCard((PlaceCardMsg) msg, player);
         }
         else if(msg.getMessageType() == ACTIVATE_PRODUCTION){
@@ -138,30 +144,56 @@ public class TurnController {
         else if(msg.getMessageType() == PRODUCTION_RES){
             productionRes((ProductionMsg) msg, player);
         }
-        else if(msg.getMessageType()== PAY_RES){
+        else if(msg.getMessageType() == PAY_RES){
             resToPay((ResToPayMsg) msg, player);
         }
         else if(msg.getMessageType() == PICK_MARKETRES){
             pickMarketRes((PickResMsg) msg, player);
         }
-        else if(msg.getMessageType()== ROW_OR_COL){
+        else if(msg.getMessageType() == ROW_OR_COL){
             rowOrCol((GetMarketLineReply) msg, player);
         }
-        else if(msg.getMessageType()== WHITE_CONVERSION){
+        else if(msg.getMessageType() == WHITE_CONVERSION){
             chosenMarbleConversion((WhiteConversionMsg) msg, player);
         }
-        else if(msg.getMessageType()== REARRANGE_REPLY){
+        else if(msg.getMessageType() == REARRANGE_REPLY){
             askRearrange((RearrangeMsg) msg, player);
         }
-        else if(msg.getMessageType()==PLACE_RES) {
+        else if(msg.getMessageType() == PLACE_RES) {
             placeRes((PlaceMsg) msg, player);
+        }
+        else if(msg.getMessageType() == CHOOSE_RES){
+            placeChooseRes((ResourceReply) msg, player);
         }
         else{
             allVirtualView.get(playingPlayer).showErrorMsg("Invalid action. Try again!");
+            allVirtualView.get(playingPlayer).askAction();
         }
 
     }
 
+    /**
+     * manages the end turn
+     */
+    private void endTurn(EndTurnMsg msg){
+        if(gameController.getGameSession().getPlayersList().size() == 1){
+            drawToken();
+            proxPlayer();
+        }
+        else{
+            proxPlayer();
+            setPhaseTurn(PhaseTurn.START_TURN);
+            allVirtualView.get(playingPlayer).showMessage("It's your turn!");
+            allVirtualView.get(playingPlayer).askAction();
+            leaderAction=0;
+            mainAction=false;
+        }
+    }
+
+
+    /**
+     * shows the player's leader cards to choose
+     */
     private void showLeaderCards(PlayLeaderMsg msg, Player player){
         if(leaderAction!=2 && !mainAction) {
             ArrayList<LeaderCard> availableCards = new ArrayList<>();
@@ -182,6 +214,9 @@ public class TurnController {
         }
     }
 
+    /**
+     * discards or plays leader card that chose the player
+     */
     private void playLeader(ChoseLeadersMsg msg, Player player){
         if(msg.getDisOrPlay() == 'D' || msg.getDisOrPlay() == 'd'){
             if(player.getLeaderCardList().containsKey(msg.getLeaderCard())) {
@@ -245,6 +280,9 @@ public class TurnController {
         }
     }
 
+    /**
+     * shows development card market to choose one card
+     */
     private void showDevCardMarket(DevCardMsg msg){
         if (!mainAction) {
             mainAction=true;
@@ -255,6 +293,11 @@ public class TurnController {
         }
     }
 
+    /**
+     * picks the chosen card from the market, asks the player to pay
+     * and asks where he wants to put it. If the player have already 6 cards, this method
+     * calls end game.
+     */
     private void pickDevCard(DevCardReplyMessage msg, Player player){
         for(ResourceType res: msg.getDevCard().getCardCost().keySet()){
             for(int i=0; i<msg.getDevCard().getCardCost().get(res); i++){
@@ -262,11 +305,14 @@ public class TurnController {
             }
         }
         gameSession.pickDevCard(msg.getDevCard().getCardType().getColor(), msg.getDevCard().getCardType().getLevel());
+        if(player.getDevCardSlot().getCardQuantity()==6){
+            endGame=true;
+            gameController.setGameState(GameState.END_GAME);
+        }
         for(VirtualView vv: allVirtualView.values()){
             vv.showDevMarket(gameSession.getCardMarket().availableCards());
         }
         allVirtualView.get(playingPlayer).askSlot(player.getDevCardSlot().getAvailableSlots(msg.getDevCard().getCardType().getLevel()));
-
     }
 
     public void resToPay(ResToPayMsg msg, Player player){
@@ -322,6 +368,10 @@ public class TurnController {
         }
     }
 
+    /**
+     *
+     * if after update faith track a player is over last pope zone, this method calls end game.
+     */
     public void productionRes(ProductionMsg msg, Player player){
         for(DevCard devCard : msg.getDevCards()){
             for(ResourceType res : devCard.getProductionCost().keySet()) {
@@ -334,6 +384,10 @@ public class TurnController {
         for(ResourceType res: rest.keySet()){
             if(res == ResourceType.FAITH){
                 player.increaseFaith(rest.get(res));
+                endGame = gameSession.updateFaithTrack(player.getFaithSpace());
+                if(endGame){
+                    gameController.setGameState(GameState.END_GAME);
+                }
             }
             else{
                 for(int i=0; i<rest.get(res); i++){
@@ -367,8 +421,6 @@ public class TurnController {
 
     /**
      * if the player wants to buy from the marbles market.
-     * @param msg
-     * @param player
      */
     public void pickMarketRes(PickResMsg msg, Player player){
         if(!mainAction){
@@ -381,8 +433,7 @@ public class TurnController {
     }
 
     /**
-     * the choice of which row or column is passed; control of white and red marbles.
-     * @param msg
+     * picks the row or column chosen; checks white and red marbles.
      */
     public void rowOrCol(GetMarketLineReply msg, Player player){
         HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
@@ -415,6 +466,10 @@ public class TurnController {
             }
             else if(res == ResourceType.FAITH){
                 player.increaseFaith(resources.get(res));
+                endGame=gameSession.updateFaithTrack(player.getFaithSpace());
+                if(endGame){
+                    gameController.setGameState(GameState.END_GAME);
+                }
             }
             else{
                 for (int i=0; i<resources.get(res); i++) {
@@ -426,8 +481,6 @@ public class TurnController {
 
     /**
      * only if the player has more than one marble's ability.
-     * @param msg
-     * @param player
      */
     private void chosenMarbleConversion(WhiteConversionMsg msg, Player player){
         allVirtualView.get(playingPlayer).askFloor(player.getWarehouse());
@@ -440,49 +493,48 @@ public class TurnController {
         }
     }
     /**
-     * place the resources in the chosen depot.
-     * @param msg
-     * @param player
+     * places the resources in the chosen depot.
      */
     public void placeRes(PlaceMsg msg, Player player){
+        HashMap<String, Integer> faithTrack=new HashMap<>();
         if(msg.getFloor()>0){
             int restRes = player.placeResources(msg.getRes(), 1, msg.getFloor());
             if (restRes>0){
-                for(int i=0; i<gameSession.getPlayersList().size(); i++){
-                    if(gameSession.getPlayersList().indexOf(player)!=i){
-                        gameSession.getPlayersList().get(i).increaseFaith(restRes);
+                for(Player player1 : gameSession.getPlayersList()){
+                    if(player1 != player){
+                        player1.increaseFaith(restRes);
+                        faithTrack.put(player1.getUsername(), player1.getFaithSpace());
+                        endGame=gameSession.updateFaithTrack(player1.getFaithSpace());
+                        if(endGame){
+                            gameController.setGameState(GameState.END_GAME);
+                        }
                     }
                 }
             }
-        }
-        else{
-            for(int i=0; i<gameSession.getPlayersList().size(); i++){
-                if(gameSession.getPlayersList().indexOf(player)!=i){
-                    gameSession.getPlayersList().get(i).increaseFaith(1);
-                }
+            for(VirtualView vv: allVirtualView.values()){
+                vv.showFaithTrack(faithTrack);
             }
         }
-
+        else{
+            for(Player player1: gameSession.getPlayersList()){
+                if(player1!= player){
+                    player.increaseFaith(1);
+                    faithTrack.put(player1.getUsername(), player1.getFaithSpace());
+                    endGame=gameSession.updateFaithTrack(player.getFaithSpace());
+                    if(endGame){
+                        gameController.setGameState(GameState.END_GAME);
+                    }
+                }
+            }
+            for(VirtualView vv: allVirtualView.values()){
+                vv.showFaithTrack(faithTrack);
+            }
+        }
         for(VirtualView vv: allVirtualView.values()){
             vv.showResources(player.getStrongbox(), player.getWarehouse(), player.getUsername());
         }
         mainAction=true;
 }
-
-    private void endTurn(EndTurnMsg msg){
-        if(gameController.getGameSession().getPlayersList().size() == 1){
-            drawToken();
-            proxPlayer();
-        }
-        else{
-            proxPlayer();
-            setPhaseTurn(PhaseTurn.START_TURN);
-            allVirtualView.get(playingPlayer).showMessage("It's your turn!");
-            allVirtualView.get(playingPlayer).askAction();
-            leaderAction=0;
-            mainAction=false;
-        }
-    }
 
     private void drawToken() {
         int endGameCode = ((SinglePlayerGame) gameController.getGameSession()).turnAction();
