@@ -8,8 +8,6 @@ import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.view.*;
 
-import java.lang.reflect.Array;
-import java.net.Socket;
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -86,7 +84,7 @@ public class GameController {
             choseLeader((ChoseLeadersMsg) msg,player);
         }
         else if(msg.getMessageType()== MessageType.CHOOSE_RES){
-            choseInitialRes((ResourceReply) msg, player);
+            choseInitialRes(player);
         }
         else if(msg.getMessageType()== PLACE_RES){
             placeRes((PlaceMsg) msg, player);
@@ -272,8 +270,8 @@ public class GameController {
      * to pick resource that the player chose.
      * @param player (who send message)
      */
-    private void choseInitialRes(ResourceReply msg, Player player){
-        allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
+    private void choseInitialRes(Player player){
+        allVirtualView.get(player.getUsername()).askInitialRes();
     }
 
     /**
@@ -354,5 +352,9 @@ public class GameController {
                 resource.add(resourceType.toString());
         }
         return resource;
+    }
+
+    public String getGameId() {
+        return gameID;
     }
 }

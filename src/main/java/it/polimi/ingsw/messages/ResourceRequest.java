@@ -1,17 +1,17 @@
 package it.polimi.ingsw.messages;
 
-import java.util.ArrayList;
+import it.polimi.ingsw.model.enumeration.ResourceType;
+
+import java.util.HashMap;
 
 public class ResourceRequest extends GeneralMessage{
-    ArrayList<String> resources;
-    String typeRequest;
-    public ResourceRequest(String username, MessageType messageType, String gameID, ArrayList<String> resources, String typeRequest) {
-        super(username, messageType, gameID);
-        this.resources=resources;
-        this.typeRequest=typeRequest;
+    HashMap <ResourceType, Integer> res;
+    public ResourceRequest(String username, String gameID, HashMap<ResourceType, Integer> res) {
+        super(username, gameID, MessageType.RESOURCE_TO_STRONGBOX);
+        this.res=res;
     }
 
-    public ArrayList<String> getResources() {
-        return resources;
+    public HashMap<ResourceType, Integer> getRes() {
+        return res;
     }
 }

@@ -43,7 +43,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askGameCreation() {
-        clientHandler.sendMessage(new NewGameRequest());
+        clientHandler.sendMessage(new LoginReplyMsg());
     }
 
     @Override
@@ -52,13 +52,17 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
+    public void askInitialRes() {
+        clientHandler.sendMessage(new InitialResMsg());
+    }
+    @Override
     public void askAction() {
         clientHandler.sendMessage(new ActionRequest());
     }
 
     @Override
-    public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username) {
-        clientHandler.sendMessage(new LoginReply(usernameAccepted, connectionSuccessful));
+    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined) {
+        clientHandler.sendMessage(new LoginReplyMsg(username, gameID, wasCreated, wasJoined));
     }
 
     @Override
@@ -153,7 +157,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askChooseOneRes(ArrayList<String> resources, String message) {
-        clientHandler.sendMessage(new ResourceRequest(resources, message));
+        clientHandler.sendMessage(new ResourceReply(resources, message));
     }
 
     @Override
@@ -162,8 +166,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askRearrange(Warehouse warehouse) {
-        clientHandler.sendMessage(new RearrangeMsg(warehouse));
+    public void askRearrange(String username, String gameId, Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
+        clientHandler.sendMessage(new RearrangeRequestMsg(username, gameId,warehouse, resources));
     }
 
     @Override

@@ -93,7 +93,7 @@ public class Cli extends ObservableView implements View{
     public void askGameID() {
         out.print("Enter the gameID: ");
         try {
-            int gameID = Integer.parseInt(readLine());
+            String gameID = readLine();
             notifyObserver(obs -> obs.updateGameID(gameID));
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
@@ -135,16 +135,14 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username) {
-        out.println("Chosen username: " + username);
-        if(usernameAccepted) {
-            out.println("The username is accepted.");
+    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined ) {
+        if(wasCreated){
+            System.out.println("The game "+ gameID +" was created.");
         }
-        else out.println("The username was rejected.");
-        if(connectionSuccessful) {
-            out.println("The connection succeeded.");
+        if (wasJoined){
+            System.out.println("Joined game "+gameID+ " as " +username);
         }
-        else out.println("The connection was rejected.");
+        else(System.out.println("Game "+gameID+ " not available.");
     }
 
     @Override
@@ -487,7 +485,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askRearrange(Warehouse warehouse) {
+    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
         String reply = "";
         boolean checkReply = false;
         boolean checkDepot = false;

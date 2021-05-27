@@ -14,25 +14,25 @@ public class LobbyServer {
     }
     //TODO: View
 
-    public boolean joinLobby(String id, String username, ClientHandler clientHandler){
+    public Lobby joinLobby(String id, String username, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);
             if(lobby!=null){
                if(!(lobby.status())&& !(lobby.isFull())){
                    lobby.addPlayer(username, clientHandler);
-                    return true;
+                    return lobby;
                }
                else if(lobby.hasInactivePLayers()){
                    List<String> inactive =lobby.getInactivePlayers();
                    if(inactive.contains(username)){
                        lobby.reconnect(username, clientHandler);
-                       return true;
+                       return lobby;
                    }
                }
-               return false;
+               return null;
             }
             lobbyMap.put(id, new Lobby());
             lobby.addPlayer(username, clientHandler);
-            return true;
+            return lobby;
     }
     public void leaveLobby(String id, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);
@@ -44,9 +44,5 @@ public class LobbyServer {
                 lobby.removePlayer(clientHandler);
             }
         }
-    }
-    public void getMessage(String id, GeneralMessage generalMessage){
-        lobbyMap.get(id).getMessage(generalMessage);
-
     }
 }

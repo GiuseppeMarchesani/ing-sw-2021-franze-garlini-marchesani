@@ -3,10 +3,12 @@ package it.polimi.ingsw.messages;
 public enum MessageType {
     //game's messages
     LOGIN,
+    LOGIN_REPLY,
     START_GAME,
     //LEADER_REPLY for the initial state
 
     //end turn message
+    START_TURN,
     END_TURN,
 
     //show messages
@@ -29,6 +31,7 @@ public enum MessageType {
     //intermediate message
     CHOOSE_RES,
     REARRANGE_REPLY,
+    REARRANGE_REQUEST,
     DEPOT_TO_REARRANGE,
     LEADER_REPLY,
     DEVCARD_REPLY,
@@ -38,6 +41,7 @@ public enum MessageType {
     PLACE_RES,
     PRODUCTION_RES,
     PAY_RES,
+    RESOURCE_TO_STRONGBOX,
 
     ERROR,
     WIN,

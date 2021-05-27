@@ -1,15 +1,17 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.enumeration.ResourceType;
+import java.util.ArrayList;
 
 public class ResourceReply extends GeneralMessage{
-    ResourceType res;
-    public ResourceReply(String username, MessageType messageType, String gameID, ResourceType res) {
-        super(username, messageType, gameID);
-        this.res=res;
+    ArrayList<String> resources;
+    String typeRequest;
+    public ResourceReply(String username, String gameID, ArrayList<String> resources, String typeRequest) {
+        super(username, gameID, Mess);
+        this.resources=resources;
+        this.typeRequest=typeRequest;
     }
 
-    public ResourceType getRes() {
-        return res;
+    public ArrayList<String> getResources() {
+        return resources;
     }
 }

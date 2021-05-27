@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class StartGameMsg extends GeneralMessage{
     private LeaderCard leaderCard;
     private ResourceType res;
-    public StartGameMsg(String username, MessageType messageType, String gameID,
+    public StartGameMsg(String username, String gameID,
                         LeaderCard leaderCard, ResourceType res) {
-        super(username, messageType, gameID);
+        super(username, gameID, MessageType.START_TURN);
         this.leaderCard= leaderCard;
         this.res=res;
     }

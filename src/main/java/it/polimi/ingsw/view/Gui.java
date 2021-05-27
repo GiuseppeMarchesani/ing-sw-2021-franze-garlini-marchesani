@@ -40,7 +40,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username) {
+    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined) {
 
     }
 
@@ -145,7 +145,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askRearrange(Warehouse warehouse) {
+    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
 
     }
 

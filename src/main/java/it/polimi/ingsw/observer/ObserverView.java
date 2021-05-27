@@ -24,13 +24,8 @@ public interface ObserverView {
      * Sends a message to the server with the chosen gameID.
      * @param gameID the gameID to be sent.
      */
-    public void updateGameID(int gameID);
+    public void updateGameID(String gameID);
 
-    /**
-     * Sends a message to the server with the new game.
-     * @param game the game to be sent.
-     */
-    public void updateGame(Game game);
 
     /**
      * Sends a message to the server with the player number chosen by the user.

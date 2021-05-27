@@ -4,15 +4,13 @@ import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.*;
-import it.polimi.ingsw.network.ClientHandler;
 
-import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.messages.MessageType.*;
@@ -30,6 +28,7 @@ public class TurnController {
     private TurnState turnState;
     private final GameController gameController;
     private PhaseTurn phaseTurn;
+    private String gameId;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -43,7 +42,7 @@ public class TurnController {
             activePlayer.put(gameController.getPlayers().get(i), true);
             allVirtualView = gameController.getAllVirtualView();
         }
-
+        gameId=gameController.getGameId();
     }
 
     public void getMessage (GeneralMessage receivedMessage){
@@ -148,10 +147,7 @@ public class TurnController {
             resToPay((ResToPayMsg) msg, player);
         }
         else if(msg.getMessageType() == PICK_MARKETRES){
-            pickMarketRes((PickResMsg) msg, player);
-        }
-        else if(msg.getMessageType() == ROW_OR_COL){
-            rowOrCol((GetMarketLineReply) msg, player);
+            pickMarketRes((GetMarketMsg) msg, player);
         }
         else if(msg.getMessageType() == WHITE_CONVERSION){
             chosenMarbleConversion((WhiteConversionMsg) msg, player);
@@ -162,8 +158,8 @@ public class TurnController {
         else if(msg.getMessageType() == PLACE_RES) {
             placeRes((PlaceMsg) msg, player);
         }
-        else if(msg.getMessageType() == CHOOSE_RES){
-            placeChooseRes((ResourceReply) msg, player);
+        else if(msg.getMessageType() == RESOURCE_TO_STRONGBOX){
+            placeChooseRes((ResourceRequest) msg, player);
         }
         else{
             allVirtualView.get(playingPlayer).showErrorMsg("Invalid action. Try again!");
@@ -410,22 +406,27 @@ public class TurnController {
 
     }
 
-    private void placeChooseRes(ResourceReply msg, Player player){
-        if(player.getStrongbox().containsKey(msg.getRes())){
-            player.getStrongbox().replace(msg.getRes(), player.getStrongbox().get(msg.getRes())+1);
+    private void placeChooseRes(ResourceRequest msg, Player player){
+        Set<ResourceType> keys = msg.getRes().keySet();
+        for(ResourceType key: keys){
+            if(player.getStrongbox().containsKey(key)){
+                player.getStrongbox().replace(key, player.getStrongbox().get(key)+msg.getRes().get(key));
+            }
+            else{
+                player.getStrongbox().put(key, msg.getRes().get(key));
+            }
         }
-        else{
-            player.getStrongbox().put(msg.getRes(), 1);
-        }
+
     }
 
     /**
      * if the player wants to buy from the marbles market.
      */
-    public void pickMarketRes(PickResMsg msg, Player player){
+    public void pickMarketRes(GetMarketMsg msg, Player player){
         if(!mainAction){
             mainAction=true;
-            allVirtualView.get(playingPlayer).askMarketLineToGet(gameSession.getMarket());
+
+
         }
         else {
             allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
@@ -435,7 +436,7 @@ public class TurnController {
     /**
      * picks the row or column chosen; checks white and red marbles.
      */
-    public void rowOrCol(GetMarketLineReply msg, Player player){
+    public void rowOrCol(GetMarketMsg msg, Player player){
         HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
         for(VirtualView vv: allVirtualView.values()){
             vv.showMarket(gameSession.getMarket());
@@ -443,22 +444,10 @@ public class TurnController {
         for(ResourceType res: resources.keySet()){
             if(res == ResourceType.EMPTY){
 
-                if(player.getMarbleConversion().size()==1){
-                    ResourceType conversion = player.getMarbleConversion().get(0);
+                if(msg.getConversion()!=ResourceType.EMPTY){
                     int numWhiteMarble= resources.get(ResourceType.EMPTY);
                     resources.remove(ResourceType.EMPTY);
-                    resources.put(conversion, numWhiteMarble);
-                    for(int i=0; i<resources.get(res); i++){
-                        allVirtualView.get(playingPlayer).askRearrange(player.getWarehouse());
-                        allVirtualView.get(playingPlayer).askChooseFloor(player.getWarehouse(), res);
-
-                    }
-
-                }
-                else if(player.getMarbleConversion().size()>1){
-                    for(int i=0; i<resources.get(res); i++){
-                        allVirtualView.get(playingPlayer).askChooseMarbleConversion(gameController.availableRes());
-                    }
+                    resources.put(msg.getConversion(), numWhiteMarble);
                 }
                 else{
                     resources.remove(ResourceType.EMPTY);
@@ -471,11 +460,7 @@ public class TurnController {
                     gameController.setGameState(GameState.END_GAME);
                 }
             }
-            else{
-                for (int i=0; i<resources.get(res); i++) {
-                    allVirtualView.get(playingPlayer).askChooseFloor(player.getWarehouse(), res);
-                }
-            }
+                allVirtualView.get(playingPlayer).askRearrange(playingPlayer, gameId, player.getWarehouse(), resources);
         }
     }
 

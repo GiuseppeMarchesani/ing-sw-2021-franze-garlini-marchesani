@@ -7,18 +7,21 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
 
 public class ClientHandler implements Runnable
 {
         private Socket client;
         private ObjectOutputStream output;
         private ObjectInputStream input;
-        private String lobby;
+        private String gameId;
+        private Lobby lobby;
         private LobbyServer lobbyServer;
         ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
             this.lobbyServer=lobbyServer;
+            lobby=null;
             try {
                 output = new ObjectOutputStream(client.getOutputStream());
                 input = new ObjectInputStream(client.getInputStream());
@@ -48,7 +51,13 @@ public class ClientHandler implements Runnable
                     GeneralMessage message = (GeneralMessage) input.readObject();
 
                     if(message.getMessageType()== MessageType.LOGIN) {
-                      lobbyServer.joinLobby(message.getGameID(), message.getUsername(), this);
+                      lobby=(lobbyServer.joinLobby(message.getGameID(), message.getUsername(), this));
+                        if(lobby!=null){
+                            gameId=(message.getGameID());
+                        }
+                    }
+                    else if(lobby!=null){
+                        lobby.getMessage(message);
                     }
                 }
             } catch (ClassNotFoundException | ClassCastException e) {
@@ -73,7 +82,7 @@ public class ClientHandler implements Runnable
                ee.printStackTrace();
            }
            Thread.currentThread().interrupt();
-           lobbyServer.leaveLobby(lobby, this);
+           lobbyServer.leaveLobby(gameId, this);
        }
 
     }

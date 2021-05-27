@@ -2,14 +2,16 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.Card.DevCard;
 
+import java.util.ArrayList;
+
 public class DevCardReplyMessage extends GeneralMessage{
-    private DevCard devCard;
-    public DevCardReplyMessage(String username, MessageType messageType, String gameID, DevCard devCard) {
-        super(username, messageType, gameID);
+    private ArrayList<DevCard> devCard;
+    public DevCardReplyMessage(String username,  String gameID, ArrayList<DevCard> devCard) {
+        super(username,gameID, MessageType.SHOW_DEV_MARKET);
         this.devCard=devCard;
     }
 
-    public DevCard getDevCard(){
+    public ArrayList<DevCard> getDevCard(){
         return devCard;
     }
 }

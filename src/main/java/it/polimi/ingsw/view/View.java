@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
@@ -37,6 +36,8 @@ public interface View {
      */
     public void askPlayersNumber();
 
+    void askInitialRes();
+
     /**
      * Asks the player his next action.
      */
@@ -45,10 +46,10 @@ public interface View {
     /**
      * Shows the user if the login succeeded.
      * @param username the username of the player who wants to login.
-     * @param usernameAccepted indicates if the chosen username has been accepted.
-     * @param connectionSuccessful indicates if the connection succeeded.
+     * @param wasCreated indicates if the chosen username has been accepted.
+     * @param wasJoined indicates if the connection succeeded.
      */
-    public void showLoginResult(boolean usernameAccepted, boolean connectionSuccessful, String username);
+    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined);
 
     /**
      * Shows the player a generic message.
@@ -185,8 +186,11 @@ public interface View {
     /**
      * Asks the player if he wants to rearrange depots.
      * @param warehouse the player's warehouse.
+     * @param resources
      */
-    public void askRearrange(Warehouse warehouse);
+    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources);
+
+    void askRearrange(String username, String gameId, Warehouse warehouse, HashMap<ResourceType, Integer> resources);
 
     /**
      * Allows the player to play a Leader Carder.
