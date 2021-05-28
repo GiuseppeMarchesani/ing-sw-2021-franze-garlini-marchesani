@@ -31,6 +31,9 @@ public class Lobby {
                 }
                 clientHandlerMap.put(clientHandler, username);
                 virtualView.showLoginResult(username, gameId, true, players-clientHandlerMap.size());
+
+                    gameController.newPlayer(username, virtualView);
+
             }
             else if(hasInactivePLayers()){
                 List<String> inactive =getInactivePlayers();
@@ -39,7 +42,7 @@ public class Lobby {
                 }
             }
             else{
-
+                virtualView.showLoginResult(username, gameId, false, players-clientHandlerMap.size());
             }
 
     }

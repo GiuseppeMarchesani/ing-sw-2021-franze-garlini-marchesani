@@ -37,7 +37,7 @@ public class GameController {
         return allVirtualView;
     }
 
-    public void newPlayer(String username, VirtualView virtualView) throws Exception {
+    public void newPlayer(String username, VirtualView virtualView) {
         players.add(username);
         this.gameSession.addPlayer(new Player(username));
         allVirtualView.put(username, virtualView);
@@ -331,6 +331,7 @@ public class GameController {
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
+
     public void reconnect(String username){
         turnController.reconnect(username);
     }
