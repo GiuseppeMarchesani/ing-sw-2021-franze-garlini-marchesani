@@ -49,7 +49,7 @@ public interface View {
      * @param wasCreated indicates if the chosen username has been accepted.
      * @param wasJoined indicates if the connection succeeded.
      */
-    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined);
+    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined);
 
     /**
      * Shows the player a generic message.

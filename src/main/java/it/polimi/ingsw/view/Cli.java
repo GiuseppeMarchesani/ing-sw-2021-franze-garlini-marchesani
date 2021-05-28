@@ -100,10 +100,6 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-    @Override
-    public void askGameCreation() {
-        //TODO: askGameCreation()
-    }
 
     @Override
     public void askPlayersNumber() {
@@ -114,6 +110,10 @@ public class Cli extends ObservableView implements View{
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
         }
+    }
+    @Override
+    public void askGameCreation() {
+        //TODO: askGameCreation()
     }
 
     @Override
@@ -135,7 +135,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined ) {
+    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined ) {
         if(wasCreated){
             System.out.println("The game "+ gameID +" was created.");
         }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.messages.GeneralMessage;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -10,20 +11,37 @@ import java.util.stream.Collectors;
 public class Lobby {
     private Map<ClientHandler, String> clientHandlerMap;
     private GameController gameController;
-
-    public Lobby() {
+    private int players;
+    private String gameId;
+    public Lobby(int players, String gameId) {
         clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
-        gameController=null;
+        gameController=new GameController(players);
+        this.gameId=gameId;
     }
 
     //TODO: View
     public void addPlayer(String username, ClientHandler clientHandler){
-        int i=1;
-        String s=username;
-        while(clientHandlerMap.containsKey(s)){
-            s=username+"("+i+")";
-        }
-        clientHandlerMap.put(clientHandler, username);
+        VirtualView virtualView=new VirtualView(clientHandler);
+            if(!(status())&& !(isFull())){
+
+                int i=1;
+                String s=username;
+                while(clientHandlerMap.containsKey(s)){
+                    s=username+"("+i+")";
+                }
+                clientHandlerMap.put(clientHandler, username);
+                virtualView.showLoginResult(username, gameId, true, players-clientHandlerMap.size());
+            }
+            else if(hasInactivePLayers()){
+                List<String> inactive =getInactivePlayers();
+                if(inactive.contains(username)){
+                    reconnect(username, clientHandler);
+                }
+            }
+            else{
+
+            }
+
     }
     public void removePlayer(ClientHandler clientHandler){
         clientHandlerMap.remove(clientHandler);
@@ -38,13 +56,10 @@ public class Lobby {
         gameController.reconnect(username);
     }
    public boolean status(){
-        if(gameController==null){
-            return false;
-        }
         return gameController.status();
    }
    public boolean isFull() {
-       if (clientHandlerMap.size() == 4) {
+       if (clientHandlerMap.size() == players) {
            return true;
        }
            return false;
@@ -54,9 +69,7 @@ public class Lobby {
         return gameController.getInactivePlayers();
     }
     public boolean hasInactivePLayers(){
-        if(gameController==null){
-            return false;
-        }
+
         return gameController.hasInactivePlayers();
     }
     public void getMessage(GeneralMessage generalMessage){

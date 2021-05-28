@@ -31,20 +31,6 @@ public class VirtualView implements View, Observer {
         this.clientHandler = clientHandler;
     }
 
-    @Override
-    public void askUsername() {
-        clientHandler.sendMessage(new LoginReply());
-    }
-
-    @Override
-    public void askGameID() {
-        clientHandler.sendMessage(new GameIDRequest());
-    }
-
-    @Override
-    public void askGameCreation() {
-        clientHandler.sendMessage(new LoginReplyMsg());
-    }
 
     @Override
     public void askPlayersNumber() {
@@ -61,8 +47,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined) {
-        clientHandler.sendMessage(new LoginReplyMsg(username, gameID, wasCreated, wasJoined));
+    public void showLoginResult(String username, String gameID, boolean wasJoined, int remainingPlayers) {
+        clientHandler.sendMessage(new LoginReplyMsg(username, gameID, wasJoined, remainingPlayers);
     }
 
     @Override

@@ -17,16 +17,14 @@ public class GameController {
     private ArrayList<String> players;
     private boolean ongoing;
     private final Game gameSession;
-    private final String gameID;
     private final HashMap<String, VirtualView> allVirtualView;
     private VirtualView virtualView;
     private final TurnController turnController;
     private GameState gameState;
 
-    public GameController(String gameID, int maxPlayers, HashMap<String, VirtualView> virtualViews){
-        this.allVirtualView= virtualViews;
+    public GameController( int maxPlayers){
+        this.allVirtualView= new HashMap<String, VirtualView>();
         ongoing = false;
-        this.gameID=gameID;
         this.gameState= GameState.START;
         this.turnController= new TurnController(this);
         if(maxPlayers == 1){
@@ -39,9 +37,10 @@ public class GameController {
         return allVirtualView;
     }
 
-    public void newPlayer(String username) throws Exception {
+    public void newPlayer(String username, VirtualView virtualView) throws Exception {
         players.add(username);
         this.gameSession.addPlayer(new Player(username));
+        allVirtualView.put(username, virtualView);
     }
 
     /** Game state.

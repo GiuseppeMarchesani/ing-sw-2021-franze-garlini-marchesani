@@ -40,7 +40,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasCreated, boolean wasJoined) {
+    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined) {
 
     }
 
