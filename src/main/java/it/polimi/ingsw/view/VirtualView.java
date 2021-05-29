@@ -47,8 +47,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasJoined, int remainingPlayers) {
-        clientHandler.sendMessage(new LoginReplyMsg(username, gameID, wasJoined, remainingPlayers);
+    public void showLoginResult(String username, String gameId, boolean wasJoined) {
+        clientHandler.sendMessage(new LoginReplyMsg(username, gameId, wasJoined);
     }
 
     @Override
@@ -98,12 +98,12 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
-        clientHandler.sendMessage(new ShowResourcesRequest(strongbox, warehouse, username));
+        clientHandler.sendMessage(new ShowResourcesRequest(warehouse,strongbox));
     }
 
     @Override
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
-        clientHandler.sendMessage(new ShowResourcesRequest(strongbox, warehouse));
+        clientHandler.sendMessage(new ShowResourcesRequest(warehouse, strongbox));
     }
 
     @Override
@@ -152,18 +152,18 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askRearrange(String username, String gameId, Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
-        clientHandler.sendMessage(new RearrangeRequestMsg(username, gameId,warehouse, resources));
+    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
+        clientHandler.sendMessage(new RearrangeRequestMsg(warehouse, resources));
     }
 
     @Override
     public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
-        clientHandler.sendMessage(new PlayLeaderMsg(leaderCards));
+        clientHandler.sendMessage(new ShowLeaderMsg(leaderCards));
     }
 
     @Override
-    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards) {
-        clientHandler.sendMessage(new DiscardLeaderRequest(leaderCards));
+    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
+        clientHandler.sendMessage(new ChoseLeadersMsg(leaderCards));
     }
 
     @Override

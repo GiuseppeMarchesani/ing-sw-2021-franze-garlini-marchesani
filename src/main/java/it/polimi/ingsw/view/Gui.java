@@ -35,12 +35,17 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void askInitialRes() {
+
+    }
+
+    @Override
     public void askAction() {
 
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined) {
+    public void showLoginResult(String username, String gameId, boolean wasJoined) {
 
     }
 
@@ -150,12 +155,17 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void askRearrange(String username, String gameId, Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
+
+    }
+
+    @Override
     public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
 
     }
 
     @Override
-    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
 
     }
 

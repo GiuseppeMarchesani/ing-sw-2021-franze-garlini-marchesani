@@ -7,10 +7,7 @@ import it.polimi.ingsw.model.enumeration.*;
 
 import it.polimi.ingsw.view.VirtualView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static it.polimi.ingsw.messages.MessageType.*;
@@ -28,7 +25,6 @@ public class TurnController {
     private TurnState turnState;
     private final GameController gameController;
     private PhaseTurn phaseTurn;
-    private String gameId;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -36,15 +32,23 @@ public class TurnController {
         leaderAction=0;
         this.gameController=gameController;
         playingPlayer =  gameController.getGameSession().getPlayersList().get(0).getUsername();
-        phaseTurn = PhaseTurn.START_TURN;
+        phaseTurn = PhaseTurn.PICK_LEADER;
         this.gameSession = gameController.getGameSession();
         for(int i=0; i<gameController.getPlayers().size(); i++){
             activePlayer.put(gameController.getPlayers().get(i), true);
             allVirtualView = gameController.getAllVirtualView();
         }
-        gameId=gameController.getGameId();
     }
+    public String firstPlayer(){
+        for(int i=0;i<activePlayer.size(); i++){
+            if(activePlayer.get(i)){
+                Map.Entry<String, Boolean> entry = (Map.Entry<String, Boolean>) activePlayer.entrySet().toArray()[i];
+                return entry.getKey();
+            }
+        }
+        return null;
 
+    }
     public void getMessage (GeneralMessage receivedMessage){
         switch (phaseTurn){
             case START_TURN:
@@ -124,9 +128,6 @@ public class TurnController {
         Player player = gameSession.getPlayersList().get(indexPlayer);
         if(msg.getMessageType() == PLAYLEADER){
             showLeaderCards((PlayLeaderMsg) msg, player);
-        }
-        else if(msg.getMessageType() == LEADER_REPLY){
-            playLeader((ChoseLeadersMsg) msg, player);
         }
         else if(msg.getMessageType() == PICK_DEVCARD){
             showDevCardMarket((DevCardMsg) msg);
@@ -213,13 +214,7 @@ public class TurnController {
     /**
      * discards or plays leader card that chose the player
      */
-    private void playLeader(ChoseLeadersMsg msg, Player player){
-        if(msg.getDisOrPlay() == 'D' || msg.getDisOrPlay() == 'd'){
-            if(player.getLeaderCardList().containsKey(msg.getLeaderCard())) {
-                player.getLeaderCardList().remove(msg.getLeaderCard());
-            }
-        }
-        else if(msg.getDisOrPlay() == 'P'|| msg.getDisOrPlay()=='p'){
+    private void playLeader(PlayLeaderMsg msg, Player player){
             boolean activate = false;
             LeaderCard leaderCard = msg.getLeaderCard();
             if (player.getLeaderCardList().containsKey(leaderCard)) {
@@ -269,12 +264,7 @@ public class TurnController {
 
             }
         }
-        ArrayList<LeaderCard> leaderCard= new ArrayList<>();
-        leaderCard.add(msg.getLeaderCard());
-        for(VirtualView vv: allVirtualView.values()){
-            vv.showLeaderCards(leaderCard, msg.getUsername());
-        }
-    }
+
 
     /**
      * shows development card market to choose one card
@@ -538,7 +528,7 @@ public class TurnController {
         }
     }
 
-    public void  proxPlayer(){
+    public String  proxPlayer(){
         int player = gameController.getPlayers().indexOf(playingPlayer);
         if(player +1 < gameController.getGameSession().getPlayersList().size()){
             player = player +1;
@@ -547,6 +537,7 @@ public class TurnController {
             player = 0;
         }
         playingPlayer = gameController.getPlayers().get(player);
+        return playingPlayer;
     }
 
     public void newTurn(){

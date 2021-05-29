@@ -7,21 +7,16 @@ import java.util.ArrayList;
 
 public class ProductionMsg extends GeneralMessage{
     ArrayList<DevCard> devCards;
-    ResourceType res;
-    public ProductionMsg(String username, MessageType messageType, String gameID, ArrayList<DevCard> devCards,
-                         ResourceType res) {
+    public ProductionMsg(ArrayList<DevCard> devCards,
+                         ) {
 
-        super(username, MessageType.ACTIVATE_PRODUCTION, gameID);
+        super(MessageType.ACTIVATE_PRODUCTION);
         this.devCards= devCards;
-        this.res=res;
     }
 
     public ArrayList<DevCard> getDevCards() {
         return devCards;
     }
 
-    public ResourceType getRes() {
-        return res;
-    }
 }
 

@@ -103,13 +103,19 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askPlayersNumber() {
-        out.print("Enter the number of players who will join the room: ");
-        try {
-            int playersNumber = Integer.parseInt(readLine());
-            notifyObserver(obs -> obs.updatePlayersNumber(playersNumber));
-        } catch (ExecutionException e) {
-            out.println(STR_WRONG_INPUT);
-        }
+        int playersNumber;
+        do {
+            out.print("Enter the number of players who will join the room (1-4): ");
+            try {
+                playersNumber = Integer.parseInt(readLine());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+                playersNumber=0;
+            }
+
+        }while(playersNumber>4||playersNumber<=0);
+        int finalPlayersNumber = playersNumber;
+        notifyObserver(obs -> obs.updatePlayersNumber(finalPlayersNumber));
     }
     @Override
     public void askGameCreation() {
@@ -135,10 +141,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined ) {
-        if(wasCreated){
-            System.out.println("The game "+ gameID +" was created.");
-        }
+    public void showLoginResult(String username,String gameID,boolean wasJoined) {
         if (wasJoined){
             System.out.println("Joined game "+gameID+ " as " +username);
         }
@@ -565,7 +568,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
         LeaderCard chosenLeader = null;
         int id = -1;
         boolean checkId = false;

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StartTurnMsg extends GeneralMessage{
-    public StartTurnMsg(String username, String gameID) {
-        super(username,  gameID, MessageType.START_TURN);
+    public StartTurnMsg() {
+        super(MessageType.START_TURN);
     }
 
 }

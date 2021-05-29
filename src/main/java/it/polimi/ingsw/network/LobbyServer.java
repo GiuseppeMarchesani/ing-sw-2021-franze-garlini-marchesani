@@ -14,10 +14,10 @@ public class LobbyServer {
     }
     //TODO: View
 
-    public Lobby getLobby(String id, int num){
+    public Lobby getLobby(String id){
         Lobby l = lobbyMap.get(id);
         if (l==null){
-            lobbyMap.put(id, new Lobby(num, id));
+            lobbyMap.put(id, new Lobby(id));
         }
         return lobbyMap.get(id);
 
@@ -26,7 +26,7 @@ public class LobbyServer {
     public void leaveLobby(String id, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);
         if(lobby!=null){
-            if (lobby.status()){
+            if (lobby.isGameStarted()){
                 lobby.disconnect(clientHandler);
             }
             else{

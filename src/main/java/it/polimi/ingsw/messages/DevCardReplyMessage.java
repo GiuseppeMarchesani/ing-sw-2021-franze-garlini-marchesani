@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class DevCardReplyMessage extends GeneralMessage{
     private ArrayList<DevCard> devCard;
-    public DevCardReplyMessage(String username,  String gameID, ArrayList<DevCard> devCard) {
-        super(username,gameID, MessageType.SHOW_DEV_MARKET);
+    public DevCardReplyMessage( ArrayList<DevCard> devCard) {
+        super(MessageType.SHOW_DEV_MARKET);
         this.devCard=devCard;
     }
 

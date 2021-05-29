@@ -45,11 +45,9 @@ public interface View {
 
     /**
      * Shows the user if the login succeeded.
-     * @param username the username of the player who wants to login.
-     * @param wasCreated indicates if the chosen username has been accepted.
      * @param wasJoined indicates if the connection succeeded.
      */
-    public void showLoginResult(String username, String gameID, boolean wasCreated, int wasJoined);
+    public void showLoginResult(String username, String gameId, boolean wasJoined);
 
     /**
      * Shows the player a generic message.
@@ -202,7 +200,7 @@ public interface View {
      * Allows the player to discard a Leader Card.
      * @param leaderCards the list of Leader Cards the player can discard.
      */
-    public void askLeaderCardToDiscard(List<LeaderCard> leaderCards);
+    public void askLeaderCardToKeep(List<LeaderCard> leaderCards);
 
     /**
      * Shows the winner.

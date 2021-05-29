@@ -1,12 +1,19 @@
 package it.polimi.ingsw.messages;
 
 public class LoginMsg extends GeneralMessage{
-    int numPlayers;
-    public LoginMsg(String username, String gameID, int numPlayers) {
-        super(username, gameID, MessageType.LOGIN);
-        this.numPlayers=numPlayers;
+    private String username;
+    private String gameId;
+    public LoginMsg(String username, String gameId) {
+        super(MessageType.LOGIN);
+        this.username=username;
+        this.gameId=gameId;
     }
-    public int getNumPlayers(){
-        return numPlayers;
+
+    public String getGameId() {
+        return gameId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

@@ -2,20 +2,18 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.Card.LeaderCard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChoseLeadersMsg extends GeneralMessage{
-    private char disOrPlay;
-    private LeaderCard leaderCard;
-    public ChoseLeadersMsg(String username, MessageType messageType, String gameID,LeaderCard leaderCard, char disOrPlay) {
-        super(username, messageType, gameID);
+
+    private List<LeaderCard> leaderCard;
+    public ChoseLeadersMsg(List<LeaderCard> leaderCard) {
+        super(MessageType.KEEP_LEADER);
         this.leaderCard=leaderCard;
-        this.disOrPlay=disOrPlay;
     }
 
-    public char getDisOrPlay() {
-        return disOrPlay;
-    }
-
-    public LeaderCard getLeaderCard() {
+    public List<LeaderCard> getLeaderCard() {
         return leaderCard;
     }
 }

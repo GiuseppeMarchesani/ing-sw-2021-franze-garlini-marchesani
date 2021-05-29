@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.messages.DiscardLeaderMsg;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
@@ -12,7 +11,6 @@ import it.polimi.ingsw.view.View;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -47,14 +45,14 @@ public class ClientMessenger implements Observer, ObserverView {
 
     public void updateGameID(String lobby){
         this.lobby=lobby;
-        queue.execute(view::askPlayersNumber);
+        client.sendMessage(new LoginMsg(username, lobby));
     }
     public void updatePlayersNumber(int numPlayers){
-        client.sendMessage(new LoginMsg(username, lobby, numPlayers));
+        client.sendMessage(new PlayersNumberReply(numPlayers));
     }
 
-    public void updateLeaderDraw(int id1, int id2){
-        client.sendMessage(new DiscardLeaderMsg(username, lobby, id1, id2));
+    public void updateLeaderDraw(ArrayList<LeaderCard> leaders){
+        client.sendMessage(new ChoseLeadersMsg(leaders));
     }
 
     public void updateBeginningResource(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot ){
@@ -62,15 +60,15 @@ public class ClientMessenger implements Observer, ObserverView {
     }
 
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
-        client.sendMessage(new GetMarketMsg(username, lobby, getFromRow, i, conversion));
+        client.sendMessage(new GetMarketMsg(getFromRow, i, conversion));
     }
 
     public void updateDepot(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot, int discard){
         client.sendMessage(new RearrangeReplyMsg(username, lobby, resourceQuantity, resourceDepot, discard));
     }
 
-    public void updateProduction(boolean[] activate){
-        client.sendMessage(new ProductionMsg(username, lobby, activate);
+    public void updateProduction(ArrayList<DevCard> devCards){
+        client.sendMessage(new ProductionMsg(devCards));
     }
 
     public void updateBuyDevCard(int level, int color, int slot){
@@ -85,7 +83,11 @@ public class ClientMessenger implements Observer, ObserverView {
         switch(msg.getMessageType()){
             case LOGIN_REPLY:
                 LoginReplyMsg loginMsg= (LoginReplyMsg) msg;
-                queue.execute(() -> view.showLoginResult(loginMsg.getUsername(), loginMsg.getGameID(),loginMsg.wasCreated(), loginMsg.wasJoined()));
+                queue.execute(() -> view.showLoginResult(loginMsg.getUsername(), loginMsg.getGameID(), loginMsg.wasJoined()));
+                break;
+            case PLAYER_NUMBER:
+                queue.execute(() -> view.askPlayersNumber());
+                break;
             case START_TURN:
                 queue.execute(() -> view.askAction());
                 break;

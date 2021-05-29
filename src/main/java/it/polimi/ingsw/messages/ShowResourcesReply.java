@@ -8,9 +8,8 @@ import java.util.HashMap;
 public class ShowResourcesRequest extends GeneralMessage{
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
-    public ShowResourcesRequest(String username, MessageType messageType, String gameID,
-                                Warehouse warehouse, HashMap<ResourceType, Integer> strongbox) {
-        super(username, gameID, MessageType.SHOW_ALL_RES);
+    public ShowResourcesRequest(Warehouse warehouse, HashMap<ResourceType, Integer> strongbox) {
+        super(MessageType.SHOW_ALL_RES);
         this.warehouse=warehouse;
         this.strongbox=strongbox;
     }

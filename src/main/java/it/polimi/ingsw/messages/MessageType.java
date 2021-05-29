@@ -5,11 +5,15 @@ public enum MessageType {
     LOGIN,
     LOGIN_REPLY,
     START_GAME,
-    //LEADER_REPLY for the initial state
+    PLAYER_NUMBER,
 
     //end turn message
     START_TURN,
     END_TURN,
+
+
+    //Setup
+    KEEP_LEADER,
 
     //show messages
     SHOW_LEADER,
@@ -47,6 +51,5 @@ public enum MessageType {
     WIN,
     DISCONNECTION,
     LOSE;
-
 
 }

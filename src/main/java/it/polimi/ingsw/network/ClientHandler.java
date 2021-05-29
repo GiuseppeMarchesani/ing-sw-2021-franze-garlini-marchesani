@@ -40,6 +40,7 @@ public class ClientHandler implements Runnable
                 handleMessage();
             } catch (IOException e) {
                 e.printStackTrace();
+                disconnect();
             }
 
 
@@ -53,7 +54,7 @@ public class ClientHandler implements Runnable
 
                     if(message.getMessageType()== MessageType.LOGIN) {
                         LoginMsg loginMsg= (LoginMsg) message;
-                      lobby=(lobbyServer.getLobby(message.getGameID(), loginMsg.getNumPlayers()));
+                      lobby=(lobbyServer.getLobby(message.getGameID()));
                         lobby.addPlayer(loginMsg.getUsername(), this);
                     }
                     else if(lobby!=null){
@@ -85,6 +86,19 @@ public class ClientHandler implements Runnable
            lobbyServer.leaveLobby(gameId, this);
        }
 
+    }
+    public void disconnect() {
+            try {
+                if (!client.isClosed()) {
+                    client.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Thread.currentThread().interrupt();
+
+            lobby.onDisconnect(this);
+        }
     }
 
 }

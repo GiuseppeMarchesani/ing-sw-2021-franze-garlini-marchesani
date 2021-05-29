@@ -2,27 +2,25 @@ package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.messages.GeneralMessage;
+import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Lobby {
     private Map<ClientHandler, String> clientHandlerMap;
     private GameController gameController;
-    private int players;
     private String gameId;
-    public Lobby(int players, String gameId) {
+    public Lobby(String gameId) {
         clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
-        gameController=new GameController(players);
+        gameController=new GameController();
         this.gameId=gameId;
     }
 
     //TODO: View
     public void addPlayer(String username, ClientHandler clientHandler){
         VirtualView virtualView=new VirtualView(clientHandler);
-            if(!(status())&& !(isFull())){
+            if(!(isGameStarted())){
 
                 int i=1;
                 String s=username;
@@ -30,7 +28,6 @@ public class Lobby {
                     s=username+"("+i+")";
                 }
                 clientHandlerMap.put(clientHandler, username);
-                virtualView.showLoginResult(username, gameId, true, players-clientHandlerMap.size());
 
                     gameController.newPlayer(username, virtualView);
 
@@ -38,11 +35,11 @@ public class Lobby {
             else if(hasInactivePLayers()){
                 List<String> inactive =getInactivePlayers();
                 if(inactive.contains(username)){
-                    reconnect(username, clientHandler);
+                    reconnect(username, clientHandler, virtualView);
                 }
             }
             else{
-                virtualView.showLoginResult(username, gameId, false, players-clientHandlerMap.size());
+                virtualView.showLoginResult(username, gameId, false);
             }
 
     }
@@ -54,20 +51,15 @@ public class Lobby {
             gameController.disconnect(clientHandlerMap.get(clientHandler));
             removePlayer(clientHandler);
     }
-    public void reconnect(String username, ClientHandler clientHandler){
-        clientHandlerMap.put(clientHandler, username);;
-        gameController.reconnect(username);
-    }
-   public boolean status(){
-        return gameController.status();
-   }
-   public boolean isFull() {
-       if (clientHandlerMap.size() == players) {
-           return true;
-       }
-           return false;
+    public void reconnect(String username, ClientHandler clientHandler,VirtualView virtualView){
+        clientHandlerMap.put(clientHandler, username);
+        gameController.reconnect(username, virtualView);
 
+    }
+   public boolean isGameStarted(){
+        return gameController.isGameStarted();
    }
+
     public List<String> getInactivePlayers(){
         return gameController.getInactivePlayers();
     }
@@ -78,5 +70,13 @@ public class Lobby {
     public void getMessage(GeneralMessage generalMessage){
         gameController.getMessage(generalMessage);
 
+    }
+    public void onDisconnect(ClientHandler clientHandler){
+        if (gameController.getGameState()== GameState.INIT){
+            removePlayer(clientHandler);
+        }
+        else{
+            disconnect(clientHandler);
+        }
     }
 }
