@@ -42,17 +42,23 @@ public class ClientMessenger implements Observer, ObserverView {
         this.username= username;
         queue.execute(view::askGameID);
     }
+    /**
+     * Updates new username, if a player with the same username was already in the game.
+     */
+    public void updateNewUsername(String username){
+        this.username= username;
+    }
 
     public void updateGameID(String lobby){
         this.lobby=lobby;
-        client.sendMessage(new LoginMsg(username, lobby));
+        client.sendMessage(new LoginRequestMsg(username, lobby));
     }
     public void updatePlayersNumber(int numPlayers){
-        client.sendMessage(new PlayersNumberReply(numPlayers));
+        client.sendMessage(new PlayersNumberRequest(username, numPlayers));
     }
 
-    public void updateLeaderDraw(ArrayList<LeaderCard> leaders){
-        client.sendMessage(new ChoseLeadersMsg(leaders));
+    public void updateDiscardLeader(ArrayList<LeaderCard> leaders){
+        client.sendMessage(new StartingLeadersRequestMsg(username, leaders));
     }
 
     public void updateBeginningResource(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot ){
@@ -83,11 +89,13 @@ public class ClientMessenger implements Observer, ObserverView {
         switch(msg.getMessageType()){
             case LOGIN_REPLY:
                 LoginReplyMsg loginMsg= (LoginReplyMsg) msg;
-                queue.execute(() -> view.showLoginResult(loginMsg.getUsername(), loginMsg.getGameID(), loginMsg.wasJoined()));
+                queue.execute(() -> view.showLoginResult(loginMsg.getUsername(), loginMsg.getGameId(), loginMsg.wasJoined()));
                 break;
-            case PLAYER_NUMBER:
+            case SUCCESSFUL_HOST:
                 queue.execute(() -> view.askPlayersNumber());
                 break;
+            case STARTING_LEADERS:
+                queue.execute(() -> view.askLeaderCardToKeep(((StartingLeadersReplyMsg) msg).getLeaderCard()));
             case START_TURN:
                 queue.execute(() -> view.askAction());
                 break;

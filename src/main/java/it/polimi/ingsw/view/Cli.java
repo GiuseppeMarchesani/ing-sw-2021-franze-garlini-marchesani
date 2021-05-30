@@ -143,9 +143,10 @@ public class Cli extends ObservableView implements View{
     @Override
     public void showLoginResult(String username,String gameID,boolean wasJoined) {
         if (wasJoined){
-            System.out.println("Joined game "+gameID+ " as " +username);
+            notifyObserver(obs -> obs.updateNewUsername(username));
         }
         else(System.out.println("Game "+gameID+ " not available.");
+        askUsername();
     }
 
     @Override
@@ -568,35 +569,36 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
-        LeaderCard chosenLeader = null;
+    public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
         int id = -1;
         boolean checkId = false;
         int i=0;
-
-        while(!checkId) {
-            if(i>0) out.println(STR_WRONG_INPUT);
-            out.println("Choose between one of these Leader Card to discard by typing its id.");
+        out.println("Choose two of these Leader Card to discard by typing their Id, one at a time.");
+        while(i!=2) {
+            out.println("Choose card No. "+ (i+1));
             for(LeaderCard leader: leaderCards) {
-                out.println(leader.toString());
+                out.println(leader.getLeaderID());
             }
             try {
                 id = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
+                id=-1;
             }
 
             for(LeaderCard leaderCard: leaderCards) {
                 if(leaderCard.getLeaderID() == id) {
-                    checkId = true;
-                    chosenLeader = leaderCard;
+                    leaderCards.remove(leaderCard);
+                    i++;
+                    checkId=true;
                     break;
                 }
             }
-            i++;
+            if(!checkId){
+                out.println("Wrong input!");
+            }
+            checkId=false;
         }
-        LeaderCard finalChosenLeader = chosenLeader;
-        notifyObserver(obs -> obs.updateDiscardLeader(finalChosenLeader));
+        notifyObserver(obs -> obs.updateDiscardLeader(leaderCards));
     }
 
     @Override

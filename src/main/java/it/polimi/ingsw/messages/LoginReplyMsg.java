@@ -1,13 +1,25 @@
 package it.polimi.ingsw.messages;
 
-public class LoginReplyMsg extends GeneralMessage {
+public class LoginReplyMsg extends ServerMessage {
      private boolean joined;
-    public LoginReplyMsg(String username, String gameID,boolean joined) {
-        super(username, gameID, MessageType.LOGIN_REPLY);
+     private String username;
+     private String gameId;
+    public LoginReplyMsg(String username, String gameId, boolean joined) {
+        super(MessageType.LOGIN_REPLY);
         this.joined=joined;
+        this.username=username;
+        this.gameId=gameId;
     }
 
     public boolean wasJoined(){
         return joined;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getGameId() {
+        return gameId;
     }
 }

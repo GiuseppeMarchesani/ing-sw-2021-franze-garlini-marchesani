@@ -165,7 +165,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
 
     }
 

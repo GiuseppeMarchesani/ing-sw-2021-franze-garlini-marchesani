@@ -7,13 +7,16 @@ public enum MessageType {
     START_GAME,
     PLAYER_NUMBER,
 
+    //Server Connection Messages
+SUCCESSFUL_HOST,
+
     //end turn message
     START_TURN,
     END_TURN,
 
 
     //Setup
-    KEEP_LEADER,
+    STARTING_LEADERS,
 
     //show messages
     SHOW_LEADER,
@@ -37,7 +40,6 @@ public enum MessageType {
     REARRANGE_REPLY,
     REARRANGE_REQUEST,
     DEPOT_TO_REARRANGE,
-    LEADER_REPLY,
     DEVCARD_REPLY,
     PLACE_CARD,
     ROW_OR_COL,
@@ -51,5 +53,4 @@ public enum MessageType {
     WIN,
     DISCONNECTION,
     LOSE;
-
 }

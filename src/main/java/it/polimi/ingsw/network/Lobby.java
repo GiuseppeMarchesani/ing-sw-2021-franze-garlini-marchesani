@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.messages.ClientMessage;
 import it.polimi.ingsw.messages.GeneralMessage;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.view.VirtualView;
@@ -67,8 +68,8 @@ public class Lobby {
 
         return gameController.hasInactivePlayers();
     }
-    public void getMessage(GeneralMessage generalMessage){
-        gameController.getMessage(generalMessage);
+    public void getMessage(ClientMessage clientMessage){
+        gameController.getMessage(clientMessage);
 
     }
     public void onDisconnect(ClientHandler clientHandler){

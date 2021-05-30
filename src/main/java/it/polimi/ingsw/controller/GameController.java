@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.view.*;
 
-import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.*;
 
@@ -53,19 +52,21 @@ public class GameController {
     /** Game state.
      *
      */
-    public void getMessage(GeneralMessage receivedMessage)throws InvalidParameterException {
-            VirtualView virtualView = allVirtualView.get(receivedMessage.getUsername());
+    public void getMessage(ClientMessage receivedMessage)throws InvalidParameterException {
             switch (gameState) {
                 case INIT:
+                    VirtualView virtualView = allVirtualView.get(receivedMessage.getUsername());
                     if(receivedMessage.getMessageType() == PLAYER_NUMBER){
-                    PlayersNumberReply pmsg =(PlayersNumberReply) receivedMessage;
+                    PlayersNumberRequest pmsg =(PlayersNumberRequest) receivedMessage;
                     if( pmsg.getPlayersNumber()==1){gameSession=new SinglePlayerGame();
                     gameSession.addPlayer(new Player(pmsg.getUsername()));
+                    virtualView.showMessage("Hosting SinglePlayer Game");
                     startGame();
                     }
                     else{
                         gameSession=new Game();
                         gameSession.addPlayer(new Player(pmsg.getUsername()));
+                        virtualView.showMessage("Hosting MultiPlayer ("+pmsg.getPlayersNumber()+") Game. \nWaiting for other players...");
                     }
 
                 }
@@ -91,11 +92,11 @@ public class GameController {
      * initial phase.
      * @param msg
      */
-    public void setupGame(GeneralMessage msg){
+    public void setupGame(ClientMessage msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player=gameSession.getPlayersList().get(indexPlayer);
-         if(msg.getMessageType() == LEADER_REPLY){
-            choseLeader((ChoseLeadersMsg) msg,player);
+         if(msg.getMessageType() == STARTING_LEADERS){
+            choseLeader((StartingLeadersRequestMsg) msg,player);
         }
         else if(msg.getMessageType()== MessageType.CHOOSE_RES){
             choseInitialRes(player);
@@ -221,81 +222,37 @@ public class GameController {
             default:
                 //Don't increase faith
         }
-        broadcastMessage("Everyone joined the game! It's "+ turnController.getActivePlayer()+"'s turn to discard leader cards.");
-
-        allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToKeep(drawLeaderCards());
-
-        //TODO: FIX
-        /*ArrayList<LeaderCard> leaderCards= new ArrayList<>();
-        for(int i=0; i<getPlayers().size(); i++){
-            for(int j=0; j<4; j++){
-                leaderCards.add(gameSession.drawCard());
-            }
-            for(int x=0; x<2; x++){
-                allVirtualView.get(players.get(i)).askLeaderCardToDiscard(leaderCards);
-            }
-        }
-
-        // pick first player and order other
-        ArrayList<Player> tmp = new ArrayList<>();
-        int indexFirst= pickFirstPlayer();
-        for(int i= 0; i<getPlayers().size(); i++){
-            if(indexFirst > getPlayers().size()){
-                indexFirst=0;
-            }
-            tmp.add(i, gameSession.getPlayersList().get(indexFirst));
-        }
-        for(int i=0; i< players.size(); i++){
-            gameSession.getPlayersList().add(i, tmp.get(i));
-        }
-
-        //deliver initial faith points and resources
-        ArrayList<String> resource= this.availableResToString();
-        //if there are 4 players
-        if(gameSession.getPlayersList().size()==4){
-
-            allVirtualView.get(players.get(1)).askChooseOneRes(resource,
-                    "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-            allVirtualView.get(players.get(2)).askChooseOneRes(resource,
-                    "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-            for(int i=0; i<2; i++){
-                allVirtualView.get(players.get(3)).askChooseOneRes(resource,
-                        "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-            }
-        }
-        //if there are 3 players
-        else if(gameSession.getPlayersList().size()==3){
-            allVirtualView.get(players.get(1)).askChooseOneRes(resource,
-                    "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-            allVirtualView.get(players.get(2)).askChooseOneRes(resource,
-                    "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-        }
-        //if there are 2 players
-        else if(gameSession.getPlayersList().size()==2){
-            allVirtualView.get(players.get(1)).askChooseOneRes(resource,
-                    "Choose initial resource by typing COIN, SHIELD, SERVANT or STONE");
-        }
-**/
+        broadcastMessage("Everyone joined the game!");
+        drawLeaderCards();
     }
-    private ArrayList<LeaderCard> drawLeaderCards(){
-        ArrayList<LeaderCard> leaderCards= new ArrayList<>();
-        for(int j=0; j<4; j++){
-            leaderCards.add(gameSession.drawCard());
-        }
-        return leaderCards;
-    }
+
     /**
      * to discard leader's card that the player chose.
      * @param msg
      * @param player (who send message)
      */
-    private void choseLeader(ChoseLeadersMsg msg, Player player){
+    private void choseLeader(StartingLeadersRequestMsg msg, Player player){
         for(int i=0; i<2;i++){
             player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
         }
         if(turnController.proxPlayer().equals( turnController.firstPlayer())){
+            //The First two players don't gain any resources
+            turnController.proxPlayer();
+            turnController.proxPlayer();
             choseInitialRes();
         }
+        else{
+            drawLeaderCards();
+        }
+
+    }
+    private void drawLeaderCards(){
+        broadcastMessage("It's "+ turnController.getActivePlayer()+"'s turn to discard leader cards.");
+        ArrayList<LeaderCard> leaderCards= new ArrayList<>();
+        for(int j=0; j<4; j++){
+            leaderCards.add(gameSession.drawCard());
+        }
+        allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToKeep(leaderCards);
 
     }
 
@@ -303,7 +260,18 @@ public class GameController {
      * to pick resource that the player chose.
      */
     private void choseInitialRes(){
-        allVirtualView.get(turnController.getActivePlayer()).askInitialRes();
+        String activePlayer= turnController.getActivePlayer();
+        if(activePlayer.equals(turnController.firstPlayer())){
+            //TODO: ACTUALLY START THE GAME
+        }
+        else if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
+            allVirtualView.get(activePlayer).askInitialRes(1);
+        }
+        else{
+            allVirtualView.get(activePlayer).askInitialRes(2);
+        }
+
+
     }
 
     /**
@@ -330,9 +298,6 @@ public class GameController {
     }
     public Game getGameSession(){
         return gameSession;
-    }
-    public ArrayList<String> getPlayers() {
-        return players;
     }
     public TurnController getTurnController() {
         return turnController;

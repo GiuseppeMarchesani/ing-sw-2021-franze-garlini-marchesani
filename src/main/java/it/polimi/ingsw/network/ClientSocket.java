@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network;
 
+import it.polimi.ingsw.messages.ClientMessage;
 import it.polimi.ingsw.messages.GeneralMessage;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class ClientSocket {
         }
     }
 
-    public void sendMessage(GeneralMessage message) {
+    public void sendMessage(ClientMessage message) {
         try {
             output.writeObject(message);
             output.reset();

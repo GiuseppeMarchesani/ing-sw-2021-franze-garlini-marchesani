@@ -34,7 +34,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askPlayersNumber() {
-        clientHandler.sendMessage(new PlayersNumberRequest());
+        clientHandler.sendMessage(new HostGameReply());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showMessage(String message) {
-        clientHandler.sendMessage(new GeneralMessage(message));
+        clientHandler.sendMessage(new ServerGenericMessage(message));
     }
 
     @Override
@@ -162,8 +162,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askLeaderCardToKeep(List<LeaderCard> leaderCards) {
-        clientHandler.sendMessage(new ChoseLeadersMsg(leaderCards));
+    public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
+        clientHandler.sendMessage(new StartingLeadersReplyMsg(leaderCards));
     }
 
     @Override

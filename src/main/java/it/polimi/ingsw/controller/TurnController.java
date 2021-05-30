@@ -25,6 +25,7 @@ public class TurnController {
     private TurnState turnState;
     private final GameController gameController;
     private PhaseTurn phaseTurn;
+    private ArrayList<String> playerOrder;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -34,19 +35,17 @@ public class TurnController {
         playingPlayer =  gameController.getGameSession().getPlayersList().get(0).getUsername();
         phaseTurn = PhaseTurn.PICK_LEADER;
         this.gameSession = gameController.getGameSession();
-        for(int i=0; i<gameController.getPlayers().size(); i++){
-            activePlayer.put(gameController.getPlayers().get(i), true);
+        playerOrder=new ArrayList<String>();
+        activePlayer=new HashMap<String, Boolean>();
+        for(int i=0; i<gameController.getAllVirtualView().size(); i++){
+            String name=gameController.getGameSession().getPlayersList().get(i).getUsername();
+            activePlayer.put(name, true);
+            playerOrder.add(name);
             allVirtualView = gameController.getAllVirtualView();
         }
     }
     public String firstPlayer(){
-        for(int i=0;i<activePlayer.size(); i++){
-            if(activePlayer.get(i)){
-                Map.Entry<String, Boolean> entry = (Map.Entry<String, Boolean>) activePlayer.entrySet().toArray()[i];
-                return entry.getKey();
-            }
-        }
-        return null;
+        return getActivePlayers().get(i);
 
     }
     public void getMessage (GeneralMessage receivedMessage){
@@ -529,14 +528,11 @@ public class TurnController {
     }
 
     public String  proxPlayer(){
-        int player = gameController.getPlayers().indexOf(playingPlayer);
-        if(player +1 < gameController.getGameSession().getPlayersList().size()){
-            player = player +1;
+        int player = getActivePlayers().indexOf(playingPlayer)+1;
+        if(player>=getActivePlayers().size()){
+            player=0;
         }
-        else {
-            player = 0;
-        }
-        playingPlayer = gameController.getPlayers().get(player);
+        playingPlayer = getActivePlayers().get(player);
         return playingPlayer;
     }
 
@@ -549,10 +545,6 @@ public class TurnController {
         return gameController;
     }
 
-    public void addPlayer(String username){
-        gameController.getPlayers().add(username);
-    }
-
     public boolean isEndGame() {
         return endGame;
     }
@@ -561,13 +553,6 @@ public class TurnController {
         return playingPlayer;
     }
 
-    public void setActivePlayer(String activePlayer) {
-        this.playingPlayer = activePlayer;
-    }
-
-    public HashMap<String, Boolean> getPlayers() {
-        return activePlayer;
-    }
 
     public void setPhaseTurn(PhaseTurn phaseTurn) {
         this.phaseTurn = phaseTurn;
@@ -579,12 +564,29 @@ public class TurnController {
     public boolean hasInactivePlayers(){
         return(getInactivePlayers()!=null);
     }
+
     public List<String> getInactivePlayers(){
+
         return activePlayer.entrySet().stream().filter(entry -> (!entry.getValue()))
                 .map(entry-> entry.getKey()).collect(Collectors.toList());
     }
+    public List<String> getActivePlayers(){
+        ArrayList<String> activePlayers=new ArrayList<String>();
+        for(int i=0;i<playerOrder.size(); i++) {
+            if (activePlayer.get(playerOrder.get(i))) {
+                activePlayers.add(playerOrder.get(i));
+            }
+        }
+        return activePlayers;
+    }
+    public List<String> getPlayerOrder(){
+        return playerOrder;
+    }
     public void reconnect(String username){
         activePlayer.put(username, true);
+    }
+    public boolean isActive(String username){
+        return activePlayer.get(username);
     }
 }
 
