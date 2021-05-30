@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -106,6 +107,7 @@ public interface ObserverView {
      * Sends a message to the server containing the chosen LeaderCard to discard.
      * @param leaderCard the LeaderCard to be discarded.
      */
-    public void updateDiscardLeader(LeaderCard leaderCard);
+    public void updateDiscardLeader(ArrayList<LeaderCard> leaderCard);
 
+    public void updateNewUsername(String username);
 }

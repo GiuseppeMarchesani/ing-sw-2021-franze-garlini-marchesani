@@ -1,14 +1,14 @@
 package it.polimi.ingsw.network;
 
+import it.polimi.ingsw.messages.ClientMessage;
 import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.messages.LoginMsg;
+import it.polimi.ingsw.messages.LoginRequestMsg;
 import it.polimi.ingsw.messages.MessageType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.HashMap;
 
 public class ClientHandler implements Runnable
 {
@@ -50,11 +50,11 @@ public class ClientHandler implements Runnable
         {
             try {
                 while(true) {
-                    GeneralMessage message = (GeneralMessage) input.readObject();
+                    ClientMessage message = (ClientMessage) input.readObject();
 
                     if(message.getMessageType()== MessageType.LOGIN) {
-                        LoginMsg loginMsg= (LoginMsg) message;
-                      lobby=(lobbyServer.getLobby(message.getGameID()));
+                        LoginRequestMsg loginMsg= (LoginRequestMsg) message;
+                      lobby=(lobbyServer.getLobby(loginMsg.getGameId()));
                         lobby.addPlayer(loginMsg.getUsername(), this);
                     }
                     else if(lobby!=null){
@@ -101,4 +101,4 @@ public class ClientHandler implements Runnable
         }
     }
 
-}
+

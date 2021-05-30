@@ -200,7 +200,7 @@ public interface View {
      * Allows the player to discard a Leader Card.
      * @param leaderCards the list of Leader Cards the player can discard.
      */
-    public void askLeaderCardToKeep(List<LeaderCard> leaderCards);
+    public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards);
 
     /**
      * Shows the winner.
