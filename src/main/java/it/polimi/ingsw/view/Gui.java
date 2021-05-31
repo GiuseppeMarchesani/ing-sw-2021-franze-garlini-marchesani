@@ -15,17 +15,7 @@ import java.util.List;
 public class Gui extends ObservableView implements View {
 
     @Override
-    public void askUsername() {
-
-    }
-
-    @Override
-    public void askGameID() {
-
-    }
-
-    @Override
-    public void askGameCreation() {
+    public void askLobby() {
 
     }
 
