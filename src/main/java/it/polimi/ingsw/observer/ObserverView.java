@@ -14,7 +14,17 @@ import java.util.List;
  * Observer interface for the view.
  */
 public interface ObserverView {
+    /**
+     * Tries to connect to server
+     */
+    public void updateConnect(String username, int port);
 
+    /**
+     * Updates lobby and tries to connect to game.
+     * @param username
+     * @param gameID
+     */
+    public void updateLobby(String username, String gameID);
     /**
      * Sends a message to the server with the username chosen by the player.
      * @param username the username to be sent.
@@ -110,4 +120,6 @@ public interface ObserverView {
     public void updateDiscardLeader(ArrayList<LeaderCard> leaderCard);
 
     public void updateNewUsername(String username);
+
+
 }

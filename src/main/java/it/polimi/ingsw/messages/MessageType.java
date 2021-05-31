@@ -8,7 +8,8 @@ public enum MessageType {
     PLAYER_NUMBER,
 
     //Server Connection Messages
-SUCCESSFUL_HOST,
+    SUCCESSFUL_HOST,
+    STRING_MESSAGE,
 
     //end turn message
     START_TURN,

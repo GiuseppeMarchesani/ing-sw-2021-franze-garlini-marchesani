@@ -25,6 +25,7 @@ public class GameController {
     public GameController(){
         this.allVirtualView= new HashMap<String, VirtualView>();
         this.gameState= GameState.INIT;
+        maxPlayers=0;
 
     }
 
@@ -46,6 +47,7 @@ public class GameController {
                 startGame();
             }
         }
+        else virtualView.showLoginResult(username, gameId,false);
 
     }
 
@@ -57,19 +59,21 @@ public class GameController {
                 case INIT:
                     VirtualView virtualView = allVirtualView.get(receivedMessage.getUsername());
                     if(receivedMessage.getMessageType() == PLAYER_NUMBER){
-                    PlayersNumberRequest pmsg =(PlayersNumberRequest) receivedMessage;
-                    if( pmsg.getPlayersNumber()==1){gameSession=new SinglePlayerGame();
-                    gameSession.addPlayer(new Player(pmsg.getUsername()));
-                    virtualView.showMessage("Hosting SinglePlayer Game");
-                    startGame();
-                    }
-                    else{
-                        gameSession=new Game();
-                        gameSession.addPlayer(new Player(pmsg.getUsername()));
-                        virtualView.showMessage("Hosting MultiPlayer ("+pmsg.getPlayersNumber()+") Game. \nWaiting for other players...");
-                    }
 
-                }
+                        PlayersNumberRequest pmsg =(PlayersNumberRequest) receivedMessage;
+
+                        if(pmsg.getPlayersNumber()==1){gameSession=new SinglePlayerGame();
+                        gameSession.addPlayer(new Player(pmsg.getUsername()));
+                        virtualView.showMessage("Hosting SinglePlayer Game");
+                        startGame();
+                        }
+                        else{
+                            gameSession=new Game();
+                            gameSession.addPlayer(new Player(pmsg.getUsername()));
+                            virtualView.showMessage("Hosting MultiPlayer ("+pmsg.getPlayersNumber()+") Game. \nWaiting for other players...");
+                        }
+                        maxPlayers=pmsg.getPlayersNumber();
+                    }
                 case SETUP:
                     setupGame(receivedMessage);
                     break;

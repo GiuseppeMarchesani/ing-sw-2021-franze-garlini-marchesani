@@ -53,7 +53,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showMessage(String message) {
-        clientHandler.sendMessage(new ServerGenericMessage(message));
+        clientHandler.sendMessage(new StringMessage(message));
     }
 
     @Override

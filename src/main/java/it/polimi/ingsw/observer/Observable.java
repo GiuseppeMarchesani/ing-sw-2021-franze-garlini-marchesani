@@ -32,7 +32,7 @@ public class Observable {
      * Notifies all the observers passing a message.
      * @param message the message to be passed to the observers.
      */
-    protected void notify(GeneralMessage message) {
+    protected void notifyObserver(GeneralMessage message) {
         for (Observer observer : observerList) {
             observer.update(message);
         }

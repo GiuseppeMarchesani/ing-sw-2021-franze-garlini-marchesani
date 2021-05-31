@@ -27,20 +27,20 @@ public class ClientMessenger implements Observer, ObserverView {
         queue= Executors.newSingleThreadExecutor();
     }
 
-    public void updateConnect(String address, int port, boolean host){
+    public void updateConnect(String address, int port){
         try {
             client = new ClientSocket(address, port);
             client.listen();
-            queue.execute(view::askUsername);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            queue.execute(view::askConnect);
         }
 
     }
 
-    public void updateUsername(String username){
+    public void updateLobby(String username, String lobby){
         this.username= username;
-        queue.execute(view::askGameID);
+        this.lobby=lobby;
+        client.sendMessage(new LoginRequestMsg(username, lobby));
     }
     /**
      * Updates new username, if a player with the same username was already in the game.
@@ -49,10 +49,6 @@ public class ClientMessenger implements Observer, ObserverView {
         this.username= username;
     }
 
-    public void updateGameID(String lobby){
-        this.lobby=lobby;
-        client.sendMessage(new LoginRequestMsg(username, lobby));
-    }
     public void updatePlayersNumber(int numPlayers){
         client.sendMessage(new PlayersNumberRequest(username, numPlayers));
     }
@@ -66,7 +62,7 @@ public class ClientMessenger implements Observer, ObserverView {
     }
 
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
-        client.sendMessage(new GetMarketMsg(getFromRow, i, conversion));
+        client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
     }
 
     public void updateDepot(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot, int discard){

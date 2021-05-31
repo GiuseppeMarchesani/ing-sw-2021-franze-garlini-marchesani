@@ -17,19 +17,17 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 public interface View {
 
     /**
-     * Asks the user to choose a username.
+     * Asks the user to connect to a server
      */
-    public void askUsername();
+    public void askConnect();
+
+
 
     /**
-     * Asks the user to enter the GameID.
+     * Asks the user to choose a username and a lobby Id.
      */
-    public void askGameID();
 
-    /**
-     * Asks the user to create a new game.
-     */
-    public void askGameCreation();
+    void askLobby();
 
     /**
      * Asks how many players the game is going to have.

@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,38 +68,54 @@ public class Cli extends ObservableView implements View{
      * Starts the command-line interface.
      */
     public void init() {
-        out.println("\n"+
+        out.println("\n" +
                 "    __  __           _                     __   _____      _                                          " + "\n" +
                 "	|  \\/  |         | |                   / _| |  __ \\    (_)                                         " + "\n" +
                 "	| \\  / | __ _ ___| |_ ___ _ __    ___ | |_  | |__) |___ _ _ __   __ _ ___ ___  __ _ _ __   ___ ___ " + "\n" +
-                "	| |\\/| |/ _` / __| __/ _ \\ '__|  / _ \\|  _| |  _  // _ \\ | '_ \\ / _` / __/ __|/ _` | '_ \\ / __/ _ \\ "+ "\n" +
-                "	| |  | | (_| \\__ \\ ||  __/ |    | (_) | |   | | \\ \\  __/ | | | | (_| \\__ \\__ \\ (_| | | | | (_|  __/ "+ "\n" +
-                "	|_|  |_|\\__,_|___/\\__\\___|_|     \\___/|_|   |_|  \\_\\___|_|_| |_|\\__,_|___/___/\\__,_|_| |_|\\___\\___| "+ "\n");
+                "	| |\\/| |/ _` / __| __/ _ \\ '__|  / _ \\|  _| |  _  // _ \\ | '_ \\ / _` / __/ __|/ _` | '_ \\ / __/ _ \\ " + "\n" +
+                "	| |  | | (_| \\__ \\ ||  __/ |    | (_) | |   | | \\ \\  __/ | | | | (_| \\__ \\__ \\ (_| | | | | (_|  __/ " + "\n" +
+                "	|_|  |_|\\__,_|___/\\__\\___|_|     \\___/|_|   |_|  \\_\\___|_|_| |_|\\__,_|___/___/\\__,_|_| |_|\\___\\___| " + "\n");
         out.println("Welcome to Master of Reinassance!");
+
+                askConnect();
+
+    }
+
+    @Override
+    public void askConnect() {
+        do {
+            try{
+                out.print("Insert a valid IP Address: ");
+                String ipAddress = readLine();
+                out.print("Insert a valid port: ");
+                int port = Integer.parseInt(readLine());
+                notifyObserver(obs -> obs.updateConnect(ipAddress, port));
+                break;
+            }
+            catch (ExecutionException e){
+                out.print("Invalid Input. ");
+            }
+
+        }while(true);
+        askLobby();
     }
 
 
     @Override
-    public void askUsername() {
-        out.print("Enter your username: ");
+    public void askLobby() {
+
         try {
+            out.print("Enter your username: ");
             String username = readLine();
-            notifyObserver(obs -> obs.updateUsername(username));
+            out.print("Enter the gameID: ");
+            String gameID = readLine();
+            notifyObserver(obs -> obs.updateLobby(username, gameID));
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
+
         }
     }
 
-    @Override
-    public void askGameID() {
-        out.print("Enter the gameID: ");
-        try {
-            String gameID = readLine();
-            notifyObserver(obs -> obs.updateGameID(gameID));
-        } catch (ExecutionException e) {
-            out.println(STR_WRONG_INPUT);
-        }
-    }
 
 
     @Override
@@ -117,10 +134,7 @@ public class Cli extends ObservableView implements View{
         int finalPlayersNumber = playersNumber;
         notifyObserver(obs -> obs.updatePlayersNumber(finalPlayersNumber));
     }
-    @Override
-    public void askGameCreation() {
-        //TODO: askGameCreation()
-    }
+
 
     @Override
     public void askAction() {
@@ -146,7 +160,7 @@ public class Cli extends ObservableView implements View{
             notifyObserver(obs -> obs.updateNewUsername(username));
         }
         else(System.out.println("Game "+gameID+ " not available.");
-        askUsername();
+        askLobby();
     }
 
     @Override
