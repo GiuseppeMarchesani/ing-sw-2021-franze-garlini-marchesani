@@ -25,13 +25,9 @@ public class LobbyServer {
     }
     public void leaveLobby(String id, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);
-        if(lobby!=null){
-            if (lobby.isGameStarted()){
-                lobby.disconnect(clientHandler);
-            }
-            else{
-                lobby.removePlayer(clientHandler);
-            }
+        if(lobby.onDisconnect(clientHandler)==0){
+         lobbyMap.remove(id);
         }
+
     }
 }

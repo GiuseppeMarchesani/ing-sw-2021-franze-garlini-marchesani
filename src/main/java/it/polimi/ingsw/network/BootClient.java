@@ -3,7 +3,7 @@ package it.polimi.ingsw.network;
 import it.polimi.ingsw.messages.AnswerMsg;
 import it.polimi.ingsw.messages.CommandMsg;
 import it.polimi.ingsw.messages.SessionAnswerMsg;
-import it.polimi.ingsw.messages.SessionMsg;
+import it.polimi.ingsw.view.Cli;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,7 +38,10 @@ public class BootClient {
             }
             else{
                 if(mode.equals("CLI")){
-                    //TODO: Open CLI
+                    Cli cli=new Cli();
+                    ClientMessenger clientMessenger= new ClientMessenger(cli);
+                    cli.addObserver(clientMessenger);
+                    cli.init();
                 }
                 else{
                     //TODO: Open GUI

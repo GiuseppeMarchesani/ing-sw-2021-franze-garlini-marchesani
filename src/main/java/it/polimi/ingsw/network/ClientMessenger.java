@@ -66,7 +66,7 @@ public class ClientMessenger implements Observer, ObserverView {
     }
 
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
-        client.sendMessage(new GetMarketMsg(getFromRow, i, conversion));
+        client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
     }
 
     public void updateDepot(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot, int discard){

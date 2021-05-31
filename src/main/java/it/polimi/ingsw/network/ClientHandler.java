@@ -67,23 +67,15 @@ public class ClientHandler implements Runnable
         }
 
 
-    public void sendAnswerMessage(GeneralMessage message) throws IOException
+    public void sendMessage(GeneralMessage message)
     {
        try{
            output.writeObject((Object)message);
            output.reset();
        }
        catch(IOException e){
-           e.printStackTrace();
-           try {
-               if (!client.isClosed()) {
-                   client.close();
-               }
-           } catch (IOException ee) {
-               ee.printStackTrace();
-           }
            Thread.currentThread().interrupt();
-           lobbyServer.leaveLobby(gameId, this);
+           disconnect();
        }
 
     }
@@ -96,8 +88,7 @@ public class ClientHandler implements Runnable
                 e.printStackTrace();
             }
             Thread.currentThread().interrupt();
-
-            lobby.onDisconnect(this);
+            lobbyServer.leaveLobby(gameId, this);
         }
     }
 

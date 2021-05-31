@@ -534,6 +534,7 @@ public class TurnController {
         }
         playingPlayer = getActivePlayers().get(player);
         return playingPlayer;
+
     }
 
     public void newTurn(){
