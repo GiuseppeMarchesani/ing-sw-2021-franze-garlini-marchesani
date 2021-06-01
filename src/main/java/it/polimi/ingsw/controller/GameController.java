@@ -102,8 +102,9 @@ public class GameController {
          if(msg.getMessageType() == STARTING_LEADERS){
             choseLeader((StartingLeadersRequestMsg) msg,player);
         }
-        else if(msg.getMessageType()== MessageType.CHOOSE_RES){
-            choseInitialRes(player);
+        else if(msg.getMessageType()== RESOURCE_TO_WAREHOUSE){
+            ResourceToWarehouseRequestMsg message= ((ResourceToWarehouseRequestMsg) msg);
+            placeResWarehouse(message.getResourceToDepot(), message.getResourceToQuantity(), null, 0);
         }
         else if(msg.getMessageType()== PLACE_RES){
             placeRes((PlaceMsg) msg, player);
@@ -274,8 +275,9 @@ public class GameController {
         else{
             allVirtualView.get(activePlayer).askInitialRes(2);
         }
-
-
+    }
+    public void placeResWarehouse(HashMap<ResourceType,Integer> ResourceToDepot, HashMap<ResourceType,Integer> ResourceToQuantity, HashMap<ResourceType,Integer> ResourceToLeader, int discard){
+        ((ResourceToWarehouseRequestMsg) msg)
     }
 
     /**
