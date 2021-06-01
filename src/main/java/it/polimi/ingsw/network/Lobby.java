@@ -72,13 +72,15 @@ public class Lobby {
         gameController.getMessage(clientMessage);
 
     }
-    public int onDisconnect(ClientHandler clientHandler){
+    public void onDisconnect(ClientHandler clientHandler){
         if (gameController.getGameState()== GameState.INIT){
             removePlayer(clientHandler);
         }
         else{
             disconnect(clientHandler);
         }
+    }
+    public int remainingPlayers(){
         return clientHandlerMap.size();
     }
 }

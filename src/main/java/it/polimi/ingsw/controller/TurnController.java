@@ -45,7 +45,7 @@ public class TurnController {
         }
     }
     public String firstPlayer(){
-        return getActivePlayers().get(i);
+        return getActivePlayers().get(0);
 
     }
     public void getMessage (ClientMessage receivedMessage){
@@ -558,8 +558,9 @@ public class TurnController {
     public void setPhaseTurn(PhaseTurn phaseTurn) {
         this.phaseTurn = phaseTurn;
     }
-    public void disconnect(String username){
+    public boolean disconnect(String username){
         activePlayer.put(username,false);
+        return(username==getActivePlayer());
     }
 
     public boolean hasInactivePlayers(){

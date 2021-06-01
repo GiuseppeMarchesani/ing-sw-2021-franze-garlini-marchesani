@@ -75,7 +75,8 @@ public class GameController {
                         }
                         maxPlayers=pmsg.getPlayersNumber();
                     }
-                case SETUP:
+                case DRAWLEADER:
+                case GIVERES:
                     setupGame(receivedMessage);
                     break;
                 case IN_GAME:
@@ -106,13 +107,9 @@ public class GameController {
         else if(msg.getMessageType()== RESOURCE_TO_WAREHOUSE){
             ResourceToWarehouseRequestMsg message= ((ResourceToWarehouseRequestMsg) msg);
             placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
-            turnController.proxPlayer();
-            choseInitialRes();
-        }
-        else if(msg.getMessageType()== PLACE_RES){
-            placeRes((PlaceMsg) msg, player);
         }
 
+        startTurn();
     }
 
     /**
@@ -128,7 +125,7 @@ public class GameController {
     }
 
     private void startGame() {
-        setGameState(GameState.SETUP);
+        setGameState(GameState.DRAWLEADER);
         turnController=new TurnController(this);
         switch(gameSession.getPlayersList().size()){
             case 3:
@@ -140,9 +137,20 @@ public class GameController {
                 //Don't increase faith
         }
         broadcastMessage("Everyone joined the game!");
-        drawLeaderCards();
+        startTurn();
     }
 
+    public void startTurn(){
+        switch(gameState){
+            case DRAWLEADER:
+                drawLeaderCards();
+            case GIVERES:
+                choseInitialRes();
+            case IN_GAME:
+                allVirtualView.get(turnController.getActivePlayer()).askAction();
+
+        }
+    }
     /**
      * to discard leader's card that the player chose.
      * @param msg
@@ -156,11 +164,9 @@ public class GameController {
             //The First two players don't gain any resources
             turnController.proxPlayer();
             turnController.proxPlayer();
-            choseInitialRes();
+            setGameState(GameState.GIVERES);
         }
-        else{
-            drawLeaderCards();
-        }
+        startTurn();
 
     }
     private void drawLeaderCards(){
@@ -192,23 +198,6 @@ public class GameController {
         player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
     }
 
-    /**
-     * to place the resource in the depot that chose the player
-     * @param player (who send message)
-     */
-    private void placeRes(PlaceMsg msg, Player player){
-        if(msg.getFloor()>0 && msg.getFloor() <= player.getWarehouse().getDepotList().size()){
-            int x = player.placeResources(msg.getRes(), 1, msg.getFloor());
-            if(x == -1){
-                allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-                allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
-            }
-        }
-        else{
-            allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-            allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
-        }
-    }
 
 
     public boolean isGameStarted(){
@@ -226,7 +215,23 @@ public class GameController {
     }
 
     public void disconnect(String username){
-        turnController.disconnect(username);
+        if(turnController.disconnect(username))
+        {
+
+            if(turnController.proxPlayer().equals(turnController.firstPlayer())){
+                switch(gameState){
+                    case DRAWLEADER:
+                            setGameState(GameState.GIVERES);
+                        break;
+                    case GIVERES:
+                        setGameState(GameState.IN_GAME);
+                        break;
+                    default:
+                        //None
+                }
+            }
+            startTurn();
+        }
     }
 
     public List<String> getInactivePlayers(){
