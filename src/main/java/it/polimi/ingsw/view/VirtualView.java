@@ -102,7 +102,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
-        clientHandler.sendMessage(new ShowMarketMsg(market)));
+        clientHandler.sendMessage(new ShowMarketMsg(market, conw)));
     }
 
     @Override
