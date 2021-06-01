@@ -92,11 +92,22 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case STARTING_LEADERS:
                 queue.execute(() -> view.askLeaderCardToKeep(((StartingLeadersReplyMsg) msg).getLeaderCard()));
+                break;
+            case RESOURCE_TO_STRONGBOX:
+                queue.execute(()-> view.askResourceToStrongbox((ResourceToStrongboxReplyMsg) msg).getAny());
+                break;
+            case RESOURCE_TO_WAREHOUSE:
+                ResourceToWarehouseReplyMsg message=((ResourceToWarehouseReplyMsg) msg);
+                queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(),message.getAny()));
+                break;
+
             case START_TURN:
                 queue.execute(() -> view.askAction());
                 break;
+            case PICK_MARKETRES:
+                queue.execute(() -> view.askMarketLineToGet(((GetMarketResReply) msg).getMarket(), ((GetMarketResReply) msg).getConversion()));
             case SHOW_MARKET:
-                queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket()));
+                queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
                 break;
             case SHOW_DEV_MARKET:
                 queue.execute(() -> view.showDevMarket(((ShowDevMarketMsg) msg).getCards());

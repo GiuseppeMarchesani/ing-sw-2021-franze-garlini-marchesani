@@ -35,6 +35,7 @@ public enum MessageType {
     PICK_DEVCARD,
     PICK_MARKETRES,
     ACTIVATE_PRODUCTION,
+    RESOURCE_TO_WAREHOUSE,
 
     //intermediate message
     CHOOSE_RES,
