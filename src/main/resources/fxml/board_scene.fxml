@@ -183,7 +183,7 @@
             <ImageView id="img_leader2" fitHeight="172.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <MenuButton layoutX="1085.0" layoutY="621.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="155.0" text="Actions">
+      <MenuButton layoutX="1091.0" layoutY="523.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="155.0" text="Actions">
          <items>
             <MenuItem mnemonicParsing="false" text="Pick resources from market" />
             <MenuItem mnemonicParsing="false" text="Buy development card" />
@@ -192,11 +192,11 @@
             <MenuItem mnemonicParsing="false" text="Show player" />
          </items>
       </MenuButton>
-      <MenuBar layoutX="1214.0" layoutY="1.0" prefHeight="25.0" prefWidth="64.0" style="-fx-border-color: black;">
+      <MenuBar layoutX="1168.0" layoutY="14.0" prefHeight="28.0" prefWidth="110.0" style="-fx-border-color: black;">
         <menus>
-          <Menu mnemonicParsing="false" text="Info">
+          <Menu mnemonicParsing="false" text="Match info">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="info" />
             </items>
           </Menu>
         </menus>

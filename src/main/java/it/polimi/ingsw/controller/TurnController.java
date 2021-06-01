@@ -48,7 +48,7 @@ public class TurnController {
         return getActivePlayers().get(i);
 
     }
-    public void getMessage (GeneralMessage receivedMessage){
+    public void getMessage (ClientMessage receivedMessage){
         switch (phaseTurn){
             case START_TURN:
                 startTurn(receivedMessage);
@@ -69,7 +69,7 @@ public class TurnController {
     /**
      * contains all the requests to show something
      */
-    private void startTurn(GeneralMessage msg){
+    private void startTurn(ClientMessage msg){
         VirtualView vv = allVirtualView.get(playingPlayer);
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         if(msg.getMessageType() == SHOW_LEADER){
@@ -78,7 +78,7 @@ public class TurnController {
             vv.showLeaderCards(leaderCards, msg.getUsername());
         }
         else if(msg.getMessageType()==SHOW_MARKET){
-            vv.showMarket(gameSession.getMarket());
+            vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
         }
         else if(msg.getMessageType()== SHOW_DEV_MARKET){
             vv.showDevMarket(gameSession.getCardMarket().availableCards());
