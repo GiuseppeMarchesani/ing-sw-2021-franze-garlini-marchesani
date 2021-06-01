@@ -2,26 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button id="btnJoin" layoutX="124.0" layoutY="246.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="105.0" text="Join">
+      <Button layoutX="464.0" layoutY="343.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="88.0" text="Next" />
+      <Label layoutX="80.0" layoutY="127.0" prefHeight="32.0" prefWidth="117.0" text="IP address:" textAlignment="JUSTIFY">
          <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Button id="btnNewGame" layoutX="372.0" layoutY="246.0" mnemonicParsing="false" text="New Game">
-         <font>
-            <Font size="17.0" />
-         </font>
-      </Button>
-      <Label layoutX="119.0" layoutY="108.0" text="Maister of Reinassance" textFill="#b52727">
-         <font>
-            <Font size="36.0" />
+            <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="80.0" layoutY="184.0" prefHeight="32.0" prefWidth="117.0" text="Port:" textAlignment="JUSTIFY">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="197.0" layoutY="188.0" />
+      <TextField layoutX="197.0" layoutY="131.0" />
    </children>
 </Pane>
