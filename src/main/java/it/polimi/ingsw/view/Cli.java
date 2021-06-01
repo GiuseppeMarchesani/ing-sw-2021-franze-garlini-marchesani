@@ -225,10 +225,10 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askMarketLineToGet(Market market) {
+    public void askMarketLineToGet(ResourceType[][] market, ResourceType corner) {
         //agg conversione marble
         char rowOrCol = '0';
-        showMarket(market);
+        showMarket(market, corner);
         out.println("Do you want to pick a ROW or a COL?");
         try {
             while(true) {
@@ -265,22 +265,81 @@ public class Cli extends ObservableView implements View{
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
         HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
+        ArrayList<ResourceType> allResources = new ArrayList<>();
+        boolean invalidInput = false;
+        String strResource = "";
+        int resNumToPut = 0;
 
-        for(ResourceType res: convertedAny.keySet()) {
-            if(resToPlace.get(res) != null) {
+        HashMap<Integer, ResourceType> floorResources = new HashMap<>();
+        HashMap<Integer, Integer> floorQuantity  = new HashMap<>();
+        ArrayList<Integer> leaderDepotQuantity = new ArrayList<>();
+        int discarded = 0;
+
+
+        //Adding resources swapped with Any to the HashMap resToPlace.
+        for (ResourceType res : convertedAny.keySet()) {
+            allResources.add(res);
+            if (resToPlace.get(res) != null) {
                 resToPlace.replace(res, resToPlace.get(res) + convertedAny.get(res));
             } else {
                 resToPlace.put(res, convertedAny.get(res));
             }
         }
 
-        for(ResourceType res: resToPlace.keySet()) {
-            out.println("You have " + resToPlace.get(res) + " " + getAnsiColor(res) + res.toString() + ".");
-            //
-            out.println("In which depot do you want to put them? (1/2/3) - 0 for not place");
+        //Showing the resources to the player.
+        showResources(resToPlace);
+
+        //Placing resources in Leader Depot
+        for(ResourceType res: extraDepot){
+            out.println("How many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2)");
+            try {
+                resNumToPut = Integer.parseInt(readLine());
+            } catch (ExecutionException e) {
+                resNumToPut = 0;
+            }
+            leaderDepotQuantity.add(resNumToPut);
+            discarded += resToPlace.get(res) - resNumToPut;
+            resToPlace.put(res, resToPlace.get(res) - resNumToPut);
         }
-        //agg risorse
-        //scudo in che piano lo vu
+
+        int numDepot = 3 + extraDepot.size();
+        for(int i=0; i<numDepot; i++) {
+            if(i<3) {
+                out.println("What resource do you want to put in the " + (3-i) + "slotted depot?");
+                do {
+                    invalidInput = false;
+                    try {
+                        strResource = readLine();
+                    } catch (ExecutionException e) {
+                        out.println(STR_WRONG_INPUT);
+                        invalidInput = true;
+                    }
+                    for(ResourceType res: allResources) {
+                        if(invalidInput) {
+                            break;
+                        }
+                        if(res.toString().toUpperCase().equals(strResource.toUpperCase())){
+                            out.println("How many?");
+                            try {
+                                resNumToPut = Integer.parseInt(readLine());
+                            } catch (ExecutionException e) {
+                                resNumToPut = 0;
+                            }
+                            if(resToPlace.get(res) < resNumToPut) {
+                                resNumToPut = resToPlace.get(res);
+                            }
+                            discarded += (resToPlace.get(res) - resNumToPut);
+                            floorQuantity.put(i, resNumToPut);
+                            floorResources.put(i, res);
+                            invalidInput = false;
+                            break;
+                        }
+                    }
+                } while(invalidInput);
+            }
+        }
+        int finalDiscarded = discarded;
+        notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscarded));
     }
 
     /**
@@ -413,6 +472,14 @@ public class Cli extends ObservableView implements View{
         out.println("\nYour Strongbox: ");
         for(ResourceType res: strongbox.keySet()) {
             out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
+        }
+    }
+
+    @Override
+    public void showResources(HashMap<ResourceType, Integer> resources) {
+        String ansiColor = null;
+        for(ResourceType res: resources.keySet()) {
+            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + resources.get(res));
         }
     }
 
