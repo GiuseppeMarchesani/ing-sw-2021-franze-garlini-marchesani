@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
+import java.util.stream.Collectors;
 
 public class Cli extends ObservableView implements View{
     private PrintStream out;
@@ -76,7 +77,6 @@ public class Cli extends ObservableView implements View{
                 "	| |  | | (_| \\__ \\ ||  __/ |    | (_) | |   | | \\ \\  __/ | | | | (_| \\__ \\__ \\ (_| | | | | (_|  __/ " + "\n" +
                 "	|_|  |_|\\__,_|___/\\__\\___|_|     \\___/|_|   |_|  \\_\\___|_|_| |_|\\__,_|___/___/\\__,_|_| |_|\\___\\___| " + "\n");
         out.println("Welcome to Master of Reinassance!");
-
                 askConnect();
 
     }
@@ -100,10 +100,8 @@ public class Cli extends ObservableView implements View{
         askLobby();
     }
 
-
     @Override
     public void askLobby() {
-
         try {
             out.print("Enter your username: ");
             String username = readLine();
@@ -126,11 +124,11 @@ public class Cli extends ObservableView implements View{
             try {
                 playersNumber = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
-                e.printStackTrace();
+                out.println(STR_WRONG_INPUT);
                 playersNumber=0;
             }
 
-        }while(playersNumber>4||playersNumber<=0);
+        } while(playersNumber>4||playersNumber<=0);
         int finalPlayersNumber = playersNumber;
         notifyObserver(obs -> obs.updatePlayersNumber(finalPlayersNumber));
     }
@@ -159,8 +157,11 @@ public class Cli extends ObservableView implements View{
         if (wasJoined){
             notifyObserver(obs -> obs.updateNewUsername(username));
         }
-        else(System.out.println("Game "+gameID+ " not available.");
-        askLobby();
+        else {
+            out.println("Game "+gameID+ " not available.");
+            askLobby();
+        }
+
     }
 
     @Override
@@ -225,6 +226,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askMarketLineToGet(Market market) {
+        //agg conversione marble
         char rowOrCol = '0';
         showMarket(market);
         out.println("Do you want to pick a ROW or a COL?");
@@ -261,14 +263,76 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showMarket(Market market) {
-        for(int i=0; i<4; i++) {
-            for(int j=0; j<3; j++) {
-                ResourceType res = market.getMarketTray()[i][j];
+    public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
+        HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
+
+        for(ResourceType res: convertedAny.keySet()) {
+            if(resToPlace.get(res) != null) {
+                resToPlace.replace(res, resToPlace.get(res) + convertedAny.get(res));
+            } else {
+                resToPlace.put(res, convertedAny.get(res));
+            }
+        }
+
+        for(ResourceType res: resToPlace.keySet()) {
+            out.println("You have " + resToPlace.get(res) + " " + getAnsiColor(res) + res.toString() + ".");
+            //
+            out.println("In which depot do you want to put them? (1/2/3) - 0 for not place");
+        }
+        //agg risorse
+        //scudo in che piano lo vu
+    }
+
+    /**
+     * This method is used for the Any Resource conversion.
+     * @return The resources converted from Any.
+     */
+    private HashMap<ResourceType, Integer> askAnyResource(int numAny) {
+        int i=0;
+        String strResource = null;
+        boolean invalidInput = false;
+        HashMap<ResourceType, Integer> convertedAny = new HashMap<>();
+
+        out.println("You have " + numAny + " ANY to be converted");
+        while(i < numAny) {
+            out.println("Please choose the resource to be converted with ANY: (COIN/STONE/SHIELD/SERVANT): ");
+            try {
+                strResource = readLine();
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+                invalidInput = true;
+            }
+            if(!invalidInput) {
+                for(ResourceType res: ResourceType.values()) {
+                    if(strResource.toUpperCase().equals(res.toString().toUpperCase())) {
+                        if(convertedAny.get(res) != null) {
+                            convertedAny.replace(res, convertedAny.get(res)+1);
+                        } else {
+                            convertedAny.put(res, 1);
+                        }
+                    }
+                    else{
+                        out.println(STR_WRONG_INPUT);
+                        i--;
+                    }
+                }
+                i++;
+            }
+        }
+        return convertedAny;
+    }
+
+    @Override
+    public void showMarket(ResourceType[][] market, ResourceType corner) {
+        out.println("           " + getAnsiColor(corner) + "@");
+        for(int i=0; i<3; i++) {
+            for(int j=0; j<4; j++) {
+                ResourceType res = market[i][j];
                 out.print(getAnsiColor(res) + " @ " + ANSI_RESET);
             }
             out.println("\n");
         }
+
     }
 
     @Override

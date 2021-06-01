@@ -23,6 +23,7 @@ import java.util.List;
 public class VirtualView implements View, Observer {
     private final ClientHandler clientHandler;
 
+
     /**
      * Class constructor.
      * @param clientHandler the clientHandler the view will sends messages to.
@@ -31,16 +32,29 @@ public class VirtualView implements View, Observer {
         this.clientHandler = clientHandler;
     }
 
+    @Override
+    public void askConnect() {
+        //Won't be used
+    }
+
+    @Override
+    public void askLobby() {
+        //Won't be used
+    }
 
     @Override
     public void askPlayersNumber() {
         clientHandler.sendMessage(new HostGameReply());
     }
 
-    @Override
-    public void askInitialRes() {
-        clientHandler.sendMessage(new InitialResMsg());
+    /**
+     * This method is used to asks the player to choose his initial resources.
+     * Will use the method
+     */
+    public void askInitialRes(int numAny) {
+        askResourceToWarehouse(new HashMap<ResourceType, Integer>(), numAny , new ArrayList<>());
     }
+
     @Override
     public void askAction() {
         clientHandler.sendMessage(new ActionRequest());
@@ -82,7 +96,12 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showMarket(Market market) {
+    public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
+
+    }
+
+    @Override
+    public void showMarket(ResourceType[][] market, ResourceType corner) {
         clientHandler.sendMessage(new ShowMarketMsg(market)));
     }
 

@@ -7,12 +7,45 @@ import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.observer.ObserverView;
+import it.polimi.ingsw.view.ScenesController.SceneController;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Gui extends ObservableView implements View {
+    private Scene activeScene;
+    private SceneController activeController;
+
+    private void changePane(Scene scene, SceneController sceneController, String fxmlFile) {
+        this.activeScene = scene;
+        this.activeController = sceneController;
+
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/fxml/" + fxmlFile));
+            loader.setController(sceneController);
+
+            Parent root = loader.load();
+
+            activeScene = scene;
+            activeScene.setRoot(root);
+        } catch(IOException e) {
+
+        }
+
+    }
+
+    @Override
+    public void askConnect() {
+
+    }
 
     @Override
     public void askLobby() {
@@ -21,11 +54,6 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askPlayersNumber() {
-
-    }
-
-    @Override
-    public void askInitialRes() {
 
     }
 
@@ -70,7 +98,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showMarket(Market market) {
+    public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
+
+    }
+
+    @Override
+    public void showMarket(ResourceType[][] market, ResourceType corner) {
 
     }
 
@@ -136,16 +169,6 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
-
-    }
-
-    @Override
-    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
-
-    }
-
-    @Override
-    public void askRearrange(String username, String gameId, Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
 
     }
 

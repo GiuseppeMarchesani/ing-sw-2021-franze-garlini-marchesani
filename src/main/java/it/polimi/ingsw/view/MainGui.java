@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Gui class that starts the JavaFX application.
  */
@@ -25,7 +27,13 @@ public class MainGui extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/init_scene.fxml"));
 
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch(IOException e) {
+            System.exit(1);
+        }
+
 
         InitSceneController initController = loader.getController();
         initController.addObserver(clientMessenger);
