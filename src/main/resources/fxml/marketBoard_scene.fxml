@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -69,6 +70,30 @@
             <ImageView id="img_space22" fitHeight="36.0" fitWidth="35.0" layoutX="675.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView id="img_space23" fitHeight="36.0" fitWidth="35.0" layoutX="717.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView id="img_space24" fitHeight="36.0" fitWidth="35.0" layoutX="752.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <Label id="name1" layoutX="69.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name2" layoutX="112.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name3" layoutX="69.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name4" layoutX="112.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name5" layoutX="153.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name6" layoutX="188.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name8" layoutX="267.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name7" layoutX="226.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name9" layoutX="311.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name10" layoutX="350.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name11" layoutX="311.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name13" layoutX="389.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name12" layoutX="350.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name14" layoutX="431.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name15" layoutX="472.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name16" layoutX="513.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name17" layoutX="548.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name18" layoutX="507.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name19" layoutX="548.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name20" layoutX="593.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name21" layoutX="628.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name22" layoutX="672.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name23" layoutX="710.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name24" layoutX="756.0" layoutY="-6.0" prefHeight="28.0" prefWidth="42.0" />
          </children>
       </Pane>
       <Pane id="resources" layoutX="5.0" layoutY="290.0" prefHeight="340.0" prefWidth="217.0">
@@ -123,6 +148,15 @@
                   <Image url="@../images/PlayerDevCardsSlot.jpg" />
                </image>
             </ImageView>
+            <ImageView id="img_slot0_card0" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot0_card1" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot0_card2" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card0" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card1" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card2" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card0" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card1" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card2" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Pane id="leaderSlot1" layoutX="709.0" layoutY="290.0" prefHeight="164.0" prefWidth="110.0">
