@@ -39,7 +39,14 @@ public class Warehouse {
         depotLeader.setResourceType(resourceType);
         depotList.add(depotLeader);
     }
-
+    public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
+        for(int i=0; i<3; i++){
+            depotList.get(i).replaceDepot(depotToResource.get(i), depotToQuantity.get(i));
+        }
+        for(int i=0;i<resourceToLeader.size();i++){
+            depotList.get(i+3).setResourceQuantity(resourceToLeader.get(i));
+        }
+    }
     /**
      * This method allows the player to rearrange depots
      * @param depot1 index of the first floor

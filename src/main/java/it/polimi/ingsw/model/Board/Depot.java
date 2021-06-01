@@ -29,9 +29,10 @@ public class Depot {
 
     public int getSize() { return size; }
 
-    public int setSize(int s) {
-        size = s;
-        return s;
+    public void replaceDepot(ResourceType resource, int quantity){
+        setResourceType(resource);
+        setResourceQuantity(quantity);
+
     }
 
     public int getRearrangeble() {
