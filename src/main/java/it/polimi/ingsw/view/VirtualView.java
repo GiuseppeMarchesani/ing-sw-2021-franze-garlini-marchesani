@@ -91,7 +91,7 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askMarketLineToGet(Market market) {
+    public void askMarketLineToGet(ResourceType[][] market, ResourceType corner) {
         clientHandler.sendMessage(new GetMarketLineRequest(market));
     }
 
@@ -102,7 +102,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
-        clientHandler.sendMessage(new ShowMarketMsg(market)));
+        clientHandler.sendMessage(new ShowMarketMsg(market, corner));
     }
 
     @Override
@@ -123,6 +123,11 @@ public class VirtualView implements View, Observer {
     @Override
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
         clientHandler.sendMessage(new ShowResourcesRequest(warehouse, strongbox));
+    }
+
+    @Override
+    public void showResources(HashMap<ResourceType, Integer> resources) {
+
     }
 
     @Override

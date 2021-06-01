@@ -121,5 +121,5 @@ public interface ObserverView {
 
     public void updateNewUsername(String username);
 
-
+    public void updateWarehouse(HashMap<Integer, ResourceType> depotToResource,HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard);
 }

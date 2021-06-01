@@ -65,8 +65,8 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
     }
 
-    public void updateDepot(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot, int discard){
-        client.sendMessage(new RearrangeReplyMsg(username, lobby, resourceQuantity, resourceDepot, discard));
+    public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
+        client.sendMessage(new ResourceToWarehouseRequestMsg(username, depotToResource, depotToQuantity, leaderToDepot ,discard));
     }
 
     public void updateProduction(ArrayList<DevCard> devCards){
@@ -98,7 +98,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case RESOURCE_TO_WAREHOUSE:
                 ResourceToWarehouseReplyMsg message=((ResourceToWarehouseReplyMsg) msg);
-                queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(),message.getAny()));
+                queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(), message.getAny(), message.getLeaderDepots()));
                 break;
 
             case START_TURN:

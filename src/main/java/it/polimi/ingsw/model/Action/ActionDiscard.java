@@ -32,6 +32,6 @@ public class ActionDiscard implements ActionToken {
 
     @Override
     public String toString() {
-        return "Action Discard " + color;
+        return "Action Discard " + color.toString();
     }
 }

@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.ResourceType;
+import it.polimi.ingsw.network.ResourceToWarehouseRequestMsg;
 import it.polimi.ingsw.view.*;
 
 import java.security.InvalidParameterException;
@@ -104,7 +105,9 @@ public class GameController {
         }
         else if(msg.getMessageType()== RESOURCE_TO_WAREHOUSE){
             ResourceToWarehouseRequestMsg message= ((ResourceToWarehouseRequestMsg) msg);
-            placeResWarehouse(message.getResourceToDepot(), message.getResourceToQuantity(), null, 0);
+            placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
+            turnController.proxPlayer();
+            choseInitialRes();
         }
         else if(msg.getMessageType()== PLACE_RES){
             placeRes((PlaceMsg) msg, player);
@@ -112,6 +115,160 @@ public class GameController {
 
     }
 
+    /**
+     * end game phase
+     * @param msg
+     */
+    public void endGame(GeneralMessage msg){
+        //TODO: viene fatto fare l'ultimo giro
+        //TODO: viene preso il vincitore
+
+
+        //TODO: chiude la partita
+    }
+
+    private void startGame() {
+        setGameState(GameState.SETUP);
+        turnController=new TurnController(this);
+        switch(gameSession.getPlayersList().size()){
+            case 3:
+                gameSession.getPlayersList().get(2).increaseFaith(1);
+            case 4:
+                gameSession.getPlayersList().get(3).increaseFaith(2);
+                break;
+            default:
+                //Don't increase faith
+        }
+        broadcastMessage("Everyone joined the game!");
+        drawLeaderCards();
+    }
+
+    /**
+     * to discard leader's card that the player chose.
+     * @param msg
+     * @param player (who send message)
+     */
+    private void choseLeader(StartingLeadersRequestMsg msg, Player player){
+        for(int i=0; i<2;i++){
+            player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
+        }
+        if(turnController.proxPlayer().equals( turnController.firstPlayer())){
+            //The First two players don't gain any resources
+            turnController.proxPlayer();
+            turnController.proxPlayer();
+            choseInitialRes();
+        }
+        else{
+            drawLeaderCards();
+        }
+
+    }
+    private void drawLeaderCards(){
+        broadcastMessage("It's "+ turnController.getActivePlayer()+"'s turn to discard leader cards.");
+        ArrayList<LeaderCard> leaderCards= new ArrayList<>();
+        for(int j=0; j<4; j++){
+            leaderCards.add(gameSession.drawCard());
+        }
+        allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToKeep(leaderCards);
+
+    }
+
+    /**
+     * to pick resource that the player chose.
+     */
+    private void choseInitialRes(){
+        String activePlayer= turnController.getActivePlayer();
+        if(activePlayer.equals(turnController.firstPlayer())){
+            //TODO: ACTUALLY START THE GAME
+        }
+        else if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
+            allVirtualView.get(activePlayer).askInitialRes(1);
+        }
+        else{
+            allVirtualView.get(activePlayer).askInitialRes(2);
+        }
+    }
+    public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
+        player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
+    }
+
+    /**
+     * to place the resource in the depot that chose the player
+     * @param player (who send message)
+     */
+    private void placeRes(PlaceMsg msg, Player player){
+        if(msg.getFloor()>0 && msg.getFloor() <= player.getWarehouse().getDepotList().size()){
+            int x = player.placeResources(msg.getRes(), 1, msg.getFloor());
+            if(x == -1){
+                allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
+                allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
+            }
+        }
+        else{
+            allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
+            allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
+        }
+    }
+
+
+    public boolean isGameStarted(){
+        return gameState!=GameState.INIT;
+    }
+    public Game getGameSession(){
+        return gameSession;
+    }
+    public TurnController getTurnController() {
+        return turnController;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public void disconnect(String username){
+        turnController.disconnect(username);
+    }
+
+    public List<String> getInactivePlayers(){
+        return turnController.getInactivePlayers();
+    }
+    public boolean hasInactivePlayers(){
+        return turnController.hasInactivePlayers();
+    }
+
+    public void reconnect(String username, VirtualView virtualView){
+        allVirtualView.put(username, virtualView);
+        turnController.reconnect(username);
+        broadcastMessage(username + "has reconnected.");
+    }
+    public ArrayList<ResourceType> availableRes(){
+        ArrayList<ResourceType> resource= new ArrayList<>();
+        for(ResourceType resourceType: ResourceType.values()){
+            if(!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
+                    !resourceType.equals(ResourceType.FAITH))
+                resource.add(resourceType);
+        }
+        return resource;
+    }
+    public ArrayList<String> availableResToString() {
+        ArrayList<String> resource = new ArrayList<>();
+        for (ResourceType resourceType : ResourceType.values()) {
+            if (!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
+                    !resourceType.equals(ResourceType.FAITH))
+                resource.add(resourceType.toString());
+        }
+        return resource;
+    }
+
+    public void broadcastMessage(String message) {
+        for (VirtualView vv : allVirtualView.values()) {
+            vv.showMessage(message);
+        }
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
     /**
      * in game phase
      * @param msg
@@ -201,160 +358,5 @@ public class GameController {
             allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Invalid action. Try again!");
             allVirtualView.get(turnController.getActivePlayer()).askAction();
         }
-    }
-
-    /**
-     * end game phase
-     * @param msg
-     */
-    public void endGame(GeneralMessage msg){
-        //TODO: viene fatto fare l'ultimo giro
-        //TODO: viene preso il vincitore
-
-
-        //TODO: chiude la partita
-    }
-
-    private void startGame() {
-        setGameState(GameState.SETUP);
-        turnController=new TurnController(this);
-        switch(gameSession.getPlayersList().size()){
-            case 3:
-                gameSession.getPlayersList().get(2).increaseFaith(1);
-            case 4:
-                gameSession.getPlayersList().get(3).increaseFaith(2);
-                break;
-            default:
-                //Don't increase faith
-        }
-        broadcastMessage("Everyone joined the game!");
-        drawLeaderCards();
-    }
-
-    /**
-     * to discard leader's card that the player chose.
-     * @param msg
-     * @param player (who send message)
-     */
-    private void choseLeader(StartingLeadersRequestMsg msg, Player player){
-        for(int i=0; i<2;i++){
-            player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
-        }
-        if(turnController.proxPlayer().equals( turnController.firstPlayer())){
-            //The First two players don't gain any resources
-            turnController.proxPlayer();
-            turnController.proxPlayer();
-            choseInitialRes();
-        }
-        else{
-            drawLeaderCards();
-        }
-
-    }
-    private void drawLeaderCards(){
-        broadcastMessage("It's "+ turnController.getActivePlayer()+"'s turn to discard leader cards.");
-        ArrayList<LeaderCard> leaderCards= new ArrayList<>();
-        for(int j=0; j<4; j++){
-            leaderCards.add(gameSession.drawCard());
-        }
-        allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToKeep(leaderCards);
-
-    }
-
-    /**
-     * to pick resource that the player chose.
-     */
-    private void choseInitialRes(){
-        String activePlayer= turnController.getActivePlayer();
-        if(activePlayer.equals(turnController.firstPlayer())){
-            //TODO: ACTUALLY START THE GAME
-        }
-        else if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
-            allVirtualView.get(activePlayer).askInitialRes(1);
-        }
-        else{
-            allVirtualView.get(activePlayer).askInitialRes(2);
-        }
-    }
-    public void placeResWarehouse(HashMap<ResourceType,Integer> ResourceToDepot, HashMap<ResourceType,Integer> ResourceToQuantity, HashMap<ResourceType,Integer> ResourceToLeader, int discard){
-        ((ResourceToWarehouseRequestMsg) msg)
-    }
-
-    /**
-     * to place the resource in the depot that chose the player
-     * @param player (who send message)
-     */
-    private void placeRes(PlaceMsg msg, Player player){
-        if(msg.getFloor()>0 && msg.getFloor() <= player.getWarehouse().getDepotList().size()){
-            int x = player.placeResources(msg.getRes(), 1, msg.getFloor());
-            if(x == -1){
-                allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-                allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
-            }
-        }
-        else{
-            allVirtualView.get(player.getUsername()).showErrorMsg("Invalid depot!");
-            allVirtualView.get(player.getUsername()).askChooseFloor(player.getWarehouse(), msg.getRes());
-        }
-    }
-
-
-    public boolean isGameStarted(){
-        return gameState!=GameState.INIT;
-    }
-    public Game getGameSession(){
-        return gameSession;
-    }
-    public TurnController getTurnController() {
-        return turnController;
-    }
-
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
-    }
-
-    public void disconnect(String username){
-        turnController.disconnect(username);
-    }
-
-    public List<String> getInactivePlayers(){
-        return turnController.getInactivePlayers();
-    }
-    public boolean hasInactivePlayers(){
-        return turnController.hasInactivePlayers();
-    }
-
-    public void reconnect(String username, VirtualView virtualView){
-        allVirtualView.put(username, virtualView);
-        turnController.reconnect(username);
-        broadcastMessage(username + "has reconnected.");
-    }
-    public ArrayList<ResourceType> availableRes(){
-        ArrayList<ResourceType> resource= new ArrayList<>();
-        for(ResourceType resourceType: ResourceType.values()){
-            if(!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
-                    !resourceType.equals(ResourceType.FAITH))
-                resource.add(resourceType);
-        }
-        return resource;
-    }
-    public ArrayList<String> availableResToString() {
-        ArrayList<String> resource = new ArrayList<>();
-        for (ResourceType resourceType : ResourceType.values()) {
-            if (!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
-                    !resourceType.equals(ResourceType.FAITH))
-                resource.add(resourceType.toString());
-        }
-        return resource;
-    }
-
-    public void broadcastMessage(String message) {
-        for (VirtualView vv : allVirtualView.values()) {
-            vv.showMessage(message);
-        }
-    }
-
-    public GameState getGameState() {
-        return gameState;
     }
 }

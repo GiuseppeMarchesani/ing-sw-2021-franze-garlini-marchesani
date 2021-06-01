@@ -79,7 +79,7 @@ public interface View {
      * Allows the player to get Market Resources.
      * @param market the market to be shown.
      */
-    void askMarketLineToGet(Market market);
+    void askMarketLineToGet(ResourceType[][] market, ResourceType corner);
 
     /**
      * Ask the player to place his resources.
@@ -120,6 +120,12 @@ public interface View {
      * @param warehouse the player's warehouse.
      */
     void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
+
+    /**
+     * Shows the player an amount of generic resources.
+     * @param resources the amount of resources to be shown.
+     */
+    void showResources(HashMap<ResourceType, Integer> resources);
 
     /**
      * Shows the player an error message.
