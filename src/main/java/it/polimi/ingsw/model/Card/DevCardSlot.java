@@ -1,13 +1,20 @@
 package it.polimi.ingsw.model.Card;
 
+import it.polimi.ingsw.model.enumeration.Color;
+
 import java.util.ArrayList;
 
+/**
+ * This Class represents the Development Card slot.
+ */
 public class DevCardSlot {
     private ArrayList<ArrayList<DevCard>> slotDev;
     private final int slotNum = 3;
     private ArrayList<DevCard> slotLeader;
 
-
+    /**
+     * Class constructor.
+     */
     public DevCardSlot(){
         slotDev = new ArrayList<ArrayList<DevCard>>();
         for(int i=0; i<slotNum;i++){
@@ -24,6 +31,10 @@ public class DevCardSlot {
         return slotLeader;
     }
 
+    /**
+     * This method counts all the Development Card in the slots.
+     * @return the number of Development Card in the slot.
+     */
     public int getCardQuantity(){
         int cardQuantity = 0;
         for(int i=0; i<slotNum; i++) {
@@ -32,7 +43,10 @@ public class DevCardSlot {
         return cardQuantity;
     }
 
-
+    /**
+     * This method returns all the Development Cards available for production.
+     * @return the Development Card available for production.
+     */
     public ArrayList<DevCard> getCardsAvailable(){
         ArrayList<DevCard> devCards= new ArrayList<DevCard>();
 
@@ -56,7 +70,11 @@ public class DevCardSlot {
         return devCards;
     }
 
-
+    /**
+     * This method returns all the slots available for placing a Development Card of the level passed as a parameter.
+     * @param level the level of the card the player wants to place.
+     * @return the number of the slots available for placing a card of the level passed as a parameter.
+     */
     public ArrayList<Integer> getAvailableSlots(int level){
         ArrayList<Integer> free = new ArrayList<>();
                 for(int i=0; i<slotNum; i++){
@@ -67,6 +85,10 @@ public class DevCardSlot {
                 return free;
     }
 
+    /**
+     * This method returns all the Development Card in the slots.
+     * @return all the Development Card in the slots.
+     */
     public ArrayList<DevCard> getAllDevCards(){
         ArrayList<DevCard> devCards = new ArrayList<>();
         for(int i=0; i<getSlotDev().size(); i++){
@@ -75,5 +97,31 @@ public class DevCardSlot {
             }
         }
         return devCards;
+    }
+
+    /**
+     * This method returns all the Development Card, of the color passed as a parameter, in the slots.
+     * @param color the color of the Development Cards.
+     * @return all the Development Card of the color passed as a parameter.
+     */
+    public ArrayList<DevCard> getAllDevCardsPerColor(Color color) {
+        ArrayList<DevCard> allCards = getAllDevCards();
+        ArrayList<DevCard> allCardsPerColor = new ArrayList<>();
+
+        for(DevCard devCard: allCards) {
+            if(devCard.getCardType().getColor().equals(color)) {
+                allCardsPerColor.add(devCard);
+            }
+        }
+        return allCardsPerColor;
+    }
+
+    /**
+     * This method returns the number of Development Card of the color passed as a parameter.
+     * @param color the color of Development Cards.
+     * @return an int representing the number of Development Card of a given color.
+     */
+    public int numCardsPerColor(Color color) {
+        return getAllDevCardsPerColor(color).size();
     }
 }
