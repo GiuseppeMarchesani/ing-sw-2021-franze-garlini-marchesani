@@ -89,6 +89,13 @@ public interface View {
     void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot);
 
     /**
+     * Will notify the resources to be put in the strongbox after replace the ANY resource.
+     * @param resToPlace the resources to be placed (could contains ANY resource).
+     * @param numAny number of ANY resources contained in the resToPlace.
+     */
+    void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny);
+
+    /**
      * Shows the Market.
      * @param market the market to be shown.
      */

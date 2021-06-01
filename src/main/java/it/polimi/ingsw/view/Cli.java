@@ -342,6 +342,24 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscarded));
     }
 
+    @Override
+    public void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny) {
+        HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
+        ArrayList<ResourceType> allResources = new ArrayList<>();
+
+        //Adding resources swapped with Any to the HashMap resToPlace.
+        for (ResourceType res : convertedAny.keySet()) {
+            allResources.add(res);
+            if (resToPlace.get(res) != null) {
+                resToPlace.replace(res, resToPlace.get(res) + convertedAny.get(res));
+            } else {
+                resToPlace.put(res, convertedAny.get(res));
+            }
+        }
+
+        notifyObserver(obs -> obs.updateStrongbox(allResources));
+    }
+
     /**
      * This method is used for the Any Resource conversion.
      * @return The resources converted from Any.
