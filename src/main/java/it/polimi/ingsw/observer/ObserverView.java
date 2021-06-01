@@ -123,5 +123,5 @@ public interface ObserverView {
 
     public void updateWarehouse(HashMap<Integer, ResourceType> depotToResource,HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard);
 
-    public void updateStrongbox(HashMap<Integer, ResourceType> toStrongbox);
+    public void updateStrongbox(HashMap<ResourceType, Integer> toStrongbox);
 }
