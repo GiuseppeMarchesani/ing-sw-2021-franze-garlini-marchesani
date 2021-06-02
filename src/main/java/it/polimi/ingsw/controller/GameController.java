@@ -282,7 +282,11 @@ public class GameController {
      * in game phase
      * @param msg
      */
-    public void inGame(GeneralMessage msg){
+    public void inGame(ClientMessage msg){
+        switch(msg.getMessageType()){
+
+        }
+        if(msg.getMessageType)
         if(msg.getMessageType() == SHOW_LEADER){
             turnController.setPhaseTurn(PhaseTurn.START_TURN);
             turnController.getMessage(msg);

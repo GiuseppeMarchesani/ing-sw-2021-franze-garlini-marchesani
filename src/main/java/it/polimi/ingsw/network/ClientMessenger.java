@@ -60,8 +60,42 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new ResourceToWarehouseRequestMsg(username, depotToResource, depotToQuantity, leaderToDepot ,discard));
     }
 
-    public void updateAction(char a){
-        client.sendMessage(new PickActionMsg(username, lobby, a));
+    public void updateAction(int actionCode){
+        ClientMessage msg;
+        switch(actionCode){
+            case 0:
+                msg=new GetMarketResRequest(username);
+                break;
+            case 1:
+                msg= new GetMarketCardRequest(username);
+                break;
+            case 2:
+                msg= new GetProductionRequest(username);
+                break;
+            case 3:
+                msg= new PlayLeaderRequest(username);
+                break;
+            case 4:
+                msg= new ShowRequest(username, MessageType.SHOW_LEADER);
+                break;
+            case 5:
+                msg= new ShowRequest(username, MessageType.SHOW_MARKET);
+                break;
+            case 6:
+                msg= new ShowRequest(username, MessageType.SHOW_DEV_MARKET);
+                break;
+            case 7:
+                msg= new ShowRequest(username, MessageType.SHOW_FAITH_TRACK);
+                break;
+            case 8:
+                msg= new ShowRequest(username, MessageType.SHOW_DEV_CARDS);
+                break;
+            case 8:
+                msg= new ShowRequest(username, MessageType.SHOW_RES);
+                break;
+
+        }
+        client.sendMessage(new PickActionMsg(username, a));
     }
 
     public void updateProduction(ArrayList<DevCard> devCards){

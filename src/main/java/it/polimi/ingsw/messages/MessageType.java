@@ -13,6 +13,7 @@ public enum MessageType {
 
     //end turn message
     START_TURN,
+    TURN_ACTION,
     END_TURN,
 
 
@@ -20,14 +21,13 @@ public enum MessageType {
     STARTING_LEADERS,
 
     //show messages
+    SHOW_REQUEST,
     SHOW_LEADER,
     SHOW_MARKET,
     SHOW_DEV_MARKET,
-    SHOW_SLOT,
+    SHOW_DEV_CARDS,
     SHOW_RES,
     SHOW_FAITH_TRACK,
-    SHOW_ALL_SLOT,
-    SHOW_ALL_RES,
     SHOW_INFO,
 
     //action
@@ -38,7 +38,6 @@ public enum MessageType {
     RESOURCE_TO_WAREHOUSE,
 
     //intermediate message
-    CHOOSE_RES,
     REARRANGE_REPLY,
     REARRANGE_REQUEST,
     DEPOT_TO_REARRANGE,
