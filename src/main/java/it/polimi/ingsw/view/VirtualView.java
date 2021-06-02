@@ -3,7 +3,6 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.messages.GeneralMessage;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
@@ -91,7 +90,7 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askMarketLineToGet(ResourceType[][] market, ResourceType corner) {
+    public void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion) {
         clientHandler.sendMessage(new GetMarketLineRequest(market));
     }
 

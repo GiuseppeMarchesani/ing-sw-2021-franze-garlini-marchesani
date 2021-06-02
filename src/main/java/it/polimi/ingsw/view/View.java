@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
@@ -78,8 +77,9 @@ public interface View {
     /**
      * Allows the player to get Market Resources.
      * @param market the market to be shown.
+     * @param conversion
      */
-    void askMarketLineToGet(ResourceType[][] market, ResourceType corner);
+    void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion);
 
     /**
      * Ask the player to place his resources.

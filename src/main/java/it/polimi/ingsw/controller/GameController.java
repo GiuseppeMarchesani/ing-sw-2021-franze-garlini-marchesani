@@ -101,19 +101,28 @@ public class GameController {
     public void setupGame(ClientMessage msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player=gameSession.getPlayersList().get(indexPlayer);
-        GameState next=getGameState();
          if(msg.getMessageType() == STARTING_LEADERS){
             choseLeader((StartingLeadersRequestMsg) msg,player);
-            if(maxPlayers>=2)  next=GameState.GIVERES;
-            else next=GameState.IN_GAME;
+
+                if(turnController.proxPlayer().equals( turnController.firstPlayer())){
+                    if(maxPlayers>2) {
+                        setGameState(GameState.GIVERES);
+                    //The First two players don't gain any resources
+                    turnController.proxPlayer();
+                    turnController.proxPlayer();
+                    }
+                    else{
+                        setGameState(GameState.IN_GAME);
+                    }
+                }
+
         }
         else if(msg.getMessageType()== RESOURCE_TO_WAREHOUSE){
             ResourceToWarehouseRequestMsg message= ((ResourceToWarehouseRequestMsg) msg);
             placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
-            next=GameState.IN_GAME;
-        }
-        if(turnController.proxPlayer().equals(turnController.firstPlayer())){
-            setGameState(next);
+             if(turnController.proxPlayer().equals( turnController.firstPlayer())) {
+                 setGameState(GameState.IN_GAME);
+             }
         }
         startTurn();
     }
@@ -133,7 +142,7 @@ public class GameController {
     private void startGame() {
         setGameState(GameState.DRAWLEADER);
         turnController=new TurnController(this);
-        switch(gameSession.getPlayersList().size()){
+        switch(maxPlayers){
             case 3:
                 gameSession.getPlayersList().get(2).increaseFaith(1);
             case 4:
@@ -147,6 +156,7 @@ public class GameController {
     }
 
     public void startTurn(){
+        turnController.setMainAction(false);
         switch(gameState){
             case DRAWLEADER:
                 drawLeaderCards();
@@ -169,10 +179,7 @@ public class GameController {
         for(int i=0; i<2;i++){
             player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
         }
-        if(turnController.proxPlayer().equals( turnController.firstPlayer())){
-            //The First two players don't gain any resources
-            turnController.proxPlayer();
-        }
+
 
     }
     private void drawLeaderCards(){
@@ -283,93 +290,62 @@ public class GameController {
      * @param msg
      */
     public void inGame(ClientMessage msg){
-        switch(msg.getMessageType()){
+        if (msg.getUsername()== turnController.getActivePlayer()){
+            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
+            Player player=gameSession.getPlayersList().get(indexPlayer);
+            switch(msg.getMessageType()){
+                case SHOW_LEADER:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case SHOW_MARKET:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case  SHOW_DEV_MARKET:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case SHOW_DEV_CARDS:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case SHOW_RES:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case SHOW_FAITH_TRACK:
+                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
+                    turnController.getMessage(msg);
+                case SHOW_VICTORY_POINTS:
+                    //
+                case PLAYLEADER:
+                    turnController.setPhaseTurn(PhaseTurn.ACTION);
+                    turnController.getMessage(msg);
+                case PICK_DEVCARD:
+                    turnController.setPhaseTurn(PhaseTurn.ACTION);
+                    turnController.getMessage(msg);
+                case DEVCARD_REPLY:
+                    turnController.getMessage(msg);
+                case PLACE_CARD:
+                    turnController.getMessage(msg);
+                case ACTIVATE_PRODUCTION:
+                    turnController.setPhaseTurn(PhaseTurn.ACTION);
+                    turnController.getMessage(msg);
+                case PRODUCTION_RES:
+                    turnController.getMessage(msg);
+                case PAY_RES:
+                    turnController.getMessage(msg);
+
+
+
+                case PICK_MARKETRES:
+                allVirtualView.get(msg.getUsername()).askMarketLineToGet(gameSession.getMarket().getMarketTray(),player.getMarbleConversion());
+                break;
+                case END_TURN:
+                    turnController.proxPlayer();
+                    startTurn();
+                    break;
+            }
 
         }
-        if(msg.getMessageType)
-        if(msg.getMessageType() == SHOW_LEADER){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_MARKET){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_DEV_MARKET){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_SLOT){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == SHOW_ALL_SLOT){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == SHOW_RES){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_ALL_RES){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_FAITH_TRACK){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== SHOW_INFO){
-            turnController.setPhaseTurn(PhaseTurn.START_TURN);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == PLAYLEADER){
-            turnController.setPhaseTurn(PhaseTurn.ACTION);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == LEADER_REPLY){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == PICK_DEVCARD){
-            turnController.setPhaseTurn(PhaseTurn.ACTION);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == DEVCARD_REPLY){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== PLACE_CARD){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == ACTIVATE_PRODUCTION){
-            turnController.setPhaseTurn(PhaseTurn.ACTION);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == PRODUCTION_RES){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== PAY_RES){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType() == PICK_MARKETRES){
-            turnController.setPhaseTurn(PhaseTurn.ACTION);
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== ROW_OR_COL){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== WHITE_CONVERSION){
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()==PLACE_RES) {
-            turnController.getMessage(msg);
-        }
-        else if(msg.getMessageType()== END_TURN){
-            turnController.setPhaseTurn(PhaseTurn.NEXT_TURN);
-            turnController.getMessage(msg);
-        }
         else{
-            allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Invalid action. Try again!");
-            allVirtualView.get(turnController.getActivePlayer()).askAction();
+            allVirtualView.get(msg.getUsername()).showErrorMsg("Not your turn!");
         }
     }
 }

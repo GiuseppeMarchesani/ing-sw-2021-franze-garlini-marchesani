@@ -21,14 +21,13 @@ public enum MessageType {
     STARTING_LEADERS,
 
     //show messages
-    SHOW_REQUEST,
     SHOW_LEADER,
     SHOW_MARKET,
     SHOW_DEV_MARKET,
     SHOW_DEV_CARDS,
     SHOW_RES,
     SHOW_FAITH_TRACK,
-    SHOW_INFO,
+    SHOW_VICTORY_POINTS,
 
     //action
     PLAYLEADER,

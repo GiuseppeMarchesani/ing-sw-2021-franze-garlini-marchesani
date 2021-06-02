@@ -93,9 +93,14 @@ public class ClientMessenger implements Observer, ObserverView {
             case 8:
                 msg= new ShowRequest(username, MessageType.SHOW_RES);
                 break;
+            case 9:
+                msg= new ShowRequest(username, MessageType.SHOW_VICTORY_POINTS);
+                break;
+            default:
+                msg= new EndTurnRequest(username);
 
         }
-        client.sendMessage(new PickActionMsg(username, a));
+        client.sendMessage(msg);
     }
 
     public void updateProduction(ArrayList<DevCard> devCards){

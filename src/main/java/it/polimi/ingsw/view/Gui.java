@@ -1,15 +1,12 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.ScenesController.SceneController;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -93,7 +90,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askMarketLineToGet(ResourceType[][] market, ResourceType corner) {
+    public void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion) {
 
     }
 

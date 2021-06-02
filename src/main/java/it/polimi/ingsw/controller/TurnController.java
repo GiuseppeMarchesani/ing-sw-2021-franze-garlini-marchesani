@@ -26,6 +26,7 @@ public class TurnController {
     private final GameController gameController;
     private PhaseTurn phaseTurn;
     private ArrayList<String> playerOrder;
+    private boolean mainActionDone;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -43,6 +44,7 @@ public class TurnController {
             playerOrder.add(name);
             allVirtualView = gameController.getAllVirtualView();
         }
+        mainActionDone=false;
     }
     public String firstPlayer(){
         return getActivePlayers().get(0);
@@ -57,7 +59,7 @@ public class TurnController {
                 action(receivedMessage);
                 break;
             case NEXT_TURN:
-                endTurn((EndTurnMsg) receivedMessage);
+                endTurn((EndTurnRequest) receivedMessage);
                 break;
             default:
                 allVirtualView.get(playingPlayer).showErrorMsg("Error!");
@@ -171,7 +173,7 @@ public class TurnController {
     /**
      * manages the end turn
      */
-    private void endTurn(EndTurnMsg msg){
+    private void endTurn(EndTurnRequest msg){
         if(gameController.getGameSession().getPlayersList().size() == 1){
             drawToken();
             proxPlayer();
@@ -589,6 +591,9 @@ public class TurnController {
     }
     public boolean isActive(String username){
         return activePlayer.get(username);
+    }
+    public void setMainAction(boolean state){
+        mainAction=state;
     }
 }
 
