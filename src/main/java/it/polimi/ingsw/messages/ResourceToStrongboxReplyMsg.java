@@ -11,4 +11,7 @@ public class ResourceToStrongboxReplyMsg extends ServerMessage{
         this.any=any;
     }
 
+    public int getAny() {
+        return any;
+    }
 }

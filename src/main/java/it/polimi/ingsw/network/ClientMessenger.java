@@ -56,17 +56,12 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateDiscardLeader(ArrayList<LeaderCard> leaders){
         client.sendMessage(new StartingLeadersRequestMsg(username, leaders));
     }
-
-    public void updateBeginningResource(HashMap<ResourceType, Integer> resourceQuantity, HashMap<ResourceType, Integer> resourceDepot ){
-        client.sendMessage(new RearrangeReplyMsg(username, lobby, resourceQuantity, resourceDepot, 0));
-    }
-
-    public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
-        client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
-    }
-
-    public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
+   public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
         client.sendMessage(new ResourceToWarehouseRequestMsg(username, depotToResource, depotToQuantity, leaderToDepot ,discard));
+    }
+
+    public void updateAction(char a){
+        client.sendMessage(new PickActionMsg(username, lobby, a));
     }
 
     public void updateProduction(ArrayList<DevCard> devCards){
@@ -77,8 +72,9 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new BuyDevCardMsg(username, lobby, level, color, slot));
     }
 
-    public void updateAction(char a){
-        client.sendMessage(new PickActionMsg(username, lobby, a));
+
+    public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
+        client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
     }
 
     public void update(GeneralMessage msg){
@@ -94,16 +90,17 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.askLeaderCardToKeep(((StartingLeadersReplyMsg) msg).getLeaderCard()));
                 break;
             case RESOURCE_TO_STRONGBOX:
-                queue.execute(()-> view.askResourceToStrongbox((ResourceToStrongboxReplyMsg) msg).getAny());
+                queue.execute(()-> view.askResourceToStrongbox(((ResourceToStrongboxReplyMsg) msg).getAny()));
                 break;
             case RESOURCE_TO_WAREHOUSE:
                 ResourceToWarehouseReplyMsg message=((ResourceToWarehouseReplyMsg) msg);
                 queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(), message.getAny(), message.getLeaderDepots()));
                 break;
-
             case START_TURN:
                 queue.execute(() -> view.askAction());
                 break;
+
+
             case PICK_MARKETRES:
                 queue.execute(() -> view.askMarketLineToGet(((GetMarketResReply) msg).getMarket(), ((GetMarketResReply) msg).getConversion()));
             case SHOW_MARKET:

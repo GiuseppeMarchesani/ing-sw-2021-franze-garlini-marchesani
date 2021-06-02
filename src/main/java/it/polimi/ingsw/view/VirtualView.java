@@ -57,7 +57,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askAction() {
-        clientHandler.sendMessage(new ActionRequest());
+        clientHandler.sendMessage(new StartTurnReply());
     }
 
     @Override
@@ -97,7 +97,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-
+        clientHandler.sendMessage(new ResourceToWarehouseReplyMsg(resToPlace, numAny, extraDepot));
     }
 
     @Override

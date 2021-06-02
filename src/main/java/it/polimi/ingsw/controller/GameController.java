@@ -101,14 +101,20 @@ public class GameController {
     public void setupGame(ClientMessage msg){
         int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
         Player player=gameSession.getPlayersList().get(indexPlayer);
+        GameState next=getGameState();
          if(msg.getMessageType() == STARTING_LEADERS){
             choseLeader((StartingLeadersRequestMsg) msg,player);
+            if(maxPlayers>=2)  next=GameState.GIVERES;
+            else next=GameState.IN_GAME;
         }
         else if(msg.getMessageType()== RESOURCE_TO_WAREHOUSE){
             ResourceToWarehouseRequestMsg message= ((ResourceToWarehouseRequestMsg) msg);
             placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
+            next=GameState.IN_GAME;
         }
-
+        if(turnController.proxPlayer().equals(turnController.firstPlayer())){
+            setGameState(next);
+        }
         startTurn();
     }
 
@@ -144,10 +150,13 @@ public class GameController {
         switch(gameState){
             case DRAWLEADER:
                 drawLeaderCards();
+                break;
             case GIVERES:
                 choseInitialRes();
+                break;
             case IN_GAME:
                 allVirtualView.get(turnController.getActivePlayer()).askAction();
+                break;
 
         }
     }
@@ -163,10 +172,7 @@ public class GameController {
         if(turnController.proxPlayer().equals( turnController.firstPlayer())){
             //The First two players don't gain any resources
             turnController.proxPlayer();
-            turnController.proxPlayer();
-            setGameState(GameState.GIVERES);
         }
-        startTurn();
 
     }
     private void drawLeaderCards(){
@@ -184,10 +190,8 @@ public class GameController {
      */
     private void choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
-        if(activePlayer.equals(turnController.firstPlayer())){
-            //TODO: ACTUALLY START THE GAME
-        }
-        else if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
+
+        if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
             allVirtualView.get(activePlayer).askInitialRes(1);
         }
         else{

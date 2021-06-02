@@ -95,6 +95,8 @@ public interface View {
      */
     void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny);
 
+    void askResourceToStrongbox(int numAny);
+
     /**
      * Shows the Market.
      * @param market the market to be shown.
