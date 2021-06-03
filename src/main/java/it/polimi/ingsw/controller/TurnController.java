@@ -26,7 +26,6 @@ public class TurnController {
     private final GameController gameController;
     private PhaseTurn phaseTurn;
     private ArrayList<String> playerOrder;
-    private boolean mainActionDone;
 
     public TurnController(GameController gameController){
         endGame=false;
@@ -44,7 +43,6 @@ public class TurnController {
             playerOrder.add(name);
             allVirtualView = gameController.getAllVirtualView();
         }
-        mainActionDone=false;
     }
     public String firstPlayer(){
         return getActivePlayers().get(0);
@@ -410,50 +408,6 @@ public class TurnController {
 
     }
 
-    /**
-     * if the player wants to buy from the marbles market.
-     */
-    public void pickMarketRes(GetMarketMsg msg, Player player){
-        if(!mainAction){
-            mainAction=true;
-
-
-        }
-        else {
-            allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
-        }
-    }
-
-    /**
-     * picks the row or column chosen; checks white and red marbles.
-     */
-    public void rowOrCol(GetMarketMsg msg, Player player){
-        HashMap<ResourceType, Integer> resources = gameSession.pickMarketRes(msg.getRowOrCol(), msg.getNum());
-        for(VirtualView vv: allVirtualView.values()){
-            vv.showMarket(gameSession.getMarket());
-        }
-        for(ResourceType res: resources.keySet()){
-            if(res == ResourceType.EMPTY){
-
-                if(msg.getConversion()!=ResourceType.EMPTY){
-                    int numWhiteMarble= resources.get(ResourceType.EMPTY);
-                    resources.remove(ResourceType.EMPTY);
-                    resources.put(msg.getConversion(), numWhiteMarble);
-                }
-                else{
-                    resources.remove(ResourceType.EMPTY);
-                }
-            }
-            else if(res == ResourceType.FAITH){
-                player.increaseFaith(resources.get(res));
-                endGame=gameSession.updateFaithTrack(player.getFaithSpace());
-                if(endGame){
-                    gameController.setGameState(GameState.END_GAME);
-                }
-            }
-                allVirtualView.get(playingPlayer).askRearrange(playingPlayer, gameId, player.getWarehouse(), resources);
-        }
-    }
 
     /**
      * only if the player has more than one marble's ability.
@@ -595,5 +549,6 @@ public class TurnController {
     public void setMainAction(boolean state){
         mainAction=state;
     }
+    public boolean getMainAction(){return mainAction}
 }
 

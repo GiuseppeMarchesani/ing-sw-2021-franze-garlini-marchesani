@@ -90,7 +90,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion) {
+    public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
 
     }
 

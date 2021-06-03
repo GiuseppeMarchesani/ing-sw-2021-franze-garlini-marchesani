@@ -21,7 +21,7 @@ public class Warehouse {
         for(int i=0; i<initialDepot; i++){
             depotList.add(i, new Depot(sizeD, 1));
             depotList.get(i).setResourceQuantity(0);
-            depotList.get(i).setResourceType(ResourceType.ANY);
+            depotList.get(i).setResourceType(ResourceType.EMPTY);
             sizeD--;
         }
     }
@@ -30,6 +30,20 @@ public class Warehouse {
         return depotList;
     }
 
+    public HashMap<ResourceType, Integer> getAllResources(){
+        HashMap<ResourceType,Integer> resource=new HashMap<ResourceType, Integer>();
+        for(int i=0; i<3;i++){
+            resource.put(depotList.get(i).getResourceType(),depotList.get(i).getResourceQuantity());
+        }
+        for(int i=3;i<depotList.size();i++){
+            if (resource.containsKey(depotList.get(i).getResourceType())){
+                resource.put(depotList.get(i).getResourceType(), resource.get(depotList.get(i).getResourceType())+depotList.get(i).getResourceQuantity());
+            }
+            else  resource.put(depotList.get(i).getResourceType(),depotList.get(i).getResourceQuantity());
+
+        }
+       return resource;
+    }
     /**
      * This method adds a special depot.
      * @param resourceType type of resources in leader card' ability
@@ -47,11 +61,28 @@ public class Warehouse {
             depotList.get(i+3).setResourceQuantity(resourceToLeader.get(i));
         }
     }
-    /**
-     * This method allows the player to rearrange depots
-     * @param depot1 index of the first floor
-     * @param depot2 index of the second floor
-     */
+
+    public HashMap<Integer,ResourceType> getDepotToResource(){
+        HashMap<Integer,ResourceType> depotToResource=new HashMap<Integer, ResourceType>();
+        for(int i=0; i<depotList.size();i++){
+            depotToResource.put(i, depotList.get(i).getResourceType());
+        }
+        return depotToResource;
+    }
+    public HashMap<Integer,Integer> getDepotToQuantity(){
+        HashMap<Integer,Integer> depotToQuantity=new HashMap<Integer, Integer>();
+        for(int i=0; i<depotList.size();i++){
+            depotToQuantity.put(i, depotList.get(i).getResourceQuantity());
+        }
+        return depotToQuantity;
+    }
+    public ArrayList<ResourceType> getLeaderDepot(){
+        ArrayList<ResourceType> leaderDepot=new ArrayList<ResourceType>();
+        for(int i=3; i<depotList.size();i++){
+            leaderDepot.add(depotList.get(i).getResourceType());
+        }
+        return leaderDepot;
+    }
 
     public HashMap<ResourceType, Integer> rearrange(int depot1, int depot2) throws InvalidParameterException{
         HashMap<ResourceType, Integer> discardingResources = new HashMap<>();

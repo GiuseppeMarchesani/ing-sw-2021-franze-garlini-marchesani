@@ -5,10 +5,10 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import java.util.ArrayList;
 
 public class GetMarketResReply extends ServerMessage{
-    ResourceType[][] market;
+
     ArrayList<ResourceType> conversion;
-    public GetMarketResReply(ResourceType[][] market, ArrayList<ResourceType> conversion){
-        this.market=market;
+    public GetMarketResReply( ArrayList<ResourceType> conversion){
+        super(MessageType.MAIN_MARBLE);
         this.conversion=conversion;
     }
 
@@ -16,7 +16,4 @@ public class GetMarketResReply extends ServerMessage{
         return conversion;
     }
 
-    public ResourceType[][] getMarket() {
-        return market;
-    }
 }

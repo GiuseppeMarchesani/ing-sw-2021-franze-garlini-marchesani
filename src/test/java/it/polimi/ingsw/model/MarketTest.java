@@ -49,7 +49,7 @@ public class MarketTest {
         ResourceType[][] testMarketTray = testMarket.getMarketTray();
         HashMap<ResourceType, Integer> test = new HashMap<>();
         ResourceType testCorner = testMarket.getCornerMarble();
-        test = testMarket.pickResources('c', 2);
+        test = testMarket.pickResources('c', 2, null);
 
         ArrayList<ResourceType> lKey = new ArrayList<>();
         for (ResourceType key : test.keySet()) {

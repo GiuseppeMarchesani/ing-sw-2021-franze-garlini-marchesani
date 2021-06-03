@@ -68,8 +68,8 @@ public class Game {
      * @param rowOrColNumber The number of the row/column. Starts from 0.
      * @return The HashMap representing the resources list.
      */
-    public HashMap<ResourceType, Integer> pickMarketRes(char rowOrCol, int rowOrColNumber) {
-        return market.pickResources(rowOrCol,rowOrColNumber);
+    public HashMap<ResourceType, Integer> pickMarketRes(char rowOrCol, int rowOrColNumber, ResourceType conversion) {
+        return market.pickResources(rowOrCol,rowOrColNumber,conversion);
     }
 
 
