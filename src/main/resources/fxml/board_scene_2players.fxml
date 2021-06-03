@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+   <children>
+      <ImageView fitHeight="728.0" fitWidth="1286.0" layoutX="-3.0" layoutY="-4.0" opacity="0.39">
+         <image>
+            <Image url="@../images/sfondo.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="39.0" layoutY="92.0" prefHeight="107.0" prefWidth="135.0">
+         <children>
+            <GridPane id="marketGrid" gridLinesVisible="true" layoutX="15.0" layoutY="25.0" prefHeight="69.0" prefWidth="110.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <Pane layoutX="100.0" prefHeight="21.0" prefWidth="28.0" style="-fx-border-color: black;" />
+         </children>
+      </Pane>
+      <ImageView id="imgMarketBoard" fitHeight="251.0" fitWidth="198.0" layoutX="7.0" layoutY="58.0">
+         <image>
+            <Image url="@../images/imgMarketBoard.png" />
+         </image>
+      </ImageView>
+      <Pane id="faithTrack" layoutX="460.0" layoutY="58.0" prefHeight="157.0" prefWidth="818.0">
+         <children>
+            <ImageView fitHeight="157.0" fitWidth="818.0">
+               <image>
+                  <Image url="@../images/FaithTrack.png" />
+               </image>
+            </ImageView>
+            <ImageView id="img_space1" fitHeight="36.0" fitWidth="35.0" layoutX="72.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space2" fitHeight="36.0" fitWidth="35.0" layoutX="115.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space3" fitHeight="36.0" fitWidth="35.0" layoutX="115.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space4" fitHeight="36.0" fitWidth="35.0" layoutX="107.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space5" fitHeight="36.0" fitWidth="35.0" layoutX="156.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space6" fitHeight="36.0" fitWidth="35.0" layoutX="191.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space7" fitHeight="36.0" fitWidth="35.0" layoutX="235.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space8" fitHeight="36.0" fitWidth="35.0" layoutX="270.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space9" fitHeight="36.0" fitWidth="35.0" layoutX="315.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space10" fitHeight="36.0" fitWidth="35.0" layoutX="315.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space11" fitHeight="36.0" fitWidth="35.0" layoutX="315.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space12" fitHeight="36.0" fitWidth="35.0" layoutX="356.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space13" fitHeight="36.0" fitWidth="35.0" layoutX="392.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space14" fitHeight="36.0" fitWidth="35.0" layoutX="434.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space15" fitHeight="36.0" fitWidth="35.0" layoutX="475.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space16" fitHeight="36.0" fitWidth="35.0" layoutX="510.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space17" fitHeight="36.0" fitWidth="35.0" layoutX="516.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space18" fitHeight="36.0" fitWidth="35.0" layoutX="516.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space19" fitHeight="36.0" fitWidth="35.0" layoutX="551.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space20" fitHeight="36.0" fitWidth="35.0" layoutX="596.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space21" fitHeight="36.0" fitWidth="35.0" layoutX="631.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space22" fitHeight="36.0" fitWidth="35.0" layoutX="675.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space23" fitHeight="36.0" fitWidth="35.0" layoutX="717.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_space24" fitHeight="36.0" fitWidth="35.0" layoutX="752.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <Label id="name1" layoutX="69.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name2" layoutX="112.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name3" layoutX="69.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name4" layoutX="112.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name5" layoutX="153.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name6" layoutX="188.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name8" layoutX="267.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name7" layoutX="226.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name9" layoutX="311.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name10" layoutX="350.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name11" layoutX="311.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name13" layoutX="389.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name12" layoutX="350.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name14" layoutX="431.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name15" layoutX="472.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name16" layoutX="513.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name17" layoutX="548.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name18" layoutX="507.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name19" layoutX="548.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name20" layoutX="593.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name21" layoutX="628.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name22" layoutX="672.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name23" layoutX="710.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label id="name24" layoutX="756.0" layoutY="-6.0" prefHeight="28.0" prefWidth="42.0" />
+         </children>
+      </Pane>
+      <Pane id="resources" layoutX="5.0" layoutY="319.0" prefHeight="340.0" prefWidth="217.0">
+         <children>
+            <ImageView fitHeight="340.0" fitWidth="210.0">
+               <image>
+                  <Image url="@../images/PlayerResources.png" />
+               </image>
+            </ImageView>
+            <ImageView id="img_depot2_res0" fitHeight="36.0" fitWidth="35.0" layoutX="134.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_depot1_res1" fitHeight="36.0" fitWidth="35.0" layoutX="99.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_depot1_res2" fitHeight="36.0" fitWidth="35.0" layoutX="64.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_depot0_res1" fitHeight="36.0" fitWidth="35.0" layoutX="117.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_depot0_res2" fitHeight="36.0" fitWidth="35.0" layoutX="70.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_depot0_res3" fitHeight="36.0" fitWidth="35.0" layoutX="99.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <GridPane gridLinesVisible="true" layoutX="205.0" layoutY="58.0" prefHeight="251.0" prefWidth="257.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </padding>
+         <children>
+            <ImageView id="card_0x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="card_1x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView id="card_2x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+            <ImageView id="card_3x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+            <ImageView id="card_0x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView id="card_1x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView id="card_2x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView id="card_3x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ImageView id="card_0x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView id="card_1x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView id="card_2x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ImageView id="card_3x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Pane layoutX="222.0" layoutY="319.0" prefHeight="340.0" prefWidth="495.0">
+         <children>
+            <ImageView id="devSlots" fitHeight="340.0" fitWidth="496.0">
+               <image>
+                  <Image url="@../images/PlayerDevCardsSlot.png" />
+               </image>
+            </ImageView>
+            <ImageView id="img_slot0_card0" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot0_card1" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot0_card2" fitHeight="164.0" fitWidth="110.0" layoutX="28.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card0" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card1" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot1_card2" fitHeight="164.0" fitWidth="110.0" layoutX="180.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card0" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card1" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView id="img_slot2_card2" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Pane id="leaderSlot1" layoutX="729.0" layoutY="319.0" prefHeight="164.0" prefWidth="110.0">
+         <children>
+            <ImageView fitHeight="164.0" fitWidth="110.0">
+               <image>
+                  <Image url="@../images/BackCard.png" />
+               </image>
+            </ImageView>
+            <ImageView id="img_leader1" fitHeight="164.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Pane id="leaderSlot2" layoutX="856.0" layoutY="319.0" prefHeight="164.0" prefWidth="110.0">
+         <children>
+            <ImageView fitHeight="164.0" fitWidth="110.0">
+               <image>
+                  <Image url="@../images/BackCard.png" />
+               </image>
+            </ImageView>
+            <ImageView id="img_leader2" fitHeight="164.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <GridPane alignment="CENTER" layoutX="839.0" layoutY="603.0" prefHeight="56.0" prefWidth="427.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="127.99995930989584" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="125.00004069010416" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.6666259765625" minWidth="10.0" prefWidth="121.66662597656247" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <MenuButton id="menu_actions" alignment="CENTER" cache="true" contentDisplay="CENTER" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Actions" textFill="WHITE">
+               <items>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="btm_resources" mnemonicParsing="false" text="Pick resources from market" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="btm_buyCard" mnemonicParsing="false" text="Buy developoment card" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="btm_production" mnemonicParsing="false" text="Activate production" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="btm_leader" mnemonicParsing="false" text="Play leader card" />
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false">
+                     <graphic>
+                        <Button id="btm_showPlayer" mnemonicParsing="false" text="Show player" />
+                     </graphic>
+                  </MenuItem>
+               </items>
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </MenuButton>
+            <Button id="btm_info" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Match info" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Button>
+            <Button id="btm_showPlayer" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Username" textFill="WHITE" GridPane.columnIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+         </children>
+      </GridPane>
+   </children>
+   <effect>
+      <InnerShadow />
+   </effect>
+</Pane>
