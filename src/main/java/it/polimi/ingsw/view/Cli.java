@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
@@ -192,40 +193,52 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askDevCardToBuy(List<DevCard> devCardList) {
-        DevCard chosenDevCard = null;
-        int id = -1;
-        boolean checkId = false;
-        int i=0;
+    public void askDevCardToBuy(HashMap<ResourceType, Integer> discount) {
+        boolean checkColor = false;
+        boolean checkLevel = false;
+        String strColor = "";
+        Color finalColor = null;
+        int level = 0;
 
-        while(!checkId) {
-            if(i>0) out.println(STR_WRONG_INPUT);
-            out.println("Choose among one of these Development Card to buy by typing its id.");
-            showDevMarket(devCardList);
+
+        while(!checkColor) {
+            out.println("Please insert the color of the chosen Development Card: (GREEN/PURPLE/YELLOW/BLUE)");
             try {
-                id = Integer.parseInt(readLine());
+                strColor = readLine();
+                for(Color color: Color.values()) {
+                    if(color.toString().toUpperCase().equals(strColor.toUpperCase())) {
+                        finalColor = color;
+                        checkColor = true;
+                        break;
+                    }
+                }
             } catch (ExecutionException e) {
                 out.println(STR_WRONG_INPUT);
             }
+        }
 
-            for(DevCard devCard: devCardList) {
-                if(devCard.getId() == id) {
-                    checkId = true;
-                    chosenDevCard = devCard;
+        while(!checkLevel) {
+            out.println("Please insert the level of the chosen Development Card: (1/2/3)");
+            try {
+                level = Integer.parseInt(readLine());
+                if(level > 0 && level <= 3) {
+                    checkLevel = true;
                     break;
                 }
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
             }
-            i++;
         }
-        DevCard finalChosenDevCard = chosenDevCard;
-        notifyObserver(obs -> obs.updateBuyDevCard(finalChosenDevCard));
+
+        Color finalColor1 = finalColor;
+        int finalLevel = level;
+        notifyObserver(obs -> obs.updateBuyDevCard(finalLevel, finalColor1));
     }
 
     @Override
-    public void askMarketLineToGet(ResourceType[][] market, ResourceType corner) {
-        //agg conversione marble
+    public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
+        int num = 0;
         char rowOrCol = '0';
-        showMarket(market, corner);
         out.println("Do you want to pick a ROW or a COL?");
         try {
             while(true) {
@@ -246,10 +259,8 @@ public class Cli extends ObservableView implements View{
         out.println("Which one?");
         try {
             while(true) {
-                int num = Integer.parseInt(readLine());
+                num = Integer.parseInt(readLine());
                 if((rowOrCol=='c' && num > 0 && num < 5) || (rowOrCol=='r' && num > 0 && num < 4)) {
-                    char finalRowOrCol = rowOrCol;
-                    notifyObserver(obs -> obs.updateGetMarketRes(finalRowOrCol, num));
                     break;
                 }
                 else out.println(STR_WRONG_INPUT);
@@ -257,6 +268,37 @@ public class Cli extends ObservableView implements View{
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
         }
+
+        ResourceType chosenConversion = null;
+        if(conversion.size()>1) {
+            out.print("Available marble conversions: ");
+            for(ResourceType res: conversion) {
+                out.print(res.toString() + " ");
+            }
+            out.println("Choose the resource type you want to exchange the white marble with: ");
+            try {
+                while(true) {
+                    String input = readLine();
+                    for(ResourceType res: conversion) {
+                        if(input.toUpperCase().equals(res.toString())) {
+                            chosenConversion = res;
+                            break;
+                        }
+                    }
+                    if(chosenConversion != null) {
+                        break;
+                    }
+                    else out.println(STR_WRONG_INPUT);
+                }
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+        }
+
+        char finalRowOrCol = rowOrCol;
+        int finalNum = num -1;
+        ResourceType finalChosenConversion = chosenConversion;
+        notifyObserver(obs -> obs.updateGetFromMarket(finalRowOrCol, finalNum, finalChosenConversion));
     }
 
     @Override
@@ -340,11 +382,99 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askResourceToStrongbox( int numAny) {
+    public void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny) {
         HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
-
-
         notifyObserver(obs -> obs.updateStrongbox(convertedAny));
+    }
+
+    @Override
+    public void askProduction(List<DevCard> availableCards, HashMap<Integer, ResourceType> floorResources, HashMap<Integer, Integer> floorQuantity) {
+        List<DevCard> chosenCards = new ArrayList<>();
+        String ids = "";
+        boolean checkId = false;
+        int idCounter, resNumToGet=0;
+        String[] stringIdList;
+        int[] intIdList;
+
+        out.println("Available cards for production: ");
+        for(DevCard devCard: availableCards) {
+            out.println(devCard.toString());
+        }
+
+        out.println("Insert the id of the cards you want to activate: (ex. 11 9 23)");
+
+        while(!checkId) {
+            chosenCards.clear();
+            try {
+                ids = readLine();
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+
+
+            stringIdList = ids.trim().split("\\s+");//remove any leading, trailing white spaces and split the string from rest of the white spaces
+
+            intIdList = new int[stringIdList.length];//create a new int array to store the int values
+
+            for (int i = 0; i < stringIdList.length; i++) {
+                intIdList[i] = Integer.parseInt(stringIdList[i]);//parse the integer value and store it in the int array
+            }
+
+            idCounter = intIdList.length;
+
+            for (int i = 0; i < intIdList.length; i++) {
+                for (DevCard devCard : availableCards) {
+                    if (devCard.getId() == intIdList[i]) {
+                        idCounter--;
+                        chosenCards.add(devCard);
+                        break;
+                    }
+                }
+            }
+            if (idCounter == 0) {
+                checkId = true;
+            }
+        }
+
+        //Payment
+        HashMap<ResourceType, Integer> productionCost = new HashMap<>();
+        productionCost.put(ResourceType.COIN, 0);
+        productionCost.put(ResourceType.STONE, 0);
+        productionCost.put(ResourceType.SERVANT, 0);
+        productionCost.put(ResourceType.SHIELD, 0);
+
+        for(DevCard devCard: chosenCards) {
+            for(ResourceType res: devCard.getProductionCost().keySet())
+            productionCost.put(res, productionCost.get(res) + devCard.getProductionCost().get(res));
+        }
+
+        //Converting warehouse in a single HashMap
+        HashMap<ResourceType, Integer> warehouse = new HashMap<>();
+        for(Integer integer: floorResources.keySet()) {
+            warehouse.put(floorResources.get(integer), floorQuantity.get(integer));
+        }
+
+        for(ResourceType res: productionCost.keySet()) {
+            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            if(warehouse.get(res) > 0) {
+                out.println("Found " + warehouse.get(res) + " in warehouse. How many of it you want to use for payment?");
+                out.println("Please insert a number: ");
+                try {
+                    resNumToGet = Integer.parseInt(readLine());
+                } catch (ExecutionException e) {
+                    out.println(STR_WRONG_INPUT);
+                }
+                if(resNumToGet >= 0 && resNumToGet <= warehouse.get(res)) {
+
+                }
+                else {
+                    resNumToGet = warehouse.get(res);
+                }
+            }
+        }
+        out.println("All the other resources will be taken in the strongbox.");
+        //Passare anche strongbox oppure no?
+        notifyObserver(obs -> obs.updateActivateProduction(chosenCards));
     }
 
     /**
@@ -406,68 +536,6 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-    @Override
-    public void askCardsToActivateProd(List<DevCard> availableCards) {
-        List<DevCard> chosenCards = new ArrayList<>();
-        String ids = "";
-        boolean checkId = false;
-        int idCounter;
-        String[] stringIdList;
-        int[] intIdList;
-
-        for(DevCard devCard: availableCards) {
-            out.println(devCard.toString());
-        }
-
-        while(!checkId) {
-            chosenCards.clear();
-            try {
-                ids = readLine();
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-
-
-            stringIdList = ids.trim().split("\\s+");//remove any leading, trailing white spaces and split the string from rest of the white spaces
-
-            intIdList = new int[stringIdList.length];//create a new int array to store the int values
-
-            for (int i = 0; i < stringIdList.length; i++) {
-                intIdList[i] = Integer.parseInt(stringIdList[i]);//parse the integer value and store it in the int array
-            }
-
-            idCounter = intIdList.length;
-
-            for (int i = 0; i < intIdList.length; i++) {
-                for (DevCard devCard : availableCards) {
-                    if (devCard.getId() == intIdList[i]) {
-                        idCounter--;
-                        chosenCards.add(devCard);
-                        break;
-                    }
-                }
-            }
-            if (idCounter == 0) {
-                checkId = true;
-            }
-        }
-        notifyObserver(obs -> obs.updateActivateProduction(chosenCards));
-    }
-
-    @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
-        String ansiColor = null;
-        out.println("Player: " + username);
-        out.println("Warehouse: ");
-        for(int i=0; i<warehouse.getDepotList().size(); i++) {
-            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
-        }
-        out.println("\nStrongbox: ");
-        for(ResourceType res: strongbox.keySet()) {
-            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
-        }
-    }
-
     public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
         String ansiColor = null;
         out.println("Your Warehouse: ");
@@ -520,7 +588,51 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
+        //Not ANY-resources payment
+        int resNumToGet = 0;
+        HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();
+        HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
+
+        for(ResourceType res: cardCost.keySet()) {
+            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            if(newStrongbox.get(res) > 0) {
+                out.println("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                try {
+                    resNumToGet = 0;
+                    resNumToGet = Integer.parseInt(readLine());
+                } catch (ExecutionException e) {
+                    out.println(STR_WRONG_INPUT);
+                }
+                if(!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
+                    resNumToGet = newStrongbox.get(res);
+                }
+                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+            }
+            paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
+        }
+
+        //ANY-resource payment
+        HashMap<ResourceType, Integer> anyToPay = askAnyResource(numAny);
+        for(ResourceType res: anyToPay.keySet()) {
+            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            if(newStrongbox.get(res) > 0) {
+                out.println("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                try {
+                    resNumToGet = 0;
+                    resNumToGet = Integer.parseInt(readLine());
+                } catch (ExecutionException e) {
+                    out.println(STR_WRONG_INPUT);
+                }
+                if(!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
+                    resNumToGet = newStrongbox.get(res);
+                }
+                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+            }
+            paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
+        }
+
+        //Asking slot
         int chosenSlot = -1;
         boolean checkSlot = false;
 
@@ -533,13 +645,12 @@ public class Cli extends ObservableView implements View{
             if(availableSlots.contains(chosenSlot-1)) {
                 checkSlot = true;
                 int finalChosenSlot = chosenSlot;
-                notifyObserver(obs -> obs.updateAskSlot(finalChosenSlot -1));
+                notifyObserver(obs -> obs.updatePlaceDevCard(paymentWarehouse, newStrongbox, finalChosenSlot -1));
             }
         }
     }
 
-    @Override
-    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
+    /*public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
         boolean checkChose = false;
         String chosenResource ="";
 
@@ -559,7 +670,7 @@ public class Cli extends ObservableView implements View{
             }
 
         }
-    }
+    }*/
 
     @Override
     public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
@@ -638,7 +749,7 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-    @Override
+    /*@Override
     public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
         String reply = "";
         boolean checkReply = false;
@@ -684,7 +795,7 @@ public class Cli extends ObservableView implements View{
                 break;
             }
         }
-    }
+    }*/
 
     @Override
     public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
@@ -744,7 +855,7 @@ public class Cli extends ObservableView implements View{
                 }
             }
             if(!checkId){
-                out.println("Wrong input!");
+                out.println(STR_WRONG_INPUT);
             }
             checkId=false;
         }

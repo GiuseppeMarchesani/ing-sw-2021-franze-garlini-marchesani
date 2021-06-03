@@ -61,7 +61,7 @@ public interface ObserverView {
      * @param rowOrCol 'c' stands for column, 'r' stands for row.
      * @param rowColNumber the row/column number.
      */
-    public void updateGetMarketRes(char rowOrCol, int rowColNumber);
+    public void updateGetFromMarket(char rowOrCol, int rowColNumber, ResourceType conversion);
 
     /**
      * Sends a message to the server with the chosen DevCards for production.
@@ -86,12 +86,6 @@ public interface ObserverView {
      * @param chosenDepot the chosen depot.
      */
     public void updateChooseFloor(int chosenDepot);
-
-    /**
-     * Sends a message to the server containing a resource type representing the white marble conversion the player chose.
-     * @param resource the chose resource type.
-     */
-    public void updateChooseMarbleConv(ResourceType resource);
 
     /**
      * Sends a message to the server containing the chosen slot by the player.

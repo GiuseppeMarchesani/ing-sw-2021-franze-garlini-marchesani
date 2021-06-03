@@ -116,7 +116,7 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
 
-
+    @Override
     public void update(GeneralMessage msg){
         switch(msg.getMessageType()){
             case LOGIN_REPLY:

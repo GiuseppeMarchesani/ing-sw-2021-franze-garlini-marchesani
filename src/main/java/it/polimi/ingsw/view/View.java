@@ -70,13 +70,13 @@ public interface View {
 
     /**
      * Allows the player to buy a Development Card.
-     * @param availableCards the list of Development Card the player can choose between.
+     * @param discount leader discount available for the player.
      */
     void askDevCardToBuy(HashMap<ResourceType, Integer> discount);
 
     /**
      * Allows the player to get Market Resources.
-     * @param conversion
+     * @param conversion list of white marble conversion available for the player.
      */
     void askMarketLineToGet(ArrayList<ResourceType> conversion);
 
@@ -84,6 +84,7 @@ public interface View {
      * Ask the player to place his resources.
      * @param resToPlace resources to be placed.
      * @param numAny number of any in the HashMap passed as a parameter.
+     * @param extraDepot possible leader card depot, null otherwise.
      */
     void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot);
 
@@ -94,7 +95,13 @@ public interface View {
      */
     void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny);
 
-    void askResourceToStrongbox(int numAny);
+    /**
+     * Allows the player to activate Development Cards production.
+     * @param availableCards the list of available Development Card for production.
+     * @param floorResources an HashMap containing floors and their respective resources.
+     * @param floorQuantity an HashMap containing floors and their respective resource's quantity.
+     */
+    void askProduction(List<DevCard> availableCards, HashMap<Integer, ResourceType> floorResources, HashMap<Integer, Integer> floorQuantity);
 
     /**
      * Shows the Market.
@@ -107,20 +114,6 @@ public interface View {
      * @param availableCards the list of Development Card on the top of the DevMarket.
      */
     void showDevMarket(List<DevCard> availableCards);
-
-    /**
-     * Allows the player to activate Development Card production.
-     * @param availableCards the list of available Development Card for production.
-     */
-    void askCardsToActivateProd(List<DevCard> availableCards);
-
-    /**
-     * Shows the resources owned by a player.
-     * @param strongbox the player's strongbox.
-     * @param warehouse the player's warehouse.
-     * @param username the username of the player who owns the resources.
-     */
-    void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username);
 
     /**
      * Shows the player the resources he owns.
@@ -163,19 +156,13 @@ public interface View {
 
     /**
      * Asks the player to choose one slot among the slots in the list passed as parameter.
-     * @param warehouse
-     * @param strongbox
-     * @param cardCost
-     * @param any
+     * @param warehouse the player's warehouse.
+     * @param strongbox the player's strongbox.
+     * @param cardCost card's cost.
+     * @param numAny amount of ANY resource.
      * @param availableSlots the list of the available slot the player can choose.
      */
-    void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots);
-
-    /**
-     * Asks the player to choose a white marble conversion among the available conversions.
-     * @param availableConversions the list of the available resource type for conversion.
-     */
-    void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions);
+    void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
 
     /**
      * Allows the player to choose resources for payment.
@@ -198,13 +185,6 @@ public interface View {
      * @param resToPlace the resource to be placed.
      */
     void askChooseFloor(Warehouse warehouse, ResourceType resToPlace);
-
-    /**
-     * Asks the player if he wants to rearrange depots.
-     * @param warehouse the player's warehouse.
-     * @param resources
-     */
-    void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources);
 
     /**
      * Allows the player to play a Leader Carder.
