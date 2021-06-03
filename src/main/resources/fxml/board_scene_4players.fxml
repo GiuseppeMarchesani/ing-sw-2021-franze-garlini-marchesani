@@ -9,10 +9,13 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <Pane id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
@@ -118,6 +121,13 @@
             <ImageView id="img_depot0_res1" fitHeight="36.0" fitWidth="35.0" layoutX="117.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView id="img_depot0_res2" fitHeight="36.0" fitWidth="35.0" layoutX="70.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView id="img_depot0_res3" fitHeight="36.0" fitWidth="35.0" layoutX="99.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane layoutY="285.0" opacity="0.9" prefHeight="55.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 20;">
+               <children>
+                  <Circle fill="#1f93ff00" layoutX="31.0" layoutY="17.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
+                  <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="17.0" layoutY="22.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
+                  <Button id="btm_showResources" layoutX="4.0" layoutY="4.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
+               </children>
+            </Pane>
          </children>
       </Pane>
       <GridPane gridLinesVisible="true" layoutX="205.0" layoutY="58.0" prefHeight="251.0" prefWidth="257.0">
@@ -254,6 +264,34 @@
             </MenuButton>
          </children>
       </GridPane>
+      <AnchorPane layoutX="150.0" layoutY="3.0" prefHeight="55.0" prefWidth="42.0">
+         <children>
+            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
+            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
+            <Button id="btm_showMarket" layoutX="-4.0" layoutY="-6.0" minWidth="35.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="35.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="406.0" layoutY="3.0" prefHeight="55.0" prefWidth="50.0">
+         <children>
+            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
+            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
+            <Button id="btm_showDevMarket" layoutX="2.0" layoutY="-2.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="654.0" layoutY="264.0" prefHeight="55.0" prefWidth="50.0">
+         <children>
+            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
+            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
+            <Button id="btm_showSLots" layoutX="9.0" layoutY="7.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="1215.0" layoutY="3.0" prefHeight="55.0" prefWidth="50.0">
+         <children>
+            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
+            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
+            <Button id="btm_showFaithTrack" layoutX="9.0" layoutY="7.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
+         </children>
+      </AnchorPane>
    </children>
    <effect>
       <InnerShadow />
