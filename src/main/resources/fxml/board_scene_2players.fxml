@@ -220,11 +220,6 @@
                         <Button id="btm_leader" mnemonicParsing="false" text="Play leader card" />
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button id="btm_showPlayer" mnemonicParsing="false" text="Show player" />
-                     </graphic>
-                  </MenuItem>
                </items>
                <font>
                   <Font name="Arial" size="14.0" />
