@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
@@ -8,14 +7,12 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.stream.Collectors;
 
 public class Cli extends ObservableView implements View{
     private PrintStream out;
@@ -523,7 +520,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askSlot(ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
         int chosenSlot = -1;
         boolean checkSlot = false;
 

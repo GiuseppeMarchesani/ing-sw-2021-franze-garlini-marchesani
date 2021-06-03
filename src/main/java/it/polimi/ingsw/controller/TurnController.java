@@ -146,9 +146,6 @@ public class TurnController {
         else if(msg.getMessageType() == PAY_RES){
             resToPay((ResToPayMsg) msg, player);
         }
-        else if(msg.getMessageType() == PICK_MARKETRES){
-            pickMarketRes((GetMarketMsg) msg, player);
-        }
         else if(msg.getMessageType() == WHITE_CONVERSION){
             chosenMarbleConversion((WhiteConversionMsg) msg, player);
         }
@@ -264,41 +261,12 @@ public class TurnController {
             }
         }
 
-
-    /**
-     * shows development card market to choose one card
-     */
-    private void showDevCardMarket(DevCardMsg msg){
-        if (!mainAction) {
-            mainAction=true;
-            allVirtualView.get(playingPlayer).askDevCardToBuy(gameSession.getCardMarket().availableCards());
-        }
-        else {
-            allVirtualView.get(playingPlayer).showErrorMsg("You can't do main action in this turn.");
-        }
-    }
-
     /**
      * picks the chosen card from the market, asks the player to pay
      * and asks where he wants to put it. If the player have already 6 cards, this method
      * calls end game.
      */
-    private void pickDevCard(DevCardReplyMessage msg, Player player){
-        for(ResourceType res: msg.getDevCard().getCardCost().keySet()){
-            for(int i=0; i<msg.getDevCard().getCardCost().get(res); i++){
-                allVirtualView.get(playingPlayer).askChooseResToPay(player.getStrongbox(), player.getWarehouse(), res);
-            }
-        }
-        gameSession.pickDevCard(msg.getDevCard().getCardType().getColor(), msg.getDevCard().getCardType().getLevel());
-        if(player.getDevCardSlot().getCardQuantity()==6){
-            endGame=true;
-            gameController.setGameState(GameState.END_GAME);
-        }
-        for(VirtualView vv: allVirtualView.values()){
-            vv.showDevMarket(gameSession.getCardMarket().availableCards());
-        }
-        allVirtualView.get(playingPlayer).askSlot(player.getDevCardSlot().getAvailableSlots(msg.getDevCard().getCardType().getLevel()));
-    }
+
 
     public void resToPay(ResToPayMsg msg, Player player){
         if(msg.getWorS().equals("W") || msg.getWorS().equals("w")){
@@ -489,6 +457,7 @@ public class TurnController {
             player=0;
         }
         playingPlayer = getActivePlayers().get(player);
+        setMainAction(false);
         return playingPlayer;
 
     }

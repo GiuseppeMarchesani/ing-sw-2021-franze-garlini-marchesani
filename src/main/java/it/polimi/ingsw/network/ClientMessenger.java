@@ -3,12 +3,12 @@ package it.polimi.ingsw.network;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.View;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -103,18 +103,19 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(msg);
     }
 
-    public void updateProduction(ArrayList<DevCard> devCards){
-        client.sendMessage(new ProductionMsg(devCards));
-    }
 
-    public void updateBuyDevCard(int level, int color, int slot){
-        client.sendMessage(new BuyDevCardMsg(username, lobby, level, color, slot));
-    }
 
+    public void updateBuyDevCard(int level, Color color){
+        client.sendMessage(new BuyDevCardRequest(username, level, color));
+    }
+    public void updatePlaceDevCard(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox, int slotToPlace){
+        client.sendMessage(new PlaceDevCardRequest(username, expenseDepot, newStrongbox, slotToPlace));
+    }
 
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
         client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
+
 
     public void update(GeneralMessage msg){
         switch(msg.getMessageType()){
@@ -139,26 +140,18 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.askMarketLineToGet(((GetMarketResReply) msg).getConversion()));
                 break;
             case MAIN_CARD:
-                queue.execute(() -> view.askDevCardToBuy(((BuyDevCardReply) msg).getDiscount()));
+                queue.execute(() -> view.askDevCardToBuy());
                 break;
+            case PLACE_CARD:
+                PlaceDevCardReply placeMsg= (PlaceDevCardReply) msg;
+                queue.execute(() ->view.askSlot(placeMsg.getWarehouse(), placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
+
 
             case RESOURCE_TO_STRONGBOX:
                 queue.execute(()-> view.askResourceToStrongbox(((ResourceToStrongboxReplyMsg) msg).getAny()));
                 break;
             case SHOW_MARKET:
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
-                break;
-            case SHOW_DEV_MARKET:
-                queue.execute(() -> view.showDevMarket(((ShowDevMarketMsg) msg).getCards());
-                break;
-            case SHOW_ALL_SLOT:
-                queue.execute(() -> view.showSlots(((ShowPlayerCardsMsg) msg).getCards());
-                break;
-            case SHOW_LEADER:
-                queue.execute(() -> view.showLeaderCards(((ShowLeaderCardsMsg) msg).getCards());
-                break;
-            case SHOW_ALL_RES:
-                queue.execute(() -> view.showResources(((ShowResourcesRequest) msg).getStrongbox(),((ShowResourcesRequest) msg).getWarehouse());
                 break;
 
         }

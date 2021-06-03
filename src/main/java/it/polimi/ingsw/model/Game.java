@@ -72,6 +72,9 @@ public class Game {
         return market.pickResources(rowOrCol,rowOrColNumber,conversion);
     }
 
+    public void returnDevCard(DevCard card){
+        cardMarket.returnDevCard(card);
+    }
 
     /**
      * Gets the income of the Development Cards production passed as parameters.

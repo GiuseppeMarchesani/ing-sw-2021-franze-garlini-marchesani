@@ -163,9 +163,13 @@ public interface View {
 
     /**
      * Asks the player to choose one slot among the slots in the list passed as parameter.
+     * @param warehouse
+     * @param strongbox
+     * @param cardCost
+     * @param any
      * @param availableSlots the list of the available slot the player can choose.
      */
-    void askSlot(ArrayList<Integer> availableSlots);
+    void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots);
 
     /**
      * Asks the player to choose a white marble conversion among the available conversions.
@@ -220,4 +224,5 @@ public interface View {
      */
     void showWinMessage(String winnerUser);
 
+    void askDevCardToBuy();
 }

@@ -44,6 +44,26 @@ public class Warehouse {
         }
        return resource;
     }
+
+
+    public  void spendResources(HashMap<ResourceType, Integer> resources){
+        for(int i=0; i<depotList.size(); i++){
+            if(resources.containsKey(depotList.get(i).getResourceType())){
+                if(resources.get(depotList.get(i).getResourceType())<=depotList.get(i).getResourceQuantity()){
+                    depotList.get(i).setResourceQuantity(depotList.get(i).getResourceQuantity()-resources.get(depotList.get(i).getResourceType()));
+                    resources.remove(depotList.get(i).getResourceType());
+                    if( depotList.get(i).getResourceQuantity()==0){
+                        depotList.get(i).setResourceType(ResourceType.EMPTY);
+                    }
+                }
+                else{
+                    resources.put(depotList.get(i).getResourceType(),resources.get(depotList.get(i).getResourceType())-depotList.get(i).getResourceQuantity() );
+                    depotList.get(i).setResourceQuantity(0);
+                    depotList.get(i).setResourceType(ResourceType.EMPTY);
+                }
+            }
+        }
+    }
     /**
      * This method adds a special depot.
      * @param resourceType type of resources in leader card' ability

@@ -145,7 +145,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askSlot(ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
 
     }
 

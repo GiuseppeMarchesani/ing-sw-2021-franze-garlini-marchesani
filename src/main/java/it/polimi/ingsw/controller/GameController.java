@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.PhaseTurn;
@@ -22,11 +23,13 @@ public class GameController {
     private TurnController turnController;
     private GameState gameState;
     private String gameId;
+    private ArrayList<DevCard> tempCards;
 
     public GameController(){
         this.allVirtualView= new HashMap<String, VirtualView>();
         this.gameState= GameState.INIT;
         maxPlayers=0;
+        tempCards=new ArrayList<DevCard>();
 
     }
 
@@ -156,7 +159,7 @@ public class GameController {
     }
 
     public void startTurn(){
-        turnController.setMainAction(false);
+        tempCards.clear();
         switch(gameState){
             case DRAWLEADER:
                 drawLeaderCards();
@@ -318,12 +321,8 @@ public class GameController {
                 case PLAYLEADER:
                     turnController.setPhaseTurn(PhaseTurn.ACTION);
                     turnController.getMessage(msg);
-                case PICK_DEVCARD:
-                    turnController.setPhaseTurn(PhaseTurn.ACTION);
-                    turnController.getMessage(msg);
+
                 case DEVCARD_REPLY:
-                    turnController.getMessage(msg);
-                case PLACE_CARD:
                     turnController.getMessage(msg);
                 case ACTIVATE_PRODUCTION:
                     turnController.setPhaseTurn(PhaseTurn.ACTION);
@@ -333,34 +332,48 @@ public class GameController {
                 case PAY_RES:
                     turnController.getMessage(msg);
 
-
+                case PLACE_CARD:
+                    placeCard((PlaceDevCardRequest) msg, tempCards.get(0), player);
+                    startTurn();
+                    break;
+                case PICK_DEVCARD:
+                    getMarketDevCard((BuyDevCardRequest) msg, player);
+                    break;
                 case MAIN_CARD:
-                    if(turnController.getMainAction()){
-                        allVirtualView.get(msg.getUsername()).askDevCardToBuy(player.getResourceDiscount());
-                        turnController.setMainAction(true);
+                    if(!turnController.getMainAction()){
+                        allVirtualView.get(msg.getUsername()).askDevCardToBuy();
                     }
-                    else allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+                    else {
+                        allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+
+                        startTurn();
+                    }
                     break;
                 case RESOURCE_TO_WAREHOUSE:
                     ResourceToWarehouseRequestMsg message= (ResourceToWarehouseRequestMsg) msg;
                     placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), message.getLeaderToDepot(), message.getDiscard());
-                    allVirtualView.get(msg.getUsername()).askAction();
+                    startTurn();
+                    break;
                 case MAIN_MARBLE:
-                    if(turnController.getMainAction()){
+                    if(!turnController.getMainAction()){
                     allVirtualView.get(msg.getUsername()).askMarketLineToGet(player.getMarbleConversion());
                     turnController.setMainAction(true);
                     }
-                    else allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+                    else {
+                        allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+
+                        startTurn();
+                    }
                     break;
                 case PICK_MARKETRES:
                         getMarketResources((GetMarketResRequest) msg,player);
                     break;
                 case END_TURN:
                     turnController.proxPlayer();
+
                     startTurn();
                     break;
             }
-
         }
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not your turn!");
@@ -370,8 +383,11 @@ public class GameController {
     public void getMarketResources(GetMarketResRequest msg,Player player){
 
             HashMap<ResourceType,Integer> resource= gameSession.pickMarketRes(((GetMarketResRequest) msg).getRowOrCol(),((GetMarketResRequest) msg).getNum(),((GetMarketResRequest) msg).getConversion());
-            allVirtualView.get(turnController.getActivePlayer()).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
-            if(resource.containsKey(ResourceType.FAITH)){
+             for (VirtualView vv : allVirtualView.values()) {
+                vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+
+            }
+             if(resource.containsKey(ResourceType.FAITH)){
                 increaseFaith(resource.get(ResourceType.FAITH), 0);
                 resource.remove(ResourceType.FAITH);
             }
@@ -389,6 +405,77 @@ public class GameController {
             }
 
             allVirtualView.get(turnController.getActivePlayer()).askResourceToWarehouse(resource,any,player.getWarehouse().getLeaderDepot());
+
+    }
+    public void getMarketDevCard(BuyDevCardRequest msg, Player player){
+
+        ArrayList<Integer> slots=player.getDevCardSlot().getAvailableSlots(msg.getLevel());
+        if(slots.size()==0)
+        {
+            allVirtualView.get(msg.getUsername()).showErrorMsg("No slot to place the card!");
+            startTurn();
+            return;
+        }
+        DevCard card=gameSession.pickDevCard(msg.getColor(), msg.getLevel());
+        if(card==null){
+            allVirtualView.get(msg.getUsername()).showErrorMsg("The pile is empty!");
+            startTurn();
+            return;
+        }
+        tempCards.add(card);
+        HashMap<ResourceType,Integer> resource=player.getAllResources();
+        Integer any=card.getCardCost().get(ResourceType.ANY);
+        if(any==null){
+            any=0;
+        }
+        int grandTotalCost=0;
+        for(ResourceType r: resource.keySet()){
+            grandTotalCost+=resource.get(r);
+        }
+
+        int discount;
+        for(ResourceType r: card.getCardCost().keySet()) {
+            discount=0;
+            if(player.getResourceDiscount().containsKey(r)){
+                discount=player.getResourceDiscount().get(r);
+
+            }
+            grandTotalCost -= card.getCardCost().get(r)-discount;
+            if (r != ResourceType.ANY) {
+                if (card.getCardCost().get(r)-discount > resource.get(r)) {
+                    allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
+                    gameSession.returnDevCard(card);
+                    tempCards.remove(card);
+                    startTurn();
+                    return;
+                }
+            }
+        }
+        if(grandTotalCost>=0){
+            for(ResourceType r: player.getResourceDiscount().keySet()){
+                if( card.getCardCost().containsKey(r)){
+                    card.getCardCost().put(r, card.getCardCost().get(r)-player.getResourceDiscount().get(r));
+                        if(card.getCardCost().get(r)<=0){
+                            card.getCardCost().remove(r);
+                    }
+                }
+            }
+            allVirtualView.get(msg.getUsername()).askSlot(player.getWarehouse().getAllResources(),player.getStrongbox(), card.getCardCost(), any.intValue(),slots);
+        }
+        else{
+            allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
+            gameSession.returnDevCard(card);
+            tempCards.remove(card);
+            startTurn();
+        }
+
+    }
+    public void placeCard(PlaceDevCardRequest msg, DevCard card, Player player){
+        player.setStrongbox(msg.getNewStrongbox());
+        player.getDevCardSlot().getSlotDev().get(msg.getSlotToPlace()).add(card);
+        player.getWarehouse().spendResources(msg.getExpenseDepot());
+
+        //TODO:AGGIORNAMENTI
 
     }
 }

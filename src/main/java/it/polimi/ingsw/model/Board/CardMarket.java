@@ -19,33 +19,30 @@ public class CardMarket {
             }
         }
 
-
+        Collections.shuffle(devCardDeck);
         //Putting the cards in the grid
-        ArrayList<DevCard> temp = new ArrayList<>();
-        for(Color color: Color.values()) {
-            for(int level=1; level<=3; level++) {
-                for(int i=0; i<devCardDeck.size(); i++) {
-                    if (devCardDeck.get(i).getCardType().getColor().equals(color) && devCardDeck.get(i).getCardType().getLevel() == level) {
-                        temp.add(devCardDeck.get(i));
-                    }
-                }
-                Collections.shuffle(temp);
-                devCardGrid.get(color.getVal()).get(level-1).addAll(temp);
-                temp.clear();
-            }
+        DevCard card;
+        for (DevCard devCard : devCardDeck) {
+            card = devCard;
+            devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel() - 1).add(card);
         }
+
+
+
     }
-    public DevCard pickCard(Color color, int level) throws IllegalArgumentException{
+    public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
         if(devCardGrid.get(color.getVal()).get(level).size() > 0){
             requestCard = devCardGrid.get(color.getVal()).get(level).get(devCardGrid.get(color.getVal()).get(level).size()-1);
             devCardGrid.get(color.getVal()).get(level).remove(requestCard);
         }
-        else throw new IllegalArgumentException();
+        else requestCard=null;
 
         return requestCard;
     }
-
+    public void returnDevCard(DevCard card){
+        devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel()-1).add(card);
+    }
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
         for (int i=0; i<4; i++) {

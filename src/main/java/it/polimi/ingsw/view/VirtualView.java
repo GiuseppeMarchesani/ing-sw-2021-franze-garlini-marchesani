@@ -85,8 +85,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askDevCardToBuy(HashMap<ResourceType, Integer> discount) {
-        clientHandler.sendMessage(new BuyDevCardReply(discount));
+    public void askDevCardToBuy() {
+        clientHandler.sendMessage(new BuyDevCardReply());
     }
 
     @Override
@@ -150,8 +150,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askSlot(ArrayList<Integer> availableSlots) {
-        clientHandler.sendMessage(new SlotRequest(availableSlots));
+    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+        clientHandler.sendMessage(new PlaceDevCardReply(warehouse, strongbox, cardCost,any, availableSlots));
     }
 
     @Override
