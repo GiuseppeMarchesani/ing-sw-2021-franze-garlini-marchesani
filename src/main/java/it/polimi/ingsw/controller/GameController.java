@@ -207,6 +207,7 @@ public class GameController {
     }
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
         player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
+        increaseFaith(discard, 2);
     }
 
 
@@ -333,10 +334,27 @@ public class GameController {
                     turnController.getMessage(msg);
 
 
-
+                case MAIN_CARD:
+                    if(turnController.getMainAction()){
+                        allVirtualView.get(msg.getUsername()).askDevCardToBuy(player.getResourceDiscount());
+                        turnController.setMainAction(true);
+                    }
+                    else allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+                    break;
+                case RESOURCE_TO_WAREHOUSE:
+                    ResourceToWarehouseRequestMsg message= (ResourceToWarehouseRequestMsg) msg;
+                    placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), message.getLeaderToDepot(), message.getDiscard());
+                    allVirtualView.get(msg.getUsername()).askAction();
+                case MAIN_MARBLE:
+                    if(turnController.getMainAction()){
+                    allVirtualView.get(msg.getUsername()).askMarketLineToGet(player.getMarbleConversion());
+                    turnController.setMainAction(true);
+                    }
+                    else allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
+                    break;
                 case PICK_MARKETRES:
-                allVirtualView.get(msg.getUsername()).askMarketLineToGet(gameSession.getMarket().getMarketTray(),player.getMarbleConversion());
-                break;
+                        getMarketResources((GetMarketResRequest) msg,player);
+                    break;
                 case END_TURN:
                     turnController.proxPlayer();
                     startTurn();
@@ -347,5 +365,30 @@ public class GameController {
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not your turn!");
         }
+    }
+
+    public void getMarketResources(GetMarketResRequest msg,Player player){
+
+            HashMap<ResourceType,Integer> resource= gameSession.pickMarketRes(((GetMarketResRequest) msg).getRowOrCol(),((GetMarketResRequest) msg).getNum(),((GetMarketResRequest) msg).getConversion());
+            allVirtualView.get(turnController.getActivePlayer()).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+            if(resource.containsKey(ResourceType.FAITH)){
+                increaseFaith(resource.get(ResourceType.FAITH), 0);
+                resource.remove(ResourceType.FAITH);
+            }
+            int any=0;
+            if( resource.containsKey(ResourceType.ANY)){
+                any=resource.get(ResourceType.ANY);
+                resource.remove(ResourceType.ANY);
+            }
+            HashMap<ResourceType,Integer> resourceW=player.getWarehouse().getAllResources();
+            for(ResourceType r : resourceW.keySet()){
+                if(resource.containsKey(r)){
+                    resource.put(r, resource.get(r)+resourceW.get(r));
+                }
+                else   resource.put(r, resourceW.get(r));
+            }
+
+            allVirtualView.get(turnController.getActivePlayer()).askResourceToWarehouse(resource,any,player.getWarehouse().getLeaderDepot());
+
     }
 }

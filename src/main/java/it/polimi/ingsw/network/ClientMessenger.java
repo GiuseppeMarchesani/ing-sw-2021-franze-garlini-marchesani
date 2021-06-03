@@ -64,40 +64,40 @@ public class ClientMessenger implements Observer, ObserverView {
         ClientMessage msg;
         switch(actionCode){
             case 0:
-                msg=new GetMarketResRequest(username);
+                msg= new ActionRequest(username, MessageType.MAIN_MARBLE);
                 break;
             case 1:
-                msg= new GetMarketCardRequest(username);
+                msg= new ActionRequest(username, MessageType.MAIN_CARD);
                 break;
             case 2:
-                msg= new GetProductionRequest(username);
+                msg= new ActionRequest(username, MessageType.MAIN_PRODUCTION);
                 break;
             case 3:
-                msg= new PlayLeaderRequest(username);
+                msg= new ActionRequest(username, MessageType.SIDE_LEADER);
                 break;
             case 4:
-                msg= new ShowRequest(username, MessageType.SHOW_LEADER);
+                msg= new ActionRequest(username, MessageType.SHOW_LEADER);
                 break;
             case 5:
-                msg= new ShowRequest(username, MessageType.SHOW_MARKET);
+                msg= new ActionRequest(username, MessageType.SHOW_MARKET);
                 break;
             case 6:
-                msg= new ShowRequest(username, MessageType.SHOW_DEV_MARKET);
+                msg= new ActionRequest(username, MessageType.SHOW_DEV_MARKET);
                 break;
             case 7:
-                msg= new ShowRequest(username, MessageType.SHOW_FAITH_TRACK);
+                msg= new ActionRequest(username, MessageType.SHOW_FAITH_TRACK);
                 break;
             case 8:
-                msg= new ShowRequest(username, MessageType.SHOW_DEV_CARDS);
+                msg= new ActionRequest(username, MessageType.SHOW_DEV_CARDS);
                 break;
             case 8:
-                msg= new ShowRequest(username, MessageType.SHOW_RES);
+                msg= new ActionRequest(username, MessageType.SHOW_RES);
                 break;
             case 9:
-                msg= new ShowRequest(username, MessageType.SHOW_VICTORY_POINTS);
+                msg= new ActionRequest(username, MessageType.SHOW_VICTORY_POINTS);
                 break;
             default:
-                msg= new EndTurnRequest(username);
+                msg= new ActionRequest(username, MessageType.END_TURN);
 
         }
         client.sendMessage(msg);
@@ -113,7 +113,7 @@ public class ClientMessenger implements Observer, ObserverView {
 
 
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
-        client.sendMessage(new GetMarketMsg(username, getFromRow, i, conversion));
+        client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
 
     public void update(GeneralMessage msg){
@@ -128,9 +128,6 @@ public class ClientMessenger implements Observer, ObserverView {
             case STARTING_LEADERS:
                 queue.execute(() -> view.askLeaderCardToKeep(((StartingLeadersReplyMsg) msg).getLeaderCard()));
                 break;
-            case RESOURCE_TO_STRONGBOX:
-                queue.execute(()-> view.askResourceToStrongbox(((ResourceToStrongboxReplyMsg) msg).getAny()));
-                break;
             case RESOURCE_TO_WAREHOUSE:
                 ResourceToWarehouseReplyMsg message=((ResourceToWarehouseReplyMsg) msg);
                 queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(), message.getAny(), message.getLeaderDepots()));
@@ -138,10 +135,16 @@ public class ClientMessenger implements Observer, ObserverView {
             case START_TURN:
                 queue.execute(() -> view.askAction());
                 break;
+            case MAIN_MARBLE:
+                queue.execute(() -> view.askMarketLineToGet(((GetMarketResReply) msg).getConversion()));
+                break;
+            case MAIN_CARD:
+                queue.execute(() -> view.askDevCardToBuy(((BuyDevCardReply) msg).getDiscount()));
+                break;
 
-
-            case PICK_MARKETRES:
-                queue.execute(() -> view.askMarketLineToGet(((GetMarketResReply) msg).getMarket(), ((GetMarketResReply) msg).getConversion()));
+            case RESOURCE_TO_STRONGBOX:
+                queue.execute(()-> view.askResourceToStrongbox(((ResourceToStrongboxReplyMsg) msg).getAny()));
+                break;
             case SHOW_MARKET:
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
                 break;

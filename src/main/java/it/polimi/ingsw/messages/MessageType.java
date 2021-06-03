@@ -20,7 +20,8 @@ public enum MessageType {
     //Setup
     STARTING_LEADERS,
 
-    //show messages
+    //Action Requests
+    MAIN_CARD, MAIN_PRODUCTION, SIDE_LEADER, MAIN_MARBLE,
     SHOW_LEADER,
     SHOW_MARKET,
     SHOW_DEV_MARKET,
@@ -33,6 +34,8 @@ public enum MessageType {
     PLAYLEADER,
     PICK_DEVCARD,
     PICK_MARKETRES,
+
+
     ACTIVATE_PRODUCTION,
     RESOURCE_TO_WAREHOUSE,
 

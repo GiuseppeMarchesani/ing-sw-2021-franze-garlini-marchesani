@@ -53,7 +53,7 @@ public class Market{
      * @param rowOrCol 'c' stands for column, 'r' stands for row
      * @param num which column or which row
      */
-    public HashMap<ResourceType, Integer> pickResources(char rowOrCol, int num) throws InvalidParameterException {
+    public HashMap<ResourceType, Integer> pickResources(char rowOrCol, int num, ResourceType conversion) throws InvalidParameterException {
 
         HashMap<ResourceType, Integer> resources = new HashMap<>();
 
@@ -79,7 +79,17 @@ public class Market{
             }
             else throw new InvalidParameterException();
         }
+        if (resources.get(ResourceType.EMPTY)!=null){
+            if(conversion!= null){
+                int change=resources.get(ResourceType.EMPTY);
 
+                if(resources.get(conversion)!=null){
+                    change+=resources.get(conversion);
+                }
+                resources.put(conversion,change);
+            }
+            resources.remove(ResourceType.EMPTY);
+        }
         replace(rowOrCol, num);
         return resources;
     }

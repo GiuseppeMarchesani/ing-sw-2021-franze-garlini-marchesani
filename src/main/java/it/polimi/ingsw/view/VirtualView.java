@@ -85,13 +85,13 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askDevCardToBuy(List<DevCard> devCardList) {
-        clientHandler.sendMessage(new BuyDevCardRequest(devCardList));
+    public void askDevCardToBuy(HashMap<ResourceType, Integer> discount) {
+        clientHandler.sendMessage(new BuyDevCardReply(discount));
     }
 
     @Override
-    public void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion) {
-        clientHandler.sendMessage(new GetMarketLineRequest(market));
+    public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
+        clientHandler.sendMessage(new GetMarketResReply(conversion));
     }
 
     @Override

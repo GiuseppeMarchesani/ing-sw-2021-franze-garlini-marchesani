@@ -72,14 +72,13 @@ public interface View {
      * Allows the player to buy a Development Card.
      * @param availableCards the list of Development Card the player can choose between.
      */
-    void askDevCardToBuy(List<DevCard> availableCards);
+    void askDevCardToBuy(HashMap<ResourceType, Integer> discount);
 
     /**
      * Allows the player to get Market Resources.
-     * @param market the market to be shown.
      * @param conversion
      */
-    void askMarketLineToGet(ResourceType[][] market, ArrayList<ResourceType> conversion);
+    void askMarketLineToGet(ArrayList<ResourceType> conversion);
 
     /**
      * Ask the player to place his resources.
