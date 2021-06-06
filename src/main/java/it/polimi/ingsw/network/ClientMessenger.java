@@ -144,7 +144,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case PLACE_CARD:
                 PlaceDevCardReply placeMsg= (PlaceDevCardReply) msg;
-                queue.execute(() ->view.askSlot(placeMsg.getWarehouse(), placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
+                queue.execute(() ->view.askSlot( placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
 
 
             case RESOURCE_TO_STRONGBOX:

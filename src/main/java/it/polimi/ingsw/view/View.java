@@ -171,6 +171,8 @@ public interface View {
      */
     void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
 
+    void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots);
+
     /**
      * Allows the player to choose resources for payment.
      * @param strongbox the player's strongbox.

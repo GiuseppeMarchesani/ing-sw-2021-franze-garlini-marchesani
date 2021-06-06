@@ -6,14 +6,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PlaceDevCardReply extends GeneralMessage {
-    private HashMap<ResourceType, Integer> warehouse;
     private HashMap<ResourceType, Integer> strongbox;
     private int any;
     private HashMap<ResourceType, Integer> cardCost;
     private ArrayList<Integer> availableSlots;
-    public PlaceDevCardReply(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost,int any, ArrayList<Integer> availableSlots) {
+    public PlaceDevCardReply( HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost,int any, ArrayList<Integer> availableSlots) {
         super(MessageType.PLACE_CARD);
-        this.warehouse=warehouse;
         this.strongbox=strongbox;
         this.any=any;
         this.availableSlots=availableSlots;
@@ -36,7 +34,4 @@ public class PlaceDevCardReply extends GeneralMessage {
         return availableSlots;
     }
 
-    public HashMap<ResourceType, Integer> getWarehouse() {
-        return warehouse;
-    }
 }

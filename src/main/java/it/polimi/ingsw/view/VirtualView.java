@@ -150,8 +150,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
-        clientHandler.sendMessage(new PlaceDevCardReply(warehouse, strongbox, cardCost,any, availableSlots));
+    public void askSlot( HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+        clientHandler.sendMessage(new PlaceDevCardReply(strongbox, cardCost,any, availableSlots));
     }
 
     @Override
