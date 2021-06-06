@@ -61,6 +61,21 @@ public class CardMarket {
         return available;
     }
 
+    public ArrayList<Integer> remainingCards(){
+        ArrayList<Integer> remaining = new ArrayList<>();
+        for (int i=0; i<4; i++) {
+            for (int j=0; j<3; j++) {
+                try {
+                   remaining.add(devCardGrid.get(i).get(j).size());
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+        return remaining;
+    }
 
     public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
         return devCardGrid;

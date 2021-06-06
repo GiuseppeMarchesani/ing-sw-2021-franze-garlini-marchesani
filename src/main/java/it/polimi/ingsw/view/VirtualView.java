@@ -105,8 +105,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showDevMarket(List<DevCard> availableCards) {
-        clientHandler.sendMessage(new ShowDevMarket(availableCards));
+    public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
+        clientHandler.sendMessage(new ShowDevMarketMsg(availableCards, remainingCards));
     }
 
     @Override
@@ -203,5 +203,19 @@ public class VirtualView implements View, Observer {
     @Override
     public void update(GeneralMessage message) {
         clientHandler.sendMessage(message);
+    }
+
+    @Override
+    public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String activePlayer){
+        clientHandler.sendMessage(new ShowWarehouseMsg(depotToResource, depotToQuantity, activePlayer));
+    }
+
+    @Override
+    public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String activePlayer){
+        clientHandler.sendMessage(new ShowStrongboxMsg(strongbox, activePlayer));
+    }
+    @Override
+    public void showRemainingLeaderCards(String username, int remaining){
+        clientHandler.sendMessage(new ShowRemainingLeaderMsg(username, remaining));
     }
 }

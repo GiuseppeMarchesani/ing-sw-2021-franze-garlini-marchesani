@@ -530,7 +530,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showDevMarket(List<DevCard> availableCards) {
+    public void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         for(DevCard devCard: availableCards) {
             out.println(devCard.toString());
         }

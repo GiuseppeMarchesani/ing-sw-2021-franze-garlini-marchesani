@@ -182,7 +182,9 @@ public class GameController {
         for(int i=0; i<2;i++){
             player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
         }
-
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showRemainingLeaderCards(msg.getUsername(), 2);
+        }
 
     }
     private void drawLeaderCards(){
@@ -210,6 +212,9 @@ public class GameController {
     }
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
         player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
+        for (VirtualView vv : allVirtualView.values()) {
+            vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+        }
         increaseFaith(discard, 2);
     }
 
@@ -474,8 +479,12 @@ public class GameController {
         player.setStrongbox(msg.getNewStrongbox());
         player.getDevCardSlot().getSlotDev().get(msg.getSlotToPlace()).add(card);
         player.getWarehouse().spendResources(msg.getExpenseDepot());
-
-        //TODO:AGGIORNAMENTI
+        for (VirtualView vv : allVirtualView.values()) {
+            vv.showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+            vv.showStrongbox(msg.getNewStrongbox(), turnController.getActivePlayer());
+            vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+            vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+        }
 
     }
 }

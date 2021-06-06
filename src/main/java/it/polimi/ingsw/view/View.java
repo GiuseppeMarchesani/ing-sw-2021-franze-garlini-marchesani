@@ -112,8 +112,11 @@ public interface View {
     /**
      * Shows the player Development Cards from the market.
      * @param availableCards the list of Development Card on the top of the DevMarket.
+     * @param remainingCards
      */
-    void showDevMarket(List<DevCard> availableCards);
+    void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards);
+
+    void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards);
 
     /**
      * Shows the player the resources he owns.
@@ -205,4 +208,10 @@ public interface View {
     void showWinMessage(String winnerUser);
 
     void askDevCardToBuy();
+
+    void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String activePlayer);
+
+    void showStrongbox(HashMap<ResourceType, Integer> newStrongbox, String activePlayer);
+
+    void showRemainingLeaderCards(String username, int remaining);
 }

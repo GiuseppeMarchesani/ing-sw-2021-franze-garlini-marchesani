@@ -81,7 +81,7 @@ public class TurnController {
             vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
         }
         else if(msg.getMessageType()== SHOW_DEV_MARKET){
-            vv.showDevMarket(gameSession.getCardMarket().availableCards());
+            vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
         else if(msg.getMessageType()== SHOW_SLOT){
             vv.showSlots(gameSession.getPlayersList().get(indexPlayer).getDevCardSlot(), msg.getUsername());

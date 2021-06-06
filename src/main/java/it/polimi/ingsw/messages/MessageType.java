@@ -29,6 +29,9 @@ public enum MessageType {
     SHOW_RES,
     SHOW_FAITH_TRACK,
     SHOW_VICTORY_POINTS,
+    SHOW_STRONGBOX,
+    SHOW_WAREHOUSE,
+    SHOW_REMAINING_LEADERS,
 
     //action
     PLAYLEADER,

@@ -105,7 +105,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showDevMarket(List<DevCard> availableCards) {
+    public void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards) {
 
     }
 
