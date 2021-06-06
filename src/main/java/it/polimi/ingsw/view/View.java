@@ -139,9 +139,11 @@ public interface View {
 
     /**
      * Shows the player the Faith Track state.
-     * @param faithTrackState list of the player's faith points.
+     * @param playerFaith list of the player's faith points.
+     * @param wasZoneActivated
+     * @param whichZone
      */
-    void showFaithTrack(HashMap<String, Integer> faithTrackState);
+    void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone);
 
     /**
      * Shows the player an amount of actual Victory Points.
@@ -149,6 +151,8 @@ public interface View {
      * @param username the player who owns the Victory Points.
      */
     void showCurrentVP(int victoryPoints, String username);
+
+    void showCurrentVP(HashMap<String, Integer> victoryPoints);
 
     /**
      * Shows the player a Card Slot.

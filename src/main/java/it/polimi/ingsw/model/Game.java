@@ -99,7 +99,10 @@ public class Game {
         }
         return resources;
     }
-
+    public Player getPlayer(String username){
+        int indexPlayer = getPlayerListByUsername().indexOf(username);
+        return getPlayersList().get(indexPlayer);
+    }
 
     /**
      * Pick the Development Card with the features passed as parameters.

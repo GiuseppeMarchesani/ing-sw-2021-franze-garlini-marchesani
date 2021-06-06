@@ -109,7 +109,7 @@ public class TurnController {
                 tmp.put(gameSession.getPlayersList().get(i).getUsername(),
                         gameSession.getPlayersList().get(i).getFaithSpace());
             }
-            vv.showFaithTrack(tmp);
+            vv.showFaithTrack(tmp, trigger, gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()));
         }
         else if(msg.getMessageType()== SHOW_INFO){
             vv.showMatchInfo(gameController.getPlayers(), playingPlayer);
@@ -409,7 +409,7 @@ public class TurnController {
                 }
             }
             for(VirtualView vv: allVirtualView.values()){
-                vv.showFaithTrack(faithTrack);
+                vv.showFaithTrack(faithTrack, trigger, gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()));
             }
         }
         else{
@@ -424,7 +424,7 @@ public class TurnController {
                 }
             }
             for(VirtualView vv: allVirtualView.values()){
-                vv.showFaithTrack(faithTrack);
+                vv.showFaithTrack(faithTrack, trigger, gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()));
             }
         }
         for(VirtualView vv: allVirtualView.values()){
@@ -439,7 +439,7 @@ public class TurnController {
             HashMap<String, Integer> faithTrack= new HashMap<>();
             faithTrack.put(playingPlayer, gameSession.getPlayersList().get(0).getFaithSpace());
             faithTrack.put("Lorenzo il Magnifico", ((SinglePlayerGame) gameSession).getBlackCross().getFaithSpace());
-            allVirtualView.get(playingPlayer).showFaithTrack(faithTrack);
+            allVirtualView.get(playingPlayer).showFaithTrack(faithTrack, trigger, gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()));
             allVirtualView.get(playingPlayer).showWinMessage("Lorenzo il Magnifico");
             gameController.setGameState(GameState.END_GAME);
         }

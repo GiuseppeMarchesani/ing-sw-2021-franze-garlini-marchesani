@@ -102,8 +102,7 @@ public class GameController {
      * @param msg
      */
     public void setupGame(ClientMessage msg){
-        int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-        Player player=gameSession.getPlayersList().get(indexPlayer);
+        Player player=gameSession.getPlayer(msg.getUsername());
          if(msg.getMessageType() == STARTING_LEADERS){
             choseLeader((StartingLeadersRequestMsg) msg,player);
 
@@ -300,8 +299,7 @@ public class GameController {
      */
     public void inGame(ClientMessage msg){
         if (msg.getUsername()== turnController.getActivePlayer()){
-            int indexPlayer = gameSession.getPlayerListByUsername().indexOf(msg.getUsername());
-            Player player=gameSession.getPlayersList().get(indexPlayer);
+           Player player =gameSession.getPlayer(msg.getUsername());
             switch(msg.getMessageType()){
                 case SHOW_LEADER:
                     turnController.setPhaseTurn(PhaseTurn.START_TURN);
@@ -318,11 +316,7 @@ public class GameController {
                 case SHOW_RES:
                     turnController.setPhaseTurn(PhaseTurn.START_TURN);
                     turnController.getMessage(msg);
-                case SHOW_FAITH_TRACK:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-                case SHOW_VICTORY_POINTS:
-                    //
+
                 case PLAYLEADER:
                     turnController.setPhaseTurn(PhaseTurn.ACTION);
                     turnController.getMessage(msg);
@@ -336,6 +330,8 @@ public class GameController {
                     turnController.getMessage(msg);
                 case PAY_RES:
                     turnController.getMessage(msg);
+
+
 
                 case PLACE_CARD:
                     placeCard((PlaceDevCardRequest) msg, tempCards.get(0), player);
@@ -377,6 +373,21 @@ public class GameController {
                     turnController.proxPlayer();
 
                     startTurn();
+
+                    break;
+                case SHOW_FAITH_TRACK:
+                    HashMap<String, Integer> faith= new HashMap<>();
+                    for(String user: gameSession.getPlayerListByUsername()){
+                        faith.put(user, gameSession.getPlayer(user).getFaithSpace());
+                    }
+                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(faith, false,0);
+                    break;
+                case SHOW_VICTORY_POINTS:
+                    HashMap<String, Integer> vp= new HashMap<>();
+                    for(String user: gameSession.getPlayerListByUsername()){
+                        vp.put(user, gameSession.getPlayer(user).getVictoryPoint());
+                    }
+                    allVirtualView.get(turnController.getActivePlayer()).showCurrentVP(vp);
                     break;
             }
         }
@@ -486,5 +497,51 @@ public class GameController {
             vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
 
+    }
+    public void increaseFaith(int faithQuantity, int who){
+        ArrayList<Player> vpWinners=new ArrayList<Player>();
+        int thresholdL=gameSession.getFaithTrack().getNextFaithZone().getStart();
+        boolean trigger=false;
+        int thresholdH=gameSession.getFaithTrack().getNextFaithZone().getEnd();
+        HashMap<String, Integer> faith= new HashMap<String, Integer>();
+        //0 = Only activePlayer
+        //1 = everyone
+        //2 = everyone except activePlayer
+            if(who==0||who==1){
+               if(gameSession.getPlayer(turnController.getActivePlayer()).increaseFaith(faithQuantity)>thresholdL){
+                   vpWinners.add(gameSession.getPlayer(turnController.getActivePlayer()));
+               }
+               if(gameSession.getPlayer(turnController.getActivePlayer()).getFaithSpace()>thresholdH){
+                   trigger=true;
+               }
+
+            }
+
+            for(String user:  gameSession.getPlayerListByUsername()){
+                faith.put(user, gameSession.getPlayer(user).getFaithSpace());
+                if((who==1||who==2)&&!(user.equals(turnController.getActivePlayer()))){
+                     if(gameSession.getPlayer(user).increaseFaith(faithQuantity)>thresholdL){
+                         vpWinners.add(gameSession.getPlayer(user));
+                     }
+                     if(gameSession.getPlayer(user).getFaithSpace()>thresholdH){
+                         trigger=true;
+                     }
+
+                }
+            }
+            for(VirtualView vv: allVirtualView.values()){
+                vv.showFaithTrack(faith, trigger,gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()) );
+            }
+
+            if (trigger){
+               int vp=gameSession.getFaithTrack().getNextFaithZone().getFaithZoneVP();
+               for(Player p: vpWinners){
+                   faith.put(p.getUsername(), p.increaseVP(vp));
+               }
+                for(VirtualView vv: allVirtualView.values()){
+                    vv.showCurrentVP(faith);
+                }
+                gameSession.getFaithTrack().getNextFaithZone().setActivated();
+            }
     }
 }

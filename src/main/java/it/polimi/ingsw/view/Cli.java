@@ -562,9 +562,9 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> faithTrackState) {
-        for(String username: faithTrackState.keySet()) {
-            out.println(username + ": " + faithTrackState.get(username));
+    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
+        for(String username: playerFaith.keySet()) {
+            out.println(username + ": " + playerFaith.get(username));
         }
     }
 

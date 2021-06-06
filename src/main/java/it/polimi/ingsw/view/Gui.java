@@ -130,7 +130,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> faithTrackState) {
+    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
 
     }
 

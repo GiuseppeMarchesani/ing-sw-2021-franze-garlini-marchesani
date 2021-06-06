@@ -173,8 +173,9 @@ public class Player {
      *
      * @param vp
      */
-    public void increaseVP(int vp){
+    public int increaseVP(int vp){
         victoryPoint += vp;
+        return victoryPoint;
     }
 
     /**

@@ -49,6 +49,14 @@ public class FaithTrack {
         }
         return VPForPosition;
     }
+    public FaithZone getNextFaithZone(){
+        for(FaithZone fz: faithZones){
+            if (!fz.getActivated()){
+                return fz;
+            }
+        }
+        return new FaithZone(100,100,0,false);
+    }
 
     public List<FaithZone> getFaithZones() {
         return faithZones;

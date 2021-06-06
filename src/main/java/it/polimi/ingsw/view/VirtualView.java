@@ -135,13 +135,13 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> faithTrackState) {
-        clientHandler.sendMessage(new ShowFaithTrackMsg(faithTrackState));
+    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
+        clientHandler.sendMessage(new ShowFaithTrackMsg(playerFaith, wasZoneActivated, whichZone));
     }
 
     @Override
-    public void showCurrentVP(int victoryPoints, String username) {
-        clientHandler.sendMessage(new ShowActualVPMsg(victoryPoints, username));
+    public void showCurrentVP(HashMap<String, Integer> victoryPoints) {
+        clientHandler.sendMessage(new ShowVictoryPointsMsg(victoryPoints));
     }
 
     @Override
