@@ -600,7 +600,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showRemainingLeaderCards(String username, int remaining) {
-
+        out.println("Player " + username + " has " + remaining + " un-played leader cards.");
     }
 
     @Override
