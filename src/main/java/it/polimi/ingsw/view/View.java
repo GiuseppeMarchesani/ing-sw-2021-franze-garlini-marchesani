@@ -119,11 +119,20 @@ public interface View {
     void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards);
 
     /**
-     * Shows the player the resources he owns.
+     * Shows the strongbox owned by a player.
      * @param strongbox the player's strongbox.
-     * @param warehouse the player's warehouse.
+     * @param username the player's username.
      */
-    void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse);
+    void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username);
+
+    /**
+     * Shows the warehouse owned by a player.
+     * @param depotToQuantity warehouse's floors associated to the resource quantity.
+     * @param depotToResource warehouse's floors associated to the resource type.
+     * @param username the player's username.
+     */
+    void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username);
+
 
     /**
      * Shows the player an amount of generic resources.
@@ -139,19 +148,16 @@ public interface View {
 
     /**
      * Shows the player the Faith Track state.
-     * @param playerFaith list of the player's faith points.
-     * @param wasZoneActivated
-     * @param whichZone
+     * @param playerFaith players usernames and their faith points.
+     * @param wasZoneActivated true if a faith zone was activated.
+     * @param whichZone which faith zone has been activated.
      */
     void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone);
 
     /**
      * Shows the player an amount of actual Victory Points.
-     * @param victoryPoints the amount of Victory Points to be shown.
-     * @param username the player who owns the Victory Points.
+     * @param victoryPoints players usernames and their amount of Victory Points.
      */
-    void showCurrentVP(int victoryPoints, String username);
-
     void showCurrentVP(HashMap<String, Integer> victoryPoints);
 
     /**
@@ -169,7 +175,7 @@ public interface View {
      * @param numAny amount of ANY resource.
      * @param availableSlots the list of the available slot the player can choose.
      */
-    void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
+    void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
 
     void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots);
 
@@ -214,10 +220,6 @@ public interface View {
     void showWinMessage(String winnerUser);
 
     void askDevCardToBuy();
-
-    void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String activePlayer);
-
-    void showStrongbox(HashMap<ResourceType, Integer> newStrongbox, String activePlayer);
 
     void showRemainingLeaderCards(String username, int remaining);
 }

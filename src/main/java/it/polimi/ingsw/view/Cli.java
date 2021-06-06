@@ -388,7 +388,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askProduction(List<DevCard> availableCards, HashMap<Integer, ResourceType> floorResources, HashMap<Integer, Integer> floorQuantity) {
+    public void askProduction(List<DevCard> availableCards, HashMap<Integer, ResourceType> floorResources, HashMap<Integer, Integer> floorQuantity, HashMap<ResourceType, Integer> strongbox) {
         List<DevCard> chosenCards = new ArrayList<>();
         String ids = "";
         boolean checkId = false;
@@ -449,14 +449,14 @@ public class Cli extends ObservableView implements View{
         }
 
         //Converting warehouse in a single HashMap
-        HashMap<ResourceType, Integer> warehouse = new HashMap<>();
+        /*HashMap<ResourceType, Integer> warehouse = new HashMap<>();
         for(Integer integer: floorResources.keySet()) {
             warehouse.put(floorResources.get(integer), floorQuantity.get(integer));
-        }
-
+        }*/
+        HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
         for(ResourceType res: productionCost.keySet()) {
             out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(warehouse.get(res) > 0) {
+            if(newStrongbox.get(res) > 0) {
                 out.println("Found " + warehouse.get(res) + " in warehouse. How many of it you want to use for payment?");
                 out.println("Please insert a number: ");
                 try {
@@ -536,25 +536,25 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
+    @Override
+    public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
         String ansiColor = null;
-        out.println("Your Warehouse: ");
-        for(int i=0; i<warehouse.getDepotList().size(); i++) {
-            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
-        }
-        out.println("\nYour Strongbox: ");
+        out.println(username + "'s strongbox:");
         for(ResourceType res: strongbox.keySet()) {
             out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
         }
     }
 
     @Override
-    public void showResources(HashMap<ResourceType, Integer> resources) {
+    public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
         String ansiColor = null;
-        for(ResourceType res: resources.keySet()) {
-            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + resources.get(res));
+        out.println(username + "'s warehouse:");
+        for(Integer i: depotToQuantity.keySet()) {
+            if(i<3) out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/" + (3-i)  + ")");
+            else out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/2)");
         }
     }
+
 
     @Override
     public void showErrorMsg(String message) {
@@ -566,12 +566,14 @@ public class Cli extends ObservableView implements View{
         for(String username: playerFaith.keySet()) {
             out.println(username + ": " + playerFaith.get(username));
         }
+        if(wasZoneActivated) out.println("FaithZone " + whichZone + "has been activated.");
     }
 
     @Override
-    public void showCurrentVP(int victoryPoints, String username) {
-        out.println("Player: " + username);
-        out.println("Victory Points: " + victoryPoints);
+    public void showCurrentVP(HashMap<String, Integer> victoryPoints) {
+        for(String username: victoryPoints.keySet()) {
+            out.println(username + ": " + victoryPoints.get(username));
+        }
     }
 
     @Override
@@ -588,7 +590,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
         //Not ANY-resources payment
         int resNumToGet = 0;
         HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();
@@ -868,7 +870,7 @@ public class Cli extends ObservableView implements View{
         System.exit(0);
     }
 
-    public String getAnsiColor(ResourceType resourceType) {
+    private String getAnsiColor(ResourceType resourceType) {
         if(resourceType.equals(ResourceType.COIN)) return ANSI_YELLOW;
         else if(resourceType.equals(ResourceType.SERVANT)) return ANSI_PURPLE;
         else if(resourceType.equals(ResourceType.SHIELD)) return ANSI_BLUE;
