@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.Board.Depot;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.ArrayList;
@@ -52,9 +53,10 @@ public interface ObserverView {
 
     /**
      * Sends a message to the server with the chosen DevCard.
-     * @param boughtDevCard the chosen DevCard.
+     * @param level level of the chosen Development Card.
+     * @param color color of the Development Card.
      */
-    public void updateBuyDevCard(DevCard boughtDevCard);
+    public void updateBuyDevCard(int level, Color color);
 
     /**
      * Sends a message to the server with the chosen row/column.

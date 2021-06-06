@@ -449,10 +449,11 @@ public class Cli extends ObservableView implements View{
         }
 
         //Converting warehouse in a single HashMap
-        /*HashMap<ResourceType, Integer> warehouse = new HashMap<>();
+        HashMap<ResourceType, Integer> warehouse = new HashMap<>();
         for(Integer integer: floorResources.keySet()) {
             warehouse.put(floorResources.get(integer), floorQuantity.get(integer));
-        }*/
+        }
+
         HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
         for(ResourceType res: productionCost.keySet()) {
             out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
@@ -530,7 +531,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards) {
+    public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         for(DevCard devCard: availableCards) {
             out.println(devCard.toString());
         }
@@ -552,6 +553,14 @@ public class Cli extends ObservableView implements View{
         for(Integer i: depotToQuantity.keySet()) {
             if(i<3) out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/" + (3-i)  + ")");
             else out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/2)");
+        }
+    }
+
+    @Override
+    public void showResources(HashMap<ResourceType, Integer> resources) {
+        String ansiColor = null;
+        for(ResourceType res: resources.keySet()) {
+            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + resources.get(res));
         }
     }
 
@@ -587,6 +596,11 @@ public class Cli extends ObservableView implements View{
                 out.println("\n");
             }
         }
+    }
+
+    @Override
+    public void showRemainingLeaderCards(String username, int remaining) {
+
     }
 
     @Override
@@ -650,55 +664,6 @@ public class Cli extends ObservableView implements View{
                 notifyObserver(obs -> obs.updatePlaceDevCard(paymentWarehouse, newStrongbox, finalChosenSlot -1));
             }
         }
-    }
-
-    /*public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
-        boolean checkChose = false;
-        String chosenResource ="";
-
-        out.println("Choose the resource type you want to exchange the white marble with: ");
-        while(!checkChose) {
-            try {
-                chosenResource = readLine();
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-            for(ResourceType res: availableConversions) {
-                if(res.toString().toLowerCase().equals(chosenResource.toLowerCase())) {
-                    checkChose = true;
-                    notifyObserver(obs -> obs.updateChooseMarbleConv(res));
-                    break;
-                }
-            }
-
-        }
-    }*/
-
-    @Override
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
-        char destination ='0';
-        String ansiColor = null;
-        boolean checkChar = false;
-
-
-        while(!checkChar) {
-            out.println("\nChoose were to get " + getAnsiColor(resource) + resource.toString() + ANSI_RESET + ". Type 'w' for warehouse, 's' for strongbox.");
-            showResources(strongbox, warehouse);
-            try {
-                destination = readLine().toLowerCase().charAt(0);
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-            if(destination=='s') {
-                checkChar = true;
-                notifyObserver(obs -> obs.updateResToPay("strongbox"));
-            }
-            else if(destination=='w') {
-                checkChar = true;
-                notifyObserver(obs -> obs.updateResToPay("warehouse"));
-            }
-        }
-
     }
 
     @Override

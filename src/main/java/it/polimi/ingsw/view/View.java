@@ -112,10 +112,8 @@ public interface View {
     /**
      * Shows the player Development Cards from the market.
      * @param availableCards the list of Development Card on the top of the DevMarket.
-     * @param remainingCards
+     * @param remainingCards the number of cards in each stack.
      */
-    void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards);
-
     void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards);
 
     /**
@@ -168,24 +166,20 @@ public interface View {
     void showSlots(DevCardSlot devCardSlot, String username);
 
     /**
+     * Shows the number of the un-played leader cards of a player.
+     * @param username the player's username.
+     * @param remaining number of un-played leader cards.
+     */
+    void showRemainingLeaderCards(String username, int remaining);
+
+    /**
      * Asks the player to choose one slot among the slots in the list passed as parameter.
-     * @param warehouse the player's warehouse.
      * @param strongbox the player's strongbox.
      * @param cardCost card's cost.
      * @param numAny amount of ANY resource.
      * @param availableSlots the list of the available slot the player can choose.
      */
     void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
-
-    void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots);
-
-    /**
-     * Allows the player to choose resources for payment.
-     * @param strongbox the player's strongbox.
-     * @param warehouse the player's warehouse.
-     * @param resource the resource that must be paid.
-     */
-    void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource);
 
     /**
      * Allows the player to choose a resource.
@@ -219,7 +213,5 @@ public interface View {
      */
     void showWinMessage(String winnerUser);
 
-    void askDevCardToBuy();
 
-    void showRemainingLeaderCards(String username, int remaining);
 }
