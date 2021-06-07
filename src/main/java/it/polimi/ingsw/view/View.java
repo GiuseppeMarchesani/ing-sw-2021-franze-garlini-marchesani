@@ -95,12 +95,13 @@ public interface View {
     void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny);
 
     /**
-     * Allows the player to activate Development Cards production.
-     * @param availableCards the list of available Development Card for production.
-     * @param floorResources an HashMap containing floors and their respective resources.
-     * @param floorQuantity an HashMap containing floors and their respective resource's quantity.
+     * Asks the player for payment towards his production choices
+     * @param strongbox the player's strongbox
+     * @param price the price of the production asked.
+     * @param anyPayment How many "Any" resources the player has to pay
+     * @param anyPayment How many "Any" resources the player will gain.
      */
-    void askProduction(List<DevCard> availableCards, HashMap<Integer, ResourceType> floorResources, HashMap<Integer, Integer> floorQuantity);
+    void askProduction(HashMap<ResourceType, Integer> strongbox,HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce);
 
     /**
      * Shows the Market.

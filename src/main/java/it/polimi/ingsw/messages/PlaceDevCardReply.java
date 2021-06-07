@@ -11,7 +11,7 @@ public class PlaceDevCardReply extends ServerMessage {
     private HashMap<ResourceType, Integer> cardCost;
     private ArrayList<Integer> availableSlots;
     public PlaceDevCardReply( HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost,int any, ArrayList<Integer> availableSlots) {
-        super(MessageType.PLACE_CARD);
+        super(MessageType.PICK_DEVCARD);
         this.strongbox=strongbox;
         this.any=any;
         this.availableSlots=availableSlots;

@@ -323,16 +323,20 @@ public class GameController {
 
                 case DEVCARD_REPLY:
                     turnController.getMessage(msg);
-                case ACTIVATE_PRODUCTION:
-                    turnController.setPhaseTurn(PhaseTurn.ACTION);
-                    turnController.getMessage(msg);
+
                 case PRODUCTION_RES:
                     turnController.getMessage(msg);
                 case PAY_RES:
                     turnController.getMessage(msg);
 
+                case ACTIVATE_PRODUCTION:
+                    turnController.setMainAction(true);
+                    confirmProduction(((GetProductionRequest) msg).getExpenseDepot(), ((GetProductionRequest) msg).getNewStrongbox(), player);
+                    startTurn();
+                    break;
                 case CHECK_PRODUCTION:
                     produceResources(((AskProductionRequest) msg).getChosen(), player);
+                    break;
                 case MAIN_PRODUCTION:
                     if(!turnController.getMainAction()){
                         allVirtualView.get(msg.getUsername()).askCardsToActivateProd(player.getDevCardSlot().getCardsAvailable());
@@ -344,6 +348,7 @@ public class GameController {
                     }
                     break;
                 case PLACE_CARD:
+                    turnController.setMainAction(true);
                     placeCard((PlaceDevCardRequest) msg, tempCards.get(0), player);
                     startTurn();
                     break;
@@ -562,5 +567,27 @@ public class GameController {
             startTurn();
         }
 
+    }
+    public void confirmProduction(HashMap<ResourceType, Integer> depotExpense, HashMap<ResourceType, Integer> strongbox, Player player){
+        player.getWarehouse().spendResources(depotExpense);
+        for(DevCard card :tempCards){
+            for (ResourceType r: card.getProductionIncome().keySet()){
+                if (r!=ResourceType.ANY){
+                    if(strongbox.containsKey(r)){
+                        strongbox.put(r, strongbox.get(r)+card.getProductionIncome().get(r));
+                    }
+                    else  strongbox.put(r, card.getProductionIncome().get(r));
+                }
+            }
+        }
+        if(strongbox.containsKey(ResourceType.FAITH)){
+            increaseFaith(strongbox.get(ResourceType.FAITH), 0);
+            strongbox.remove(ResourceType.FAITH);
+        }
+        player.setStrongbox(strongbox);
+        for (VirtualView vv : allVirtualView.values()) {
+            vv.showStrongbox(strongbox, turnController.getActivePlayer());
+            vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+        }
     }
 }

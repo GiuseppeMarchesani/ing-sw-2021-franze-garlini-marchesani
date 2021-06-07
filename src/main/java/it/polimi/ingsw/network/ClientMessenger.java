@@ -9,7 +9,6 @@ import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.View;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -119,6 +118,9 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateChosenProdCards(ArrayList<DevCard> chosen){
         client.sendMessage(new AskProductionRequest(username, chosen));
     }
+    public void updateGetProdRes(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox){
+        client.sendMessage(new GetProductionRequest(username, expenseDepot, newStrongbox));
+    }
 
     @Override
     public void update(GeneralMessage msg){
@@ -149,7 +151,11 @@ public class ClientMessenger implements Observer, ObserverView {
             case MAIN_PRODUCTION:
                 queue.execute(()-> view.askCardsToActivateProd(((AskProductionReply) msg).getDevCardList()));
                 break;
-            case PLACE_CARD:
+            case ACTIVATE_PRODUCTION:
+                GetProductionReply paymentMsg= (GetProductionReply) msg;
+                queue.execute(()-> view.askProduction(paymentMsg.getStrongbox(), paymentMsg.getPrice(), paymentMsg.getAnyPayment(), paymentMsg.getAnyProduce()));
+                break;
+            case PICK_DEVCARD:
                 PlaceDevCardReply placeMsg= (PlaceDevCardReply) msg;
                 queue.execute(() ->view.askSlot( placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
                 break;

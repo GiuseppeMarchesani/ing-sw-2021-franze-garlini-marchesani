@@ -113,11 +113,11 @@ public class VirtualView implements View, Observer {
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
         clientHandler.sendMessage(new AskProductionReply(devCardList));
     }
-
     @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
-        clientHandler.sendMessage(new ShowResourcesRequest(warehouse,strongbox));
+    public void askProduction(HashMap<ResourceType, Integer> strongbox,HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce){
+        clientHandler.sendMessage(new GetProductionReply(strongbox, price, anyPayment, anyProduce));
     }
+
 
 
     @Override
