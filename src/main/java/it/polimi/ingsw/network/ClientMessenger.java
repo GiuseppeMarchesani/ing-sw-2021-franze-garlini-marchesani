@@ -9,6 +9,7 @@ import it.polimi.ingsw.observer.Observer;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.View;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
@@ -115,6 +116,9 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
         client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
+    public void updateChosenProdCards(ArrayList<DevCard> chosen){
+        client.sendMessage(new AskProductionRequest(username, chosen));
+    }
 
     @Override
     public void update(GeneralMessage msg){
@@ -142,18 +146,28 @@ public class ClientMessenger implements Observer, ObserverView {
             case MAIN_CARD:
                 queue.execute(() -> view.askDevCardToBuy());
                 break;
+            case MAIN_PRODUCTION:
+                queue.execute(()-> view.askCardsToActivateProd(((AskProductionReply) msg).getDevCardList()));
+                break;
             case PLACE_CARD:
                 PlaceDevCardReply placeMsg= (PlaceDevCardReply) msg;
                 queue.execute(() ->view.askSlot( placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
-
-
-            case RESOURCE_TO_STRONGBOX:
-                queue.execute(()-> view.askResourceToStrongbox(((ResourceToStrongboxReplyMsg) msg).getAny()));
                 break;
             case SHOW_MARKET:
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
                 break;
-
+            case SHOW_FAITH_TRACK:
+                queue.execute(() -> view.showCurrentVP(((ShowFaithTrackMsg) msg).getPlayerFaith()));
+                break;
+            case SHOW_DEV_MARKET:
+                queue.execute(()-> view.showDevMarket(((ShowDevMarketMsg) msg).getAvailableCards(),((ShowDevMarketMsg) msg).getRemainingCards()));
+                break;
+            case SHOW_VICTORY_POINTS:
+                queue.execute(() -> view.showCurrentVP(((ShowVictoryPointsMsg) msg).getVictoryPoints()));
+                break;
+            case SHOW_SLOT:
+                queue.execute(() -> view.showSlots(((ShowSlotsMsg) msg).getDevCardSlot(), ((ShowSlotsMsg) msg).getUsername()));
+                break;
         }
     }
 

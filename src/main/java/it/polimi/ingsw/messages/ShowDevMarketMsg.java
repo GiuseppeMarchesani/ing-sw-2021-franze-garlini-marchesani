@@ -6,19 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowDevMarketMsg extends GeneralMessage {
-    List<DevCard> availableCards;
-    List<Integer> remainingCards;
-    public ShowDevMarketMsg(List<DevCard> availableCards, List<Integer> remainingCards) {
+    ArrayList<DevCard> availableCards;
+    ArrayList<Integer> remainingCards;
+    public ShowDevMarketMsg(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         super(MessageType.SHOW_DEV_MARKET);
         this.availableCards=availableCards;
         this.remainingCards=remainingCards;
     }
 
-    public List<DevCard> getAvailableCards() {
+    public ArrayList<DevCard> getAvailableCards() {
         return availableCards;
     }
 
-    public List<Integer> getRemainingCards() {
+    public ArrayList<Integer> getRemainingCards() {
         return remainingCards;
     }
 }

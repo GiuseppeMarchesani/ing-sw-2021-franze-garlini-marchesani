@@ -193,7 +193,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askDevCardToBuy(HashMap<ResourceType, Integer> discount) {
+    public void askDevCardToBuy() {
         boolean checkColor = false;
         boolean checkLevel = false;
         String strColor = "";

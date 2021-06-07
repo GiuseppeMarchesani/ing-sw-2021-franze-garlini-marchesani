@@ -105,12 +105,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showDevMarket(List<DevCard> availableCards, ArrayList<Integer> remainingCards) {
+    public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
 
     }
 
     @Override
-    public void askCardsToActivateProd(List<DevCard> availableCards) {
+    public void askCardsToActivateProd(ArrayList<DevCard> availableCards) {
 
     }
 
@@ -145,7 +145,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
 
     }
 

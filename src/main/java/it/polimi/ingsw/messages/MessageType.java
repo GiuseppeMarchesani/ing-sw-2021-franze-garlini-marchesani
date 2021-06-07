@@ -32,6 +32,7 @@ public enum MessageType {
     SHOW_STRONGBOX,
     SHOW_WAREHOUSE,
     SHOW_REMAINING_LEADERS,
+    SHOW_SLOT,
 
     //action
     PLAYLEADER,
@@ -43,6 +44,7 @@ public enum MessageType {
     RESOURCE_TO_WAREHOUSE,
 
     //intermediate message
+    CHECK_PRODUCTION,
     REARRANGE_REPLY,
     REARRANGE_REQUEST,
     DEPOT_TO_REARRANGE,

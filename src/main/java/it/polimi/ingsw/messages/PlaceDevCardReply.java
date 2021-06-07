@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PlaceDevCardReply extends GeneralMessage {
+public class PlaceDevCardReply extends ServerMessage {
     private HashMap<ResourceType, Integer> strongbox;
     private int any;
     private HashMap<ResourceType, Integer> cardCost;

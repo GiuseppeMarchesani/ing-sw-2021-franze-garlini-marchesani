@@ -70,9 +70,8 @@ public interface View {
 
     /**
      * Allows the player to buy a Development Card.
-     * @param discount leader discount available for the player.
      */
-    void askDevCardToBuy(HashMap<ResourceType, Integer> discount);
+    void askDevCardToBuy();
 
     /**
      * Allows the player to get Market Resources.
@@ -131,6 +130,12 @@ public interface View {
      */
     void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username);
 
+
+    /**
+     * Shows the player its production cards
+     * @param devCardList the cards they can activate.
+     */
+    void askCardsToActivateProd(ArrayList<DevCard> devCardList);
 
     /**
      * Shows the player an amount of generic resources.

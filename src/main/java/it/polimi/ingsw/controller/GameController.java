@@ -331,8 +331,18 @@ public class GameController {
                 case PAY_RES:
                     turnController.getMessage(msg);
 
+                case CHECK_PRODUCTION:
+                    produceResources(((AskProductionRequest) msg).getChosen(), player);
+                case MAIN_PRODUCTION:
+                    if(!turnController.getMainAction()){
+                        allVirtualView.get(msg.getUsername()).askCardsToActivateProd(player.getDevCardSlot().getCardsAvailable());
+                    }
+                    else {
+                        allVirtualView.get(turnController.getActivePlayer()).showMessage("You can't do a Main Action now");
 
-
+                        startTurn();
+                    }
+                    break;
                 case PLACE_CARD:
                     placeCard((PlaceDevCardRequest) msg, tempCards.get(0), player);
                     startTurn();
@@ -423,67 +433,46 @@ public class GameController {
             allVirtualView.get(turnController.getActivePlayer()).askResourceToWarehouse(resource,any,player.getWarehouse().getLeaderDepot());
 
     }
-    public void getMarketDevCard(BuyDevCardRequest msg, Player player){
+    public void getMarketDevCard(BuyDevCardRequest msg, Player player) {
 
-        ArrayList<Integer> slots=player.getDevCardSlot().getAvailableSlots(msg.getLevel());
-        if(slots.size()==0)
-        {
+        ArrayList<Integer> slots = player.getDevCardSlot().getAvailableSlots(msg.getLevel());
+        if (slots.size() == 0) {
             allVirtualView.get(msg.getUsername()).showErrorMsg("No slot to place the card!");
             startTurn();
             return;
         }
-        DevCard card=gameSession.pickDevCard(msg.getColor(), msg.getLevel());
-        if(card==null){
+        DevCard card = gameSession.pickDevCard(msg.getColor(), msg.getLevel());
+        if (card == null) {
             allVirtualView.get(msg.getUsername()).showErrorMsg("The pile is empty!");
             startTurn();
             return;
         }
         tempCards.add(card);
-        HashMap<ResourceType,Integer> resource=player.getAllResources();
-        Integer any=card.getCardCost().get(ResourceType.ANY);
-        if(any==null){
-            any=0;
-        }
-        int grandTotalCost=0;
-        for(ResourceType r: resource.keySet()){
-            grandTotalCost+=resource.get(r);
-        }
 
-        int discount;
-        for(ResourceType r: card.getCardCost().keySet()) {
-            discount=0;
-            if(player.getResourceDiscount().containsKey(r)){
-                discount=player.getResourceDiscount().get(r);
-
-            }
-            grandTotalCost -= card.getCardCost().get(r)-discount;
-            if (r != ResourceType.ANY) {
-                if (card.getCardCost().get(r)-discount > resource.get(r)) {
-                    allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
-                    gameSession.returnDevCard(card);
-                    tempCards.remove(card);
-                    startTurn();
-                    return;
+        HashMap<ResourceType, Integer> discountedPrice = new HashMap<>();
+        for (ResourceType r : card.getCardCost().keySet()) {
+            if (player.getResourceDiscount().containsKey(r)) {
+                int updated = card.getCardCost().get(r) - player.getResourceDiscount().get(r);
+                if (updated < 0) {
+                    updated = 0;
                 }
-            }
+                discountedPrice.put(r, updated);
+            } else discountedPrice.put(r, card.getCardCost().get(r));
         }
-        if(grandTotalCost>=0){
-            for(ResourceType r: player.getResourceDiscount().keySet()){
-                if( card.getCardCost().containsKey(r)){
-                    card.getCardCost().put(r, card.getCardCost().get(r)-player.getResourceDiscount().get(r));
-                        if(card.getCardCost().get(r)<=0){
-                            card.getCardCost().remove(r);
-                    }
-                }
-            }
-            allVirtualView.get(msg.getUsername()).askSlot(player.getWarehouse().getAllResources(),player.getStrongbox(), card.getCardCost(), any.intValue(),slots);
+        int any=0;
+        if(card.getCardCost().containsKey(ResourceType.ANY)){
+            any=card.getCardCost().get(ResourceType.ANY);
+        }
+        if (player.checkPriceCanBePaid(discountedPrice)){
+            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), card.getCardCost(), any, slots);
         }
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
             gameSession.returnDevCard(card);
-            tempCards.remove(card);
             startTurn();
         }
+
+
 
     }
     public void placeCard(PlaceDevCardRequest msg, DevCard card, Player player){
@@ -543,5 +532,35 @@ public class GameController {
                 }
                 gameSession.getFaithTrack().getNextFaithZone().setActivated();
             }
+        }
+    public void produceResources(ArrayList<DevCard> cards, Player player){
+        HashMap<ResourceType, Integer> price= new HashMap<>();
+        int anyProduce=0;
+        for(DevCard card : cards){
+            HashMap<ResourceType, Integer> cost=card.getCardCost();
+            for(ResourceType r: cost.keySet()){
+                if(price.containsKey(r)){
+                    price.put(r, price.get(r)+cost.get(r));
+                }
+                else price.put(r, cost.get(r));
+            }
+            if(card.getProductionIncome().containsKey(ResourceType.ANY)){
+                anyProduce+=card.getProductionIncome().get(ResourceType.ANY);
+            }
+            tempCards.add(card);
+        }
+        int anyPayment=0;
+        if(price.containsKey(ResourceType.ANY)){
+            anyPayment=price.get(ResourceType.ANY);
+        }
+        if(player.checkPriceCanBePaid(price)){
+            allVirtualView.get(turnController.getActivePlayer()).askProduction(player.getStrongbox(), price, anyPayment, anyProduce);
+
+        }
+        else {
+            allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");
+            startTurn();
+        }
+
     }
 }

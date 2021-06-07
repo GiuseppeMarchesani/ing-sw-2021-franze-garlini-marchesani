@@ -110,8 +110,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askCardsToActivateProd(List<DevCard> devCardList) {
-        clientHandler.sendMessage(new ActivateProductionMsg(devCardList));
+    public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
+        clientHandler.sendMessage(new AskProductionReply(devCardList));
     }
 
     @Override
@@ -119,15 +119,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new ShowResourcesRequest(warehouse,strongbox));
     }
 
-    @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
-        clientHandler.sendMessage(new ShowResourcesRequest(warehouse, strongbox));
-    }
-
-    @Override
-    public void showResources(HashMap<ResourceType, Integer> resources) {
-
-    }
 
     @Override
     public void showErrorMsg(String message) {
@@ -146,7 +137,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showSlots(DevCardSlot devCardSlot, String username) {
-        clientHandler.sendMessage(new ShowSlotsMsg(victoryPoints, username));
+        clientHandler.sendMessage(new ShowSlotsMsg(devCardSlot, username));
     }
 
     @Override

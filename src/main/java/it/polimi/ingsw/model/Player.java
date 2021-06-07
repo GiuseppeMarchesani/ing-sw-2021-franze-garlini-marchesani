@@ -214,7 +214,27 @@ public class Player {
         return victoryPoint+= totalResources/5;
     }
 
+    public boolean checkPriceCanBePaid(HashMap<ResourceType, Integer> price) {
+        HashMap<ResourceType, Integer> available = getAllResources();
 
+        int grandTotalCost = 0;
+        int grandTotalAvailable=0;
+        for (ResourceType r : price.keySet()) {
+            grandTotalCost += price.get(r);
+            if(r!=ResourceType.ANY){
+                if(available.containsKey(r)){
+                    if (available.get(r)< price.get(r)){
+                        return false;
+                    }
+                }
+                else return false;
+            }
+        }
+        for(ResourceType r : available.keySet()){
+            grandTotalAvailable += available.get(r);
+        }
+        return grandTotalAvailable >= grandTotalCost;
+    }
 }
 
 
