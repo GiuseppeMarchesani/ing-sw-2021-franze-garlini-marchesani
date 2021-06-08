@@ -199,6 +199,9 @@ public class Player {
      */
     public int increaseFaith(int steps){
         faithSpace+=steps;
+        if(faithSpace>24){
+            faithSpace=24;
+        }
         return faithSpace;
     }
 
@@ -220,7 +223,7 @@ public class Player {
         }
         return allResources;
     }
-        public int getFinalVP(){
+    public int getFinalVP(){
         int totalResources=0;
         HashMap<ResourceType, Integer> allResources = getAllResources();
         for(ResourceType res : allResources.keySet()){

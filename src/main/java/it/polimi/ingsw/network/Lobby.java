@@ -18,7 +18,6 @@ public class Lobby {
         this.gameId=gameId;
     }
 
-    //TODO: View
     public void addPlayer(String username, ClientHandler clientHandler){
         VirtualView virtualView=new VirtualView(clientHandler);
             if(!(isGameStarted())){
@@ -30,7 +29,7 @@ public class Lobby {
                 }
                 clientHandlerMap.put(clientHandler, username);
 
-                    gameController.newPlayer(username, virtualView);
+                    gameController.newPlayer(username, gameId, virtualView);
 
             }
             else if(hasInactivePLayers()){

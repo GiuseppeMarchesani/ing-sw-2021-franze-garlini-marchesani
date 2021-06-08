@@ -19,10 +19,8 @@ public class GameController {
     private int maxPlayers;
     private Game gameSession;
     private final HashMap<String, VirtualView> allVirtualView;
-    private VirtualView virtualView;
     private TurnController turnController;
     private GameState gameState;
-    private String gameId;
     private ArrayList<DevCard> tempCards;
 
     public GameController(){
@@ -37,7 +35,7 @@ public class GameController {
         return allVirtualView;
     }
 
-    public void newPlayer(String username, VirtualView virtualView) {
+    public void newPlayer(String username, String gameId, VirtualView virtualView) {
         if(allVirtualView.isEmpty()){
             allVirtualView.put(username, virtualView);
             virtualView.showLoginResult(username,gameId, true);
@@ -83,10 +81,8 @@ public class GameController {
                     setupGame(receivedMessage);
                     break;
                 case IN_GAME:
-                    inGame(receivedMessage);
-                    break;
                 case END_GAME:
-                    endGame(receivedMessage);
+                    inGame(receivedMessage);
                     break;
                 default:
                     for (VirtualView vv : allVirtualView.values()) {
@@ -398,9 +394,11 @@ public class GameController {
                         getMarketResources((GetMarketResRequest) msg,player);
                     break;
                 case END_TURN:
-                    turnController.proxPlayer();
 
-                    startTurn();
+                    if(gameState==GameState.END_GAME&&turnController.proxPlayer()== turnController.firstPlayer()){
+                        countFinalVictoryPoints();
+                    }
+                    else startTurn();
 
                     break;
                 case SHOW_FAITH_TRACK:
@@ -505,6 +503,10 @@ public class GameController {
             vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
             vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
+        if(player.getDevCardSlot().getCardQuantity()==7){
+            setGameState(GameState.END_GAME);
+            broadcastMessage("We're in the endgame now. Every player until the first gets one last turn!");
+        }
 
     }
     public void increaseFaith(int faithQuantity, int who){
@@ -539,7 +541,7 @@ public class GameController {
                 }
             }
             for(VirtualView vv: allVirtualView.values()){
-                vv.showFaithTrack(faith, trigger,gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()) );
+                vv.showFaithTrack(faith, trigger,gameSession.getFaithTrack().indexOfNextFaithZone() );
             }
 
             if (trigger){
@@ -549,6 +551,10 @@ public class GameController {
                }
                 for(VirtualView vv: allVirtualView.values()){
                     vv.showCurrentVP(faith);
+                }
+                if(gameSession.getFaithTrack().indexOfNextFaithZone()==2){
+                    setGameState(GameState.END_GAME);
+                    broadcastMessage("We're in the endgame now. Every player until the first gets one last turn!");
                 }
                 gameSession.getFaithTrack().getNextFaithZone().setActivated();
             }
@@ -666,5 +672,13 @@ public class GameController {
     }
     public boolean checkLevelTwoColor(Color color , Player player){
         return player.getDevCardSlot().hasLevelTwoOfColor(color);
+    }
+    public void countFinalVictoryPoints(){
+        HashMap<String, Integer> userPoints=new HashMap<>()
+        for(String username : turnController.getPlayerOrder()){
+           int vp=0;
+           vp+=gameSession.getPlayer(username).
+            //TODO:
+        }
     }
 }

@@ -53,20 +53,14 @@ public class DevCardSlot {
         //Base production (scroll)
         devCards.add(new DevCard());
         for (int i=0; i<slotNum; i++) {
-                try{
-                    devCards.add(getSlotDev().get(i).get(getSlotDev().get(i).size()-1));
-                }catch(IndexOutOfBoundsException e){
+            if (slotDev.get(i).size() > 0)
+                devCards.add(getSlotDev().get(i).get(getSlotDev().get(i).size() - 1));
 
-                }
-            }
-
-        for (int i=0; i<slotLeader.size(); i++) {
-        try{
-            devCards.add(slotLeader.get(i));
-        }catch(IndexOutOfBoundsException e){
 
         }
-    }
+        for (DevCard devCard : slotLeader) {
+                devCards.add(devCard);
+        }
         return devCards;
     }
 
@@ -135,5 +129,14 @@ public class DevCardSlot {
         }
         return false;
 
+    }
+    public int getCardPoints(){
+        int vp=0;
+        for(int i=0; i<3;i++){
+            for(DevCard card: slotDev.get(i)){
+                vp+=card.getVP();
+            }
+        }
+        return vp;
     }
 }

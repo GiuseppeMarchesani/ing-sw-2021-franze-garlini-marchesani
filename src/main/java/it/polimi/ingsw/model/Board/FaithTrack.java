@@ -74,6 +74,9 @@ public class FaithTrack {
         this.VPspaces = VPspaces;
     }
 
+    public int indexOfNextFaithZone(){
+       return getFaithZones().indexOf( getNextFaithZone() );
+    }
 
 }
 
