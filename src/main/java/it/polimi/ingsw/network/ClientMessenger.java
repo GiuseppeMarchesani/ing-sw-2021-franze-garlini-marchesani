@@ -90,10 +90,10 @@ public class ClientMessenger implements Observer, ObserverView {
             case 8:
                 msg= new ActionRequest(username, MessageType.SHOW_DEV_CARDS);
                 break;
-            case 8:
+            case 9:
                 msg= new ActionRequest(username, MessageType.SHOW_RES);
                 break;
-            case 9:
+            case 10:
                 msg= new ActionRequest(username, MessageType.SHOW_VICTORY_POINTS);
                 break;
             default:
@@ -179,6 +179,16 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SIDE_LEADER:
                 queue.execute(() -> view.askLeaderCardToPlay(((SideLeaderReply) msg).getLeaderCards()));
+                break;
+            case WIN:
+                queue.execute(() -> view.showWinMessage(((WinMessage) msg).getFinalPoints()));
+                client.disconnect();
+                break;
+            case ERROR:
+                queue.execute(()-> view.showErrorMsg(((ErrorMsg) msg).getMessage()));
+                break;
+            case STRING_MESSAGE:
+                queue.execute(()-> view.showMessage(((StringMessage) msg).getMessage()));
                 break;
         }
     }

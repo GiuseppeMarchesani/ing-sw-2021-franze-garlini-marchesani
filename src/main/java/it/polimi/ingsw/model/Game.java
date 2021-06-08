@@ -149,39 +149,15 @@ public class Game {
 
     /**
      * Ends the game and communicate the result.
-     * @return the ID of the winner.
+     * @return the Hash Map of user and pointt.
      */
-    public int endGame() {
+    public HashMap<String, Integer> endGame() {
         //Turn has already let players to play the last turn.
-
-        int winnerID = -1;
-        //Getting results as an array
-        int numOfPlayers = playersList.size();
-        int[] results = new int[numOfPlayers];
-        for(int i=0; i<numOfPlayers; i++) {
-            results[i]=playersList.get(i).getFinalVP();
+        HashMap<String, Integer> userPoints=new HashMap<>();
+        for(Player player : playersList){
+            userPoints.put(player.getUsername(), player.getFinalVP());
         }
-
-        //Sorting the results array, the winner is the last one
-        Arrays.sort(results);
-
-        //Checking if there are players with the same amount of VP
-        int maxScore = results[numOfPlayers-1];
-        int maxScoreRepetition = 1;
-        for(int i=0; i<numOfPlayers-1; i++) {
-            if(results[i]==maxScore) maxScoreRepetition++;
-        }
-
-        //The winner is...
-        if(maxScoreRepetition==1) {
-            winnerID = playersList.size()-1;
-        }
-
-        else if(maxScoreRepetition>1) {
-            winnerID = whoWin(maxScoreRepetition);
-        }
-        //ongoing = false;
-        return winnerID;
+        return userPoints;
     }
 
     /**

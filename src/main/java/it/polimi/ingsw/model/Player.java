@@ -223,13 +223,14 @@ public class Player {
         }
         return allResources;
     }
-    public int getFinalVP(){
+
+    public int getResourceVP(){
         int totalResources=0;
         HashMap<ResourceType, Integer> allResources = getAllResources();
         for(ResourceType res : allResources.keySet()){
             totalResources+=allResources.get(res);
         }
-        return victoryPoint+= totalResources/5;
+        return totalResources/5;
     }
 
     public boolean checkPriceCanBePaid(HashMap<ResourceType, Integer> price) {
@@ -255,6 +256,18 @@ public class Player {
     }
     public boolean checkHasEnoughCardOfColor(Color color, int requiredCard){
         return devCardSlot.numCardsPerColor(color)>requiredCard;
+    }
+    public int getLeaderVp(){
+        int vp=0;
+        for(LeaderCard card: leaderCards.keySet()){
+            if(leaderCards.get(card)){
+                vp+=card.getVP();
+            }
+        }
+        return vp;
+    }
+    public int getFinalVP(){
+        return getDevCardSlot().getCardPoints()+getResourceVP()+getLeaderVp()+victoryPoint;
     }
 }
 

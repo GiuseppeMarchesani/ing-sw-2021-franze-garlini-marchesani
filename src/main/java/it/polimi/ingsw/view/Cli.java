@@ -850,7 +850,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showWinMessage(String winnerUser) {
+    public void showWinMessage((HashMap<String, Integer> finalPoints) {
         out.println("Game finished: " + winnerUser + " WINS!");
         System.exit(0);
     }

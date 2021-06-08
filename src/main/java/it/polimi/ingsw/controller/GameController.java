@@ -304,33 +304,6 @@ public class GameController {
         if (msg.getUsername()== turnController.getActivePlayer()){
            Player player =gameSession.getPlayer(msg.getUsername());
             switch(msg.getMessageType()){
-                case SHOW_LEADER:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-                case SHOW_MARKET:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-                case  SHOW_DEV_MARKET:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-                case SHOW_DEV_CARDS:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-                case SHOW_RES:
-                    turnController.setPhaseTurn(PhaseTurn.START_TURN);
-                    turnController.getMessage(msg);
-
-
-
-                case DEVCARD_REPLY:
-                    turnController.getMessage(msg);
-
-                case PRODUCTION_RES:
-                    turnController.getMessage(msg);
-                case PAY_RES:
-                    turnController.getMessage(msg);
-
-
                 case LEADER_ACTION:
                     leaderAction(((LeaderActionRequest) msg).getCard(), ((LeaderActionRequest) msg).isChoseToPlay(), player );
                     startTurn();
@@ -674,11 +647,9 @@ public class GameController {
         return player.getDevCardSlot().hasLevelTwoOfColor(color);
     }
     public void countFinalVictoryPoints(){
-        HashMap<String, Integer> userPoints=new HashMap<>()
-        for(String username : turnController.getPlayerOrder()){
-           int vp=0;
-           vp+=gameSession.getPlayer(username).
-            //TODO:
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showWinMessage(gameSession.endGame());
         }
+
     }
 }

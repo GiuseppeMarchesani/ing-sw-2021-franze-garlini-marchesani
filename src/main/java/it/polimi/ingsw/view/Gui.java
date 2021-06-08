@@ -180,7 +180,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showWinMessage(String winnerUser) {
+    public void showWinMessage((HashMap<String, Integer> finalPoints) {
 
     }
 }

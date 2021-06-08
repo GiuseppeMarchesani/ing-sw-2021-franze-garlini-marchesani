@@ -215,9 +215,9 @@ public interface View {
 
     /**
      * Shows the winner.
-     * @param winnerUser the username of the winner.
+     * @param finalPoints the usernames and points of the players.
      */
-    void showWinMessage(String winnerUser);
+    void showWinMessage(HashMap<String, Integer> finalPoints);
 
 
 }

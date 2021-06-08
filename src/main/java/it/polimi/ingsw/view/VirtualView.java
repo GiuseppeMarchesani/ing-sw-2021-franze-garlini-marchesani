@@ -61,7 +61,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showLoginResult(String username, String gameId, boolean wasJoined) {
-        clientHandler.sendMessage(new LoginReplyMsg(username, gameId, wasJoined);
+        clientHandler.sendMessage(new LoginReplyMsg(username, gameId, wasJoined));
     }
 
     @Override
@@ -69,20 +69,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new StringMessage(message));
     }
 
-    @Override
-    public void showDisconnectionMsg(String disconnectedUser, String message) {
-        clientHandler.sendMessage(new DisconnectionMessage(disconnectedUser, message));
-    }
-
-    @Override
-    public void showMatchInfo(List<String> players, String activePlayer) {
-        clientHandler.sendMessage(new MatchInfoRequest(players, activePlayer));
-    }
-
-    @Override
-    public void showLeaderCards(List<LeaderCard> leaderCards, String username) {
-        clientHandler.sendMessage(new LeaderCardShowReq(leaderCards, username));
-    }
 
     @Override
     public void askDevCardToBuy() {
@@ -145,30 +131,9 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new PlaceDevCardReply(strongbox, cardCost,any, availableSlots));
     }
 
-    @Override
-    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
-        clientHandler.sendMessage(new WhiteConversionMsg(availableConversions));
-    }
 
-    @Override
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
-        clientHandler.sendMessage(new ResToPayRequest(strongbox, warehouse, resource));
-    }
 
-    @Override
-    public void askChooseOneRes(ArrayList<String> resources, String message) {
-        clientHandler.sendMessage(new ResourceReply(resources, message));
-    }
 
-    @Override
-    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
-        clientHandler.sendMessage(new PlaceMsg(warehouse, resToPlace));
-    }
-
-    @Override
-    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
-        clientHandler.sendMessage(new RearrangeRequestMsg(warehouse, resources));
-    }
 
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
@@ -181,8 +146,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showWinMessage(String winnerUser) {
-        clientHandler.sendMessage(new WinMessage(winner));
+    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+        clientHandler.sendMessage(new WinMessage(finalPoints));
     }
 
     /**

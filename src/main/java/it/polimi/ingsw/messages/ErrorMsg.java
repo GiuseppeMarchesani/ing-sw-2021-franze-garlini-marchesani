@@ -1,7 +1,13 @@
 package it.polimi.ingsw.messages;
 
-public class ErrorMsg extends GeneralMessage{
-    public ErrorMsg(String username, MessageType messageType, String gameID) {
-        super(username, messageType, gameID);
+public class ErrorMsg extends ServerMessage{
+    private String message;
+    public ErrorMsg(String message) {
+        super(MessageType.ERROR);
+        this.message=message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

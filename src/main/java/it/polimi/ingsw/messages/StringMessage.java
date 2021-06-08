@@ -6,4 +6,8 @@ public class StringMessage extends ServerMessage{
         super(MessageType.STRING_MESSAGE);
         this.message=message;
     }
+
+    public String getMessage() {
+        return message;
+    }
 }
