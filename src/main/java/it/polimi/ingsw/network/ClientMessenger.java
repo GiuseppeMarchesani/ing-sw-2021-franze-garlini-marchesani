@@ -121,6 +121,9 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateGetProdRes(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox){
         client.sendMessage(new GetProductionRequest(username, expenseDepot, newStrongbox));
     }
+    public void updatePlayLeaderCard(LeaderCard card, char dOrP){
+        client.sendMessage(new LeaderActionRequest(username, card, dOrP=='P'));
+    }
 
     @Override
     public void update(GeneralMessage msg){
@@ -173,6 +176,9 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SHOW_SLOT:
                 queue.execute(() -> view.showSlots(((ShowSlotsMsg) msg).getDevCardSlot(), ((ShowSlotsMsg) msg).getUsername()));
+                break;
+            case SIDE_LEADER:
+                queue.execute(() -> view.askLeaderCardToPlay(((SideLeaderReply) msg).getLeaderCards()));
                 break;
         }
     }

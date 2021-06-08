@@ -42,5 +42,7 @@ public class LeaderDepot extends Card implements LeaderCard  {
     public void setResourceAbility(ResourceType resourceAbility) {
         this.resourceAbility = resourceAbility;
     }
-
+    public String toString(){
+        return resourceAbility.name()+" Depot";
+    }
 }

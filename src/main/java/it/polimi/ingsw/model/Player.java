@@ -11,20 +11,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Player {
-    private int playerID;
     private String username;
     private int victoryPoint;
     private DevCardSlot devCardSlot;
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
     private int faithSpace;
-    private  HashMap<LeaderCard, Boolean> leaderCardList;
+    private  HashMap<LeaderCard, Boolean> leaderCards;
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 
 
     public Player() {
-        this.leaderCardList = null;
+        this.leaderCards = new HashMap<>();
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();
         this.faithSpace = 0;
@@ -34,7 +33,7 @@ public class Player {
         this.victoryPoint = 0;
     }
     public Player(String username){
-        this.leaderCardList = null;
+        this.leaderCards = new HashMap<>();
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();
         this.faithSpace = 0;
@@ -48,19 +47,34 @@ public class Player {
     public String getUsername(){
         return username;
     }
-    public int getPlayerID() {
-        return playerID;
-    }
 
     public int getVictoryPoint() { return victoryPoint; }
     public void setVictoryPoint(int VP){ this.victoryPoint=VP;
     }
 
-    public HashMap<LeaderCard, Boolean> getLeaderCardList() { return leaderCardList;}
+    public ArrayList<LeaderCard> getLeaderCardList() {
+        ArrayList<LeaderCard> cards= new ArrayList<>();
+        for(LeaderCard card: leaderCards.keySet()){
+            if (!leaderCards.get(card)){
+                cards.add(card);
+            }
+        }
+        return cards;
+    }
 
-    public void setLeaderCardList(HashMap<LeaderCard, Boolean> leaderCardList) { this.leaderCardList = leaderCardList;}
+    public HashMap<LeaderCard, Boolean> getLeaderCards() {
+        return leaderCards;
+    }
 
-    public void setDevCardSlot(DevCardSlot developCardSlot) { this.devCardSlot = developCardSlot;}
+    public void discardLeader(LeaderCard card){
+        leaderCards.remove(card);
+    }
+    public void playLeader(LeaderCard card){
+        if(leaderCards.containsKey(card)){
+            leaderCards.put(card, true);
+        }
+        card.activateAbility(this);
+    }
 
     public DevCardSlot getDevCardSlot(){
         return devCardSlot;

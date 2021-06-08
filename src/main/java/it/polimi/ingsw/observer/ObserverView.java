@@ -122,4 +122,8 @@ public interface ObserverView {
     public void updateStrongbox(HashMap<ResourceType, Integer> toStrongbox);
 
     public void updatePlaceDevCard(HashMap<ResourceType, Integer> paymentWarehouse, HashMap<ResourceType, Integer> newStrongbox, int i);
+
+    public void updateGetProdRes(HashMap<ResourceType, Integer> newStrongbox, HashMap<ResourceType, Integer> paymentWarehouse);
+
+    public void updateChosenProdCards(ArrayList<DevCard> chosenCards);
 }

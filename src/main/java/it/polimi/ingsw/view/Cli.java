@@ -527,7 +527,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
-        List<DevCard> chosenCards = new ArrayList<>();
+        ArrayList<DevCard> chosenCards = new ArrayList<>();
         String ids = "";
         boolean checkId = false;
         int idCounter;
@@ -785,7 +785,7 @@ public class Cli extends ObservableView implements View{
     }*/
 
     @Override
-    public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
         LeaderCard chosenLeader = null;
         int id = -1;
         boolean checkId = false;

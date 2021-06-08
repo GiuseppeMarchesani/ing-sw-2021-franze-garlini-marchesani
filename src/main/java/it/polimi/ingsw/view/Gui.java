@@ -170,7 +170,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askLeaderCardToPlay(List<LeaderCard> leaderCards) {
+    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
 
     }
 

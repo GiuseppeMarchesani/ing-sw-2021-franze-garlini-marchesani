@@ -179,7 +179,7 @@ public class GameController {
      */
     private void choseLeader(StartingLeadersRequestMsg msg, Player player){
         for(int i=0; i<2;i++){
-            player.getLeaderCardList().put(msg.getLeaderCard().get(i), false);
+            player.getLeaderCards().put(msg.getLeaderCard().get(i), false);
         }
         for(VirtualView vv: allVirtualView.values()){
             vv.showRemainingLeaderCards(msg.getUsername(), 2);
@@ -317,9 +317,7 @@ public class GameController {
                     turnController.setPhaseTurn(PhaseTurn.START_TURN);
                     turnController.getMessage(msg);
 
-                case PLAYLEADER:
-                    turnController.setPhaseTurn(PhaseTurn.ACTION);
-                    turnController.getMessage(msg);
+
 
                 case DEVCARD_REPLY:
                     turnController.getMessage(msg);
@@ -329,6 +327,14 @@ public class GameController {
                 case PAY_RES:
                     turnController.getMessage(msg);
 
+
+                case LEADER_ACTION:
+                    leaderAction(((LeaderActionRequest) msg).getCard(), ((LeaderActionRequest) msg).isChoseToPlay(), player );
+                    startTurn();
+                    break;
+                case SIDE_LEADER:
+                    sendLeaderCards(player.getLeaderCardList());
+                    break;
                 case ACTIVATE_PRODUCTION:
                     turnController.setMainAction(true);
                     confirmProduction(((GetProductionRequest) msg).getExpenseDepot(), ((GetProductionRequest) msg).getNewStrongbox(), player);
@@ -410,6 +416,8 @@ public class GameController {
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not your turn!");
         }
     }
+
+
 
     public void getMarketResources(GetMarketResRequest msg,Player player){
 
@@ -588,6 +596,21 @@ public class GameController {
         for (VirtualView vv : allVirtualView.values()) {
             vv.showStrongbox(strongbox, turnController.getActivePlayer());
             vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+        }
+    }
+    public void sendLeaderCards(ArrayList<LeaderCard> cards){
+        allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToPlay(cards);
+    }
+    private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
+        if(!choseToPlay){
+            increaseFaith(1, 0);
+            player.discardLeader(card);
+            broadcastMessage(player.getUsername() + " has discarded a leader card.");
+        }
+        else{
+            //Todo:: costo
+            player.playLeader(card);
+            broadcastMessage(player.getUsername()+ " has played a Leader Power: " + card.toString());
         }
     }
 }

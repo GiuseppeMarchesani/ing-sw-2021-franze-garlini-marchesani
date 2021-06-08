@@ -9,4 +9,5 @@ public interface LeaderCard {
 
     public int getLeaderID();
 
+    public String toString();
 }

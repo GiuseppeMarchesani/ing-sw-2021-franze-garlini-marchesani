@@ -35,7 +35,7 @@ public enum MessageType {
     SHOW_SLOT,
 
     //action
-    PLAYLEADER,
+    LEADER_ACTION,
     PICK_DEVCARD,
     PICK_MARKETRES,
 

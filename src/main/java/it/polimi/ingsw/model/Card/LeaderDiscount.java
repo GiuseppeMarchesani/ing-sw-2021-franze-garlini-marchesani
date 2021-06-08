@@ -46,4 +46,7 @@ public class LeaderDiscount extends Card implements LeaderCard  {
     public void setResourceAbility(ResourceType resourceAbility) {
         this.resourceAbility = resourceAbility;
     }
+    public String toString(){
+        return resourceAbility.name()+" Discount";
+    }
 }
