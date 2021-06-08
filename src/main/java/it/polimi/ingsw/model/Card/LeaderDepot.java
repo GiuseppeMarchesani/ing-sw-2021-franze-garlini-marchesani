@@ -1,48 +1,26 @@
 package it.polimi.ingsw.model.Card;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enumeration.Color;
+import it.polimi.ingsw.model.enumeration.LeaderCost;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class LeaderDepot extends Card implements LeaderCard  {
-    private HashMap<ResourceType, Integer> resourceReq;
-    private ResourceType resourceAbility;
+public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
 
-
-    public LeaderDepot(int id, int victoryPoints, HashMap<ResourceType, Integer> resourceReq, ResourceType resourceAbility) {
-        super(id, victoryPoints);
-        this.resourceReq = resourceReq;
-        this.resourceAbility = resourceAbility;
+    public LeaderDepot(int id, int victoryPoints, HashMap<ResourceType, Integer> cost, ResourceType resourceAbility) {
+        super(id, victoryPoints, resourceAbility, LeaderCost.RESOURCES, cost);
 
     }
 
     @Override
     public void activateAbility(Player player) {
-        player.getWarehouse().addDepot(resourceAbility);
+        player.getWarehouse().addDepot(getResourceAbility());
     }
 
-    @Override
-    public int getLeaderID() {
-        return this.getId();
+     public String toString(){
+        return getResourceAbility().name()+" Depot";
     }
 
-    public HashMap<ResourceType, Integer> getResourceReq(){
-        return resourceReq;
-    }
-
-    public ResourceType getResourceAbility() {
-        return resourceAbility;
-    }
-
-    public void setResourceReq(HashMap<ResourceType, Integer> resourceReq) {
-        this.resourceReq = resourceReq;
-    }
-
-    public void setResourceAbility(ResourceType resourceAbility) {
-        this.resourceAbility = resourceAbility;
-    }
-    public String toString(){
-        return resourceAbility.name()+" Depot";
-    }
 }

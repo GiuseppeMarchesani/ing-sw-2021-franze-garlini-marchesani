@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.security.InvalidParameterException;
@@ -248,6 +249,9 @@ public class Player {
             grandTotalAvailable += available.get(r);
         }
         return grandTotalAvailable >= grandTotalCost;
+    }
+    public boolean checkHasEnoughCardOfColor(Color color, int requiredCard){
+        return devCardSlot.numCardsPerColor(color)>requiredCard;
     }
 }
 

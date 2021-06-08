@@ -124,4 +124,16 @@ public class DevCardSlot {
     public int numCardsPerColor(Color color) {
         return getAllDevCardsPerColor(color).size();
     }
+
+    public boolean hasLevelTwoOfColor(Color color){
+        for(int i=0;i<3;i++){
+            if(slotDev.get(i).size()>=2){
+                if(slotDev.get(i).get(1).getCardType().getColor()==color){
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
 }

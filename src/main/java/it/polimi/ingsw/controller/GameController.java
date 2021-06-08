@@ -2,8 +2,8 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Card.DevCard;
-import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.Card.*;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.ResourceType;
@@ -145,13 +145,20 @@ public class GameController {
         setGameState(GameState.DRAWLEADER);
         turnController=new TurnController(this);
         switch(maxPlayers){
-            case 3:
-                gameSession.getPlayersList().get(2).increaseFaith(1);
             case 4:
                 gameSession.getPlayersList().get(3).increaseFaith(2);
-                break;
+            case 3:
+                gameSession.getPlayersList().get(2).increaseFaith(1);
             default:
-                //Don't increase faith
+                //Don't increase faith but update track
+                HashMap<String, Integer> faith=new HashMap<>();
+                for(String user:  gameSession.getPlayerListByUsername()){
+                    faith.put(user, gameSession.getPlayer(user).getFaithSpace());
+                }
+                for(VirtualView vv: allVirtualView.values()){
+
+                    vv.showFaithTrack(faith ,false,0);
+                }
         }
         broadcastMessage("Everyone joined the game!");
         startTurn();
@@ -608,9 +615,56 @@ public class GameController {
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
         }
         else{
-            //Todo:: costo
-            player.playLeader(card);
+            switch(card.getCostType()){
+                case RESOURCES:
+                    if(!player.checkPriceCanBePaid(((LeaderDepot) card).getCost())){
+                        allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");
+                        return;
+                    }
+                    player.playLeader(card);
+                    for(VirtualView vv: allVirtualView.values()) {
+                        vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+                    }
+                    break;
+                case LEVEL_TWO:
+                    if(checkLevelTwoColor(((LeaderProduction) card).getColorCost(), player)){
+                        player.playLeader(card);
+                        for(VirtualView vv: allVirtualView.values()) {
+                            vv.showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+                        }
+                     }
+                    else  {
+                        allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("You don't have the right cards!");
+                    return;
+                    }
+
+                    break;
+                case DEV_CARD_SINGLE:
+                    if(checkCardColorRequirements(player, ((LeaderDiscount) card).getCost())){
+                        player.playLeader(card);
+                    }
+                    else return;
+                    break;
+                case DEV_CARD_DOUBLE:
+                    if(checkCardColorRequirements(player, ((LeaderMarble) card).getCost())){
+                        player.playLeader(card);
+                    }
+                    else return;
+                    break;
+            }
             broadcastMessage(player.getUsername()+ " has played a Leader Power: " + card.toString());
         }
+    }
+    public boolean checkCardColorRequirements(Player player, HashMap<Color, Integer> requirement){
+        for(Color c: requirement.keySet()){
+            if(! player.checkHasEnoughCardOfColor(c, requirement.get(c))){
+                allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("You don't have the right cards!");
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean checkLevelTwoColor(Color color , Player player){
+        return player.getDevCardSlot().hasLevelTwoOfColor(color);
     }
 }

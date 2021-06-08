@@ -804,7 +804,7 @@ public class Cli extends ObservableView implements View{
             }
 
             for(LeaderCard leaderCard: leaderCards) {
-                if(leaderCard.getLeaderID() == id) {
+                if(leaderCard.getId() == id) {
                     checkId = true;
                     chosenLeader = leaderCard;
                     break;
@@ -825,7 +825,7 @@ public class Cli extends ObservableView implements View{
         while(i!=2) {
             out.println("Choose card No. "+ (i+1));
             for(LeaderCard leader: leaderCards) {
-                out.println(leader.getLeaderID());
+                out.println(leader.getId());
             }
             try {
                 id = Integer.parseInt(readLine());
@@ -834,7 +834,7 @@ public class Cli extends ObservableView implements View{
             }
 
             for(LeaderCard leaderCard: leaderCards) {
-                if(leaderCard.getLeaderID() == id) {
+                if(leaderCard.getId() == id) {
                     leaderCards.remove(leaderCard);
                     i++;
                     checkId=true;
