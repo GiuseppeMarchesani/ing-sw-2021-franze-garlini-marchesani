@@ -821,7 +821,7 @@ public class Cli extends ObservableView implements View{
         int id = -1;
         boolean checkId = false;
         int i=0;
-        out.println("Choose two of these Leader Card to discard by typing their Id, one at a time.");
+        out.println("Choose two of these Leader Card to keep by typing their Id, one at a time.");
         while(i!=2) {
             out.println("Choose card No. "+ (i+1));
             for(LeaderCard leader: leaderCards) {

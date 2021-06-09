@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView id="imgMarketBoard" fitHeight="413.0" fitWidth="313.0" layoutX="144.0" layoutY="-2.0" preserveRatio="true">
+      <ImageView fitHeight="405.0" fitWidth="608.0" layoutX="-4.0" layoutY="-2.0" opacity="0.6">
+         <image>
+            <Image url="@../images/background2.png" />
+         </image>
+      </ImageView>
+      <ImageView id="imgMarketBoard" fitHeight="357.0" fitWidth="303.0" layoutX="168.0" layoutY="46.0" preserveRatio="true">
          <image>
             <Image url="@../images/imgMarketBoard.png" />
          </image>
       </ImageView>
-      <Pane layoutX="193.0" layoutY="47.0" prefHeight="179.0" prefWidth="215.0">
+      <Pane layoutX="212.0" layoutY="89.0" prefHeight="155.0" prefWidth="190.0">
          <children>
-            <GridPane id="marketGrid" gridLinesVisible="true" layoutX="31.0" layoutY="45.0" prefHeight="106.0" prefWidth="170.0">
+            <GridPane id="marketGrid" gridLinesVisible="true" layoutX="28.0" layoutY="38.0" prefHeight="96.0" prefWidth="141.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -31,15 +38,32 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Pane layoutX="160.0" layoutY="7.0" prefHeight="31.0" prefWidth="41.0" style="-fx-border-color: black;" />
-            <Button id="btm_col0" layoutX="41.0" layoutY="151.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="27.0" style="-fx-background-color: red; -fx-border-color: grey; -fx-border-radius: 100; -fx-background-radius: 100;" />
+            <Pane layoutX="149.0" layoutY="3.0" prefHeight="28.0" prefWidth="37.0" style="-fx-border-color: black;" />
+            <Circle fill="RED" layoutX="114.0" layoutY="153.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="146.0" layoutY="153.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="184.0" layoutY="51.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="184.0" layoutY="83.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="185.0" layoutY="116.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="83.0" layoutY="152.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="RED" layoutX="50.0" layoutY="152.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button id="btm_col0" layoutX="38.0" layoutY="141.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_col1" layoutX="72.0" layoutY="140.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_col2" layoutX="103.0" layoutY="142.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_col3" layoutX="134.0" layoutY="141.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_row0" layoutX="173.0" layoutY="102.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_row1" layoutX="172.0" layoutY="71.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
+            <Button id="btm_row2" layoutX="172.0" layoutY="37.0" mnemonicParsing="false" opacity="0.0" prefHeight="22.0" prefWidth="9.0" style="-fx-border-radius: 100;" text="Button" />
          </children>
       </Pane>
-      <Button id="btm_row0" layoutX="418.0" layoutY="93.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: none;" />
-      <Button id="btm_row1" layoutX="418.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: none;" />
-      <Button id="btm_row2" layoutX="418.0" layoutY="166.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: none;" />
-      <Button id="btm_col1" layoutX="274.0" layoutY="240.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="27.0" style="-fx-background-color: none;" />
-      <Button id="btm_col2" layoutX="313.0" layoutY="240.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="27.0" style="-fx-background-color: none;" />
-      <Button id="btm_col3" layoutX="346.0" layoutY="240.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="27.0" style="-fx-background-color: none;" />
+      <Label layoutX="215.0" layoutY="14.0" prefHeight="31.0" prefWidth="170.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Choose a row or a column:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button id="btm_next" layoutX="512.0" layoutY="356.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="60.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="NEXT" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
