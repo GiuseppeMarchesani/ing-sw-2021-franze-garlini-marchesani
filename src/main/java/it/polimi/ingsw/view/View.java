@@ -79,6 +79,7 @@ public interface View {
      */
     void askMarketLineToGet(ArrayList<ResourceType> conversion);
 
+
     /**
      * Ask the player to place his resources.
      * @param resToPlace resources to be placed.
