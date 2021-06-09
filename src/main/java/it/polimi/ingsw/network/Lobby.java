@@ -23,11 +23,14 @@ public class Lobby {
             if(!(isGameStarted())){
 
                 int i=1;
-                String s=username;
-                while(clientHandlerMap.containsKey(s)){
-                    s=username+"("+i+")";
+                String s=new String(username);
+                if (s.equals("Lorenzo Il Magnifico")){
+                        s="Lorenzo L'Imitazione";
                 }
-                clientHandlerMap.put(clientHandler, username);
+                while (clientHandlerMap.containsKey(s)) {
+                    s = username + "(" + i + ")";
+                }
+                clientHandlerMap.put(clientHandler, s);
 
                     gameController.newPlayer(username, gameId, virtualView);
 

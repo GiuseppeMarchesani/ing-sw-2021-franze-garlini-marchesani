@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * This class is used for solo-mode and it's the intermediary between all the game's components.
@@ -107,5 +108,25 @@ public class SinglePlayerGame extends Game {
         ActionToken token =tokenBag.drawToken();
         token.doOperation(this);
         return token;
+    }
+    public boolean updateFaithTrack(){
+      if(super.updateFaithTrack()){
+            return true;
+      }
+      else{
+          int thresholdH=getFaithTrack().getNextFaithZone().getEnd();
+          if(blackCross.getFaithSpace()>thresholdH){
+              getFaithTrack().getNextFaithZone().setActivated();
+              return true;
+          }
+          else return false;
+      }
+
+    }
+
+    public HashMap<String, Integer> getFaithMap(){
+       HashMap<String, Integer> map=  super.getFaithMap();
+       map.put("Lorenzo Il Magnifico", blackCross.getFaithSpace());
+       return map;
     }
 }

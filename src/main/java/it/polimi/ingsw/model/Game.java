@@ -9,7 +9,9 @@ import it.polimi.ingsw.model.Board.FaithZone;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
+import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.ResourceType;
+import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -331,4 +333,43 @@ public class Game {
         return null;
     }
 
+    public boolean updateFaithTrack(){
+        ArrayList<Player> vpWinners=new ArrayList<Player>();
+        int thresholdL=getFaithTrack().getNextFaithZone().getStart();
+        boolean trigger=false;
+        int thresholdH=getFaithTrack().getNextFaithZone().getEnd();
+
+        for(Player player : playersList){
+            if(player.getFaithSpace()>thresholdL){
+                vpWinners.add(player);
+            }
+            if(player.getFaithSpace()>=thresholdH){
+                trigger=true;
+            }
+
+        }
+
+        if (trigger){
+            int vp=getFaithTrack().getNextFaithZone().getFaithZoneVP();
+            for(Player p: vpWinners){
+                p.increaseVP(vp);
+            }
+           getFaithTrack().getNextFaithZone().setActivated();
+        }
+        return trigger;
+    }
+
+    public int lastActivatedFaithZone() {
+       if( faithTrack.indexOfNextFaithZone()<0){
+           return 3;
+       }
+       else return faithTrack.indexOfNextFaithZone();
+    }
+    public HashMap<String, Integer> getFaithMap(){
+        HashMap<String, Integer> faith=new HashMap<>();
+        for(Player player: playersList){
+            faith.put(player.getUsername(), player.getFaithSpace());
+        }
+        return faith;
+    }
 }

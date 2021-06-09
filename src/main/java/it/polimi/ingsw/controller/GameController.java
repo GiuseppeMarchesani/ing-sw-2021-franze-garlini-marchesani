@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.Action.ActionToken;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
-import it.polimi.ingsw.model.enumeration.PhaseTurn;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ResourceToWarehouseRequestMsg;
 import it.polimi.ingsw.view.*;
@@ -643,7 +642,7 @@ public class GameController {
         if(token!=null){
             switch (token.getType()){
                 case FAITH:
-                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), gameSession.updateFaithTrack(); gameSession.lastActivatedFaithZone());
+                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), gameSession.updateFaithTrack(), gameSession.lastActivatedFaithZone());
                     break;
                 case DISCARD:
                     allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
