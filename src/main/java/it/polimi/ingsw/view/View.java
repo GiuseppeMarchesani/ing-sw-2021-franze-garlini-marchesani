@@ -220,4 +220,5 @@ public interface View {
     void showWinMessage(HashMap<String, Integer> finalPoints);
 
 
+    void showLoseMessage();
 }

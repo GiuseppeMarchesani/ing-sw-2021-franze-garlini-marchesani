@@ -27,14 +27,6 @@ public class SinglePlayerGame extends Game {
         tokenBag = new TokenBag(generateTokenBag());
     }
 
-    /**
-     * This method activates an ActionToken each turn.
-     * @return An int representing the endgame code if it's >= 0 or -1 if the endgame mustn't be called yet.
-     */
-    public int turnAction() {
-        ActionToken actionToken = tokenBag.drawToken();
-        return actionToken.doOperation(this);
-    }
 
     public Boolean updateFaithTrack(int position) {
 
@@ -104,5 +96,16 @@ public class SinglePlayerGame extends Game {
 
     public TokenBag getTokenBag() {
         return tokenBag;
+    }
+
+    @Override
+    public boolean checkLoss() {
+        return (getFaithTrack().isOnFinalPosition(blackCross.getFaithSpace())|| getCardMarket().noCardsOfAColor());
+
+    }
+    public ActionToken drawToken(){
+        ActionToken token =tokenBag.drawToken();
+        token.doOperation(this);
+        return token;
     }
 }

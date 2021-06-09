@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.enumeration.Color;
 /**
  * This class represent the Action Token that will discard a DevCard.
  */
-public class ActionDiscard implements ActionToken {
+public class ActionDiscard extends ActionToken {
     private Color color;
 
     /**
@@ -14,6 +14,7 @@ public class ActionDiscard implements ActionToken {
      * @param color The color of the Development Card that must be discarded.
      */
     public ActionDiscard(Color color) {
+        super(ActionTokenType.DISCARD);
         this.color = color;
     }
 
@@ -21,9 +22,8 @@ public class ActionDiscard implements ActionToken {
      * Discards a Development Card from the Card Market and calls the endgame if there are no more available cards in a deck in the Card Market.
      * @param game The ongoing Game.
      */
-    public int doOperation(SinglePlayerGame game) {
-        game.getCardMarket().discardDevCard(color);
-        return game.getCardMarket().discardDevCard(color);
+    public void doOperation(SinglePlayerGame game) {
+         game.getCardMarket().discardDevCard(color);
     }
 
     public Color getColor() {

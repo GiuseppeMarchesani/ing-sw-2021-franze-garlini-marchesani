@@ -81,22 +81,34 @@ public class CardMarket {
         return devCardGrid;
     }
 
-    public int discardDevCard(Color color) {
-        int availableDeck = 3;
+    public void discardDevCard(Color color) {
         int j;
-
+        int removed=0;
         for (j=0; j<3; j++) {
-            if(devCardGrid.get(color.getVal()).get(j).size() > 0) {
-                devCardGrid.get(color.getVal()).get(j).remove(devCardGrid.get(color.getVal()).get(j).size()-1);
-                break;
+            for(int i=0; i<2;i++) {
+                if (devCardGrid.get(color.getVal()).get(j).size() >0) {
+                    devCardGrid.get(color.getVal()).get(j).remove(devCardGrid.get(color.getVal()).get(j).size() - 1);
+                    removed++;
+                }
+                if (removed==2) return;
             }
-        }
 
-        if(j>=2 && devCardGrid.get(color.getVal()).get(2).size() == 0 ) {
-            return 0;
         }
-        else {
-            return -1;
+        return;
+    }
+    public int remainingCardsOfColor(Color color){
+        int size=0;
+        for (int j=0; j<3; j++) {
+            size+=devCardGrid.get(color.getVal()).get(j).size();
         }
+        return size;
+    }
+    public boolean noCardsOfAColor(){
+        for(Color color: Color.values()){
+           if( remainingCardsOfColor(color)==0){
+               return true;
+           }
+        }
+        return false;
     }
 }

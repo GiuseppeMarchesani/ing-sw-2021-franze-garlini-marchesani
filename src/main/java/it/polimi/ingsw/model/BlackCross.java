@@ -19,6 +19,7 @@ public class BlackCross {
      */
     public int increaseBlackCross(int spaces) {
         faithSpace = faithSpace + spaces;
+        if(faithSpace>24) faithSpace=24;
         return faithSpace;
     }
 

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Action.ActionToken;
 import it.polimi.ingsw.model.Board.CardMarket;
 import it.polimi.ingsw.model.Board.FaithTrack;
 import it.polimi.ingsw.model.Board.FaithZone;
@@ -322,6 +323,12 @@ public class Game {
             playerList.add(getPlayersList().get(i).getUsername());
         }
         return playerList;
+    }
+    public boolean checkLoss(){
+        return false;
+    }
+    public ActionToken drawToken(){
+        return null;
     }
 
 }

@@ -8,7 +8,7 @@ public enum Color {
 
     private int color;
 
-    Color(int color){
+     Color(int color){
         this.color=color;
     }
 

@@ -150,26 +150,7 @@ public class Player {
         return  leftRes;
     }
 
-    public int removeRes(ResourceType res, int resQuantity) throws InvalidParameterException, IllegalArgumentException{
-        int x=0;
-        if (res.getVal() >= 0 && res.getVal() < 4) {
-            int floor = warehouse.hasResource(res);
-            if(floor > 0){
-                int newQuantity = warehouse.getDepotList().get(floor).getResourceQuantity() - resQuantity;
-                if (newQuantity < 0) {
-                    warehouse.getDepotList().get(floor).setResourceQuantity(0);
-                    warehouse.getDepotList().get(floor).setResourceType(ResourceType.ANY);
-                    x=resQuantity;
-                } else {
-                    warehouse.getDepotList().get(floor).setResourceQuantity(newQuantity);
-                }
-            }
-            else throw new IllegalArgumentException();
 
-        }
-        else throw new InvalidParameterException();
-        return x;
-    }
     /**
      *
      * @param devCard

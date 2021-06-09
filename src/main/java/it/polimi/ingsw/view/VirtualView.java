@@ -174,4 +174,9 @@ public class VirtualView implements View, Observer {
     public void showRemainingLeaderCards(String username, int remaining){
         clientHandler.sendMessage(new ShowRemainingLeaderMsg(username, remaining));
     }
+
+    @Override
+    public void showLoseMessage() {
+        clientHandler.sendMessage(new LoseMessage());
+    }
 }

@@ -5,21 +5,17 @@ import it.polimi.ingsw.model.SinglePlayerGame;
 /**
  * This class represent the Action Token which shuffle the TokenBag.
  */
-public class ActionShuffle implements ActionToken{
+public class ActionShuffle extends ActionToken{
     private int spaces;
 
     public ActionShuffle(int spaces) {
+        super(ActionTokenType.FAITH);
         this.spaces = spaces;
     }
 
-    public int doOperation(SinglePlayerGame game) {
+    public void doOperation(SinglePlayerGame game) {
         game.getTokenBag().shuffle();
-
-        int blackCrossPosition = game.getBlackCross().increaseBlackCross(spaces);
-        if(game.getFaithTrack().isOnFinalPosition(blackCrossPosition)) {
-            return 1; //endGameCode = 1 -> Lorenzo has passed the final space
-        }
-        else return -1;
+        game.getBlackCross().increaseBlackCross(spaces);
     }
 
     @Override

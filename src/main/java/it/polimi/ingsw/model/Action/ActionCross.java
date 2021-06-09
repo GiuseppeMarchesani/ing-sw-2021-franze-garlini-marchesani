@@ -5,19 +5,16 @@ import it.polimi.ingsw.model.SinglePlayerGame;
 /**
  * This class represent the Action Token which increase the Black Cross position by 2.
  */
-public class ActionCross implements ActionToken {
+public class ActionCross extends ActionToken {
     private int spaces;
 
     public ActionCross(int spaces) {
+        super(ActionTokenType.FAITH);
         this.spaces = spaces;
     }
 
-    public int doOperation(SinglePlayerGame game) {
-        int blackCrossPosition = game.getBlackCross().increaseBlackCross(spaces);
-        if(game.getFaithTrack().isOnFinalPosition(blackCrossPosition)) {
-            return 1; //endGameCode = 1 -> Lorenzo has passed the final space
-        }
-        else return -1;
+    public void doOperation(SinglePlayerGame game) {
+        game.getBlackCross().increaseBlackCross(spaces);
     }
 
     public int getSpaces() {

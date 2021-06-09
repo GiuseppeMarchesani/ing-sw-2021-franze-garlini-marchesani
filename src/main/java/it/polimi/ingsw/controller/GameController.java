@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
+import it.polimi.ingsw.model.Action.ActionToken;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
@@ -125,17 +126,6 @@ public class GameController {
         startTurn();
     }
 
-    /**
-     * end game phase
-     * @param msg
-     */
-    public void endGame(GeneralMessage msg){
-        //TODO: viene fatto fare l'ultimo giro
-        //TODO: viene preso il vincitore
-
-
-        //TODO: chiude la partita
-    }
 
     private void startGame() {
         setGameState(GameState.DRAWLEADER);
@@ -367,11 +357,7 @@ public class GameController {
                         getMarketResources((GetMarketResRequest) msg,player);
                     break;
                 case END_TURN:
-
-                    if(gameState==GameState.END_GAME&&turnController.proxPlayer()== turnController.firstPlayer()){
-                        countFinalVictoryPoints();
-                    }
-                    else startTurn();
+                    endTurn();
 
                     break;
                 case SHOW_FAITH_TRACK:
@@ -651,5 +637,27 @@ public class GameController {
             vv.showWinMessage(gameSession.endGame());
         }
 
+    }
+    public void endTurn(){
+        ActionToken token = gameSession.drawToken();
+        if(token!=null){
+            switch (token.getType()){
+                case FAITH:
+                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), gameSession.updateFaithTrack(); gameSession.lastActivatedFaithZone());
+                    break;
+                case DISCARD:
+                    allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+                    break;
+            }
+        }
+
+        if(gameSession.checkLoss()){
+            allVirtualView.get(turnController.getActivePlayer()).showLoseMessage();
+            return;
+        }
+        if(gameState==GameState.END_GAME&&turnController.proxPlayer()== turnController.firstPlayer()){
+            countFinalVictoryPoints();
+        }
+        else startTurn();
     }
 }
