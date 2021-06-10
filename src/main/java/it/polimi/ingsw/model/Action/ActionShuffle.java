@@ -23,7 +23,4 @@ public class ActionShuffle extends ActionToken{
         return "Action Shuffle";
     }
 
-    public int getSpaces() {
-        return spaces;
-    }
 }

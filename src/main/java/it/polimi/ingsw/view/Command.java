@@ -9,8 +9,9 @@ public enum Command {
         SHOW_MARKET("SHOW_MARKET"),
         SHOW_DEV_MARKET("SHOW_DEV_MARKET"),
         SHOW_FAITH("SHOW_FAITH"),
-        SHOW_DEVCARDS("SHOW_DEVCARDS"),
-        SHOW_RES("SHOW_RES"),
+        SHOW_SLOT("SHOW_SLOT"),
+        SHOW_WAREHOUSE("SHOW_WAREHOUSE"),
+        SHOW_STRONGBOX("SHOW_STRONGBOX"),
         SHOW_VP("SHOW_VP"),
         END_TURN("END_TURN");
 

@@ -180,4 +180,9 @@ public class VirtualView implements View, Observer {
     public void showLoseMessage() {
         clientHandler.sendMessage(new LoseMessage());
     }
+
+    @Override
+    public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
+        clientHandler.sendMessage(new ShowLeaderCardsMsg(leaderCards));
+    }
 }

@@ -191,4 +191,6 @@ public interface View {
      * Shows the final results for a Single Player match and ends the game.
      */
     void showLoseMessage();
+
+    void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards);
 }

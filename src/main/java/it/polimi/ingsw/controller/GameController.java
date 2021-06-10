@@ -373,6 +373,24 @@ public class GameController {
                     }
                     allVirtualView.get(turnController.getActivePlayer()).showCurrentVP(vp);
                     break;
+                case SHOW_SLOT:
+                    allVirtualView.get(turnController.getActivePlayer()).showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+                    break;
+                case SHOW_LEADER:
+                    allVirtualView.get(turnController.getActivePlayer()).showLeaderCards(player.getLeaderCards());
+                    break;
+                case SHOW_DEV_MARKET:
+                    allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+                    break;
+                case SHOW_MARKET:
+                    allVirtualView.get(turnController.getActivePlayer()).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+                    break;
+                case SHOW_STRONGBOX:
+                    allVirtualView.get(turnController.getActivePlayer()).showStrongbox(player.getStrongbox(), turnController.getActivePlayer());
+                    break;
+                case SHOW_WAREHOUSE:
+                    allVirtualView.get(turnController.getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+                    break;
             }
         }
         else{

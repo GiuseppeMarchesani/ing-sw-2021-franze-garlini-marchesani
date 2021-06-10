@@ -88,12 +88,15 @@ public class ClientMessenger implements Observer, ObserverView {
                 msg= new ActionRequest(username, MessageType.SHOW_FAITH_TRACK);
                 break;
             case 8:
-                msg= new ActionRequest(username, MessageType.SHOW_DEV_CARDS);
+                msg= new ActionRequest(username, MessageType.SHOW_SLOT);
                 break;
             case 9:
-                msg= new ActionRequest(username, MessageType.SHOW_RES);
+                msg= new ActionRequest(username, MessageType.SHOW_WAREHOUSE);
                 break;
             case 10:
+                msg= new ActionRequest(username, MessageType.SHOW_STRONGBOX);
+                break;
+            case 11:
                 msg= new ActionRequest(username, MessageType.SHOW_VICTORY_POINTS);
                 break;
             default:
@@ -197,6 +200,14 @@ public class ClientMessenger implements Observer, ObserverView {
             case SHOW_REMAINING_LEADERS:
                 queue.execute(() -> view.showRemainingLeaderCards(((ShowRemainingLeaderMsg) msg).getUsername(),((ShowRemainingLeaderMsg) msg).getRemaining()));
                 break;
+            case SHOW_LEADER:
+                queue.execute(() ->view.showLeaderCards(((ShowLeaderCardsMsg) msg).getCards()));
+                break;
+            case SHOW_STRONGBOX:
+                queue.execute(()-> view.showStrongbox(((ShowStrongboxMsg) msg).getStrongbox(), ((ShowStrongboxMsg) msg).getUsername()));
+                break;
+            case SHOW_WAREHOUSE:
+                queue.execute(()-> view.showWarehouse(((ShowWarehouseMsg)msg).getDepotToQuantity(),((ShowWarehouseMsg)msg).getDepotToResource(),((ShowWarehouseMsg)msg).getUsername()));
         }
     }
 
