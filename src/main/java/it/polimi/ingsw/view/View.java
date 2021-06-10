@@ -127,12 +127,6 @@ public interface View {
     void askCardsToActivateProd(ArrayList<DevCard> devCardList);
 
     /**
-     * Shows the player an amount of generic resources.
-     * @param resources the amount of resources to be shown.
-     */
-    void showResources(HashMap<ResourceType, Integer> resources);
-
-    /**
      * Shows the player an error message.
      * @param message the message to be shown.
      */

@@ -361,6 +361,12 @@ public class Cli extends ObservableView implements View{
                             invalidInput = false;
                             break;
                         }
+                        else if(strResource.toUpperCase().equals("EMPTY")) {
+                            floorQuantity.put(i, 0);
+                            floorResources.put(i, ResourceType.EMPTY);
+                            invalidInput = false;
+                            break;
+                        }
                     }
                 } while(invalidInput);
             }
@@ -558,9 +564,11 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateChosenProdCards(chosenCards));
     }
 
-    @Override
-    public void showResources(HashMap<ResourceType, Integer> resources) {
-        String ansiColor = null;
+    /**
+     * Shows the player an amount of generic resources.
+     * @param resources the amount of resources to be shown.
+     */
+    private void showResources(HashMap<ResourceType, Integer> resources) {
         for(ResourceType res: resources.keySet()) {
             out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + resources.get(res));
         }

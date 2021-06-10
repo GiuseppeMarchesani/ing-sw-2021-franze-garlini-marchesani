@@ -80,12 +80,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showLeaderCards(List<LeaderCard> leaderCards, String username) {
-
-    }
-
-    @Override
-    public void askDevCardToBuy(List<DevCard> availableCards) {
+    public void askDevCardToBuy() {
 
     }
 
@@ -100,6 +95,11 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
+
+    }
+
+    @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
 
     }
@@ -110,17 +110,17 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askCardsToActivateProd(ArrayList<DevCard> availableCards) {
+    public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
 
     }
 
     @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, String username) {
+    public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
 
     }
 
     @Override
-    public void showResources(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse) {
+    public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
 
     }
 
@@ -135,7 +135,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showCurrentVP(int victoryPoints, String username) {
+    public void showCurrentVP(HashMap<String, Integer> victoryPoints) {
 
     }
 
@@ -145,27 +145,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+    public void showRemainingLeaderCards(String username, int remaining) {
 
     }
 
     @Override
-    public void askChooseMarbleConversion(ArrayList<ResourceType> availableConversions) {
-
-    }
-
-    @Override
-    public void askChooseResToPay(HashMap<ResourceType, Integer> strongbox, Warehouse warehouse, ResourceType resource) {
-
-    }
-
-    @Override
-    public void askChooseOneRes(ArrayList<String> resources, String message) {
-
-    }
-
-    @Override
-    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
 
     }
 
@@ -180,7 +165,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showWinMessage((HashMap<String, Integer> finalPoints) {
+    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+
+    }
+
+    @Override
+    public void showLoseMessage() {
 
     }
 }

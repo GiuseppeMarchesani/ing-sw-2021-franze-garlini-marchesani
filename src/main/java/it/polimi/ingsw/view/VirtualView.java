@@ -3,7 +3,6 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.messages.GeneralMessage;
 import it.polimi.ingsw.messages.*;
-import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -69,6 +68,15 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new StringMessage(message));
     }
 
+    @Override
+    public void showDisconnectionMsg(String disconnectedUser, String message) {
+
+    }
+
+    @Override
+    public void showMatchInfo(List<String> players, String activePlayer) {
+
+    }
 
     @Override
     public void askDevCardToBuy() {
@@ -104,8 +112,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new GetProductionReply(strongbox, price, anyPayment, anyProduce));
     }
 
-
-
     @Override
     public void showErrorMsg(String message) {
         clientHandler.sendMessage(new ErrorMsg(message));
@@ -131,10 +137,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new PlaceDevCardReply(strongbox, cardCost,any, availableSlots));
     }
 
-
-
-
-
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
         clientHandler.sendMessage(new SideLeaderReply(leaderCards));
@@ -155,7 +157,6 @@ public class VirtualView implements View, Observer {
      * The message is sent over the network to the client.
      * @param message the update message.
      */
-
     @Override
     public void update(GeneralMessage message) {
         clientHandler.sendMessage(message);
