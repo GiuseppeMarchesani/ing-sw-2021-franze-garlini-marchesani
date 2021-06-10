@@ -139,7 +139,7 @@ public class Cli extends ObservableView implements View{
             while(true) {
                 String command = readLine();
                 if(commandList.contains(command.toUpperCase())) {
-                    notifyObserver(obs -> obs.updateAction(command));
+                    notifyObserver(obs -> obs.updateAction(commandList.indexOf(command.toUpperCase())));
                     break;
                 }
                 else out.println(STR_WRONG_INPUT);
@@ -901,7 +901,15 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showLoseMessage() {
+        out.println("Game Over. You lose!");
+        out.println("Press Enter key to exit.");
+        try {
+            int key = System.in.read();
+            System.exit(0);
+        } catch(Exception e)
+        {
 
+        }
     }
 
     private String getAnsiColor(ResourceType resourceType) {
