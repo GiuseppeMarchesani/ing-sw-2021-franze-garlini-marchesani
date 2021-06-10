@@ -1,8 +1,8 @@
 package it.polimi.ingsw.messages;
 
-public class LoginRequestMsg extends ClientMessage{
+public class LoginRequest extends ClientMessage{
     private String gameId;
-    public LoginRequestMsg(String username, String gameId) {
+    public LoginRequest(String username, String gameId) {
         super(username, MessageType.LOGIN);
         this.gameId=gameId;
     }

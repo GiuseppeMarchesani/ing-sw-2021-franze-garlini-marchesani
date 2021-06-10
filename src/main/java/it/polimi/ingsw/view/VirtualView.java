@@ -60,7 +60,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void showLoginResult(String username, String gameId, boolean wasJoined) {
-        clientHandler.sendMessage(new LoginReplyMsg(username, gameId, wasJoined));
+        clientHandler.sendMessage(new LoginReply(username, gameId, wasJoined));
     }
 
     @Override
@@ -90,7 +90,7 @@ public class VirtualView implements View, Observer {
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-        clientHandler.sendMessage(new ResourceToWarehouseReplyMsg(resToPlace, numAny, extraDepot));
+        clientHandler.sendMessage(new ResourceToWarehouseReply(resToPlace, numAny, extraDepot));
     }
 
     @Override

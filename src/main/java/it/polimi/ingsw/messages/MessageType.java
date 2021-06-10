@@ -4,16 +4,14 @@ public enum MessageType {
     //game's messages
     LOGIN,
     LOGIN_REPLY,
-    START_GAME,
     PLAYER_NUMBER,
 
     //Server Connection Messages
     SUCCESSFUL_HOST,
     STRING_MESSAGE,
 
-    //end turn message
+    //Turn messages
     START_TURN,
-    TURN_ACTION,
     END_TURN,
 
 
@@ -40,25 +38,14 @@ public enum MessageType {
     PICK_MARKETRES,
 
 
+    //intermediate message
     ACTIVATE_PRODUCTION,
     RESOURCE_TO_WAREHOUSE,
-
-    //intermediate message
     CHECK_PRODUCTION,
-    REARRANGE_REPLY,
     REARRANGE_REQUEST,
-    DEPOT_TO_REARRANGE,
-    DEVCARD_REPLY,
     PLACE_CARD,
-    ROW_OR_COL,
-    WHITE_CONVERSION,
-    PLACE_RES,
-    PRODUCTION_RES,
-    PAY_RES,
-    RESOURCE_TO_STRONGBOX,
 
     ERROR,
     WIN,
-    DISCONNECTION,
     LOSE;
 }

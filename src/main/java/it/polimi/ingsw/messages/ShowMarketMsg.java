@@ -1,6 +1,5 @@
 package it.polimi.ingsw.messages;
 
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 public class ShowMarketMsg extends ServerMessage{

@@ -2,7 +2,7 @@ package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.messages.ClientMessage;
 import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.messages.LoginRequestMsg;
+import it.polimi.ingsw.messages.LoginRequest;
 import it.polimi.ingsw.messages.MessageType;
 
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable
                     ClientMessage message = (ClientMessage) input.readObject();
 
                     if(message.getMessageType()== MessageType.LOGIN) {
-                        LoginRequestMsg loginMsg= (LoginRequestMsg) message;
+                        LoginRequest loginMsg= (LoginRequest) message;
                       lobby=(lobbyServer.getLobby(loginMsg.getGameId()));
                         lobby.addPlayer(loginMsg.getUsername(), this);
                     }

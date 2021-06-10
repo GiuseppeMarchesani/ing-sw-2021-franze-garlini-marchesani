@@ -40,7 +40,7 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateLobby(String username, String lobby){
         this.username= username;
         this.lobby=lobby;
-        client.sendMessage(new LoginRequestMsg(username, lobby));
+        client.sendMessage(new LoginRequest(username, lobby));
     }
     /**
      * Updates new username, if a player with the same username was already in the game.
@@ -129,7 +129,7 @@ public class ClientMessenger implements Observer, ObserverView {
     public void update(GeneralMessage msg){
         switch(msg.getMessageType()){
             case LOGIN_REPLY:
-                LoginReplyMsg loginMsg= (LoginReplyMsg) msg;
+                LoginReply loginMsg= (LoginReply) msg;
                 queue.execute(() -> view.showLoginResult(loginMsg.getUsername(), loginMsg.getGameId(), loginMsg.wasJoined()));
                 break;
             case SUCCESSFUL_HOST:
@@ -139,7 +139,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.askLeaderCardToKeep(((StartingLeadersReplyMsg) msg).getLeaderCard()));
                 break;
             case RESOURCE_TO_WAREHOUSE:
-                ResourceToWarehouseReplyMsg message=((ResourceToWarehouseReplyMsg) msg);
+                ResourceToWarehouseReply message=((ResourceToWarehouseReply) msg);
                 queue.execute(()-> view.askResourceToWarehouse(message.getResourceToPlace(), message.getAny(), message.getLeaderDepots()));
                 break;
             case START_TURN:
@@ -193,6 +193,9 @@ public class ClientMessenger implements Observer, ObserverView {
             case LOSE:
                 queue.execute(()-> view.showLoseMessage());
                 client.disconnect();
+                break;
+            case SHOW_REMAINING_LEADERS:
+                queue.execute(() -> view.showRemainingLeaderCards(((ShowRemainingLeaderMsg) msg).getUsername(),((ShowRemainingLeaderMsg) msg).getRemaining()));
                 break;
         }
     }

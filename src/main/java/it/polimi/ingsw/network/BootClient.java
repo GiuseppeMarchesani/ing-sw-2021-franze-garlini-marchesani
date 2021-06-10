@@ -1,16 +1,7 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.messages.AnswerMsg;
-import it.polimi.ingsw.messages.CommandMsg;
-import it.polimi.ingsw.messages.SessionAnswerMsg;
 import it.polimi.ingsw.view.Cli;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.Locale;
 import java.util.Scanner;
 
