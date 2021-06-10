@@ -26,7 +26,7 @@ public interface View {
     void askLobby();
 
     /**
-     * Asks how many players the game is going to have.
+     * Asks how many players the new game is going to have.
      */
     void askPlayersNumber();
 
@@ -37,6 +37,8 @@ public interface View {
 
     /**
      * Shows the user if the login succeeded.
+     * @param username the player's username.
+     * @param gameId the game id.
      * @param wasJoined indicates if the connection succeeded.
      */
     void showLoginResult(String username, String gameId, boolean wasJoined);
@@ -62,13 +64,6 @@ public interface View {
     void showMatchInfo(List<String> players, String activePlayer);
 
     /**
-     * Shows the player his Leader Cards.
-     * @param leaderCards the list of the Leader Cards to be shown.
-     * @param username the username of the player who owns the leader cards.
-     */
-    void showLeaderCards(List<LeaderCard> leaderCards, String username);
-
-    /**
      * Allows the player to buy a Development Card.
      */
     void askDevCardToBuy();
@@ -79,7 +74,6 @@ public interface View {
      */
     void askMarketLineToGet(ArrayList<ResourceType> conversion);
 
-
     /**
      * Ask the player to place his resources.
      * @param resToPlace resources to be placed.
@@ -87,13 +81,6 @@ public interface View {
      * @param extraDepot possible leader card depot, null otherwise.
      */
     void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot);
-
-    /**
-     * Will notify the resources to be put in the strongbox after replace the ANY resource.
-     * @param resToPlace the resources to be placed (could contains ANY resource).
-     * @param numAny number of ANY resources contained in the resToPlace.
-     */
-    void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny);
 
     /**
      * Asks the player for payment towards his production choices
@@ -107,6 +94,7 @@ public interface View {
     /**
      * Shows the Market.
      * @param market the market to be shown.
+     * @param corner the marble corner.
      */
     void showMarket(ResourceType[][] market, ResourceType corner);
 
@@ -131,7 +119,6 @@ public interface View {
      * @param username the player's username.
      */
     void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username);
-
 
     /**
      * Shows the player its production cards
@@ -160,7 +147,7 @@ public interface View {
     void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone);
 
     /**
-     * Shows the player an amount of actual Victory Points.
+     * Shows the current Victory Points owned by all players.
      * @param victoryPoints players usernames and their amount of Victory Points.
      */
     void showCurrentVP(HashMap<String, Integer> victoryPoints);
@@ -173,7 +160,7 @@ public interface View {
     void showSlots(DevCardSlot devCardSlot, String username);
 
     /**
-     * Shows the number of the un-played leader cards of a player.
+     * Shows the number of un-played leader cards owned by a player.
      * @param username the player's username.
      * @param remaining number of un-played leader cards.
      */
@@ -189,37 +176,25 @@ public interface View {
     void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
 
     /**
-     * Allows the player to choose a resource.
-     * @param resources the list of resources available for choosing.
-     * @param message the message to be shown.
-     */
-    void askChooseOneRes(ArrayList<String> resources, String message);
-
-    /**
-     * Allows the player to choose the Warehouse floor to put the resource.
-     * @param warehouse the player's warehouse.
-     * @param resToPlace the resource to be placed.
-     */
-    void askChooseFloor(Warehouse warehouse, ResourceType resToPlace);
-
-    /**
      * Allows the player to play a Leader Carder.
      * @param leaderCards the list of Leader Cards the player can activate.
      */
     void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards);
 
     /**
-     * Allows the player to discard a Leader Card.
-     * @param leaderCards the list of Leader Cards the player can discard.
+     * Allows the player to choose Leader Cards to keep.
+     * @param leaderCards the list of initial Leader Cards.
      */
     void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards);
 
     /**
-     * Shows the winner.
+     * Shows the final results ant ends the game.
      * @param finalPoints the usernames and points of the players.
      */
     void showWinMessage(HashMap<String, Integer> finalPoints);
 
-
+    /**
+     * Shows the final results for a Single Player match and ends the game.
+     */
     void showLoseMessage();
 }

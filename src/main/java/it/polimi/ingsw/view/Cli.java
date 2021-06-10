@@ -111,8 +111,6 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-
-
     @Override
     public void askPlayersNumber() {
         int playersNumber;
@@ -129,7 +127,6 @@ public class Cli extends ObservableView implements View{
         int finalPlayersNumber = playersNumber;
         notifyObserver(obs -> obs.updatePlayersNumber(finalPlayersNumber));
     }
-
 
     @Override
     public void askAction() {
@@ -181,14 +178,6 @@ public class Cli extends ObservableView implements View{
         }
         out.println("\n");
         out.println("Active player: " + activePlayer);
-    }
-
-    @Override
-    public void showLeaderCards(List<LeaderCard> leaderCards, String username) {
-        out.println(username);
-        for(LeaderCard leader: leaderCards) {
-            out.println(leader.toString());
-        }
     }
 
     @Override
@@ -378,12 +367,6 @@ public class Cli extends ObservableView implements View{
         }
         int finalDiscarded = discarded;
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscarded));
-    }
-
-    @Override
-    public void askResourceToStrongbox(HashMap<ResourceType, Integer> resToPlace, int numAny) {
-        HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
-        notifyObserver(obs -> obs.updateStrongbox(convertedAny));
     }
 
     @Override
@@ -583,7 +566,6 @@ public class Cli extends ObservableView implements View{
         }
     }
 
-
     @Override
     public void showErrorMsg(String message) {
         out.println(message);
@@ -684,104 +666,6 @@ public class Cli extends ObservableView implements View{
             }
         }
     }
-
-    @Override
-    public void askChooseOneRes(ArrayList<String> resources, String message) {
-        String resource = "";
-        boolean checkRes = false;
-
-        out.println(message);
-        while(!checkRes) {
-            try {
-                resource = readLine();
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-            for(String res: resources) {
-                if(resource.equals(res)) {
-                    checkRes = true;
-                    for(ResourceType resourceType: ResourceType.values()) {
-                        if(resourceType.toString().equals(resource)) {
-                            notifyObserver(obs -> obs.updateChooseOneRes(resourceType));
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void askChooseFloor(Warehouse warehouse, ResourceType resToPlace) {
-        boolean checkDepot = false;
-        int chosenDepot = -1;
-
-        out.println("Your Warehouse: ");
-        for(int i=0; i<warehouse.getDepotList().size(); i++) {
-            out.println(getAnsiColor(warehouse.getDepotList().get(i).getResourceType()) + warehouse.getDepotList().get(i).getResourceType().toString() + ANSI_RESET + ": (" + warehouse.getDepotList().get(i).getResourceQuantity() + "/" + warehouse.getDepotList().get(i).getSize() + ")");
-        }
-        out.println("\nChoose in which depot you want to place " + getAnsiColor(resToPlace) + resToPlace.toString() + ANSI_RESET + ".");
-        while(!checkDepot) {
-            try {
-                chosenDepot = Integer.parseInt(readLine());
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-            if(chosenDepot >= 1 && chosenDepot <= 3 && (warehouse.getDepotList().get(chosenDepot-1).getResourceType().toString().equals(ResourceType.ANY) || warehouse.getDepotList().get(chosenDepot-1).getResourceType().toString().equals(resToPlace.toString())) && warehouse.getDepotList().get(chosenDepot-1).getResourceQuantity() < warehouse.getDepotList().get(chosenDepot-1).getSize()) {
-                checkDepot = true;
-                int finalChosenDepot = chosenDepot;
-                notifyObserver(obs -> obs.updateChooseFloor(finalChosenDepot -1));
-            }
-        }
-    }
-
-    /*@Override
-    public void askRearrange(Warehouse warehouse, HashMap<ResourceType, Integer> resources) {
-        String reply = "";
-        boolean checkReply = false;
-        boolean checkDepot = false;
-
-        out.println("Do you want to rearrange? (Yes/No)");
-        while(!checkReply) {
-            try {
-                reply = readLine();
-            } catch (ExecutionException e) {
-                out.println(STR_WRONG_INPUT);
-            }
-            if(reply.toLowerCase().equals("yes")) {
-                checkReply = true;
-                int depot1=0, depot2=0;
-                while(!checkDepot) {
-                    out.println("Which depots do you want to swap? (ex. \"1 3\")");
-                    try {
-                        depot1 = Integer.parseInt(readLine());
-                    } catch (ExecutionException e) {
-                        out.println(STR_WRONG_INPUT);
-                    }
-
-                    try {
-                        depot2 = Integer.parseInt(readLine());
-                    } catch (ExecutionException e) {
-                        out.println(STR_WRONG_INPUT);
-                    }
-
-                    if(depot1>=1 && depot1<=3 && depot2>=1 && depot2<=3 && depot1!=depot2) {
-                        depot1--;
-                        depot2--;
-                        int firstDepot = depot1;
-                        int secondDepot = depot2;
-                        checkDepot = true;
-                        notifyObserver(obs -> obs.updateRearrange(true, firstDepot, secondDepot));
-                        break;
-                    }
-                }
-            } else if(reply.toLowerCase().equals("no")) {
-                checkReply = true;
-                notifyObserver(obs -> obs.updateRearrange(false, -1, -1));
-                break;
-            }
-        }
-    }*/
 
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
