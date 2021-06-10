@@ -9,9 +9,8 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -793,7 +792,7 @@ public class Cli extends ObservableView implements View{
 
         while(!checkId) {
             if(i>0) out.println(STR_WRONG_INPUT);
-            out.println("Choose between one of these Leader Card to play by typing its id.");
+            out.println("Choose between one of these Leader Card by typing its id.");
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.toString());
             }
@@ -812,8 +811,29 @@ public class Cli extends ObservableView implements View{
             }
             i++;
         }
+
+        out.println("Do you want to play or discard it? (PLAY/DISCARD)");
+        char action = '0';
+        try {
+            while(true) {
+                String input = readLine();
+                if(input.toUpperCase().equals("PLAY")) {
+                    action = 'p';
+                    break;
+                }
+                else if(input.toUpperCase().equals("DISCARD")) {
+                    action = 'd';
+                    break;
+                }
+                else out.println(STR_WRONG_INPUT);
+            }
+        } catch (ExecutionException e) {
+            out.println(STR_WRONG_INPUT);
+        }
+
         LeaderCard finalChosenLeader = chosenLeader;
-        notifyObserver(obs -> obs.updatePlayLeaderCard(finalChosenLeader));
+        char finalAction = action;
+        notifyObserver(obs -> obs.updatePlayLeaderCard(finalChosenLeader, finalAction));
     }
 
     @Override
@@ -850,9 +870,38 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showWinMessage((HashMap<String, Integer> finalPoints) {
-        out.println("Game finished: " + winnerUser + " WINS!");
-        System.exit(0);
+    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+        List<Integer> points = new ArrayList<>();
+
+        //Creating an ArrayList of VictoryPoints
+        for(String username: finalPoints.keySet()) {
+            points.add(finalPoints.get(username));
+        }
+
+        Collections.sort(points);
+
+        //Printing results
+        for(int i=0; i< points.size(); i++) {
+            for(String username: finalPoints.keySet()) {
+                if(finalPoints.get(username) == points.get(i)) {
+                    out.println(i + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
+                }
+            }
+        }
+
+        out.println("Press Enter key to exit.");
+        try {
+            int key = System.in.read();
+            System.exit(0);
+        } catch(Exception e)
+        {
+
+        }
+    }
+
+    @Override
+    public void showLoseMessage() {
+
     }
 
     private String getAnsiColor(ResourceType resourceType) {

@@ -100,7 +100,7 @@ public interface View {
      * @param strongbox the player's strongbox
      * @param price the price of the production asked.
      * @param anyPayment How many "Any" resources the player has to pay
-     * @param anyPayment How many "Any" resources the player will gain.
+     * @param anyProduce How many "Any" resources the player will gain.
      */
     void askProduction(HashMap<ResourceType, Integer> strongbox,HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce);
 
