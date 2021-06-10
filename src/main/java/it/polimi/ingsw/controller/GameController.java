@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.ResourceType;
-import it.polimi.ingsw.network.ResourceToWarehouseRequestMsg;
+import it.polimi.ingsw.messages.ResourceToWarehouseRequestMsg;
 import it.polimi.ingsw.view.*;
 
 import java.security.InvalidParameterException;

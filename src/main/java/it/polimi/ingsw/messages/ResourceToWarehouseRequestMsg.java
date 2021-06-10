@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network;
+package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.messages.ClientMessage;
 import it.polimi.ingsw.messages.MessageType;
