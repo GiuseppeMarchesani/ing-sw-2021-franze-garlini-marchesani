@@ -206,7 +206,7 @@ public class GameController {
         for (VirtualView vv : allVirtualView.values()) {
             vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
         }
-        increaseFaith(discard, 2);
+        increaseFaith(discard, false);
     }
 
 
@@ -390,7 +390,7 @@ public class GameController {
 
             }
              if(resource.containsKey(ResourceType.FAITH)){
-                increaseFaith(resource.get(ResourceType.FAITH), 0);
+                increaseFaith(resource.get(ResourceType.FAITH), true);
                 resource.remove(ResourceType.FAITH);
             }
             int any=0;
@@ -463,60 +463,23 @@ public class GameController {
         }
         if(player.getDevCardSlot().getCardQuantity()==7){
             setGameState(GameState.END_GAME);
-            broadcastMessage("We're in the endgame now. Every player until the first gets one last turn!");
+            broadcastMessage("We're in the endgame now.");
         }
 
     }
-    public void increaseFaith(int faithQuantity, int who){
-        ArrayList<Player> vpWinners=new ArrayList<Player>();
-        int thresholdL=gameSession.getFaithTrack().getNextFaithZone().getStart();
-        boolean trigger=false;
-        int thresholdH=gameSession.getFaithTrack().getNextFaithZone().getEnd();
-        HashMap<String, Integer> faith= new HashMap<String, Integer>();
-        //0 = Only activePlayer
-        //1 = everyone
-        //2 = everyone except activePlayer
-            if(who==0||who==1){
-               if(gameSession.getPlayer(turnController.getActivePlayer()).increaseFaith(faithQuantity)>thresholdL){
-                   vpWinners.add(gameSession.getPlayer(turnController.getActivePlayer()));
-               }
-               if(gameSession.getPlayer(turnController.getActivePlayer()).getFaithSpace()>thresholdH){
-                   trigger=true;
-               }
+    public void increaseFaith(int faithQuantity, boolean activateOnYourself){
+        boolean trigger =gameSession.increaseFaith(faithQuantity, activateOnYourself, turnController.getActivePlayer());
 
-            }
-
-            for(String user:  gameSession.getPlayerListByUsername()){
-                faith.put(user, gameSession.getPlayer(user).getFaithSpace());
-                if((who==1||who==2)&&!(user.equals(turnController.getActivePlayer()))){
-                     if(gameSession.getPlayer(user).increaseFaith(faithQuantity)>thresholdL){
-                         vpWinners.add(gameSession.getPlayer(user));
-                     }
-                     if(gameSession.getPlayer(user).getFaithSpace()>thresholdH){
-                         trigger=true;
-                     }
-
-                }
-            }
-            for(VirtualView vv: allVirtualView.values()){
-                vv.showFaithTrack(faith, trigger,gameSession.getFaithTrack().indexOfNextFaithZone() );
-            }
-
-            if (trigger){
-               int vp=gameSession.getFaithTrack().getNextFaithZone().getFaithZoneVP();
-               for(Player p: vpWinners){
-                   faith.put(p.getUsername(), p.increaseVP(vp));
-               }
-                for(VirtualView vv: allVirtualView.values()){
-                    vv.showCurrentVP(faith);
-                }
-                if(gameSession.getFaithTrack().indexOfNextFaithZone()==2){
-                    setGameState(GameState.END_GAME);
-                    broadcastMessage("We're in the endgame now. Every player until the first gets one last turn!");
-                }
-                gameSession.getFaithTrack().getNextFaithZone().setActivated();
-            }
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showFaithTrack(gameSession.getFaithMap(), trigger,gameSession.lastActivatedFaithZone() );
         }
+
+        if (trigger&& gameSession.lastActivatedFaithZone()==2){
+                setGameState(GameState.END_GAME);
+                broadcastMessage("We're in the endgame now.");
+            }
+
+    }
     public void produceResources(ArrayList<DevCard> cards, Player player){
         HashMap<ResourceType, Integer> price= new HashMap<>();
         int anyProduce=0;
@@ -560,7 +523,7 @@ public class GameController {
             }
         }
         if(strongbox.containsKey(ResourceType.FAITH)){
-            increaseFaith(strongbox.get(ResourceType.FAITH), 0);
+            increaseFaith(strongbox.get(ResourceType.FAITH), true);
             strongbox.remove(ResourceType.FAITH);
         }
         player.setStrongbox(strongbox);
@@ -574,7 +537,7 @@ public class GameController {
     }
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
-            increaseFaith(1, 0);
+            increaseFaith(1, true);
             player.discardLeader(card);
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
         }
@@ -618,6 +581,9 @@ public class GameController {
             }
             broadcastMessage(player.getUsername()+ " has played a Leader Power: " + card.toString());
         }
+        for(VirtualView vv: allVirtualView.values()){
+            vv.showRemainingLeaderCards(player.getUsername(), player.getLeaderCardList().size());
+        }
     }
     public boolean checkCardColorRequirements(Player player, HashMap<Color, Integer> requirement){
         for(Color c: requirement.keySet()){
@@ -642,7 +608,8 @@ public class GameController {
         if(token!=null){
             switch (token.getType()){
                 case FAITH:
-                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), gameSession.updateFaithTrack(), gameSession.lastActivatedFaithZone());
+                    boolean trigger=gameSession.updateFaithTrack();
+                    allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), trigger, gameSession.lastActivatedFaithZone());
                     break;
                 case DISCARD:
                     allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
@@ -654,7 +621,7 @@ public class GameController {
             allVirtualView.get(turnController.getActivePlayer()).showLoseMessage();
             return;
         }
-        if(gameState==GameState.END_GAME&&turnController.proxPlayer()== turnController.firstPlayer()){
+        if(gameState==GameState.END_GAME&&turnController.proxPlayer().equals(turnController.firstPlayer())){
             countFinalVictoryPoints();
         }
         else startTurn();

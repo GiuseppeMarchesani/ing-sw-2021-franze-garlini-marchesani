@@ -119,38 +119,6 @@ public class Game {
 
 
     /**
-     * This method checks if the player activates a new faith zone or if he reaches the final space.
-     * @param position The player's position.
-     * @return An int representing if Turn must call the endgame or not.
-     */
-    public Boolean updateFaithTrack(int position) {
-        Boolean endGame = false;
-
-        //Checking if the player is in a pope space
-        int whichFaithZone = faithTrack.isOnPopeSpace(position);
-        if(whichFaithZone >= 0) {
-            int vp = faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP();
-
-            //Delivering faith zone VP
-            for(Player p: playersList) {
-                if(faithTrack.isInFaithZone(p.getFaithSpace(), whichFaithZone)) {
-                    p.increaseVP(faithTrack.getFaithZones().get(whichFaithZone).getFaithZoneVP());
-                }
-            }
-
-            //If it's the last pope space
-            if(whichFaithZone == faithTrack.getFaithZones().indexOf(faithTrack.getFaithZones().get(faithTrack.getFaithZones().size()-1))) {
-                for(Player p: playersList) {
-                    //Players gain extra VP according to their final position
-                    p.increaseVP(faithTrack.getAssociatedVP(p.getFaithSpace()));
-                }
-                endGame = true;
-            }
-        }
-        return endGame;
-    }
-
-    /**
      * Ends the game and communicate the result.
      * @return the Hash Map of user and pointt.
      */
@@ -158,7 +126,7 @@ public class Game {
         //Turn has already let players to play the last turn.
         HashMap<String, Integer> userPoints=new HashMap<>();
         for(Player player : playersList){
-            userPoints.put(player.getUsername(), player.getFinalVP());
+            userPoints.put(player.getUsername(), player.getFinalVP()+faithTrack.getAssociatedVP(player.getFaithSpace()));
         }
         return userPoints;
     }
@@ -167,27 +135,7 @@ public class Game {
      * Finds the winner between those players who have the same and the highest score.
      * @return The ID of the winner.
      */
-    private int whoWin(int maxScoreRepetition) {
-        int maxNumOfResources = -1;
-        int currNumOfResources = 0;
-        HashMap<ResourceType, Integer> allResources = new HashMap<>();
-        int winnerID=playersList.size()-1;
 
-        //Checking the real winner between players who have the same and the maximum game score
-        for(int i = playersList.size() - maxScoreRepetition; i<playersList.size(); i++) {
-
-            allResources = playersList.get(i).getAllResources();
-            for(ResourceType res: allResources.keySet()) {
-                currNumOfResources += allResources.get(res);
-            }
-
-            if(maxNumOfResources < currNumOfResources) {
-                maxNumOfResources = currNumOfResources;
-                winnerID=i;
-            }
-        }
-        return winnerID;
-    }
 
     private ArrayList<DevCard> generateDevCardDeck() {
 
@@ -340,7 +288,7 @@ public class Game {
         int thresholdH=getFaithTrack().getNextFaithZone().getEnd();
 
         for(Player player : playersList){
-            if(player.getFaithSpace()>thresholdL){
+            if(player.getFaithSpace()>=thresholdL){
                 vpWinners.add(player);
             }
             if(player.getFaithSpace()>=thresholdH){
@@ -361,7 +309,7 @@ public class Game {
 
     public int lastActivatedFaithZone() {
        if( faithTrack.indexOfNextFaithZone()<0){
-           return 3;
+           return 2;
        }
        else return faithTrack.indexOfNextFaithZone();
     }
@@ -371,5 +319,18 @@ public class Game {
             faith.put(player.getUsername(), player.getFaithSpace());
         }
         return faith;
+    }
+    public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
+        Player active = getPlayer(username);
+        if (activateOnYourself) {
+            active.increaseFaith(faith);
+        } else {
+            for (Player player : playersList) {
+                if (player != active) {
+                    player.increaseFaith(faith);
+                }
+            }
+        }
+        return updateFaithTrack();
     }
 }

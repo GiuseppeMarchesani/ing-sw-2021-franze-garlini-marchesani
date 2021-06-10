@@ -42,12 +42,8 @@ public class FaithTrack {
 
     public int getAssociatedVP(int playerPosition) {
         int VPForPosition = 0;
-        for(int position: VPspaces.keySet()) {
-            if(playerPosition >= position) {
-                VPForPosition = VPspaces.get(position);
-            }
-        }
-        return VPForPosition;
+        playerPosition=playerPosition-playerPosition%3;
+        return VPspaces.get(playerPosition);
     }
     public FaithZone getNextFaithZone(){
         for(FaithZone fz: faithZones){

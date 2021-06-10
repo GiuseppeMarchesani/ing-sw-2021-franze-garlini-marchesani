@@ -115,7 +115,7 @@ public class SinglePlayerGame extends Game {
       }
       else{
           int thresholdH=getFaithTrack().getNextFaithZone().getEnd();
-          if(blackCross.getFaithSpace()>thresholdH){
+          if(blackCross.getFaithSpace()>=thresholdH){
               getFaithTrack().getNextFaithZone().setActivated();
               return true;
           }
@@ -128,5 +128,14 @@ public class SinglePlayerGame extends Game {
        HashMap<String, Integer> map=  super.getFaithMap();
        map.put("Lorenzo Il Magnifico", blackCross.getFaithSpace());
        return map;
+    }
+    public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
+        Player active = super.getPlayer(username);
+        if (activateOnYourself) {
+            active.increaseFaith(faith);
+        } else {
+            blackCross.increaseBlackCross(faith);
+        }
+        return updateFaithTrack();
     }
 }

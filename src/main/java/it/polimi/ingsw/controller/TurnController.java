@@ -14,27 +14,19 @@ import java.util.stream.Collectors;
 public class TurnController {
 
     private HashMap<String, Boolean> activePlayer;
-    private HashMap<String, VirtualView> allVirtualView;
     private String playingPlayer;
     private boolean mainAction;
-    private Game gameSession;
-    private final GameController gameController;
     private ArrayList<String> playerOrder;
 
     public TurnController(GameController gameController){
         mainAction=false;
-        leaderAction=0;
-        this.gameController=gameController;
         playingPlayer =  gameController.getGameSession().getPlayersList().get(0).getUsername();
-        phaseTurn = PhaseTurn.PICK_LEADER;
-        this.gameSession = gameController.getGameSession();
         playerOrder=new ArrayList<String>();
         activePlayer=new HashMap<String, Boolean>();
         for(int i=0; i<gameController.getAllVirtualView().size(); i++){
             String name=gameController.getGameSession().getPlayersList().get(i).getUsername();
             activePlayer.put(name, true);
             playerOrder.add(name);
-            allVirtualView = gameController.getAllVirtualView();
         }
     }
     public String firstPlayer(){
@@ -42,24 +34,6 @@ public class TurnController {
 
     }
 
-
-    private void drawToken() {
-        int endGameCode = ((SinglePlayerGame) gameController.getGameSession()).turnAction();
-        if(endGameCode == 1) {
-            HashMap<String, Integer> faithTrack= new HashMap<>();
-            faithTrack.put(playingPlayer, gameSession.getPlayersList().get(0).getFaithSpace());
-            faithTrack.put("Lorenzo il Magnifico", ((SinglePlayerGame) gameSession).getBlackCross().getFaithSpace());
-            allVirtualView.get(playingPlayer).showFaithTrack(faithTrack, trigger, gameSession.getFaithTrack().getFaithZones().indexOf(gameSession.getFaithTrack().getNextFaithZone()));
-            allVirtualView.get(playingPlayer).showWinMessage("Lorenzo il Magnifico");
-            gameController.setGameState(GameState.END_GAME);
-        }
-        else if(endGameCode == -1) {
-            int finalVP= gameSession.getPlayersList().get(0).getFinalVP();
-            allVirtualView.get(playingPlayer).showCurrentVP(finalVP, playingPlayer);
-            allVirtualView.get(playingPlayer).showWinMessage(playingPlayer);
-            gameController.setGameState(GameState.END_GAME);
-        }
-    }
 
     public String  proxPlayer(){
         int player = getActivePlayers().indexOf(playingPlayer)+1;
@@ -77,10 +51,6 @@ public class TurnController {
         return playingPlayer;
     }
 
-
-    public void setPhaseTurn(PhaseTurn phaseTurn) {
-        this.phaseTurn = phaseTurn;
-    }
     public boolean disconnect(String username){
         activePlayer.put(username,false);
         return(username==getActivePlayer());
@@ -113,6 +83,6 @@ public class TurnController {
       public void setMainAction(boolean state){
         mainAction=state;
     }
-    public boolean getMainAction(){return mainAction}
+    public boolean getMainAction(){return mainAction;}
 }
 
