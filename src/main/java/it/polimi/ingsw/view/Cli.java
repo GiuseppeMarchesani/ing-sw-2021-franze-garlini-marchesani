@@ -804,6 +804,11 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    @Override
+    public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
+
+    }
+
     private String getAnsiColor(ResourceType resourceType) {
         if(resourceType.equals(ResourceType.COIN)) return ANSI_YELLOW;
         else if(resourceType.equals(ResourceType.SERVANT)) return ANSI_PURPLE;
