@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network;
 
 import it.polimi.ingsw.view.Cli;
+import it.polimi.ingsw.view.GUI.LauncherApp;
+import javafx.application.Application;
 
 import java.util.Locale;
 import java.util.Scanner;
@@ -35,7 +37,7 @@ public class BootClient {
                     cli.init();
                 }
                 else{
-                    //TODO: Open GUI
+                    Application.launch(LauncherApp.class);
                 }
             }
         }while(!(mode.equals("CLI"))&&!(mode.equals("GUI")));

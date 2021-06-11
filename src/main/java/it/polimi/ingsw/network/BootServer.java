@@ -11,13 +11,14 @@ public class BootServer {
     BootServer(){}
 
     public static void main(String args[]) {
+        int port;
         if (args.length < 1) {
             System.out.println("Error: Input port missing");
-            System.exit(1);
+            port=4000;
         }
-
-        int port = Integer.parseInt(args[0]);
-
+        else {
+            port = Integer.parseInt(args[0]);
+        }
         ServerSocket socket;
         try {
             socket = new ServerSocket(port);
