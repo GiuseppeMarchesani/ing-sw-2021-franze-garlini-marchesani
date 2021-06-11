@@ -30,7 +30,9 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateConnect(String address, int port){
         try {
             client = new ClientSocket(address, port);
+            client.add(this);
             client.listen();
+            queue.execute(view::askLobby);
         } catch (Exception e) {
             queue.execute(view::askConnect);
         }

@@ -34,6 +34,7 @@ public class Cli extends ObservableView implements View{
      */
     public Cli() {
         out = System.out;
+        commandList=new ArrayList<String>();
         for(Command command: Command.values()) {
             commandList.add(command.getVal());
         }
@@ -94,7 +95,7 @@ public class Cli extends ObservableView implements View{
             }
 
         }while(true);
-        askLobby();
+
     }
 
     @Override
@@ -150,6 +151,7 @@ public class Cli extends ObservableView implements View{
     public void showLoginResult(String username,String gameID,boolean wasJoined) {
         if (wasJoined){
             notifyObserver(obs -> obs.updateNewUsername(username));
+            out.println("You joined game: "+gameID+ " as "+ username);
         }
         else {
             out.println("Game "+gameID+ " not available.");

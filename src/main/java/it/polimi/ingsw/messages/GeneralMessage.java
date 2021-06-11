@@ -1,6 +1,8 @@
 package it.polimi.ingsw.messages;
 
-public abstract class GeneralMessage {
+import java.io.Serializable;
+
+public abstract class GeneralMessage implements Serializable {
 
     private final MessageType msg;
     public GeneralMessage(MessageType msg){

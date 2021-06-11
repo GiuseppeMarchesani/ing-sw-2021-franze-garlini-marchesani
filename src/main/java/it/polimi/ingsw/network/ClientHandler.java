@@ -49,7 +49,7 @@ public class ClientHandler implements Runnable
         private void handleMessage() throws IOException
         {
             try {
-                while(true) {
+                while(!Thread.currentThread().isInterrupted()) {
                     ClientMessage message = (ClientMessage) input.readObject();
 
                     if(message.getMessageType()== MessageType.LOGIN) {
