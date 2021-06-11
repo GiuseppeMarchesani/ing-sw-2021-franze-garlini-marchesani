@@ -22,7 +22,7 @@ public class LauncherApp extends Application {
 
 
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/init_Scene.fxml"));
+        // FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/init_Scene.fxml"));
         Parent root = loader.load();
         SceneController controller = loader.getController();
     }

@@ -6,51 +6,34 @@ import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.guiController.InitSceneController;
+import it.polimi.ingsw.view.GUI.guiController.LobbySceneController;
+import it.polimi.ingsw.view.GUI.guiController.NumPlayerSceneController;
 import it.polimi.ingsw.view.View;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-
-import java.io.IOException;
+import javafx.application.Platform;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Gui extends ObservableView implements View {
-    private Scene activeScene;
-    private SceneController activeController;
-
-    private void changePane(Scene scene, SceneController sceneController, String fxmlFile) {
-        this.activeScene = scene;
-        this.activeController = sceneController;
-
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/fxml/" + fxmlFile));
-            loader.setController(sceneController);
-
-            Parent root = loader.load();
-
-            activeScene = scene;
-            activeScene.setRoot(root);
-        } catch(IOException e) {
-
-        }
-
-    }
 
     @Override
     public void askConnect() {
-
+        Platform.runLater(() -> SceneController.changeRootPane(observers,"init_scene.fxml"));
     }
 
     @Override
     public void askLobby() {
-
+        LobbySceneController lsc = new LobbySceneController();
+        lsc.addAllObservers(observers);
+        Platform.runLater(() -> SceneController.changeRootPane(lsc, "lobby_scene.fxml"));
     }
 
     @Override
     public void askPlayersNumber() {
+        NumPlayerSceneController npsc = new NumPlayerSceneController();
+        npsc.addAllObservers(observers);
+        Platform.runLater(()-> SceneController.changeRootPane(npsc, "numPlayer_scene.fxml"));
 
     }
 
@@ -171,6 +154,11 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLoseMessage() {
+
+    }
+
+    @Override
+    public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
 
     }
 }
