@@ -192,5 +192,9 @@ public interface View {
      */
     void showLoseMessage();
 
+    /**
+     * Shows leader cards to the player.
+     * @param leaderCards list of leader cards with their respective boolean for activated.
+     */
     void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards);
 }
