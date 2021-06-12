@@ -1,8 +1,10 @@
 [
   {
-    "spaces": 2
+    "spaces": 2,
+    "tokenType": "FAITH"
   },
   {
-    "spaces": 2
+    "spaces": 2,
+    "tokenType": "FAITH"
   }
 ]

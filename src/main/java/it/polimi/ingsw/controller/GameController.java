@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Action.ActionToken;
+import it.polimi.ingsw.model.Action.ActionTokenType;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
@@ -624,7 +625,7 @@ public class GameController {
     public void endTurn(){
         ActionToken token = gameSession.drawToken();
         if(token!=null){
-            switch (token.getType()){
+            switch (token.getTokenType()){
                 case FAITH:
                     boolean trigger=gameSession.updateFaithTrack();
                     allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(gameSession.getFaithMap(), trigger, gameSession.lastActivatedFaithZone());

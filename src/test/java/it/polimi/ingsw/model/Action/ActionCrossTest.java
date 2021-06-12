@@ -13,7 +13,7 @@ public class ActionCrossTest {
 
     @Before
     public void setUp() {
-        testActionCross = new ActionCross(2);
+        testActionCross = new ActionCross(2, ActionTokenType.FAITH);
         testGame = new SinglePlayerGame();
     }
 
@@ -35,7 +35,6 @@ public class ActionCrossTest {
 
         testActionCross.doOperation(testGame);
         Assert.assertEquals(24, testGame.getBlackCross().getFaithSpace());
-
     }
 
 }

@@ -20,10 +20,10 @@ public class ActionDiscardTest {
 
     @Before
     public void setUp() {
-        testActionDiscardBlue = new ActionDiscard(Color.BLUE);
-        testActionDiscardYellow = new ActionDiscard(Color.YELLOW);
-        testActionDiscardGreen = new ActionDiscard(Color.GREEN);
-        testActionDiscardPurple = new ActionDiscard(Color.PURPLE);
+        testActionDiscardBlue = new ActionDiscard(Color.BLUE, ActionTokenType.DISCARD);
+        testActionDiscardYellow = new ActionDiscard(Color.YELLOW, ActionTokenType.DISCARD);
+        testActionDiscardGreen = new ActionDiscard(Color.GREEN, ActionTokenType.DISCARD);
+        testActionDiscardPurple = new ActionDiscard(Color.PURPLE, ActionTokenType.DISCARD);
         testGame = new SinglePlayerGame();
     }
 

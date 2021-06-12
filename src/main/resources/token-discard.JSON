@@ -1,14 +1,18 @@
 [
   {
-    "color": "GREEN"
+    "color": "GREEN",
+    "tokenType": "DISCARD"
   },
   {
-    "color": "PURPLE"
+    "color": "PURPLE",
+    "tokenType": "DISCARD"
   },
   {
-    "color": "YELLOW"
+    "color": "YELLOW",
+    "tokenType": "DISCARD"
   },
   {
-    "color": "BLUE"
+    "color": "BLUE",
+    "tokenType": "DISCARD"
   }
 ]

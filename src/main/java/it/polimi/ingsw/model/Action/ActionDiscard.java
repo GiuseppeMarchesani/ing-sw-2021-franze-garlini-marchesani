@@ -6,16 +6,17 @@ import it.polimi.ingsw.model.enumeration.Color;
 /**
  * This class represent the Action Token that will discard a DevCard.
  */
-public class ActionDiscard extends ActionToken {
+public class ActionDiscard implements ActionToken {
     private Color color;
+    private ActionTokenType tokenType;
 
     /**
      * ActionDiscard class constructor.
      * @param color The color of the Development Card that must be discarded.
      */
-    public ActionDiscard(Color color) {
-        super(ActionTokenType.DISCARD);
+    public ActionDiscard(Color color, ActionTokenType actionTokenType) {
         this.color = color;
+        this.tokenType = actionTokenType;
     }
 
     /**
@@ -30,4 +31,7 @@ public class ActionDiscard extends ActionToken {
         return color;
     }
 
+    public ActionTokenType getTokenType() {
+        return tokenType;
+    }
 }
