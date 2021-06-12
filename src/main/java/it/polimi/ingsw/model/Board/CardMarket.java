@@ -30,6 +30,7 @@ public class CardMarket {
 
 
     }
+
     public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
         if(devCardGrid.get(color.getVal()).get(level).size() > 0){
@@ -40,9 +41,11 @@ public class CardMarket {
 
         return requestCard;
     }
+
     public void returnDevCard(DevCard card){
         devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel()-1).add(card);
     }
+
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
         for (int i=0; i<4; i++) {

@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-class ActionCrossTest {
+public class ActionCrossTest {
     ActionCross testActionCross;
     SinglePlayerGame testGame;
 
@@ -37,4 +37,5 @@ class ActionCrossTest {
         Assert.assertEquals(24, testGame.getBlackCross().getFaithSpace());
 
     }
+
 }
