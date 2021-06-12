@@ -18,9 +18,4 @@ public class ActionShuffle extends ActionToken{
         game.getBlackCross().increaseBlackCross(spaces);
     }
 
-    @Override
-    public String toString() {
-        return "Action Shuffle";
-    }
-
 }

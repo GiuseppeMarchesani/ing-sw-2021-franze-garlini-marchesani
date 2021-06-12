@@ -30,8 +30,4 @@ public class ActionDiscard extends ActionToken {
         return color;
     }
 
-    @Override
-    public String toString() {
-        return "Action Discard " + color.toString();
-    }
 }

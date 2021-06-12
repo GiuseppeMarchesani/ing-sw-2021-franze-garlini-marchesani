@@ -16,9 +16,4 @@ public class ActionCross extends ActionToken {
     public void doOperation(SinglePlayerGame game) {
         game.getBlackCross().increaseBlackCross(spaces);
     }
-
-    @Override
-    public String toString() {
-        return "Action Cross " + "+2";
-    }
 }
