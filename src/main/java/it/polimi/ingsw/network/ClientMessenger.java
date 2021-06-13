@@ -171,7 +171,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
                 break;
             case SHOW_FAITH_TRACK:
-                queue.execute(() -> view.showCurrentVP(((ShowFaithTrackMsg) msg).getPlayerFaith()));
+                queue.execute(() -> view.showFaithTrack(((ShowFaithTrackMsg) msg).getPlayerFaith(),((ShowFaithTrackMsg) msg).isZoneActivated(),((ShowFaithTrackMsg) msg).getWhichZone()));
                 break;
             case SHOW_DEV_MARKET:
                 queue.execute(()-> view.showDevMarket(((ShowDevMarketMsg) msg).getAvailableCards(),((ShowDevMarketMsg) msg).getRemainingCards()));

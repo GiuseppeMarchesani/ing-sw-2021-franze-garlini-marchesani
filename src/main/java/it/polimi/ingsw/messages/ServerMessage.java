@@ -1,6 +1,8 @@
 package it.polimi.ingsw.messages;
 
-public class ServerMessage extends GeneralMessage{
+import java.io.Serializable;
+
+public class ServerMessage extends GeneralMessage implements Serializable {
 
         public ServerMessage(MessageType msg){
             super(msg);

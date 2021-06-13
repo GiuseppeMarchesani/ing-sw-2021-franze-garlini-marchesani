@@ -31,7 +31,7 @@ public class Lobby {
                     s = username + "(" + i + ")";
                 }
                 clientHandlerMap.put(clientHandler, s);
-                    gameController.newPlayer(username, gameId, virtualView);
+                    gameController.newPlayer(s, gameId, virtualView);
             }
             else if(hasInactivePLayers()){
                 List<String> inactive =getInactivePlayers();
