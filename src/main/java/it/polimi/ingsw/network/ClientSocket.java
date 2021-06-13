@@ -44,7 +44,7 @@ public class ClientSocket extends Observable {
     public void listen() {
         queue.execute(() ->
         {
-            while (queue.isShutdown()) {
+            while (!queue.isShutdown()) {
                 ServerMessage message;
                 try {
                     message = (ServerMessage) input.readObject();
