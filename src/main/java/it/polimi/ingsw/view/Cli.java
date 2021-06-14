@@ -492,7 +492,7 @@ public class Cli extends ObservableView implements View{
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         int counter = 0;
         for(int i: remainingCards) {
-            out.println("Cards in the stack: (" + (i-1) + "/3)");
+            out.println("\n" + ANSI_BLUE +"Cards in the stack: (" + (i-1) + "/3)" + ANSI_RESET + "\n");
             if(i>0) {
                 out.println(availableCards.get(counter).toString());
                 out.println("");
@@ -505,8 +505,11 @@ public class Cli extends ObservableView implements View{
     public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
         String ansiColor = null;
         out.println(username + "'s strongbox:");
-        for(ResourceType res: strongbox.keySet()) {
-            out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
+        if(strongbox.keySet().isEmpty()) out.println("No resources in strongbox.");
+        else {
+            for (ResourceType res : strongbox.keySet()) {
+                out.println(getAnsiColor(res) + res.toString() + ANSI_RESET + ": " + strongbox.get(res));
+            }
         }
     }
 
@@ -616,7 +619,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showRemainingLeaderCards(String username, int remaining) {
-        out.println("Player " + username + " has " + remaining + " un-played leader cards.");
+        out.println("\nPlayer " + username + " has " + remaining + " un-played leader cards.");
     }
 
     @Override
@@ -740,11 +743,12 @@ public class Cli extends ObservableView implements View{
         boolean checkId = false;
         int i=0;
         out.println("Choose two of these Leader Card to discard by typing their Id, one at a time.");
-        while(i!=2) {
-            out.println("Choose card No. "+ (i+1));
+        while(i<2) {
+
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.getId());
             }
+            out.print("Choose card No. "+ (i+1) + ": ");
             try {
                 id = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
