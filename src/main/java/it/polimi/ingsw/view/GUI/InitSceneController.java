@@ -1,6 +1,7 @@
-package it.polimi.ingsw.view.GUI.guiController;
+package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.GenericSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -8,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.event.Event;
 import java.util.Map;
 
-public class InitSceneController extends ObservableView implements GeneralController {
+public class InitSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
     private TextField serverAddress;
