@@ -134,7 +134,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askAction() {
-        out.print("What action do you want to do?");
+        out.print("\nWhat action do you want to do? ");
 
         try {
             while(true) {
@@ -154,10 +154,10 @@ public class Cli extends ObservableView implements View{
     public void showLoginResult(String username,String gameID,boolean wasJoined) {
         if (wasJoined){
             notifyObserver(obs -> obs.updateNewUsername(username));
-            out.println("You joined game: "+gameID+ " as "+ username);
+            out.println("\nYou joined game: "+gameID+ " as "+ username);
         }
         else {
-            out.println("Game "+gameID+ " not available.");
+            out.println("\nGame "+gameID+ " not available.");
             askLobby();
         }
 
@@ -165,7 +165,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showMessage(String message) {
-        out.println(message);
+        out.println("\n" + message);
     }
 
     @Override
@@ -181,8 +181,7 @@ public class Cli extends ObservableView implements View{
         for(String str: players) {
             out.print(str + " ");
         }
-        out.println("\n");
-        out.println("Active player: " + activePlayer);
+        out.println("\nActive player: " + activePlayer);
     }
 
     @Override
@@ -195,7 +194,7 @@ public class Cli extends ObservableView implements View{
 
 
         while(!checkColor) {
-            out.println("Please insert the color of the chosen Development Card: (GREEN/PURPLE/YELLOW/BLUE)");
+            out.println("\nPlease insert the color of the chosen Development Card: (GREEN/PURPLE/YELLOW/BLUE)");
             try {
                 strColor = readLine();
                 for(Color color: Color.values()) {
@@ -211,7 +210,7 @@ public class Cli extends ObservableView implements View{
         }
 
         while(!checkLevel) {
-            out.println("Please insert the level of the chosen Development Card: (1/2/3)");
+            out.println("\nPlease insert the level of the chosen Development Card: (1/2/3)");
             try {
                 level = Integer.parseInt(readLine());
                 if(level > 0 && level <= 3) {
@@ -232,7 +231,7 @@ public class Cli extends ObservableView implements View{
     public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
         int num = 0;
         char rowOrCol = '0';
-        out.println("Do you want to pick a ROW or a COL?");
+        out.print("\nDo you want to pick a ROW or a COL? ");
         try {
             while(true) {
                 String input = readLine();
@@ -249,7 +248,7 @@ public class Cli extends ObservableView implements View{
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
         }
-        out.println("Which one?");
+        out.print("\nWhich one? ");
         try {
             while(true) {
                 num = Integer.parseInt(readLine());
@@ -264,11 +263,11 @@ public class Cli extends ObservableView implements View{
 
         ResourceType chosenConversion = null;
         if(conversion.size()>1) {
-            out.print("Available marble conversions: ");
+            out.print("\nAvailable marble conversions: ");
             for(ResourceType res: conversion) {
                 out.print(res.toString() + " ");
             }
-            out.println("Choose the resource type you want to exchange the white marble with: ");
+            out.print("\nChoose the resource type you want to exchange the white marble with: ");
             try {
                 while(true) {
                     String input = readLine();
@@ -322,7 +321,7 @@ public class Cli extends ObservableView implements View{
 
         //Placing resources in Leader Depot
         for(ResourceType res: extraDepot){
-            out.println("How many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2)");
+            out.print("\nHow many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2) ");
             do {
                 invalidInput=false;
                 try {
@@ -330,7 +329,7 @@ public class Cli extends ObservableView implements View{
                     if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(2))throw new Exception();
                 } catch (Exception e) {
                     invalidInput=true;
-                    out.println("Wrong Input.");
+                    out.println(STR_WRONG_INPUT);
                 }
 
             } while(invalidInput);
@@ -342,12 +341,12 @@ public class Cli extends ObservableView implements View{
         for(int i=0; i<3; i++) {
 
                 do {
-                    out.println("What resource do you want to put in the " + (3-i) + "slotted depot?");
+                    out.print("\nWhat resource do you want to put in the " + (3-i) + " slotted depot? ");
                     invalidInput = false;
                     try {
                         strResource = readLine();
                     } catch (ExecutionException e) {
-                        out.println("Wrong Input.");
+                        out.println("STR_WRONG_INPUT");
                         invalidInput = true;
                     }
                     if(strResource.equalsIgnoreCase("EMPTY")) {
@@ -357,12 +356,12 @@ public class Cli extends ObservableView implements View{
                     }
                     ResourceType res=ResourceType.valueOf(strResource.toUpperCase(Locale.ROOT));
                     if(resToPlace.containsKey(res)) {
-                            out.println("How many?");
+                            out.print("\nHow many? ");
                             try {
                                 resNumToPut = Integer.parseInt(readLine());
                                 if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(3-i))throw new Exception();
                             } catch (Exception e) {
-                                out.println("Wrong Input.");
+                                out.println(STR_WRONG_INPUT);
                                 invalidInput = true;
                             }
 
@@ -384,7 +383,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
-        out.println("Converting ANY Resource in production cost.");
+        out.println("\nConverting ANY Resource in production cost.");
         HashMap<ResourceType, Integer> anyToPay = askAnyResource(anyPayment);
 
         //Payment
@@ -402,9 +401,9 @@ public class Cli extends ObservableView implements View{
         }
 
         for(ResourceType res: price.keySet()) {
-            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
             if(newStrongbox.get(res) > 0) {
-                out.println("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
                     resNumToGet = Integer.parseInt(readLine());
@@ -419,9 +418,9 @@ public class Cli extends ObservableView implements View{
             paymentWarehouse.put(res, (price.get(res) - resNumToGet));
 
         }
-        out.println("All the other resources will be taken in the strongbox.");
+        out.println("\nAll the other resources will be taken in the strongbox.");
 
-        out.println("Converting ANY resource in production income.");
+        out.println("\nConverting ANY resource in production income.");
         HashMap<ResourceType, Integer> anyToIncome = askAnyResource(anyProduce);
 
         //Putting ANY resource income in strongbox
@@ -446,9 +445,9 @@ public class Cli extends ObservableView implements View{
         boolean invalidInput = false;
         HashMap<ResourceType, Integer> convertedAny = new HashMap<>();
 
-        out.println("You have " + numAny + " ANY to be converted");
+        out.println("\nYou have " + numAny + " ANY to be converted");
         while(i < numAny) {
-            out.println("Please choose the resource to be converted with ANY: (COIN/STONE/SHIELD/SERVANT): ");
+            out.print("Please choose the resource to be converted with ANY: (COIN/STONE/SHIELD/SERVANT): ");
             try {
                 strResource = readLine();
             } catch (ExecutionException e) {
@@ -477,7 +476,8 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
-        out.println("           " + getAnsiColor(corner) + "@");
+        out.println("\nThis is the marble market:");
+        out.println("               " + getAnsiColor(corner) + "@");
         for(int i=0; i<3; i++) {
             for(int j=0; j<4; j++) {
                 ResourceType res = market[j][i];
@@ -504,7 +504,7 @@ public class Cli extends ObservableView implements View{
     @Override
     public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
         String ansiColor = null;
-        out.println(username + "'s strongbox:");
+        out.println("\n" + username + "'s strongbox:");
         if(strongbox.keySet().isEmpty()) out.println("No resources in strongbox.");
         else {
             for (ResourceType res : strongbox.keySet()) {
@@ -516,7 +516,7 @@ public class Cli extends ObservableView implements View{
     @Override
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
         String ansiColor = null;
-        out.println(username + "'s warehouse:");
+        out.println("\n" + username + "'s warehouse:");
         for(Integer i: depotToQuantity.keySet()) {
             if(i<3) out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/" + (3-i)  + ")");
             else out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/2)");
@@ -532,12 +532,12 @@ public class Cli extends ObservableView implements View{
         String[] stringIdList;
         int[] intIdList;
 
-        out.println("Available cards for production: ");
+        out.println("\nAvailable cards for production: ");
         for(DevCard devCard: devCardList) {
             out.println(devCard.toString());
         }
 
-        out.println("Insert the id of the cards you want to activate: (ex. 11 9 23)");
+        out.print("\nInsert the id of the cards you want to activate: (ex. 11 9 23) ");
 
         while(!checkId) {
             chosenCards.clear();
@@ -586,11 +586,12 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showErrorMsg(String message) {
-        out.println(message);
+        out.println("\n" + message);
     }
 
     @Override
     public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
+        out.println("\nFaith Track:");
         for(String username: playerFaith.keySet()) {
             out.println(username + ": " + playerFaith.get(username));
         }
@@ -599,6 +600,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showCurrentVP(HashMap<String, Integer> victoryPoints) {
+        out.println("\nCurrent Victory Points:");
         for(String username: victoryPoints.keySet()) {
             out.println(username + ": " + victoryPoints.get(username));
         }
@@ -630,9 +632,9 @@ public class Cli extends ObservableView implements View{
         HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
 
         for(ResourceType res: cardCost.keySet()) {
-            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
             if(newStrongbox.get(res) > 0) {
-                out.println("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
                     resNumToGet = Integer.parseInt(readLine());
@@ -650,9 +652,9 @@ public class Cli extends ObservableView implements View{
         //ANY-resource payment
         HashMap<ResourceType, Integer> anyToPay = askAnyResource(numAny);
         for(ResourceType res: anyToPay.keySet()) {
-            out.println("You must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
             if(newStrongbox.get(res) > 0) {
-                out.println("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
                     resNumToGet = Integer.parseInt(readLine());
@@ -694,10 +696,11 @@ public class Cli extends ObservableView implements View{
         do {
             if(!checkId) out.println(STR_WRONG_INPUT);
             checkId=false;
-            out.println("Choose between one of these Leader Card by typing its id.");
+            out.println("\nChoose between one of these Leader Card by typing its id.");
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.toString());
             }
+            out.print("Choose card: ");
             try {
                 id = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
@@ -713,7 +716,7 @@ public class Cli extends ObservableView implements View{
             }
         }while(!checkId);
 
-        out.println("Do you want to play or discard it? (PLAY/DISCARD)");
+        out.print("\nDo you want to play or discard it? (PLAY/DISCARD): ");
         char action = '0';
         try {
             while(true) {
@@ -742,13 +745,13 @@ public class Cli extends ObservableView implements View{
         int id = -1;
         boolean checkId = false;
         int i=0;
-        out.println("Choose two of these Leader Card to discard by typing their Id, one at a time.");
+        out.println("\nChoose two of these Leader Card to discard by typing their Id, one at a time.");
         while(i<2) {
 
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.getId());
             }
-            out.print("Choose card No. "+ (i+1) + ": ");
+            out.print("\nChoose card No. "+ (i+1) + ": ");
             try {
                 id = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
@@ -784,6 +787,7 @@ public class Cli extends ObservableView implements View{
 
         //Printing results
         for(int i=0; i< points.size(); i++) {
+            out.println("\nFinal results.");
             for(String username: finalPoints.keySet()) {
                 if(finalPoints.get(username) == points.get(i)) {
                     out.println(i + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
@@ -791,7 +795,7 @@ public class Cli extends ObservableView implements View{
             }
         }
 
-        out.println("Press Enter key to exit.");
+        out.print("\nPress Enter key to exit.");
         try {
             int key = System.in.read();
             System.exit(0);
@@ -803,8 +807,8 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showLoseMessage() {
-        out.println("Game Over. You lose!");
-        out.println("Press Enter key to exit.");
+        out.println("\nGame Over. You lose!");
+        out.print("\nPress Enter key to exit.");
         try {
             int key = System.in.read();
             System.exit(0);
@@ -816,10 +820,10 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
+        out.println("\n");
         for(LeaderCard leader: leaderCards.keySet()) {
             leader.toString();
-            out.println(leaderCards.get(leader)? "activated" : "not activated");
-            out.println("");
+            out.println(leaderCards.get(leader)? (ANSI_RED + "activated") : (ANSI_YELLOW + "not activated"));
         }
     }
 
