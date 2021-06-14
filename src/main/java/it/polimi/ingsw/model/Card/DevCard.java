@@ -9,6 +9,7 @@ public class DevCard extends Card {
     private HashMap<ResourceType, Integer> cardCost;
     private HashMap<ResourceType, Integer> productionCost;
     private HashMap<ResourceType, Integer> productionIncome;
+    private final int STARTING_LEADER_ID = 48;
 
     public DevCard(int id, int victoryPoints, DevCardType cardType, HashMap<ResourceType, Integer> cardCost, HashMap<ResourceType, Integer> productionCost, HashMap<ResourceType, Integer> productionIncome){
         super(id,victoryPoints);
@@ -70,6 +71,49 @@ public class DevCard extends Card {
     public void setProductionIncome(HashMap<ResourceType, Integer> productionIncome)
     {
         this.productionIncome=productionIncome;
+    }
+
+    @Override
+    public String toString() {
+        String devcardSTR;
+        if(getId()==-1) {
+            devcardSTR = "Base production scroll: \n" +
+                    "Cost: 2 ANY\n" +
+                    "Income: 1 ANY\n";
+            return devcardSTR;
+        }
+        else if(getId() >= STARTING_LEADER_ID) {
+            devcardSTR = "Leader Card Production: \n" +
+                    "id: " + getId() + "\n";
+        }
+        else {
+            devcardSTR = "DevCard: \n" +
+                    "id: " + getId() + "\n" +
+                    "color: " + getCardType().getColor() + "\n" +
+                    "level: " + getCardType().getLevel() + "\n" +
+                    "card cost: " + "\n" +
+                    "{";
+            for (ResourceType res : getCardCost().keySet()) {
+                if (getCardCost().get(res) > 0) {
+                 devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getCardCost().get(res) + "\n");
+                }
+            }
+            devcardSTR = devcardSTR.concat("}");
+        }
+        devcardSTR = devcardSTR.concat("\n production cost: \n{");
+        for(ResourceType res: getProductionCost().keySet()) {
+            if (getProductionCost().get(res) > 0) {
+                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionCost().get(res) + "\n");
+            }
+        }
+        devcardSTR = devcardSTR.concat("} \n production income: \n{");
+        for(ResourceType res: getProductionIncome().keySet()) {
+            if (getProductionIncome().get(res) > 0) {
+                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionIncome().get(res) + "\n");
+            }
+        }
+        devcardSTR = devcardSTR.concat("}\n");
+        return devcardSTR;
     }
 
     public HashMap<ResourceType, Integer> getProductionIncome() {
