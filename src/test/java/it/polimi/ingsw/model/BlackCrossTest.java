@@ -12,5 +12,6 @@ public class BlackCrossTest {
         assertEquals(blackCross.increaseBlackCross(2),2);
         assertEquals(blackCross.increaseBlackCross(1),3);
         assertEquals(blackCross.increaseBlackCross(4),7);
+        assertEquals(blackCross.increaseBlackCross(19), 24);
     }
 }
