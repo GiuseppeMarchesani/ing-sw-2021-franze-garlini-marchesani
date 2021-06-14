@@ -22,5 +22,12 @@ public class ActionShuffle implements ActionToken{
     public ActionTokenType getTokenType() {
         return tokenType;
     }
+    public String toString() {
+        return "Shuffle Token";
+    }
+
+    public String getEffect(){
+        return "Shuffle the Token Bag and increase Lorenzo's spaces on the faith track by one." ;
+    }
 
 }

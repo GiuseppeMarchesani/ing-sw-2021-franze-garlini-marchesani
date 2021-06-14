@@ -64,7 +64,7 @@ public class GameController {
                     if(receivedMessage.getMessageType() == PLAYER_NUMBER){
 
                         PlayersNumberRequest pmsg =(PlayersNumberRequest) receivedMessage;
-
+                        maxPlayers=pmsg.getPlayersNumber();
                         if(pmsg.getPlayersNumber()==1){gameSession=new SinglePlayerGame();
                         gameSession.addPlayer(new Player(pmsg.getUsername()));
                         virtualView.showMessage("Hosting SinglePlayer Game");
@@ -75,8 +75,9 @@ public class GameController {
                             gameSession.addPlayer(new Player(pmsg.getUsername()));
                             virtualView.showMessage("Hosting MultiPlayer ("+pmsg.getPlayersNumber()+") Game. \nWaiting for other players...");
                         }
-                        maxPlayers=pmsg.getPlayersNumber();
+
                     }
+                    break;
                 case DRAWLEADER:
                 case GIVERES:
                     setupGame(receivedMessage);
@@ -122,6 +123,12 @@ public class GameController {
              if(turnController.proxPlayer().equals( turnController.firstPlayer())) {
                  setGameState(GameState.IN_GAME);
              }
+        }
+        if(gameState==GameState.IN_GAME){
+            for(VirtualView vv: allVirtualView.values()){
+                vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+                vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+            }
         }
         startTurn();
     }
@@ -291,7 +298,7 @@ public class GameController {
      * @param msg
      */
     public void inGame(ClientMessage msg){
-        if (msg.getUsername()== turnController.getActivePlayer()){
+        if (msg.getUsername().equals(turnController.getActivePlayer())){
            Player player =gameSession.getPlayer(msg.getUsername());
             switch(msg.getMessageType()){
                 case LEADER_ACTION:
@@ -366,6 +373,7 @@ public class GameController {
                         faith.put(user, gameSession.getPlayer(user).getFaithSpace());
                     }
                     allVirtualView.get(turnController.getActivePlayer()).showFaithTrack(faith, false,0);
+                    startTurn();
                     break;
                 case SHOW_VICTORY_POINTS:
                     HashMap<String, Integer> vp= new HashMap<>();
@@ -373,24 +381,31 @@ public class GameController {
                         vp.put(user, gameSession.getPlayer(user).getVictoryPoint());
                     }
                     allVirtualView.get(turnController.getActivePlayer()).showCurrentVP(vp);
+                    startTurn();
                     break;
                 case SHOW_SLOT:
                     allVirtualView.get(turnController.getActivePlayer()).showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+                    startTurn();
                     break;
                 case SHOW_LEADER:
                     allVirtualView.get(turnController.getActivePlayer()).showLeaderCards(player.getLeaderCards());
+                    startTurn();
                     break;
                 case SHOW_DEV_MARKET:
                     allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+                    startTurn();
                     break;
                 case SHOW_MARKET:
                     allVirtualView.get(turnController.getActivePlayer()).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+                    startTurn();
                     break;
                 case SHOW_STRONGBOX:
                     allVirtualView.get(turnController.getActivePlayer()).showStrongbox(player.getStrongbox(), turnController.getActivePlayer());
+                    startTurn();
                     break;
                 case SHOW_WAREHOUSE:
                     allVirtualView.get(turnController.getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+                    startTurn();
                     break;
             }
         }
@@ -634,13 +649,15 @@ public class GameController {
                     allVirtualView.get(turnController.getActivePlayer()).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
                     break;
             }
+            broadcastMessage("You drew a "+ token.toString()+". "+token.getEffect());
         }
+
 
         if(gameSession.checkLoss()){
             allVirtualView.get(turnController.getActivePlayer()).showLoseMessage();
             return;
         }
-        if(gameState==GameState.END_GAME&&turnController.proxPlayer().equals(turnController.firstPlayer())){
+        if(turnController.proxPlayer().equals(turnController.firstPlayer())&&gameState==GameState.END_GAME){
             countFinalVictoryPoints();
         }
         else startTurn();

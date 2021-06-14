@@ -21,4 +21,11 @@ public class ActionCross implements ActionToken {
     public ActionTokenType getTokenType() {
         return tokenType;
     }
+    public String toString() {
+        return "Lorenzo Il Magnifico Token";
+    }
+
+    public String getEffect(){
+        return "Increase Lorenzo's position on the faith track by two spaces." ;
+    }
 }

@@ -58,26 +58,21 @@ public class Market{
         HashMap<ResourceType, Integer> resources = new HashMap<>();
 
         if (rowOrCol == 'c') {
-                if(num<N_ROW){
                     for (int i = 0; i < N_ROW; i++) {
                         if (resources.containsKey(marketTray[num][i])){
                             resources.put((marketTray[num][i]), resources.get(marketTray[num][i]) + 1);
                         } else resources.put(marketTray[num][i], 1);
                     }
-                }
-                else throw new InvalidParameterException();
+
 
 
 
         } else if(rowOrCol == 'r'){
-            if(num<N_COL){
                 for (int i = 0; i < N_COL; i++) {
                     if (resources.containsKey(marketTray[i][num])){
                         resources.put((marketTray[i][num]), resources.get(marketTray[i][num]) + 1);
                     } else resources.put(marketTray[i][num], 1);
                 }
-            }
-            else throw new InvalidParameterException();
         }
         if (resources.get(ResourceType.EMPTY)!=null){
             if(conversion!= null){

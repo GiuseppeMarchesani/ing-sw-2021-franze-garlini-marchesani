@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.Card;
 
 import it.polimi.ingsw.model.enumeration.Color;
 
-public class DevCardType{
+import java.io.Serializable;
+
+public class DevCardType implements Serializable {
     private Color color;
     private int level;
 

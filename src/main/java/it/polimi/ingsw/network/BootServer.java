@@ -13,7 +13,7 @@ public class BootServer {
     public static void main(String args[]) {
         int port;
         if (args.length < 1) {
-            System.out.println("Error: Input port missing");
+            System.out.println("Error: Input port missing. Using default port 4000.");
             port=4000;
         }
         else {

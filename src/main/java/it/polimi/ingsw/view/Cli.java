@@ -81,20 +81,23 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askConnect() {
+        boolean did;
         do {
+
             try{
+                did=false;
                 out.print("Insert a valid IP Address: ");
                 String ipAddress = readLine();
                 out.print("Insert a valid port: ");
                 int port = Integer.parseInt(readLine());
                 notifyObserver(obs -> obs.updateConnect(ipAddress, port));
-                break;
             }
-            catch (ExecutionException e){
+            catch (Exception e){
                 out.print("Invalid Input. ");
+                did=true;
             }
 
-        }while(true);
+        }while(did);
 
     }
 
@@ -307,7 +310,6 @@ public class Cli extends ObservableView implements View{
 
         //Adding resources swapped with Any to the HashMap resToPlace.
         for (ResourceType res : convertedAny.keySet()) {
-            allResources.add(res);
             if (resToPlace.get(res) != null) {
                 resToPlace.replace(res, resToPlace.get(res) + convertedAny.get(res));
             } else {
@@ -321,57 +323,60 @@ public class Cli extends ObservableView implements View{
         //Placing resources in Leader Depot
         for(ResourceType res: extraDepot){
             out.println("How many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2)");
-            try {
-                resNumToPut = Integer.parseInt(readLine());
-            } catch (ExecutionException e) {
-                resNumToPut = 0;
-            }
+            do {
+                invalidInput=false;
+                try {
+                    resNumToPut = Integer.parseInt(readLine());
+                    if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(2))throw new Exception();
+                } catch (Exception e) {
+                    invalidInput=true;
+                    out.println("Wrong Input.");
+                }
+
+            } while(invalidInput);
             leaderDepotQuantity.add(resNumToPut);
-            discarded += resToPlace.get(res) - resNumToPut;
             resToPlace.put(res, resToPlace.get(res) - resNumToPut);
         }
 
-        int numDepot = 3 + extraDepot.size();
-        for(int i=0; i<numDepot; i++) {
-            if(i<3) {
-                out.println("What resource do you want to put in the " + (3-i) + "slotted depot?");
+        int numDepot = 3;
+        for(int i=0; i<3; i++) {
+
                 do {
+                    out.println("What resource do you want to put in the " + (3-i) + "slotted depot?");
                     invalidInput = false;
                     try {
                         strResource = readLine();
                     } catch (ExecutionException e) {
-                        out.println(STR_WRONG_INPUT);
+                        out.println("Wrong Input.");
                         invalidInput = true;
                     }
-                    for(ResourceType res: allResources) {
-                        if(invalidInput) {
-                            break;
-                        }
-                        if(res.toString().toUpperCase().equals(strResource.toUpperCase())){
+                    if(strResource.equalsIgnoreCase("EMPTY")) {
+                        floorQuantity.put(i, 0);
+                        floorResources.put(i, ResourceType.EMPTY);
+                        break;
+                    }
+                    ResourceType res=ResourceType.valueOf(strResource.toUpperCase(Locale.ROOT));
+                    if(resToPlace.containsKey(res)) {
                             out.println("How many?");
                             try {
                                 resNumToPut = Integer.parseInt(readLine());
-                            } catch (ExecutionException e) {
-                                resNumToPut = 0;
+                                if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(3-i))throw new Exception();
+                            } catch (Exception e) {
+                                out.println("Wrong Input.");
+                                invalidInput = true;
                             }
-                            if(resToPlace.get(res) < resNumToPut) {
-                                resNumToPut = resToPlace.get(res);
-                            }
+
                             discarded += (resToPlace.get(res) - resNumToPut);
                             floorQuantity.put(i, resNumToPut);
                             floorResources.put(i, res);
-                            invalidInput = false;
-                            break;
-                        }
-                        else if(strResource.toUpperCase().equals("EMPTY")) {
-                            floorQuantity.put(i, 0);
-                            floorResources.put(i, ResourceType.EMPTY);
-                            invalidInput = false;
-                            break;
-                        }
+                            resToPlace.remove(res);
                     }
+                    else  invalidInput = true;
+
                 } while(invalidInput);
             }
+        for(ResourceType res: resToPlace.keySet()){
+            discarded+=resToPlace.get(res);
         }
         int finalDiscarded = discarded;
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscarded));
@@ -475,7 +480,7 @@ public class Cli extends ObservableView implements View{
         out.println("           " + getAnsiColor(corner) + "@");
         for(int i=0; i<3; i++) {
             for(int j=0; j<4; j++) {
-                ResourceType res = market[i][j];
+                ResourceType res = market[j][i];
                 out.print(getAnsiColor(res) + " @ " + ANSI_RESET);
             }
             out.println("\n");
@@ -487,7 +492,7 @@ public class Cli extends ObservableView implements View{
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         int counter = 0;
         for(int i: remainingCards) {
-            out.println("Cards in the stack: (" + i + "/3)");
+            out.println("Cards in the stack: (" + (i-1) + "/3)");
             if(i>0) {
                 out.println(availableCards.get(counter).toString());
                 out.println("");
@@ -681,11 +686,11 @@ public class Cli extends ObservableView implements View{
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
         LeaderCard chosenLeader = null;
         int id = -1;
-        boolean checkId = false;
-        int i=0;
+        boolean checkId =true;
 
-        while(!checkId) {
-            if(i>0) out.println(STR_WRONG_INPUT);
+        do {
+            if(!checkId) out.println(STR_WRONG_INPUT);
+            checkId=false;
             out.println("Choose between one of these Leader Card by typing its id.");
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.toString());
@@ -703,8 +708,7 @@ public class Cli extends ObservableView implements View{
                     break;
                 }
             }
-            i++;
-        }
+        }while(!checkId);
 
         out.println("Do you want to play or discard it? (PLAY/DISCARD)");
         char action = '0';
@@ -735,7 +739,7 @@ public class Cli extends ObservableView implements View{
         int id = -1;
         boolean checkId = false;
         int i=0;
-        out.println("Choose two of these Leader Card to keep by typing their Id, one at a time.");
+        out.println("Choose two of these Leader Card to discard by typing their Id, one at a time.");
         while(i!=2) {
             out.println("Choose card No. "+ (i+1));
             for(LeaderCard leader: leaderCards) {

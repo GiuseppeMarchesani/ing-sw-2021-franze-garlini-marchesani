@@ -15,13 +15,17 @@ public class ClientHandler implements Runnable
         private Socket client;
         private ObjectOutputStream output;
         private ObjectInputStream input;
-        private String gameId;
         private Lobby lobby;
+        private String gameId;
+        private final Object lockSendMessage;
+        private final Object lockHandleMessage;
         private LobbyServer lobbyServer;
         ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
             this.lobbyServer=lobbyServer;
+            lockHandleMessage=new Object();
+            lockSendMessage=new Object();
             lobby=null;
             try {
                 output = new ObjectOutputStream(client.getOutputStream());
@@ -49,16 +53,19 @@ public class ClientHandler implements Runnable
         private void handleMessage() throws IOException
         {
             try {
-                while(!Thread.currentThread().isInterrupted()) {
-                    ClientMessage message = (ClientMessage) input.readObject();
 
-                    if(message.getMessageType()== MessageType.LOGIN) {
-                        LoginRequest loginMsg= (LoginRequest) message;
-                      lobby=(lobbyServer.getLobby(loginMsg.getGameId()));
-                        lobby.addPlayer(loginMsg.getUsername(), this);
-                    }
-                    else if(lobby!=null){
-                        lobby.getMessage(message);
+                    while (!Thread.currentThread().isInterrupted()) {
+                        synchronized (lockHandleMessage) {
+                        ClientMessage message = (ClientMessage) input.readObject();
+
+                        if (message.getMessageType() == MessageType.LOGIN) {
+                            LoginRequest loginMsg = (LoginRequest) message;
+                            lobby = (lobbyServer.getLobby(loginMsg.getGameId()));
+                            gameId=loginMsg.getGameId();
+                            lobby.addPlayer(loginMsg.getUsername(), this);
+                        } else if (lobby != null) {
+                            lobby.getMessage(message);
+                        }
                     }
                 }
             } catch (ClassNotFoundException | ClassCastException e) {
@@ -70,8 +77,10 @@ public class ClientHandler implements Runnable
     public void sendMessage(GeneralMessage message)
     {
        try{
-           output.writeObject((Object)message);
-           output.reset();
+           synchronized (lockSendMessage) {
+               output.writeObject((Object) message);
+               output.reset();
+           }
        }
        catch(IOException e){
            Thread.currentThread().interrupt();

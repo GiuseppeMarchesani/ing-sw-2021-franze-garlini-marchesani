@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class ShowStrongboxMsg extends GeneralMessage {
+public class ShowStrongboxMsg extends ServerMessage {
     private HashMap<ResourceType, Integer> strongbox;
     private String username;
     public ShowStrongboxMsg(HashMap<ResourceType, Integer> strongbox, String username) {

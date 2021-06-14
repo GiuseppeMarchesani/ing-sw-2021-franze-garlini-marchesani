@@ -2,7 +2,7 @@ package it.polimi.ingsw.messages;
 
 import java.util.HashMap;
 
-public class ShowFaithTrackMsg extends GeneralMessage {
+public class ShowFaithTrackMsg extends ServerMessage {
     private HashMap<String, Integer> playerFaith;
     private boolean zoneActivated;
     private int whichZone;

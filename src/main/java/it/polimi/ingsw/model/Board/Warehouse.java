@@ -42,6 +42,7 @@ public class Warehouse {
             else  resource.put(depotList.get(i).getResourceType(),depotList.get(i).getResourceQuantity());
 
         }
+        resource.remove(ResourceType.EMPTY);
        return resource;
     }
 

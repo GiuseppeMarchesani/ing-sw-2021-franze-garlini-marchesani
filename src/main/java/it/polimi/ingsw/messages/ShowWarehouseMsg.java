@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class ShowWarehouseMsg extends GeneralMessage {
+public class ShowWarehouseMsg extends ServerMessage {
     private HashMap<Integer, ResourceType> depotToResource;
     private HashMap<Integer, Integer> depotToQuantity;
     private String username;

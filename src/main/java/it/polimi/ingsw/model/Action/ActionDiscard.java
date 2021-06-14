@@ -34,4 +34,13 @@ public class ActionDiscard implements ActionToken {
     public ActionTokenType getTokenType() {
         return tokenType;
     }
+
+    @Override
+    public String toString() {
+        return "Discard Card Token";
+    }
+
+    public String getEffect(){
+      return "Discard 2 "+ color.toString() + " cards." ;
+    }
 }

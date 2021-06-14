@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.Card.DevCard;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowDevMarketMsg extends GeneralMessage {
+public class ShowDevMarketMsg extends ServerMessage {
     ArrayList<DevCard> availableCards;
     ArrayList<Integer> remainingCards;
     public ShowDevMarketMsg(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {

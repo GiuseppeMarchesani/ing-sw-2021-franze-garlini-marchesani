@@ -1,6 +1,6 @@
 package it.polimi.ingsw.messages;
 
-public class ShowRemainingLeaderMsg extends GeneralMessage {
+public class ShowRemainingLeaderMsg extends ServerMessage {
     private int remaining;
     private String username;
     public ShowRemainingLeaderMsg(String username, int remaining) {

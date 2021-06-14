@@ -7,4 +7,5 @@ public interface ActionToken {
     public abstract void doOperation(SinglePlayerGame game);
 
     public abstract ActionTokenType getTokenType();
+    public String getEffect();
 }

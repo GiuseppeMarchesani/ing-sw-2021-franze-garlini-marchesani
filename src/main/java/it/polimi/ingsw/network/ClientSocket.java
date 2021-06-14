@@ -28,8 +28,8 @@ public class ClientSocket extends Observable {
             input = new ObjectInputStream(client.getInputStream());
             this.queue = Executors.newSingleThreadExecutor();
 
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new IOException();
         }
     }
 
@@ -49,6 +49,7 @@ public class ClientSocket extends Observable {
                 try {
                     message = (ServerMessage) input.readObject();
                 } catch (Exception e) {
+                    e.printStackTrace();
                     message = new StringMessage("Connection lost.");
                     disconnect();
                 }
