@@ -15,7 +15,7 @@
             <Image url="@../images/playerBoard_bw.png" />
          </image>
       </ImageView>
-      <Button fx:id="btm_next" layoutX="451.0" layoutY="336.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="101.0" text="NEXT" onAction="#switchToInit"/>
+      <Button fx:id="btm_next" layoutX="451.0" layoutY="336.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="101.0" text="NEXT" />
       <Label alignment="CENTER" layoutX="110.0" layoutY="99.0" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #00039d; -fx-background-radius: 5;" text="IP address:" textAlignment="JUSTIFY" textFill="WHITE">
          <font>
             <Font size="18.0" />

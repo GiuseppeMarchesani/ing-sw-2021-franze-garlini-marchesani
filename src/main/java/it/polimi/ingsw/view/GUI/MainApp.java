@@ -26,7 +26,7 @@ public class MainApp extends Application {
         view.addObserver(clientMessenger);
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("fxml/init_scene.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));
         Parent rootLayout = null;
         try{
             rootLayout= loader.load();
