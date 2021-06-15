@@ -5,24 +5,12 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":1,
@@ -35,24 +23,12 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":2,
@@ -65,24 +41,12 @@
       "level":1
     },
     "cardCost":{
-      "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":2
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":3,
@@ -95,24 +59,12 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":4,
@@ -125,25 +77,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
       "STONE":1,
       "SERVANT":1,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "id":5,
     "victoryPoints":2
@@ -156,24 +98,14 @@
     },
     "cardCost":{
       "COIN":1,
-      "STONE":0,
       "SERVANT":1,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "id":6,
     "victoryPoints":2
@@ -187,23 +119,13 @@
     "cardCost":{
       "COIN":1,
       "STONE":1,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "id":7,
     "victoryPoints":2
@@ -217,23 +139,13 @@
     "cardCost":{
       "COIN":1,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "id":8,
     "victoryPoints":2
@@ -245,25 +157,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionIncome":{
       "COIN":1,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "id":9,
     "victoryPoints":3
@@ -275,25 +177,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":3,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":3
     },
     "productionCost":{
-      "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":2
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":1,
       "SERVANT":1,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "id":10,
     "victoryPoints":3
@@ -305,25 +197,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":3,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionIncome":{
       "COIN":1,
-      "STONE":0,
       "SERVANT":1,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "id":11,
     "victoryPoints":3
@@ -335,25 +217,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":3,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionIncome":{
       "COIN":1,
       "STONE":1,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "id":12,
     "victoryPoints":3
@@ -366,23 +238,14 @@
     },
     "cardCost":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionCost":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":13,
@@ -395,24 +258,15 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionCost":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":14,
@@ -426,23 +280,14 @@
     },
     "cardCost":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionCost":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":15,
@@ -455,23 +300,14 @@
       "level":1
     },
     "cardCost":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionCost":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":2,
       "FAITH":1
     },
@@ -485,24 +321,12 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":4,
-      "FAITH":0
+      "SHIELD":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":17,
@@ -515,24 +339,12 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":4,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":4
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":18,
@@ -545,24 +357,12 @@
       "level":2
     },
     "cardCost":{
-      "COIN":4,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":19,
@@ -575,24 +375,12 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":4,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":20,
@@ -605,25 +393,15 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":1,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":3,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":3
     },
     "id":21,
     "victoryPoints":6
@@ -636,24 +414,14 @@
     },
     "cardCost":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":3,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":3
     },
     "productionCost":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "id":22,
     "victoryPoints":6
@@ -666,24 +434,14 @@
     },
     "cardCost":{
       "COIN":3,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionCost":{
       "COIN":1,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":3,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":3
     },
     "id":23,
     "victoryPoints":6
@@ -695,25 +453,15 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
       "STONE":3,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionCost":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":3,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":3
     },
     "id":24,
     "victoryPoints":6
@@ -725,24 +473,13 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":5,
-      "FAITH":0
+      "SHIELD":5
     },
     "productionCost":{
-      "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":2
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":25,
@@ -755,24 +492,13 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":5,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":5
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionIncome":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":26,
@@ -785,23 +511,12 @@
       "level":2
     },
     "cardCost":{
-      "COIN":5,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":5
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":2,
       "FAITH":2
     },
@@ -815,24 +530,13 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":5,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":5
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":28,
@@ -846,22 +550,12 @@
     },
     "cardCost":{
       "COIN":3,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":2,
       "FAITH":1
     },
@@ -875,24 +569,14 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":3,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":30,
@@ -906,23 +590,13 @@
     },
     "cardCost":{
       "COIN":3,
-      "STONE":3,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":31,
@@ -935,24 +609,14 @@
       "level":2
     },
     "cardCost":{
-      "COIN":0,
       "STONE":3,
-      "SERVANT":3,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":3
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":32,
@@ -965,24 +629,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":6,
-      "FAITH":0
+      "SHIELD":6
     },
     "productionCost":{
-      "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":2
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":3,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":33,
@@ -995,24 +648,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":6,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":6
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionIncome":{
       "COIN":3,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":34,
@@ -1025,23 +667,12 @@
       "level":3
     },
     "cardCost":{
-      "COIN":6,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":6
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":3,
       "FAITH":2
     },
@@ -1055,24 +686,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":6,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":6
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":2,
-      "FAITH":0
+      "SHIELD":2
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":3,
-      "SHIELD":0,
       "FAITH":2
     },
     "id":36,
@@ -1085,23 +705,15 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":5,
-      "FAITH":0
+      "SHIELD":5
     },
     "productionCost":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":2,
-      "SERVANT":0,
       "SHIELD":2,
       "FAITH":1
     },
@@ -1116,23 +728,15 @@
     },
     "cardCost":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":5,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":5
     },
     "productionCost":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
       "COIN":2,
-      "STONE":0,
       "SERVANT":2,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":38,
@@ -1146,23 +750,15 @@
     },
     "cardCost":{
       "COIN":5,
-      "STONE":2,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":2
     },
     "productionCost":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":2,
       "SERVANT":2,
-      "SHIELD":0,
       "FAITH":1
     },
     "id":39,
@@ -1175,23 +771,15 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
       "STONE":5,
-      "SERVANT":2,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":2
     },
     "productionCost":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
       "COIN":2,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":2,
       "FAITH":1
     },
@@ -1205,24 +793,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":7,
-      "FAITH":0
+      "SHIELD":7
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":3
     },
     "id":41,
@@ -1235,24 +812,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":7,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":7
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
       "FAITH":3
     },
     "id":42,
@@ -1265,23 +831,12 @@
       "level":3
     },
     "cardCost":{
-      "COIN":7,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":7
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
       "SHIELD":1,
       "FAITH":3
     },
@@ -1295,24 +850,13 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":7,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":7
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":1,
-      "SHIELD":0,
       "FAITH":3
     },
     "id":44,
@@ -1326,24 +870,14 @@
     },
     "cardCost":{
       "COIN":4,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":4,
-      "FAITH":0
+      "SHIELD":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":1,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":1
     },
     "productionIncome":{
       "COIN":3,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "id":45,
     "victoryPoints":12
@@ -1355,25 +889,15 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
-      "STONE":0,
       "SERVANT":4,
-      "SHIELD":4,
-      "FAITH":0
+      "SHIELD":4
     },
     "productionCost":{
-      "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "COIN":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":3,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "id":46,
     "victoryPoints":12
@@ -1386,24 +910,14 @@
     },
     "cardCost":{
       "COIN":4,
-      "STONE":4,
-      "SERVANT":0,
-      "SHIELD":0,
-      "FAITH":0
+      "STONE":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":1,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":1
     },
     "productionIncome":{
       "COIN":1,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":3,
-      "FAITH":0
+      "SHIELD":3
     },
     "id":47,
     "victoryPoints":12
@@ -1415,25 +929,15 @@
       "level":3
     },
     "cardCost":{
-      "COIN":0,
       "STONE":4,
-      "SERVANT":4,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":4
     },
     "productionCost":{
-      "COIN":0,
-      "STONE":0,
-      "SERVANT":0,
-      "SHIELD":1,
-      "FAITH":0
+      "SHIELD":1
     },
     "productionIncome":{
-      "COIN":0,
       "STONE":1,
-      "SERVANT":3,
-      "SHIELD":0,
-      "FAITH":0
+      "SERVANT":3
     },
     "id":48,
     "victoryPoints":12

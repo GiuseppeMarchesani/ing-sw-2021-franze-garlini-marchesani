@@ -33,13 +33,22 @@ public class CardMarket {
 
     public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
-        if(devCardGrid.get(color.getVal()).get(level).size() > 0){
+        /*if(devCardGrid.get(color.getVal()).get(level).size() > 0){
             requestCard = devCardGrid.get(color.getVal()).get(level).get(devCardGrid.get(color.getVal()).get(level).size()-1);
             devCardGrid.get(color.getVal()).get(level).remove(requestCard);
         }
         else requestCard=null;
 
-        return requestCard;
+        return requestCard;*/
+        ArrayList<DevCard> availableCards = availableCards();
+        for(int i=0; i< availableCards.size(); i++) {
+            if(availableCards.get(i).getCardType().getLevel() == level && availableCards.get(i).getCardType().getColor().equals(color)) {
+                requestCard = availableCards.get(i);
+                devCardGrid.remove(requestCard);
+                return requestCard;
+            }
+        }
+        return null;
     }
 
     public void returnDevCard(DevCard card){

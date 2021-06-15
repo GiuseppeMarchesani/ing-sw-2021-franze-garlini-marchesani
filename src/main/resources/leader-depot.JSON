@@ -1,6 +1,6 @@
 [
-  {"resourceReq":{"COIN":5, "STONE": 0, "SERVANT": 0, "SHIELD": 0},"resourceAbility":"STONE","id":53,"victoryPoints":3},
-  {"resourceReq":{"COIN":0, "STONE": 5, "SERVANT": 0, "SHIELD": 0},"resourceAbility":"SERVANT","id":54,"victoryPoints":3},
-  {"resourceReq":{"COIN":0, "STONE": 0, "SERVANT": 5, "SHIELD": 0},"resourceAbility":"SHIELD","id":55,"victoryPoints":3},
-  {"resourceReq":{"COIN":0, "STONE": 0, "SERVANT": 0, "SHIELD": 5},"resourceAbility":"COIN","id":56,"victoryPoints":3}
+  {"resourceReq":{"COIN":5},"resourceAbility":"STONE","id":53,"victoryPoints":3},
+  {"resourceReq":{"STONE": 5},"resourceAbility":"SERVANT","id":54,"victoryPoints":3},
+  {"resourceReq":{"SERVANT": 5},"resourceAbility":"SHIELD","id":55,"victoryPoints":3},
+  {"resourceReq":{"SHIELD": 5},"resourceAbility":"COIN","id":56,"victoryPoints":3}
 ]

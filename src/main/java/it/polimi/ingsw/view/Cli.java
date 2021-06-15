@@ -638,7 +638,7 @@ public class Cli extends ObservableView implements View{
 
         for(ResourceType res: cardCost.keySet()) {
             out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.get(res) > 0) {
+            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
                 out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
@@ -679,6 +679,11 @@ public class Cli extends ObservableView implements View{
         boolean checkSlot = false;
 
         while(!checkSlot) {
+            out.println("\nAvailable slot: ");
+            for(int i: availableSlots) {
+                out.println("Slot #" + (i+1));
+            }
+            out.print("\nChoose the slot among those available: ");
             try {
                 chosenSlot = Integer.parseInt(readLine());
             } catch (ExecutionException e) {
