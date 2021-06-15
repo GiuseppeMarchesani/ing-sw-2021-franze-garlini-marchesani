@@ -1,6 +1,6 @@
 [
-  {"colorReq":{"GREEN":1,"YELLOW":1},"resourceAbility":"SERVANT","id":48,"victoryPoints":2},
-  {"colorReq":{"BLUE":1,"PURPLE":1},"resourceAbility":"SHIELD","id":49,"victoryPoints":2},
-  {"colorReq":{"GREEN":1,"BLUE":1},"resourceAbility":"STONE","id":50,"victoryPoints":2},
-  {"colorReq":{"YELLOW":1,"PURPLE":1},"resourceAbility":"COIN","id":51,"victoryPoints":2}
+  {"colorReq":{"GREEN":1,"YELLOW":1},"resourceAbility":"SERVANT","id":49,"victoryPoints":2},
+  {"colorReq":{"BLUE":1,"PURPLE":1},"resourceAbility":"SHIELD","id":50,"victoryPoints":2},
+  {"colorReq":{"GREEN":1,"BLUE":1},"resourceAbility":"STONE","id":51,"victoryPoints":2},
+  {"colorReq":{"YELLOW":1,"PURPLE":1},"resourceAbility":"COIN","id":52,"victoryPoints":2}
 ]

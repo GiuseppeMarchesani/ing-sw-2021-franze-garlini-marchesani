@@ -25,7 +25,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":0,
+    "id":1,
     "victoryPoints":1
   },
 
@@ -55,7 +55,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":1,
+    "id":2,
     "victoryPoints":1
   },
 
@@ -85,7 +85,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":2,
+    "id":3,
     "victoryPoints":1
   },
 
@@ -115,7 +115,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":3,
+    "id":4,
     "victoryPoints":1
   },
 
@@ -145,7 +145,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":4,
+    "id":5,
     "victoryPoints":2
   },
 
@@ -175,7 +175,7 @@
       "SHIELD":1,
       "FAITH":0
     },
-    "id":5,
+    "id":6,
     "victoryPoints":2
   },
 
@@ -205,7 +205,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":6,
+    "id":7,
     "victoryPoints":2
   },
 
@@ -235,7 +235,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":7,
+    "id":8,
     "victoryPoints":2
   },
 
@@ -265,7 +265,7 @@
       "SHIELD":1,
       "FAITH":0
     },
-    "id":8,
+    "id":9,
     "victoryPoints":3
   },
 
@@ -295,7 +295,7 @@
       "SHIELD":1,
       "FAITH":0
     },
-    "id":9,
+    "id":10,
     "victoryPoints":3
   },
 
@@ -325,7 +325,7 @@
       "SHIELD":1,
       "FAITH":0
     },
-    "id":10,
+    "id":11,
     "victoryPoints":3
   },
 
@@ -355,7 +355,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":11,
+    "id":12,
     "victoryPoints":3
   },
 
@@ -385,7 +385,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":12,
+    "id":13,
     "victoryPoints":4
   },
 
@@ -415,7 +415,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":13,
+    "id":14,
     "victoryPoints":4
   },
 
@@ -445,7 +445,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":14,
+    "id":15,
     "victoryPoints":4
   },
 
@@ -475,7 +475,7 @@
       "SHIELD":2,
       "FAITH":1
     },
-    "id":15,
+    "id":16,
     "victoryPoints":4
   },
 
@@ -505,7 +505,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":16,
+    "id":17,
     "victoryPoints":5
   },
 
@@ -535,7 +535,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":17,
+    "id":18,
     "victoryPoints":5
   },
 
@@ -565,7 +565,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":18,
+    "id":19,
     "victoryPoints":5
   },
 
@@ -595,7 +595,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":19,
+    "id":20,
     "victoryPoints":5
   },
 
@@ -625,7 +625,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":20,
+    "id":21,
     "victoryPoints":6
   },
 
@@ -655,7 +655,7 @@
       "SHIELD":3,
       "FAITH":0
     },
-    "id":21,
+    "id":22,
     "victoryPoints":6
   },
 
@@ -685,7 +685,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":22,
+    "id":23,
     "victoryPoints":6
   },
 
@@ -715,7 +715,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":23,
+    "id":24,
     "victoryPoints":6
   },
 
@@ -745,7 +745,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":24,
+    "id":25,
     "victoryPoints":7
   },
 
@@ -775,7 +775,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":25,
+    "id":26,
     "victoryPoints":7
   },
 
@@ -805,7 +805,7 @@
       "SHIELD":2,
       "FAITH":2
     },
-    "id":26,
+    "id":27,
     "victoryPoints":7
   },
 
@@ -835,7 +835,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":27,
+    "id":28,
     "victoryPoints":7
   },
 
@@ -865,7 +865,7 @@
       "SHIELD":2,
       "FAITH":1
     },
-    "id":28,
+    "id":29,
     "victoryPoints":8
   },
 
@@ -895,7 +895,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":29,
+    "id":30,
     "victoryPoints":8
   },
 
@@ -925,7 +925,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":30,
+    "id":31,
     "victoryPoints":8
   },
 
@@ -955,7 +955,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":31,
+    "id":32,
     "victoryPoints":8
   },
 
@@ -985,7 +985,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":32,
+    "id":33,
     "victoryPoints":9
   },
 
@@ -1015,7 +1015,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":33,
+    "id":34,
     "victoryPoints":9
   },
 
@@ -1045,7 +1045,7 @@
       "SHIELD":3,
       "FAITH":2
     },
-    "id":34,
+    "id":35,
     "victoryPoints":9
   },
 
@@ -1075,7 +1075,7 @@
       "SHIELD":0,
       "FAITH":2
     },
-    "id":35,
+    "id":36,
     "victoryPoints":9
   },
 
@@ -1105,7 +1105,7 @@
       "SHIELD":2,
       "FAITH":1
     },
-    "id":36,
+    "id":37,
     "victoryPoints":10
   },
 
@@ -1135,7 +1135,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":37,
+    "id":38,
     "victoryPoints":10
   },
 
@@ -1165,7 +1165,7 @@
       "SHIELD":0,
       "FAITH":1
     },
-    "id":38,
+    "id":39,
     "victoryPoints":10
   },
 
@@ -1195,7 +1195,7 @@
       "SHIELD":2,
       "FAITH":1
     },
-    "id":39,
+    "id":40,
     "victoryPoints":10
   },
 
@@ -1225,7 +1225,7 @@
       "SHIELD":0,
       "FAITH":3
     },
-    "id":40,
+    "id":41,
     "victoryPoints":11
   },
 
@@ -1255,7 +1255,7 @@
       "SHIELD":0,
       "FAITH":3
     },
-    "id":41,
+    "id":42,
     "victoryPoints":11
   },
 
@@ -1285,7 +1285,7 @@
       "SHIELD":1,
       "FAITH":3
     },
-    "id":42,
+    "id":43,
     "victoryPoints":11
   },
 
@@ -1315,7 +1315,7 @@
       "SHIELD":0,
       "FAITH":3
     },
-    "id":43,
+    "id":44,
     "victoryPoints":11
   },
 
@@ -1345,7 +1345,7 @@
       "SHIELD":1,
       "FAITH":0
     },
-    "id":44,
+    "id":45,
     "victoryPoints":12
   },
 
@@ -1375,7 +1375,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":45,
+    "id":46,
     "victoryPoints":12
   },
 
@@ -1405,7 +1405,7 @@
       "SHIELD":3,
       "FAITH":0
     },
-    "id":46,
+    "id":47,
     "victoryPoints":12
   },
 
@@ -1435,7 +1435,7 @@
       "SHIELD":0,
       "FAITH":0
     },
-    "id":47,
+    "id":48,
     "victoryPoints":12
   }
 ]
