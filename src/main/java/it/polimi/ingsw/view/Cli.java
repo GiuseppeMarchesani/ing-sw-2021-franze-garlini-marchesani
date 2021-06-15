@@ -25,8 +25,8 @@ public class Cli extends ObservableView implements View{
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public static final String ANSI_PURPLE = "\u001B[35m";
-    public static final String ANSI_WHITE = "\u001B[37m";
-    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_WHITE = "\u001b[37;1m";
+    public static final String ANSI_BLACK = "\u001B[30;1m";
 
 
     /**
@@ -194,7 +194,7 @@ public class Cli extends ObservableView implements View{
 
 
         while(!checkColor) {
-            out.println("\nPlease insert the color of the chosen Development Card: (GREEN/PURPLE/YELLOW/BLUE)");
+            out.print("\nPlease insert the color of the chosen Development Card (GREEN/PURPLE/YELLOW/BLUE): ");
             try {
                 strColor = readLine();
                 for(Color color: Color.values()) {
@@ -210,7 +210,7 @@ public class Cli extends ObservableView implements View{
         }
 
         while(!checkLevel) {
-            out.println("\nPlease insert the level of the chosen Development Card: (1/2/3)");
+            out.print("\nPlease insert the level of the chosen Development Card (1/2/3): ");
             try {
                 level = Integer.parseInt(readLine());
                 if(level > 0 && level <= 3) {
@@ -321,25 +321,26 @@ public class Cli extends ObservableView implements View{
 
         //Placing resources in Leader Depot
         for(ResourceType res: extraDepot){
-            out.print("\nHow many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2) ");
-            do {
-                invalidInput=false;
-                try {
-                    resNumToPut = Integer.parseInt(readLine());
-                    if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(2))throw new Exception();
-                } catch (Exception e) {
-                    invalidInput=true;
-                    out.println(STR_WRONG_INPUT);
-                }
+            if(resToPlace.keySet().contains(res)) {
+                do {
+                    out.print("\nHow many " + getAnsiColor(res) + res.toString() + ANSI_RESET + " do you want to place in Leader Depot? (0/1/2) ");
+                    invalidInput=false;
+                    try {
+                        resNumToPut = Integer.parseInt(readLine());
+                        if (resNumToPut > resToPlace.get(res) || resNumToPut < 0 || resNumToPut > 2) throw new Exception();
+                    } catch (Exception e) {
+                        invalidInput = true;
+                        out.println(STR_WRONG_INPUT);
+                    }
 
-            } while(invalidInput);
+                } while(invalidInput);
+            }
             leaderDepotQuantity.add(resNumToPut);
-            resToPlace.put(res, resToPlace.get(res) - resNumToPut);
+            resToPlace.replace(res, resToPlace.get(res) - resNumToPut);
         }
 
         int numDepot = 3;
         for(int i=0; i<3; i++) {
-
                 do {
                     out.print("\nWhat resource do you want to put in the " + (3-i) + " slotted depot? ");
                     invalidInput = false;
@@ -354,24 +355,28 @@ public class Cli extends ObservableView implements View{
                         floorResources.put(i, ResourceType.EMPTY);
                         break;
                     }
-                    ResourceType res=ResourceType.valueOf(strResource.toUpperCase(Locale.ROOT));
-                    if(resToPlace.containsKey(res)) {
-                            out.print("\nHow many? ");
-                            try {
-                                resNumToPut = Integer.parseInt(readLine());
-                                if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(3-i))throw new Exception();
-                            } catch (Exception e) {
-                                out.println(STR_WRONG_INPUT);
-                                invalidInput = true;
+
+                    for(ResourceType res: ResourceType.values()) {
+                        if (strResource.toUpperCase().equals(res.toString().toUpperCase()) && !strResource.toUpperCase().equals("ANY") && !strResource.toUpperCase().equals("FAITH") && !strResource.toUpperCase().equals("EMPTY")) {
+                            if(resToPlace.containsKey(res)) {
+                                out.print("\nHow many? ");
+                                try {
+                                    resNumToPut = Integer.parseInt(readLine());
+                                    if (resNumToPut>resToPlace.get(res)||resNumToPut<=0||resNumToPut>(3-i))throw new Exception();
+                                } catch (Exception e) {
+                                    out.println(STR_WRONG_INPUT);
+                                    invalidInput = true;
+                                    break;
+                                }
+                                discarded += (resToPlace.get(res) - resNumToPut);
+                                floorQuantity.put(i, resNumToPut);
+                                floorResources.put(i, res);
+                                resToPlace.remove(res);
                             }
-
-                            discarded += (resToPlace.get(res) - resNumToPut);
-                            floorQuantity.put(i, resNumToPut);
-                            floorResources.put(i, res);
-                            resToPlace.remove(res);
+                            else  invalidInput = true;
+                            break;
+                        }
                     }
-                    else  invalidInput = true;
-
                 } while(invalidInput);
             }
         for(ResourceType res: resToPlace.keySet()){
@@ -456,7 +461,7 @@ public class Cli extends ObservableView implements View{
             }
             if(!invalidInput) {
                 for(ResourceType res: ResourceType.values()) {
-                    if(strResource.toUpperCase().equals(res.toString().toUpperCase())) {
+                    if(strResource.toUpperCase().equals(res.toString().toUpperCase()) && !strResource.toUpperCase().equals("ANY") && !strResource.toUpperCase().equals("FAITH") && !strResource.toUpperCase().equals("EMPTY")) {
                         if(convertedAny.get(res) != null) {
                             convertedAny.replace(res, convertedAny.get(res)+1);
                         } else {
@@ -532,7 +537,7 @@ public class Cli extends ObservableView implements View{
         String[] stringIdList;
         int[] intIdList;
 
-        out.println("\nAvailable cards for production: ");
+        out.println("\nAvailable cards for production: \n");
         for(DevCard devCard: devCardList) {
             out.println(devCard.toString());
         }
@@ -611,7 +616,7 @@ public class Cli extends ObservableView implements View{
         int slotNumber = 0;
         for(int i=0; i<devCardSlot.getSlotDev().size(); i++) {
             slotNumber = i+1;
-            out.println("Slot #" + slotNumber);
+            out.println("\n" + ANSI_BLUE + "Slot #" + slotNumber + ANSI_RESET);
             for(int j=0; j<devCardSlot.getSlotDev().get(i).size(); j++) {
                 out.println(devCardSlot.getSlotDev().get(i).get(j).toString());
                 out.println("\n");
@@ -833,6 +838,7 @@ public class Cli extends ObservableView implements View{
         else if(resourceType.equals(ResourceType.SHIELD)) return ANSI_BLUE;
         else if(resourceType.equals(ResourceType.STONE)) return ANSI_BLACK;
         else if(resourceType.equals(ResourceType.FAITH)) return ANSI_RED;
+        else if(resourceType.equals(ResourceType.EMPTY)) return ANSI_WHITE;
         else return ANSI_RESET;
     }
 }

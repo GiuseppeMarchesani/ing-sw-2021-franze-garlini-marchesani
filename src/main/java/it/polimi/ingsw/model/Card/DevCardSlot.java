@@ -2,12 +2,13 @@ package it.polimi.ingsw.model.Card;
 
 import it.polimi.ingsw.model.enumeration.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This Class represents the Development Card slot.
  */
-public class DevCardSlot {
+public class DevCardSlot implements Serializable {
     private ArrayList<ArrayList<DevCard>> slotDev;
     private final int slotNum = 3;
     private ArrayList<DevCard> slotLeader;

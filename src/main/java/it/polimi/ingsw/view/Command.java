@@ -2,8 +2,8 @@ package it.polimi.ingsw.view;
 
 public enum Command {
         MARKET("MARKET"),
-        PRODUCTION("PRODUCTION"),
         DEVCARD("DEVCARD"),
+        PRODUCTION("PRODUCTION"),
         LEADER("LEADER"),
         SHOW_LEADER("SHOW_LEADER"),
         SHOW_MARKET("SHOW_MARKET"),

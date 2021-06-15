@@ -9,7 +9,7 @@ public class DevCard extends Card {
     private HashMap<ResourceType, Integer> cardCost;
     private HashMap<ResourceType, Integer> productionCost;
     private HashMap<ResourceType, Integer> productionIncome;
-    private final int STARTING_LEADER_ID = 48;
+    private final int STARTING_LEADER_ID = 49;
 
     public DevCard(int id, int victoryPoints, DevCardType cardType, HashMap<ResourceType, Integer> cardCost, HashMap<ResourceType, Integer> productionCost, HashMap<ResourceType, Integer> productionIncome){
         super(id,victoryPoints);
@@ -21,7 +21,7 @@ public class DevCard extends Card {
 
     //This constructor is used for base production (scroll)
     public DevCard(){
-        super(-1,0);
+        super(0,0);
         cardType=null;
         cardCost=null;
         productionCost= new HashMap<ResourceType, Integer>();
@@ -76,8 +76,9 @@ public class DevCard extends Card {
     @Override
     public String toString() {
         String devcardSTR;
-        if(getId()==-1) {
+        if(getId()==0) {
             devcardSTR = "Base production scroll: \n" +
+                    "id: " + getId() +"\n" +
                     "Cost: 2 ANY\n" +
                     "Income: 1 ANY\n";
             return devcardSTR;

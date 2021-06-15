@@ -518,7 +518,7 @@ public class GameController {
         HashMap<ResourceType, Integer> price= new HashMap<>();
         int anyProduce=0;
         for(DevCard card : cards){
-            HashMap<ResourceType, Integer> cost=card.getCardCost();
+            HashMap<ResourceType, Integer> cost=card.getProductionCost();
             for(ResourceType r: cost.keySet()){
                 if(price.containsKey(r)){
                     price.put(r, price.get(r)+cost.get(r));
