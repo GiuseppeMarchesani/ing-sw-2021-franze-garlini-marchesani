@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class GetProductionReply extends GeneralMessage {
+public class GetProductionReply extends ServerMessage {
 
 
     private HashMap<ResourceType, Integer> strongbox;

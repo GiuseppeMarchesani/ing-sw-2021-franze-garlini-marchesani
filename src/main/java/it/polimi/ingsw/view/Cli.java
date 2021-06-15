@@ -407,7 +407,7 @@ public class Cli extends ObservableView implements View{
 
         for(ResourceType res: price.keySet()) {
             out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.get(res) > 0) {
+            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
                 out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
@@ -497,7 +497,7 @@ public class Cli extends ObservableView implements View{
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         int counter = 0;
         for(int i: remainingCards) {
-            out.println("\n" + ANSI_BLUE +"Cards in the stack: (" + (i-1) + "/3)" + ANSI_RESET + "\n");
+            out.println("\n" + ANSI_BLUE +"Cards in the stack: (" + (i) + "/4)" + ANSI_RESET + "\n");
             if(i>0) {
                 out.println(availableCards.get(counter).toString());
                 out.println("");
@@ -658,7 +658,7 @@ public class Cli extends ObservableView implements View{
         HashMap<ResourceType, Integer> anyToPay = askAnyResource(numAny);
         for(ResourceType res: anyToPay.keySet()) {
             out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.get(res) > 0) {
+            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
                 out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                 try {
                     resNumToGet = 0;
