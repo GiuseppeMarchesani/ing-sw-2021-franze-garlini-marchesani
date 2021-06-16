@@ -96,24 +96,24 @@ public class DevCard extends Card {
                     "{";
             for (ResourceType res : getCardCost().keySet()) {
                 if (getCardCost().get(res) > 0) {
-                 devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getCardCost().get(res) + "\n");
+                 devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getCardCost().get(res));
                 }
             }
-            devcardSTR = devcardSTR.concat("}");
+            devcardSTR = devcardSTR.concat("\n}");
         }
         devcardSTR = devcardSTR.concat("\n production cost: \n{");
         for(ResourceType res: getProductionCost().keySet()) {
             if (getProductionCost().get(res) > 0) {
-                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionCost().get(res) + "\n");
+                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionCost().get(res));
             }
         }
-        devcardSTR = devcardSTR.concat("} \n production income: \n{");
+        devcardSTR = devcardSTR.concat("\n} \n production income: \n{");
         for(ResourceType res: getProductionIncome().keySet()) {
             if (getProductionIncome().get(res) > 0) {
-                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionIncome().get(res) + "\n");
+                devcardSTR = devcardSTR.concat("\n    " + res.toString() + ": " + getProductionIncome().get(res));
             }
         }
-        devcardSTR = devcardSTR.concat("}\n");
+        devcardSTR = devcardSTR.concat("\n}\n");
         return devcardSTR;
     }
 

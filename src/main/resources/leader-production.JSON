@@ -1,6 +1,6 @@
 [
-  {"devCardReq":{"YELLOW":2},"resourceAbility":"SHIELD","id":61,"victoryPoints":4},
-  {"devCardReq":{"BLUE":2},"resourceAbility":"SERVANT","id":62,"victoryPoints":4},
-  {"devCardReq":{"PURPLE":2},"resourceAbility":"STONE","id":63,"victoryPoints":4},
-  {"devCardReq":{"GREEN":2},"resourceAbility":"COIN","id":64,"victoryPoints":4}
+  {"cost":{"YELLOW":2},"resourceAbility":"SHIELD","id":61,"victoryPoints":4},
+  {"cost":{"BLUE":2},"resourceAbility":"SERVANT","id":62,"victoryPoints":4},
+  {"cost":{"PURPLE":2},"resourceAbility":"STONE","id":63,"victoryPoints":4},
+  {"cost":{"GREEN":2},"resourceAbility":"COIN","id":64,"victoryPoints":4}
 ]

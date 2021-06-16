@@ -775,11 +775,11 @@ public class Cli extends ObservableView implements View{
         int id = -1;
         boolean checkId = false;
         int i=0;
-        out.println("\nChoose two of these Leader Card to discard by typing their Id, one at a time.");
+        out.println("\nChoose two of these Leader Card to discard by typing their Id, one at a time.\n");
         while(i<2) {
 
             for(LeaderCard leader: leaderCards) {
-                out.println(leader.getId());
+                out.println(leader.toString() + "\n");
             }
             out.print("\nChoose card No. "+ (i+1) + ": ");
             try {

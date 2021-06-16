@@ -23,6 +23,14 @@ public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
 
     @Override
     public String toString(){
-        return getResourceAbility().name()+" Marble Conversion";
+        String leaderSTR = "Leader Card Marble: \n" +
+                "id: " + getId() + "\n" +
+                "card cost: " + "\n" +
+                "{";
+        for(Color color: getCost().keySet()) {
+            leaderSTR = leaderSTR.concat("\n    " + color.toString() + ": " + getCost().get(color));
+        }
+        leaderSTR = leaderSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
+        return leaderSTR;
     }
 }
