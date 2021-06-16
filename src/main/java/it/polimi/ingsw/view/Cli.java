@@ -604,7 +604,7 @@ public class Cli extends ObservableView implements View{
         for(String username: playerFaith.keySet()) {
             out.println(username + ": " + playerFaith.get(username));
         }
-        if(wasZoneActivated) out.println("FaithZone " + whichZone + "has been activated.");
+        if(wasZoneActivated) out.println("FaithZone " + whichZone + " has been activated.");
     }
 
     @Override
