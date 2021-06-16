@@ -105,7 +105,7 @@ public class GameController {
             choseLeader((StartingLeadersRequestMsg) msg,player);
 
                 if(turnController.proxPlayer().equals( turnController.firstPlayer())){
-                    if(maxPlayers>2) {
+                    if(maxPlayers>=2) {
                         setGameState(GameState.GIVERES);
                     }
                     else{
@@ -199,7 +199,10 @@ public class GameController {
     private void choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
         try {
-            if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
+            if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
+                allVirtualView.get(activePlayer).askInitialRes(1);
+            }
+            else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
                 allVirtualView.get(activePlayer).askInitialRes(2);
@@ -246,7 +249,7 @@ public class GameController {
             if(turnController.proxPlayer().equals(turnController.firstPlayer())&&turnController.getActivePlayers().size()!=0){
                 switch(gameState){
                     case DRAWLEADER:
-                        if(maxPlayers>2){
+                        if(maxPlayers>=2){
                             setGameState(GameState.GIVERES);}
                         break;
                     case GIVERES:
