@@ -397,37 +397,47 @@ public class Cli extends ObservableView implements View{
         HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();
         HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
 
+
         //Putting ANY resources converted in price
-        for(ResourceType res: anyToPay.keySet()) {
-            if(price.get(res) != null) {
-                price.replace(res, price.get(res) + anyToPay.get(res));
-            } else {
-                price.put(res, anyToPay.get(res));
+        if(anyToPay != null) {
+            for (ResourceType res : anyToPay.keySet()) {
+                if (price.get(res) != null) {
+                    price.replace(res, price.get(res) + anyToPay.get(res));
+                } else {
+                    price.put(res, anyToPay.get(res));
+                }
             }
         }
+        if(!strongbox.isEmpty()) {
+            for (ResourceType res : price.keySet()) {
+                out.println("\nYou must pay " + price.get(res) + " " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+                if (newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
+                    do {
+                        out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                        try {
+                            resNumToGet = 0;
+                            resNumToGet = Integer.parseInt(readLine());
+                        } catch (ExecutionException e) {
+                            out.println(STR_WRONG_INPUT);
+                            invalidInput = true;
+                        }
+                        if (!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
+                            resNumToGet = newStrongbox.get(res);
+                        }
+                        newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                    } while (invalidInput);
+                }
+                paymentWarehouse.put(res, (price.get(res) - resNumToGet));
 
-        for(ResourceType res: price.keySet()) {
-            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
-                do{
-                    out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
-                    try {
-                        resNumToGet = 0;
-                        resNumToGet = Integer.parseInt(readLine());
-                    } catch (ExecutionException e) {
-                        out.println(STR_WRONG_INPUT);
-                        invalidInput = true;
-                    }
-                    if(!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
-                        resNumToGet = newStrongbox.get(res);
-                    }
-                    newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
-                } while (invalidInput);
             }
-            paymentWarehouse.put(res, (price.get(res) - resNumToGet));
-
+            out.println("\nAll the other resources will be taken in the warehouse.");
         }
-        out.println("\nAll the other resources will be taken in the warehouse.");
+        else{
+            for(ResourceType res: price.keySet()){
+                paymentWarehouse.put(res, price.get(res));
+            }
+            out.println("\nAll the resources will be taken in the warehouse");
+        }
 
         out.println("\nConverting ANY resource in production income...");
         HashMap<ResourceType, Integer> anyToIncome = askAnyResource(anyProduce);
