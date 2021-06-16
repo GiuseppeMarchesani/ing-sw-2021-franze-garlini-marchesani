@@ -37,7 +37,7 @@ public class BootClient {
                     cli.init();
                 }
                 else{
-                    Application.launch(MainApp.class);
+                    MainApp.main(args);
                 }
             }
         }while(!(mode.equals("CLI"))&&!(mode.equals("GUI")));

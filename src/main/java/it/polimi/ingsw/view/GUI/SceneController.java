@@ -24,19 +24,20 @@ public class SceneController extends ObservableView {
 
     public static <T> T changeRootPane(List<ObserverView> observerViewList, Scene scene, String fxml){
         T controller = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
-            Parent root= loader.load();
-            controller = loader.getController();
-            ((ObservableView) controller).addAllObservers(observerViewList);
 
+        try{
+            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(fxml));
+            Parent root = loader.load();
+            controller = loader.getController();
+
+            ((ObservableView) controller).addAllObservers(observerViewList);
             generalController = (GenericSceneController) controller;
             activeScene = scene;
             activeScene.setRoot(root);
-
-        } catch (IOException e){
-
+        }catch (IOException e){
+            e.printStackTrace();
         }
+
         return controller;
     }
 
@@ -51,13 +52,15 @@ public class SceneController extends ObservableView {
 
     public static void changeRootPane(GenericSceneController controller, Scene scene, String fxml){
         try{
-            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
-            loader.setController(controller);
-            generalController = controller;
+            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(fxml));
             Parent root = loader.load();
-
             activeScene = scene;
             activeScene.setRoot(root);
+            loader.setController(controller);
+            generalController = controller;
+
+
+
         } catch (IOException e){
 
         }
@@ -70,6 +73,5 @@ public class SceneController extends ObservableView {
     public static void changeRootPane(GenericSceneController controller, String fxml) {
         changeRootPane(controller, activeScene, fxml);
     }
-
 
 }

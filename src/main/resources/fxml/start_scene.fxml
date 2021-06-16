@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.StartSceneController">
+<AnchorPane prefHeight="400.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.StartSceneController">
     <children>
+      <ImageView fitHeight="402.0" fitWidth="732.0" layoutX="-1.0" opacity="0.54">
+         <image>
+            <Image url="@../images/background2.png" />
+         </image>
+      </ImageView>
         <Group scaleX="1.5" scaleY="1.5">
             <children>
-                <AnchorPane fx:id="rootPane" layoutX="115.0" layoutY="-105.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="511.0" prefWidth="797.0">
+                <AnchorPane fx:id="rootPane" layoutX="125.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="486.0">
                     <children>
-                        <Button fx:id="quitBtn" layoutX="158.0" layoutY="284.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" styleClass="quitBtn" text="Start" />
-                  <Text layoutX="221.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MASTERS OF RENAISSANCE" wrappingWidth="224.40625">
+                        <Button fx:id="btmNext" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" style="-fx-background-color: #ccac9f; -fx-background-radius: 10; -fx-border-color: #486512; -fx-border-radius: 10;" styleClass="btmNext" text="START" >
                      <font>
-                        <Font size="18.0" />
+                        <Font size="20.0" />
                      </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Text fill="#486512" layoutX="56.0" layoutY="59.0" nodeOrientation="LEFT_TO_RIGHT" smooth="false" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="MASTERS OF RENAISSANCE" textAlignment="CENTER" wrappingWidth="361.222229003906">
+                     <font>
+                        <Font name="Bodoni MT" size="36.0" />
+                     </font>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                        </Lighting>
+                     </effect>
                   </Text>
                     </children>
                 </AnchorPane>

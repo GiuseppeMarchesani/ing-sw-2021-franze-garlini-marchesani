@@ -16,15 +16,15 @@ public class InitSceneController extends ObservableView implements GenericSceneC
     @FXML
     private TextField serverPort;
     @FXML
-    private Button next;
+    private Button btmNext;
 
     @FXML
     public void initialize(){
-        next.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
+        btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
     }
 
     private void onConnectBtm(Event event){
-        next.setDisable(true);
+        btmNext.setDisable(true);
 
         String address = serverAddress.getText();
         Integer port = Integer.parseInt(serverPort.getText());

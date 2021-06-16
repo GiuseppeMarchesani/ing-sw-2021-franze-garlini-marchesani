@@ -12,7 +12,7 @@ public class ActionDiscard implements ActionToken {
 
     /**
      * ActionDiscard class constructor.
-     * @param color The color of the Development Card that must be discarded.
+     * @param color color of the Development Card that must be discarded.
      */
     public ActionDiscard(Color color, ActionTokenType actionTokenType) {
         this.color = color;
@@ -20,7 +20,8 @@ public class ActionDiscard implements ActionToken {
     }
 
     /**
-     * Discards a Development Card from the Card Market and calls the endgame if there are no more available cards in a deck in the Card Market.
+     * Discards a Development Card from the Card Market and calls the endgame
+     * if there are no more available cards in a deck in the Card Market.
      * @param game The ongoing Game.
      */
     public void doOperation(SinglePlayerGame game) {

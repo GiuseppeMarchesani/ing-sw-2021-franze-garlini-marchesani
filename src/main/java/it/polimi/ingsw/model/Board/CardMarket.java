@@ -9,6 +9,10 @@ import java.util.Collections;
 public class CardMarket {
     private ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
 
+    /**
+     * Default constructor
+     * @param devCardDeck contains all the development cards
+     */
     public CardMarket(ArrayList<DevCard> devCardDeck) {
         //Creating instances
         devCardGrid = new ArrayList<ArrayList<ArrayList<DevCard>>>();
@@ -31,15 +35,14 @@ public class CardMarket {
 
     }
 
+    /**
+     *
+     * @param color
+     * @param level
+     * @return
+     */
     public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
-        /*if(devCardGrid.get(color.getVal()).get(level).size() > 0){
-            requestCard = devCardGrid.get(color.getVal()).get(level).get(devCardGrid.get(color.getVal()).get(level).size()-1);
-            devCardGrid.get(color.getVal()).get(level).remove(requestCard);
-        }
-        else requestCard=null;
-
-        return requestCard;*/
         ArrayList<DevCard> availableCards = availableCards();
         for(int i=0; i< availableCards.size(); i++) {
             if(availableCards.get(i).getCardType().getLevel() == level && availableCards.get(i).getCardType().getColor().equals(color)) {
