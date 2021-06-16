@@ -23,7 +23,7 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
     public String toString() {
         String leaderDepotSTR = "Leader Card Depot: \n" +
                     "id: " + getId() + "\n" +
-                    "card cost: " + "\n" +
+                    "requirement: " + "\n" +
                     "{";
 
         for (ResourceType res : getCost().keySet()) {
@@ -31,7 +31,7 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
                 leaderDepotSTR = leaderDepotSTR.concat("\n    " + res.toString() + ": " + getCost().get(res));
             }
         }
-        leaderDepotSTR = leaderDepotSTR.concat("\n}\ndepot ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
+        leaderDepotSTR = leaderDepotSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
         return leaderDepotSTR;
     }
 

@@ -32,7 +32,7 @@ public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
     public String toString(){
         String leaderSTR = "Leader Card Marble: \n" +
                 "id: " + getId() + "\n" +
-                "card cost: " + "\n" +
+                "requirement: " + "\n" +
                 "{";
         for(Color color: getCost().keySet()) {
             leaderSTR = leaderSTR.concat("\n    " + color.toString() + ": " + getCost().get(color));

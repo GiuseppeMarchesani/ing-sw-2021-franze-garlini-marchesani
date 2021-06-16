@@ -164,6 +164,7 @@ public class GameController {
                 choseInitialRes();
                 break;
             case IN_GAME:
+            case END_GAME:
                 allVirtualView.get(turnController.getActivePlayer()).askAction();
                 break;
 
@@ -503,8 +504,9 @@ public class GameController {
             vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
         if(player.getDevCardSlot().getCardQuantity()==7){
-            setGameState(GameState.END_GAME);
+
             broadcastMessage("We're in the endgame now.");
+            setGameState(GameState.END_GAME);
         }
 
     }
@@ -516,8 +518,9 @@ public class GameController {
         }
 
         if (trigger&& gameSession.lastActivatedFaithZone()==2){
+            broadcastMessage("We're in the endgame now.");
                 setGameState(GameState.END_GAME);
-                broadcastMessage("We're in the endgame now.");
+
             }
 
     }
@@ -581,7 +584,7 @@ public class GameController {
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
             increaseFaith(1, true);
-            player.discardLeader(card);
+            player.discardLeader(card.getId());
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
         }
         else{
@@ -591,14 +594,14 @@ public class GameController {
                         allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");
                         return;
                     }
-                    player.playLeader(card);
+                    player.playLeader(card.getId());
                     for(VirtualView vv: allVirtualView.values()) {
                         vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
                     }
                     break;
                 case LEVEL_TWO:
                     if(checkLevelTwoColor(((LeaderProduction) card).getColorCost(), player)){
-                        player.playLeader(card);
+                        player.playLeader(card.getId());
                         for(VirtualView vv: allVirtualView.values()) {
                             vv.showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
                         }
@@ -611,13 +614,13 @@ public class GameController {
                     break;
                 case DEV_CARD_SINGLE:
                     if(checkCardColorRequirements(player, ((LeaderDiscount) card).getCost())){
-                        player.playLeader(card);
+                        player.playLeader(card.getId());
                     }
                     else return;
                     break;
                 case DEV_CARD_DOUBLE:
                     if(checkCardColorRequirements(player, ((LeaderMarble) card).getCost())){
-                        player.playLeader(card);
+                        player.playLeader(card.getId());
                     }
                     else return;
                     break;

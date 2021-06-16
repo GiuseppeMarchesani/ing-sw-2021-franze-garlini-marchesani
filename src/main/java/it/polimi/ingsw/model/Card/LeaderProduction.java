@@ -40,7 +40,7 @@ public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
     public String toString() {
         String leaderProdSTR = "Leader Card Depot: \n" +
                 "id: " + getId() + "\n" +
-                "card cost: " + "\n" +
+                "requirement: " + "\n" +
                 "{";
 
         for (Color color : getCost().keySet()) {
@@ -48,7 +48,7 @@ public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
                 leaderProdSTR = leaderProdSTR.concat("\n    " + color.toString() + ": " + getCost().get(color) + "\n");
             }
         }
-        leaderProdSTR = leaderProdSTR.concat("\n}\ndepot ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP());
+        leaderProdSTR = leaderProdSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP());
         return leaderProdSTR;
     }
 }

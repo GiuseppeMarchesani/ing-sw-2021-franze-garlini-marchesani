@@ -11,9 +11,6 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * This class represent the player in the game
- */
 public class Player {
     private String username;
     private int victoryPoint;
@@ -25,9 +22,7 @@ public class Player {
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 
-    /**
-     * Default constructor
-     */
+
     public Player() {
         this.leaderCards = new HashMap<>();
         this.strongbox = new HashMap<>();
@@ -38,11 +33,6 @@ public class Player {
         this.resourceDiscount = new HashMap<>();
         this.victoryPoint = 0;
     }
-
-    /**
-     * Player constructor used in game controller to add a new player
-     * @param username username chosen by the player
-     */
     public Player(String username){
         this.leaderCards = new HashMap<>();
         this.strongbox = new HashMap<>();
@@ -77,18 +67,9 @@ public class Player {
         return leaderCards;
     }
 
-    /**
-     * Discards the card chosen by the player among his leader cards
-     * @param card the chosen card
-     */
     public void discardLeader(LeaderCard card){
         leaderCards.remove(card);
     }
-
-    /**
-     * Plays the card by activating its ability
-     * @param card the card chosen by the player
-     */
     public void playLeader(LeaderCard card){
         if(leaderCards.containsKey(card)){
             leaderCards.put(card, true);
@@ -128,12 +109,7 @@ public class Player {
         return marbleConversion;
     }
 
-    /**
-     * Adds the resources earned in the strongbox.
-     * @param resources resources earned
-     * @return returns the faith and the any resources if there are.
-     */
-    public HashMap<ResourceType, Integer> storeResources(HashMap<ResourceType, Integer> resources) {
+    public HashMap<ResourceType, Integer> storeResources(HashMap<ResourceType, Integer> resources) throws InvalidParameterException {
         HashMap<ResourceType,Integer> rest = new HashMap<>();
         for (ResourceType resourceType : resources.keySet()) {
             if(resourceType.getVal()>=0 && resourceType.getVal()<4){
@@ -151,15 +127,7 @@ public class Player {
         }
         return rest;
     }
-    /**
-     * Place resources in the plan indicated by the player up to the maximum size of that depot.
-     * @param res resource type
-     * @param resQuantity quantity of resources
-     * @param floor floor where the player wants put the resource
-     * @return returns the number of the resources rest
-     * @throws InvalidParameterException throws this exception if the resource type isn't equals
-     * coin, servant, shield or stone.
-     */
+
     public int placeResources(ResourceType res, int resQuantity, int floor)
             throws InvalidParameterException{
         int leftRes=0;
@@ -182,11 +150,10 @@ public class Player {
         return  leftRes;
     }
 
+
     /**
-     * Places the development card bought by the player.
-     * @param devCard card bought from market
-     * @param slot slot chosen by the player
-     * @throws InvalidParameterException throws the exception if the slot isn't free
+     *
+     * @param devCard
      */
     public void placeDevCard(DevCard devCard, int slot) throws InvalidParameterException {
         int level= devCard.getCardType().getLevel();
@@ -199,8 +166,8 @@ public class Player {
     }
 
     /**
-     * Increases the victory points of the player
-     * @param vp victory points to add
+     *
+     * @param vp
      */
     public int increaseVP(int vp){
         victoryPoint += vp;
@@ -208,8 +175,8 @@ public class Player {
     }
 
     /**
-     * Moves the player to the faith track
-     * @param steps steps to advance
+     *
+     * @param steps
      */
     public int increaseFaith(int steps){
         faithSpace+=steps;
@@ -220,8 +187,8 @@ public class Player {
     }
 
     /**
-     * Takes all the resources from strongbox and warehouse.
-     * @return returns all the resources that the player owns
+     *
+     * @return
      */
     public HashMap<ResourceType, Integer> getAllResources() {
         HashMap<ResourceType, Integer> allResources = new HashMap<>(getStrongbox());
@@ -238,24 +205,15 @@ public class Player {
         return allResources;
     }
 
-    /**
-     * Takes the victory points given by the resources
-     * @return returns the victory points
-     */
-    public int getResourceVP() {
-        int totalResources = 0;
+    public int getResourceVP(){
+        int totalResources=0;
         HashMap<ResourceType, Integer> allResources = getAllResources();
-        for (ResourceType res : allResources.keySet()) {
-            totalResources += allResources.get(res);
+        for(ResourceType res : allResources.keySet()){
+            totalResources+=allResources.get(res);
         }
-        return totalResources / 5;
+        return totalResources/5;
     }
 
-    /**
-     * Checks if the player has enough resources to pay .
-     * @param price price requested
-     * @return returns true if the player can otherwise returns false
-     */
     public boolean checkPriceCanBePaid(HashMap<ResourceType, Integer> price) {
         HashMap<ResourceType, Integer> available = getAllResources();
 
@@ -277,13 +235,6 @@ public class Player {
         }
         return grandTotalAvailable >= grandTotalCost;
     }
-
-    /**
-     * Check if the player has enough cards of the required color to active the leader card
-     * @param color color of the card
-     * @param requiredCard id of the card
-     * @return returns true if the player can active the card otherwise returns false
-     */
     public boolean checkHasEnoughCardOfColor(Color color, int requiredCard){
         return devCardSlot.numCardsPerColor(color)>requiredCard;
     }

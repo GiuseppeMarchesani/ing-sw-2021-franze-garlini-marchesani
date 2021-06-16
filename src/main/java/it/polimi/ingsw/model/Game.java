@@ -325,7 +325,7 @@ public class Game {
        if( faithTrack.indexOfNextFaithZone()<0){
            return 2;
        }
-       else return faithTrack.indexOfNextFaithZone();
+       else return faithTrack.indexOfNextFaithZone()-1;
     }
     public HashMap<String, Integer> getFaithMap(){
         HashMap<String, Integer> faith=new HashMap<>();

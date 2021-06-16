@@ -31,7 +31,7 @@ public class LeaderDiscount extends LeaderCard<HashMap<Color, Integer>>  {
     public String toString() {
         String leaderDiscountSTR = "Leader Card Depot: \n" +
                 "id: " + getId() + "\n" +
-                "card cost: " + "\n" +
+                "requirement: " + "\n" +
                 "{";
 
         for (Color color : getCost().keySet()) {
@@ -39,7 +39,7 @@ public class LeaderDiscount extends LeaderCard<HashMap<Color, Integer>>  {
                 leaderDiscountSTR = leaderDiscountSTR.concat("\n    " + color.toString() + ": " + getCost().get(color));
             }
         }
-        leaderDiscountSTR = leaderDiscountSTR.concat("\n}\ndepot ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
+        leaderDiscountSTR = leaderDiscountSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
         return leaderDiscountSTR;
     }
 }
