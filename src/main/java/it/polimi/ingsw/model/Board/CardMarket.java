@@ -33,10 +33,11 @@ public class CardMarket {
     }
 
     /**
-     *
-     * @param color
-     * @param level
-     * @return
+     * Takes the available card of the required color and level and removed this card
+     * from the card market
+     * @param color color the player requested
+     * @param level level the player requested
+     * @return returns the required card if it's available otherwise returns null
      */
     public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
@@ -57,10 +58,18 @@ public class CardMarket {
         return null;
     }
 
+    /**
+     * Adds the card to the market
+     * @param card card that needs to be added
+     */
     public void returnDevCard(DevCard card){
         devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel()-1).add(card);
     }
 
+    /**
+     * Takes all available cards from the card market
+     * @return returns the cards available
+     */
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
         for (int i=0; i<4; i++) {
@@ -79,6 +88,10 @@ public class CardMarket {
         return available;
     }
 
+    /**
+     * Takes the cards that have remained in the market
+     * @return
+     */
     public ArrayList<Integer> remainingCards(){
         ArrayList<Integer> remaining = new ArrayList<>();
         for (int i=0; i<4; i++) {
@@ -99,6 +112,10 @@ public class CardMarket {
         return devCardGrid;
     }
 
+    /**
+     * Discards cards when an action token is drawn and it requires discarding
+     * @param color color required by the action token
+     */
     public void discardDevCard(Color color) {
         int j;
         int removed=0;
@@ -114,6 +131,12 @@ public class CardMarket {
         }
         return;
     }
+
+    /**
+     * Counts the cards that are left of a specific color
+     * @param color color required
+     * @return returns the number of the cards
+     */
     public int remainingCardsOfColor(Color color){
         int size=0;
         for (int j=0; j<3; j++) {
@@ -121,6 +144,11 @@ public class CardMarket {
         }
         return size;
     }
+
+    /**
+     * Checks for all colors if there are still cards available
+     * @return returns true if there are otherwise returns false
+     */
     public boolean noCardsOfAColor(){
         for(Color color: Color.values()){
            if( remainingCardsOfColor(color)==0){

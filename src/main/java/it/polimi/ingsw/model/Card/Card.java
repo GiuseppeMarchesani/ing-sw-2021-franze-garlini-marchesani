@@ -6,6 +6,11 @@ public class Card implements Serializable {
     private int id;
     private int victoryPoints;
 
+    /**
+     * Default constructor
+     * @param id is associated with the card
+     * @param victoryPoints victory points that received from this card
+     */
     public Card(int id, int victoryPoints){
         this.id = id;
         this.victoryPoints = victoryPoints;

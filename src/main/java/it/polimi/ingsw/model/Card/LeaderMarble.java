@@ -9,6 +9,13 @@ import java.util.HashMap;
 
 public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
 
+    /**
+     * Default constructor
+     * @param id id associated with the card
+     * @param victoryPoints victory the points that received from this card
+     * @param cost cost to buy the card
+     * @param resourceAbility ability related to the card
+     */
     public LeaderMarble(int id, int victoryPoints, HashMap<Color, Integer> cost, ResourceType resourceAbility) {
         super(id, victoryPoints, resourceAbility, LeaderCost.DEV_CARD_DOUBLE, cost);
     }

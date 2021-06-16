@@ -7,12 +7,15 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The class that contains the resources pick from market by the player
+ */
 public class Warehouse {
     private int initialDepot = 3;
     private ArrayList<Depot> depotList;
 
     /**
-     * Class constructor.
+     * Default constructor
      */
     public Warehouse(){
         this.depotList = new ArrayList<>(initialDepot);
@@ -30,6 +33,10 @@ public class Warehouse {
         return depotList;
     }
 
+    /**
+     * Gets all the resources in the warehouse
+     * @return returns the resources
+     */
     public HashMap<ResourceType, Integer> getAllResources(){
         HashMap<ResourceType,Integer> resource=new HashMap<ResourceType, Integer>();
         for(int i=0; i<3;i++){
@@ -46,7 +53,10 @@ public class Warehouse {
        return resource;
     }
 
-
+    /**
+     * Takes the resources needed to pay and removed them from the warehouse.
+     * @param resources resources to removed
+     */
     public  void spendResources(HashMap<ResourceType, Integer> resources){
         for(int i=0; i<depotList.size(); i++){
             if(resources.containsKey(depotList.get(i).getResourceType())){
@@ -65,6 +75,7 @@ public class Warehouse {
             }
         }
     }
+
     /**
      * This method adds a special depot.
      * @param resourceType type of resources in leader card' ability
@@ -74,6 +85,13 @@ public class Warehouse {
         depotLeader.setResourceType(resourceType);
         depotList.add(depotLeader);
     }
+
+    /**
+     * Replaces the resources after the player has taken the resources from the market.
+     * @param depotToResource resources to put in the depot
+     * @param depotToQuantity quantity of resources to put in the depot
+     * @param resourceToLeader quantity of resources to put in the leader depot
+     */
     public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
         for(int i=0; i<3; i++){
             depotList.get(i).replaceDepot(depotToResource.get(i), depotToQuantity.get(i));
@@ -105,6 +123,8 @@ public class Warehouse {
         return leaderDepot;
     }
 
+
+    /*
     public HashMap<ResourceType, Integer> rearrange(int depot1, int depot2) throws InvalidParameterException{
         HashMap<ResourceType, Integer> discardingResources = new HashMap<>();
 
@@ -138,14 +158,10 @@ public class Warehouse {
         return discardingResources;
     }
 
-    /**
-     *
-     * @param resource
-     * @param resourceQuantity
-     * @param floor
-     * @return
      */
 
+
+    /*
     public int place(ResourceType resource, int resourceQuantity, int floor){
         int leftResources = resourceQuantity - getSpace().get(floor);
         depotList.get(floor).setResourceType(resource);
@@ -158,10 +174,9 @@ public class Warehouse {
             return 0;
         }
 
-
     }
 
-
+     */
 
     /**
      * this method is used to know if there is resource in warehouse
@@ -191,10 +206,6 @@ public class Warehouse {
         return true;
     }
 
-    /**
-     *
-     * @return
-     */
     public ArrayList<Integer> getSpace(){
         ArrayList<Integer> space= new ArrayList<>();
         for(int i=0; i<depotList.size(); i++){
@@ -203,6 +214,12 @@ public class Warehouse {
         return space;
     }
 
+
+    /**
+     * Takes the available depot to put the resource requested.
+     * @param res resource requested
+     * @return returns the available depot
+     */
     public ArrayList<Integer> availableDepot(ResourceType res){
         ArrayList<Integer> freeDepot = new ArrayList<>();
         for(int i=0; i< getDepotList().size(); i++){

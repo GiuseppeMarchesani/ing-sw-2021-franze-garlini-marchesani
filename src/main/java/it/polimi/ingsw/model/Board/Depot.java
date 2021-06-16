@@ -2,6 +2,11 @@ package it.polimi.ingsw.model.Board;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+
+/**
+ *  The class represent depot of the warehouse and also the special ones
+ *  (those of the leaders card)
+ */
 public class Depot {
     private ResourceType resourceType;
     private int resourceQuantity;
@@ -29,6 +34,11 @@ public class Depot {
 
     public int getSize() { return size; }
 
+    /**
+     * Places the resources in the depot
+     * @param resource type of resource
+     * @param quantity quantity of the resource
+     */
     public void replaceDepot(ResourceType resource, int quantity){
         setResourceType(resource);
         setResourceQuantity(quantity);

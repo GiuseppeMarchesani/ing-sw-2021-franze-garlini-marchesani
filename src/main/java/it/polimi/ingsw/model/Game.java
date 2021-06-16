@@ -135,8 +135,6 @@ public class Game {
      * Finds the winner between those players who have the same and the highest score.
      * @return The ID of the winner.
      */
-
-
     private ArrayList<DevCard> generateDevCardDeck() {
 
         //DevCard generation
@@ -155,6 +153,10 @@ public class Game {
 
     }
 
+    /**
+     * Takes the faith track from the json file and generates it.
+     * @return returns the faith track
+     */
     private ArrayList<FaithZone> generateFaithTrack() {
         //Faith Zone generation
         String faithZonesJson = "";
@@ -171,6 +173,10 @@ public class Game {
         return faithZones;
     }
 
+    /**
+     * Takes the victory point spaces from the json file and generates it.
+     * @return returns the victory point spaces
+     */
     private LinkedHashMap<Integer, Integer> generateVPspaces() {
         //VPspaces generation
         String VPspacesJson = "";
@@ -187,6 +193,10 @@ public class Game {
 
     }
 
+    /**
+     * Takes the marbles from the json file and generates it.
+     * @return returns all the marbles
+     */
     private ArrayList<ResourceType>  generateMarbles() {
         //Marble generation
         String marbleJson ="";
@@ -202,6 +212,10 @@ public class Game {
         return totalMarbles;
     }
 
+    /**
+     * Takes the leader cards from the json file and generates it.
+     * @return returns the deck of leader cards
+     */
     private ArrayList<LeaderCard> generateLeaderCards() {
         //LeaderCard generation
         String leaderJson="";

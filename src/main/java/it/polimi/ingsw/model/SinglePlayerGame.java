@@ -28,7 +28,13 @@ public class SinglePlayerGame extends Game {
         tokenBag = new TokenBag(generateTokenBag());
     }
 
-
+    /**
+     * Updates the faith track if the player has earned faith points. If it's true delivers faith
+     * zone victory points, else if it's the last pope space player gain extra VP according to their
+     * final position.
+     * @param position position reached by the player.
+     * @return returns true if it's on the last pope space otherwise returns false.
+     */
     public Boolean updateFaithTrack(int position) {
 
         //Checking if the player is in a pope space
@@ -53,6 +59,10 @@ public class SinglePlayerGame extends Game {
         return false;
     }
 
+    /**
+     * Takes the action token from the json file and generates it.
+     * @return returns the tokens
+     */
     private ArrayList<ActionToken> generateTokenBag() {
         ArrayList<ActionToken> tokens = new ArrayList<>();
         String actionTokenJson = "";
@@ -62,7 +72,6 @@ public class SinglePlayerGame extends Game {
             actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-discard.JSON")));
         } catch (IOException e) {
             e.printStackTrace();
-            //DA AGG A TUTTI
         }
 
         Type foundListType = new TypeToken<ArrayList<ActionDiscard>>(){}.getType();
@@ -73,7 +82,7 @@ public class SinglePlayerGame extends Game {
         try{
             actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-shuffle.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading token-shuffle.JSON");
+            e.printStackTrace();
         }
         foundListType = new TypeToken<ActionShuffle>(){}.getType();
         tokens.add(new Gson().fromJson(actionTokenJson, foundListType));
@@ -83,7 +92,7 @@ public class SinglePlayerGame extends Game {
         try {
             actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-cross.JSON")));
         } catch (IOException e) {
-            System.out.println("Error while reading token-cross.JSON");
+            e.printStackTrace();
         }
         foundListType = new TypeToken<ArrayList<ActionCross>>(){}.getType();
         tokens.addAll(new Gson().fromJson(actionTokenJson, foundListType));
@@ -104,11 +113,17 @@ public class SinglePlayerGame extends Game {
         return (getFaithTrack().isOnFinalPosition(blackCross.getFaithSpace())|| getCardMarket().noCardsOfAColor());
 
     }
+
+    /**
+     * Takes a token from the stack
+     * @return returns the draw token
+     */
     public ActionToken drawToken(){
         ActionToken token =tokenBag.drawToken();
         token.doOperation(this);
         return token;
     }
+
     public boolean updateFaithTrack(){
       if(super.updateFaithTrack()){
             return true;
@@ -129,6 +144,14 @@ public class SinglePlayerGame extends Game {
        map.put("Lorenzo Il Magnifico", blackCross.getFaithSpace());
        return map;
     }
+
+    /**
+     * Moves the player to the faith track
+     * @param faith steps to advance
+     * @param activateOnYourself activated by the player
+     * @param username username of the player
+     * @return
+     */
     public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
         Player active = super.getPlayer(username);
         if (activateOnYourself) {

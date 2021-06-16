@@ -11,7 +11,7 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
     /**
      * Default constructor
      * @param id id associated with the card
-     * @param victoryPoints victory the points that from this card
+     * @param victoryPoints victory points that received from this card
      * @param cost cost to buy the card
      * @param resourceAbility ability related to the card
      */

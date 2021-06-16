@@ -16,7 +16,8 @@ public class Market{
     private final int N_ROW = 3;
 
     /**
-     * Market class constructor.
+     * Default constructor
+     * @param totalMarbles all marbles in the game
      */
     public Market(ArrayList<ResourceType> totalMarbles){
         this.marketTray = new ResourceType[N_COL][N_ROW];
@@ -49,9 +50,10 @@ public class Market{
     }
 
     /**
-     *
+     * Takes the row or column requested by the player and replaces the marbles
      * @param rowOrCol 'c' stands for column, 'r' stands for row
      * @param num which column or which row
+     * @return the resources present in the chosen row or column
      */
     public HashMap<ResourceType, Integer> pickResources(char rowOrCol, int num, ResourceType conversion) throws InvalidParameterException {
 
@@ -63,9 +65,6 @@ public class Market{
                             resources.put((marketTray[num][i]), resources.get(marketTray[num][i]) + 1);
                         } else resources.put(marketTray[num][i], 1);
                     }
-
-
-
 
         } else if(rowOrCol == 'r'){
                 for (int i = 0; i < N_COL; i++) {
@@ -89,21 +88,26 @@ public class Market{
         return resources;
     }
 
-    private void replace (char rowOrCol, int x) {
+    /**
+     * Repositions the marbles after the player has taken them from the market.
+     * @param rowOrCol 'r' if the player chosen row or 'c' if the player chosen column
+     * @param index index of the row or column chosen by the player
+     */
+    private void replace (char rowOrCol, int index) {
         ResourceType c = null;
         if(rowOrCol == 'c'){
-            c=marketTray[x][0];
+            c=marketTray[index][0];
             for(int i=0; i<N_ROW-1; i++){
-                marketTray[x][i]=marketTray[x][i+1];
+                marketTray[index][i]=marketTray[index][i+1];
             }
-            marketTray[x][N_ROW-1]=cornerMarble;
+            marketTray[index][N_ROW-1]=cornerMarble;
         }
         else if(rowOrCol == 'r') {
-            c = marketTray[0][x];
+            c = marketTray[0][index];
             for(int i=0; i<N_COL-1; i++){
-                marketTray[i][x] = marketTray[i + 1][x];
+                marketTray[i][index] = marketTray[i + 1][i];
             }
-            marketTray[N_COL-1][x] = cornerMarble;
+            marketTray[N_COL-1][index] = cornerMarble;
         }
         cornerMarble = c;
     }
