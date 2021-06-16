@@ -30,9 +30,6 @@ public class CardMarket {
             card = devCard;
             devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel() - 1).add(card);
         }
-
-
-
     }
 
     /**
@@ -47,7 +44,7 @@ public class CardMarket {
         for(int i=0; i< availableCards.size(); i++) {
             if(availableCards.get(i).getCardType().getLevel() == level && availableCards.get(i).getCardType().getColor().equals(color)) {
                 requestCard = availableCards.get(i);
-                devCardGrid.remove(requestCard);
+                devCardGrid.get(color.getVal()).get(level).remove(requestCard);
                 return requestCard;
             }
         }
