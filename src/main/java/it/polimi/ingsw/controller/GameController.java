@@ -543,7 +543,6 @@ public class GameController {
         }
         if(player.checkPriceCanBePaid(price)){
             allVirtualView.get(turnController.getActivePlayer()).askProduction(player.getStrongbox(), price, anyPayment, anyProduce);
-
         }
         else {
             allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");
@@ -551,6 +550,7 @@ public class GameController {
         }
 
     }
+
     public void confirmProduction(HashMap<ResourceType, Integer> depotExpense, HashMap<ResourceType, Integer> strongbox, Player player){
         player.getWarehouse().spendResources(depotExpense);
         for(DevCard card :tempCards){
@@ -573,9 +573,11 @@ public class GameController {
             vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
         }
     }
+
     public void sendLeaderCards(ArrayList<LeaderCard> cards){
         allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToPlay(cards);
     }
+
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
             increaseFaith(1, true);

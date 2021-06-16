@@ -123,7 +123,7 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updateChosenProdCards(ArrayList<DevCard> chosen){
         client.sendMessage(new AskProductionRequest(username, chosen));
     }
-    public void updateGetProdRes(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox){
+    public void updateGetProdRes(HashMap<ResourceType, Integer> newStrongbox, HashMap<ResourceType, Integer> expenseDepot){
         client.sendMessage(new GetProductionRequest(username, expenseDepot, newStrongbox));
     }
     public void updatePlayLeaderCard(LeaderCard card, char dOrP){

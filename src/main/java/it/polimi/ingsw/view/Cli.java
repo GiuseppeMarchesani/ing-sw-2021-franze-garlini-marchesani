@@ -295,7 +295,8 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-        HashMap<ResourceType, Integer> convertedAny = askAnyResource(numAny);
+        HashMap<ResourceType, Integer> convertedAny = new HashMap<>();
+        if(numAny>0) convertedAny = askAnyResource(numAny);
         ArrayList<ResourceType> allResources = new ArrayList<>();
         boolean invalidInput = false;
         String strResource = "";
@@ -372,10 +373,13 @@ public class Cli extends ObservableView implements View{
                                 floorQuantity.put(i, resNumToPut);
                                 floorResources.put(i, res);
                                 resToPlace.remove(res);
+                                invalidInput=false;
+                                break;
                             }
                             else  invalidInput = true;
                             break;
                         }
+                        invalidInput = true;
                     }
                 } while(invalidInput);
             }
@@ -463,6 +467,7 @@ public class Cli extends ObservableView implements View{
         String strResource = null;
         boolean invalidInput = false;
         HashMap<ResourceType, Integer> convertedAny = new HashMap<>();
+        boolean validStr = false;
 
         out.println("\nYou have " + numAny + " ANY to be converted");
         while(i < numAny) {
@@ -475,19 +480,20 @@ public class Cli extends ObservableView implements View{
             }
             if(!invalidInput) {
                 for(ResourceType res: ResourceType.values()) {
-                    if(strResource.toUpperCase().equals(res.toString().toUpperCase()) && !strResource.toUpperCase().equals("ANY") && !strResource.toUpperCase().equals("FAITH") && !strResource.toUpperCase().equals("EMPTY")) {
+                    if(strResource.toUpperCase().equals(res.toString().toUpperCase()) && !(strResource.toUpperCase().equals("ANY")) && !(strResource.toUpperCase().equals("FAITH")) && !(strResource.toUpperCase().equals("EMPTY"))) {
                         if(convertedAny.get(res) != null) {
                             convertedAny.replace(res, convertedAny.get(res)+1);
                         } else {
                             convertedAny.put(res, 1);
                         }
-                    }
-                    else{
-                        out.println(STR_WRONG_INPUT);
-                        i--;
+                        validStr = true;
+                        i++;
+                        break;
                     }
                 }
-                i++;
+                if(validStr=false) {
+                    out.println("\n" + STR_WRONG_INPUT);
+                }
             }
         }
         return convertedAny;
