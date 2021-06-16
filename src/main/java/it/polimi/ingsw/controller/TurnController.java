@@ -53,17 +53,17 @@ public class TurnController {
 
     public boolean disconnect(String username){
         activePlayer.put(username,false);
-        return(username==getActivePlayer());
+        return(username.equals(getActivePlayer()));
     }
 
     public boolean hasInactivePlayers(){
-        return(getInactivePlayers()!=null);
+        return(getInactivePlayers().size()!=0);
     }
 
     public List<String> getInactivePlayers(){
 
         return activePlayer.entrySet().stream().filter(entry -> (!entry.getValue()))
-                .map(entry-> entry.getKey()).collect(Collectors.toList());
+                .map(Map.Entry::getKey).collect(Collectors.toList());
     }
     public List<String> getActivePlayers(){
         ArrayList<String> activePlayers=new ArrayList<String>();

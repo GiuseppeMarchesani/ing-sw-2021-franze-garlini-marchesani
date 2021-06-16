@@ -107,9 +107,6 @@ public class GameController {
                 if(turnController.proxPlayer().equals( turnController.firstPlayer())){
                     if(maxPlayers>2) {
                         setGameState(GameState.GIVERES);
-                    //The First two players don't gain any resources
-                    turnController.proxPlayer();
-                    turnController.proxPlayer();
                     }
                     else{
                         setGameState(GameState.IN_GAME);
@@ -201,12 +198,21 @@ public class GameController {
      */
     private void choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
-
-        if(activePlayer.equals(turnController.getPlayerOrder().get(2))){
-            allVirtualView.get(activePlayer).askInitialRes(1);
+        try {
+            if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
+                allVirtualView.get(activePlayer).askInitialRes(1);
+            } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
+                allVirtualView.get(activePlayer).askInitialRes(2);
+            }
+            else{
+                turnController.proxPlayer();
+                startTurn();
+            }
         }
-        else{
-            allVirtualView.get(activePlayer).askInitialRes(2);
+        catch (IndexOutOfBoundsException e){
+            gameState=GameState.INIT;
+            turnController.proxPlayer();
+            startTurn();
         }
     }
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
@@ -237,10 +243,11 @@ public class GameController {
         if(turnController.disconnect(username))
         {
 
-            if(turnController.proxPlayer().equals(turnController.firstPlayer())){
+            if(turnController.proxPlayer().equals(turnController.firstPlayer())&&turnController.getActivePlayers().size()!=0){
                 switch(gameState){
                     case DRAWLEADER:
-                            setGameState(GameState.GIVERES);
+                        if(maxPlayers>2){
+                            setGameState(GameState.GIVERES);}
                         break;
                     case GIVERES:
                         setGameState(GameState.IN_GAME);
@@ -263,7 +270,7 @@ public class GameController {
     public void reconnect(String username, VirtualView virtualView){
         allVirtualView.put(username, virtualView);
         turnController.reconnect(username);
-        broadcastMessage(username + "has reconnected.");
+        broadcastMessage(username + " has reconnected.");
     }
     public ArrayList<ResourceType> availableRes(){
         ArrayList<ResourceType> resource= new ArrayList<>();
@@ -290,9 +297,6 @@ public class GameController {
         }
     }
 
-    public GameState getGameState() {
-        return gameState;
-    }
     /**
      * in game phase
      * @param msg

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -12,16 +13,20 @@ public class BootServer {
 
     public static void main(String args[]) {
         int port;
-        if (args.length < 1) {
-            System.out.println("Error: Input port missing. Using default port 4000.");
+        String address;
+        if (args.length < 2) {
+            System.out.println("Error: Arguments missing. Using default port 4000 and localhost as default.");
             port=4000;
+            address="localhost";
         }
+
         else {
             port = Integer.parseInt(args[0]);
+            address = args[1];
         }
         ServerSocket socket;
         try {
-            socket = new ServerSocket(port);
+            socket = new ServerSocket(port,100, InetAddress.getByName(address));
         } catch (IOException e) {
             System.out.println("cannot open server socket");
             System.exit(1);

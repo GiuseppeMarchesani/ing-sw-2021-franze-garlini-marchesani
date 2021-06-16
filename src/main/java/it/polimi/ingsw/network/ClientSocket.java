@@ -49,7 +49,6 @@ public class ClientSocket extends Observable {
                 try {
                     message = (ServerMessage) input.readObject();
                 } catch (Exception e) {
-                    e.printStackTrace();
                     message = new StringMessage("Connection lost.");
                     disconnect();
                 }

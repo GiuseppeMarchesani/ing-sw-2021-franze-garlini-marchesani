@@ -27,8 +27,10 @@ public class Lobby {
                 if (s.equals("Lorenzo Il Magnifico")){
                         s="Lorenzo L'Imitazione";
                 }
-                while (clientHandlerMap.containsKey(s)) {
+                while (clientHandlerMap.containsValue(s)) {
                     s = username + "(" + i + ")";
+                    System.out.println(s);
+                    i++;
                 }
                 clientHandlerMap.put(clientHandler, s);
                     gameController.newPlayer(s, gameId, virtualView);
@@ -73,11 +75,11 @@ public class Lobby {
 
     }
     public void onDisconnect(ClientHandler clientHandler){
-        if (gameController.getGameState()== GameState.INIT){
-            removePlayer(clientHandler);
+        if (gameController.isGameStarted()){
+            disconnect(clientHandler);
         }
         else{
-            disconnect(clientHandler);
+            removePlayer(clientHandler);
         }
     }
     public int remainingPlayers(){
