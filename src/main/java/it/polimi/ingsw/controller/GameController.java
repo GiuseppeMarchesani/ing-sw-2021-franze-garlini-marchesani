@@ -164,6 +164,7 @@ public class GameController {
                 choseInitialRes();
                 break;
             case IN_GAME:
+            case END_GAME:
                 allVirtualView.get(turnController.getActivePlayer()).askAction();
                 break;
 
@@ -503,8 +504,9 @@ public class GameController {
             vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
         if(player.getDevCardSlot().getCardQuantity()==7){
-            setGameState(GameState.END_GAME);
+
             broadcastMessage("We're in the endgame now.");
+            setGameState(GameState.END_GAME);
         }
 
     }
@@ -516,8 +518,9 @@ public class GameController {
         }
 
         if (trigger&& gameSession.lastActivatedFaithZone()==2){
+            broadcastMessage("We're in the endgame now.");
                 setGameState(GameState.END_GAME);
-                broadcastMessage("We're in the endgame now.");
+
             }
 
     }

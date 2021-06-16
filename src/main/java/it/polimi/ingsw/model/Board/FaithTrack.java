@@ -58,18 +58,6 @@ public class FaithTrack {
         return faithZones;
     }
 
-    public HashMap<Integer, Integer> getVPspaces() {
-        return VPspaces;
-    }
-
-    public void setFaithZones(List<FaithZone> faithZones) {
-        this.faithZones = faithZones;
-    }
-
-    public void setVPspaces(LinkedHashMap<Integer, Integer> VPspaces) {
-        this.VPspaces = VPspaces;
-    }
-
     public int indexOfNextFaithZone(){
        return getFaithZones().indexOf( getNextFaithZone() );
     }
