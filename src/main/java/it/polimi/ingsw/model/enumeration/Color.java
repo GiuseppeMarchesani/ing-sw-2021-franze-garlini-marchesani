@@ -1,10 +1,10 @@
 package it.polimi.ingsw.model.enumeration;
 
 public enum Color {
-    GREEN(0, "Green"),
-    PURPLE(1, "Purple"),
-    YELLOW(2, "Yellow"),
-    BLUE(3, "Blue");
+    GREEN(0, "GREEN"),
+    PURPLE(1, "PURPLE"),
+    YELLOW(2, "YELLOW"),
+    BLUE(3, "BLUE");
 
     private final int color;
     private final String string;
