@@ -429,6 +429,7 @@ public class Cli extends ObservableView implements View{
                             resNumToGet = newStrongbox.get(res);
                         }
                         newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                        if(newStrongbox.get(res)==0) newStrongbox.remove(res);
                     } while (invalidInput);
                 }
                 paymentWarehouse.put(res, (price.get(res) - resNumToGet));
@@ -670,6 +671,7 @@ public class Cli extends ObservableView implements View{
                     resNumToGet = newStrongbox.get(res);
                 }
                 newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                if(newStrongbox.get(res)==0) newStrongbox.remove(res);
             }
             paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
         }
@@ -690,6 +692,7 @@ public class Cli extends ObservableView implements View{
                     resNumToGet = newStrongbox.get(res);
                 }
                 newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                if(newStrongbox.get(res)==0) newStrongbox.remove(res);
             }
             paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
         }
@@ -726,7 +729,7 @@ public class Cli extends ObservableView implements View{
         do {
             if(!checkId) out.println(STR_WRONG_INPUT);
             checkId=false;
-            out.println("\nChoose between one of these Leader Card by typing its id.");
+            out.println("\nChoose between one of these Leader Card by typing its id.\n");
             for(LeaderCard leader: leaderCards) {
                 out.println(leader.toString());
             }
@@ -852,8 +855,9 @@ public class Cli extends ObservableView implements View{
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         out.println("\n");
         for(LeaderCard leader: leaderCards.keySet()) {
-            leader.toString();
-            out.println(leaderCards.get(leader)? (ANSI_RED + "activated") : (ANSI_YELLOW + "not activated"));
+            out.println(leader.toString());
+            if(leaderCards.get(leader)) out.println(ANSI_RED + "activated" + ANSI_RESET);
+            else out.println(ANSI_YELLOW + "not activated" + ANSI_RESET);
         }
     }
 

@@ -67,14 +67,20 @@ public class Player {
         return leaderCards;
     }
 
-    public void discardLeader(LeaderCard card){
-        leaderCards.remove(card);
-    }
-    public void playLeader(LeaderCard card){
-        if(leaderCards.containsKey(card)){
-            leaderCards.put(card, true);
+    public void discardLeader(int cardId){
+        for(LeaderCard leader: leaderCards.keySet()) {
+            if(leader.getId()==cardId) leaderCards.remove(leader);
         }
-        card.activateAbility(this);
+
+    }
+
+    public void playLeader(int cardId){
+        for(LeaderCard leader: leaderCards.keySet()) {
+            if(leader.getId()==cardId){
+                leaderCards.replace(leader, true);
+                leader.activateAbility(this);
+            }
+        }
     }
 
     public DevCardSlot getDevCardSlot(){
