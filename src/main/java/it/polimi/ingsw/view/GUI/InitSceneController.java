@@ -30,6 +30,7 @@ public class InitSceneController extends ObservableView implements GenericSceneC
         Integer port = Integer.parseInt(serverPort.getText());
 
         new Thread(() -> notifyObserver(obs -> obs.updateConnect(address, port))).start();
+        SceneController.changeRootPane(observers, event, "/fxml/lobby_scene.fxml");
 
     }
 

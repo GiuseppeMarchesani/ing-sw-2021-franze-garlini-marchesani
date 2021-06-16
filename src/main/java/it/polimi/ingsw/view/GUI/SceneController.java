@@ -25,18 +25,11 @@ public class SceneController extends ObservableView {
     public static <T> T changeRootPane(List<ObserverView> observerViewList, Scene scene, String fxml){
         T controller = null;
 
-        try{
             FXMLLoader loader = new FXMLLoader(SceneController.class.getResource(fxml));
-            Parent root = loader.load();
-            controller = loader.getController();
 
-            ((ObservableView) controller).addAllObservers(observerViewList);
-            generalController = (GenericSceneController) controller;
             activeScene = scene;
-            activeScene.setRoot(root);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+            activeScene.setRoot(scene.getRoot());
+
 
         return controller;
     }

@@ -19,7 +19,10 @@ public class DevCard extends Card {
         this.productionIncome = productionIncome;
     }
 
-    //This constructor is used for base production (scroll)
+    /**
+     * This constructor is used for base production (scroll)
+     */
+
     public DevCard(){
         super(0,0);
         cardType=null;
@@ -30,7 +33,13 @@ public class DevCard extends Card {
         productionIncome.put(ResourceType.ANY, 1);
     }
 
-    //This constructor is used for LeaderCard Production
+    /**
+     * This constructor is used for LeaderCard Production
+     * @param id id associated with the card
+     * @param resourceAbility ability related to the card
+     * @param productionIncome resources that come from production
+     */
+
     public DevCard(int id, ResourceType resourceAbility, HashMap<ResourceType, Integer> productionIncome) {
         super(id,0);
         this.cardType = null;
@@ -92,6 +101,7 @@ public class DevCard extends Card {
                     "id: " + getId() + "\n" +
                     "color: " + getCardType().getColor() + "\n" +
                     "level: " + getCardType().getLevel() + "\n" +
+                    "victory points: " + getVP() + "\n" +
                     "card cost: " + "\n" +
                     "{";
             for (ResourceType res : getCardCost().keySet()) {
