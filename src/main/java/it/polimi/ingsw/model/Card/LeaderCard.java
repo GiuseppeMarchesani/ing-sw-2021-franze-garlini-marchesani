@@ -2,19 +2,18 @@ package it.polimi.ingsw.model.Card;
 
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.LeaderCost;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
-public abstract class LeaderCard<T> extends Card{
+import java.util.HashMap;
 
-    private T cost;
+public abstract class LeaderCard extends Card{
+
     private ResourceType resourceAbility;
-    private LeaderCost costType;
-    public LeaderCard(int id, int victoryPoints, ResourceType resourceAbility, LeaderCost costType, T cost) {
+    public LeaderCard(int id, int victoryPoints, ResourceType resourceAbility) {
         super(id, victoryPoints);
         this.resourceAbility = resourceAbility;
-        this.costType=costType;
-        this.cost=cost;
     }
 
     public abstract void activateAbility(Player player);
@@ -22,9 +21,16 @@ public abstract class LeaderCard<T> extends Card{
 
     public  abstract String toString();
 
-    public  LeaderCost getCostType(){ return costType;}
-    public  T getCost(){
-        return cost;
+    public  abstract LeaderCost getCostType();
+
+    public HashMap<Color, Integer> getCardCost(){
+        return null;
+    }
+    public HashMap<Color, Integer> getLevelTwoCost(){
+        return null;
+    }
+    public HashMap<ResourceType, Integer> getResourceCost(){
+        return null;
     }
     public ResourceType getResourceAbility() {
         return resourceAbility;

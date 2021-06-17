@@ -140,7 +140,7 @@ public class Cli extends ObservableView implements View{
             out.print("Enter the number of players who will join the room (1-4): ");
             try {
                 playersNumber = Integer.parseInt(readLine());
-            } catch (ExecutionException e) {
+            } catch (Exception e) {
                 out.println(STR_WRONG_INPUT);
                 playersNumber=0;
             }

@@ -363,4 +363,11 @@ public class Game {
         }
         return updateFaithTrack();
     }
+    public HashMap<String, Integer> getVictoryPoints(){
+        HashMap<String,Integer> points=new HashMap<>();
+        for(Player p : playersList){
+            points.put(p.getUsername(), p.getDevCardSlot().getCardPoints()+p.getLeaderVp()+p.getVictoryPoint());
+        }
+        return points;
+    }
 }

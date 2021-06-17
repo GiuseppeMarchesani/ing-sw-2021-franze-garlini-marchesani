@@ -67,8 +67,11 @@ public class Player {
         return leaderCards;
     }
 
-    public void discardLeader(LeaderCard leader){
-        leaderCards.remove(leader);
+    public void discardLeader(int cardId){
+        for(LeaderCard leader: leaderCards.keySet()) {
+            if(leader.getId()==cardId) leaderCards.remove(leader);
+        }
+
     }
 
     public void playLeader(int cardId){
@@ -239,7 +242,7 @@ public class Player {
         return grandTotalAvailable >= grandTotalCost;
     }
     public boolean checkHasEnoughCardOfColor(Color color, int requiredCard){
-        return devCardSlot.numCardsPerColor(color)>requiredCard;
+        return devCardSlot.numCardsPerColor(color)>=requiredCard;
     }
     public int getLeaderVp(){
         int vp=0;
