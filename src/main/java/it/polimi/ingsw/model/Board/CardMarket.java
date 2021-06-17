@@ -10,8 +10,8 @@ public class CardMarket {
     private ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
 
     /**
-     * Default constructor
-     * @param devCardDeck contains all the development cards
+     * Default constructor.
+     * @param devCardDeck contains all the development cards.
      */
     public CardMarket(ArrayList<DevCard> devCardDeck) {
         //Creating instances
@@ -33,11 +33,10 @@ public class CardMarket {
     }
 
     /**
-     * Takes the available card of the required color and level and removed this card
-     * from the card market
-     * @param color color the player requested
-     * @param level level the player requested
-     * @return returns the required card if it's available otherwise returns null
+     * Takes the available card of the required color and level and removes it from the card market.
+     * @param color color requested by the player
+     * @param level level requested by the player
+     * @return the required card if it's available, otherwise returns null
      */
     public DevCard pickCard(Color color, int level) {
         DevCard requestCard;
@@ -67,8 +66,8 @@ public class CardMarket {
     }
 
     /**
-     * Takes all available cards from the card market
-     * @return returns the cards available
+     * Returns all the visible cards from the card market.
+     * @return a list of DevCard.
      */
     public ArrayList<DevCard> availableCards(){
         ArrayList<DevCard> available = new ArrayList<>();
@@ -89,8 +88,8 @@ public class CardMarket {
     }
 
     /**
-     * Takes the cards that have remained in the market
-     * @return
+     * Returns the number of cards in each CardMarket stack.
+     * @return a list of integers representing the number of cards in each stack.
      */
     public ArrayList<Integer> remainingCards(){
         ArrayList<Integer> remaining = new ArrayList<>();
@@ -113,8 +112,8 @@ public class CardMarket {
     }
 
     /**
-     * Discards cards when an action token is drawn and it requires discarding
-     * @param color color required by the action token
+     * Will be called when a discard action token is drawn. This method discards cards from the CardMarket.
+     * @param color color required by the action token.
      */
     public void discardDevCard(Color color) {
         int j;
@@ -133,9 +132,9 @@ public class CardMarket {
     }
 
     /**
-     * Counts the cards that are left of a specific color
-     * @param color color required
-     * @return returns the number of the cards
+     * Counts the cards that are left of a specific color.
+     * @param color color required.
+     * @return returns the number of the cards of the given color.
      */
     public int remainingCardsOfColor(Color color){
         int size=0;
@@ -146,8 +145,8 @@ public class CardMarket {
     }
 
     /**
-     * Checks for all colors if there are still cards available
-     * @return returns true if there are otherwise returns false
+     * Checks, for all colors, if there are still cards available.
+     * @return returns true if there are some, otherwise returns false.
      */
     public boolean noCardsOfAColor(){
         for(Color color: Color.values()){

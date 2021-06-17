@@ -1043,8 +1043,8 @@ public class Cli extends ObservableView implements View{
         out.println("\n");
         for(LeaderCard leader: leaderCards.keySet()) {
             out.println(leader.toString());
-            if(leaderCards.get(leader)) out.println(ANSI_RED + "activated" + ANSI_RESET);
-            else out.println(ANSI_YELLOW + "not activated" + ANSI_RESET);
+            if(leaderCards.get(leader)) out.println(ANSI_RED + "activated" + ANSI_RESET+"\n");
+            else out.println(ANSI_YELLOW + "not activated" + ANSI_RESET + "\n");
         }
         if(leaderCards.isEmpty()) out.println("\nYou have no leader cards!");
     }
