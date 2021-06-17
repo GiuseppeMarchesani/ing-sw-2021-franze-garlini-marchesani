@@ -31,60 +31,6 @@ public class WarehouseTest {
         assertEquals(5, testWarehouse.getDepotList().size());
         assertEquals(ResourceType.SHIELD.getVal(), testWarehouse.getDepotList().get(4).getResourceType().getVal());
         assertEquals(0, testWarehouse.getDepotList().get(4).getRearrangeble());
-
-
-
-
-    }
-/*
-    @Test
-    public void rearrange() {
-        HashMap<ResourceType, Integer> testDiscardingResources = new HashMap<>();
-
-        Depot depot1= testWarehouse.getDepotList().get(1);
-        Depot depot0=testWarehouse.getDepotList().get(0);
-        Depot depot2 =testWarehouse.getDepotList().get(2);
-        depot1.setResourceType(ResourceType.COIN);
-        depot1.setResourceQuantity(1);
-        depot0.setResourceType(ResourceType.STONE);
-        depot0.setResourceQuantity(2);
-
-
-        testDiscardingResources = testWarehouse.rearrange(1, 0);
-
-        assertTrue(testDiscardingResources.isEmpty());
-        assertEquals("COIN", testWarehouse.getDepotList().get(0).getResourceType().toString());
-        assertEquals(1, testWarehouse.getDepotList().get(0).getResourceQuantity());
-        assertEquals("STONE", testWarehouse.getDepotList().get(1).getResourceType().toString());
-        assertEquals(2, testWarehouse.getDepotList().get(1).getResourceQuantity());
-
-        depot1.setResourceType(ResourceType.SERVANT);
-        depot1.setResourceQuantity(1);
-        depot0.setResourceType(ResourceType.SHIELD);
-        depot0.setResourceQuantity(3);
-
-        testDiscardingResources = testWarehouse.rearrange(1, 0);
-
-        assertEquals(1, (int) testDiscardingResources.get(ResourceType.SHIELD));
-        assertEquals("SERVANT", testWarehouse.getDepotList().get(0).getResourceType().toString());
-        assertEquals("SHIELD", testWarehouse.getDepotList().get(1).getResourceType().toString());
-        assertEquals(2, testWarehouse.getDepotList().get(1).getResourceQuantity());
-    }
-
- */
-
-    @Test
-    public void place() {
-        testWarehouse.getDepotList().get(0).setResourceQuantity(3);
-        testWarehouse.getDepotList().get(0).setResourceType(ResourceType.SERVANT);
-        testWarehouse.getDepotList().get(1).setResourceType(ResourceType.COIN);
-        testWarehouse.getDepotList().get(1).setResourceQuantity(1);
-        testWarehouse.getDepotList().get(2).setResourceQuantity(0);
-        testWarehouse.getDepotList().get(2).setResourceType(ResourceType.SHIELD);
-
-        assertEquals(3,(int) testWarehouse.place(ResourceType.SERVANT, 3, 0));
-        assertEquals(0, (int) testWarehouse.place(ResourceType.COIN, 1,1));
-        assertEquals(3, (int) testWarehouse.place(ResourceType.SHIELD, 4, 2));
     }
 
     @Test
