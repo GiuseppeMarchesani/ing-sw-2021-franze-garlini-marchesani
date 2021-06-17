@@ -452,7 +452,7 @@ public class GameController {
             startTurn();
             return;
         }
-        DevCard card = gameSession.pickDevCard(msg.getColor(), msg.getLevel());
+        DevCard card = gameSession.pickDevCard(msg.getColor(), msg.getLevel()-1);
         if (card == null) {
             allVirtualView.get(msg.getUsername()).showErrorMsg("The pile is empty!");
             startTurn();
