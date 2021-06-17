@@ -67,20 +67,15 @@ public class Player {
         return leaderCards;
     }
 
-    public void discardLeader(int cardId){
-        for(LeaderCard leader: leaderCards.keySet()) {
-            if(leader.getId()==cardId) {
-                leaderCards.remove(leader);
-                break;
-            }
-        }
+    public void discardLeader(LeaderCard leader){
+        leaderCards.remove(leader);
     }
+
     public void playLeader(int cardId){
         for(LeaderCard leader: leaderCards.keySet()) {
             if(leader.getId()==cardId){
                 leaderCards.replace(leader, true);
                 leader.activateAbility(this);
-                break;
             }
         }
     }

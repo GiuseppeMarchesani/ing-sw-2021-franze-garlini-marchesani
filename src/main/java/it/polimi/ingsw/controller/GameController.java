@@ -141,13 +141,10 @@ public class GameController {
                 gameSession.getPlayersList().get(2).increaseFaith(1);
             default:
                 //Don't increase faith but update track
-                HashMap<String, Integer> faith=new HashMap<>();
-                for(String user:  gameSession.getPlayerListByUsername()){
-                    faith.put(user, gameSession.getPlayer(user).getFaithSpace());
-                }
+
                 for(VirtualView vv: allVirtualView.values()){
 
-                    vv.showFaithTrack(faith ,false,0);
+                    vv.showFaithTrack(gameSession.getFaithMap(),false,0);
                 }
         }
         broadcastMessage("Everyone joined the game!");
@@ -584,7 +581,7 @@ public class GameController {
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
             increaseFaith(1, true);
-            player.discardLeader(card.getId());
+            player.discardLeader(card);
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
         }
         else{

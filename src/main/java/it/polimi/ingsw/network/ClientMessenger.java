@@ -210,7 +210,7 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new GetProductionRequest(username, expenseDepot, newStrongbox));
     }
     public void updatePlayLeaderCard(LeaderCard card, char dOrP){
-        client.sendMessage(new LeaderActionRequest(username, card, dOrP=='P'));
+        client.sendMessage(new LeaderActionRequest(username, card, dOrP=='p'));
     }
 
     //TODO
