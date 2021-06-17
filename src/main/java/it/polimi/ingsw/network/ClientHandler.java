@@ -10,17 +10,27 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class ClientHandler implements Runnable
-{
-        private Socket client;
-        private ObjectOutputStream output;
-        private ObjectInputStream input;
-        private Lobby lobby;
-        private String gameId;
-        private final Object lockSendMessage;
-        private final Object lockHandleMessage;
-        private LobbyServer lobbyServer;
-        ClientHandler(Socket client, LobbyServer lobbyServer)
+//TODO
+/**
+ *
+ */
+public class ClientHandler implements Runnable {
+    private Socket client;
+    private ObjectOutputStream output;
+    private ObjectInputStream input;
+    private Lobby lobby;
+    private String gameId;
+    private final Object lockSendMessage;
+    private final Object lockHandleMessage;
+    private LobbyServer lobbyServer;
+
+
+    /**
+     *
+     * @param client
+     * @param lobbyServer
+     */
+    ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
             this.lobbyServer=lobbyServer;
@@ -47,34 +57,42 @@ public class ClientHandler implements Runnable
                 disconnect();
             }
 
+    }
 
-        }
+    //TODO
+    /**
+     *
+     * @throws IOException
+     */
+    private void handleMessage() throws IOException
+    {
+        try {
 
-        private void handleMessage() throws IOException
-        {
-            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    synchronized (lockHandleMessage) {
+                    ClientMessage message = (ClientMessage) input.readObject();
 
-                    while (!Thread.currentThread().isInterrupted()) {
-                        synchronized (lockHandleMessage) {
-                        ClientMessage message = (ClientMessage) input.readObject();
-
-                        if (message.getMessageType() == MessageType.LOGIN) {
-                            LoginRequest loginMsg = (LoginRequest) message;
-                            lobby = (lobbyServer.getLobby(loginMsg.getGameId()));
-                            gameId=loginMsg.getGameId();
-                            lobby.addPlayer(loginMsg.getUsername(), this);
-                        } else if (lobby != null) {
-                            lobby.getMessage(message);
-                        }
+                    if (message.getMessageType() == MessageType.LOGIN) {
+                        LoginRequest loginMsg = (LoginRequest) message;
+                        lobby = (lobbyServer.getLobby(loginMsg.getGameId()));
+                        gameId=loginMsg.getGameId();
+                        lobby.addPlayer(loginMsg.getUsername(), this);
+                    } else if (lobby != null) {
+                        lobby.getMessage(message);
                     }
                 }
-            } catch (Exception e) {
-                System.out.println("invalid stream from client");
-                disconnect();
             }
+        } catch (Exception e) {
+            System.out.println("invalid stream from client");
+            disconnect();
         }
+    }
 
-
+    //TODO
+    /**
+     *
+     * @param message
+     */
     public void sendMessage(GeneralMessage message)
     {
        try{
@@ -89,6 +107,11 @@ public class ClientHandler implements Runnable
        }
 
     }
+    //TODO
+
+    /**
+     *
+     */
     public void disconnect() {
             try {
                 if (!client.isClosed()) {

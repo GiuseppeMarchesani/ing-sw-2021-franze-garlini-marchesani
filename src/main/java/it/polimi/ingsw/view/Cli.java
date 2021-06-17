@@ -9,11 +9,14 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
 import java.io.PrintStream;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+//TODO
+/**
+ *
+ */
 public class Cli extends ObservableView implements View{
     private PrintStream out;
     private Thread inputThread;
@@ -79,6 +82,11 @@ public class Cli extends ObservableView implements View{
 
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void askConnect() {
         boolean did;
@@ -101,6 +109,11 @@ public class Cli extends ObservableView implements View{
 
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void askLobby() {
         try {
@@ -115,6 +128,11 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void askPlayersNumber() {
         int playersNumber;
@@ -132,6 +150,11 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updatePlayersNumber(finalPlayersNumber));
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void askAction() {
         out.print("\nWhat action do you want to do? ");
@@ -150,6 +173,14 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param username the player's username.
+     * @param gameID
+     * @param wasJoined indicates if the connection succeeded.
+     */
     @Override
     public void showLoginResult(String username,String gameID,boolean wasJoined) {
         if (wasJoined){
@@ -163,11 +194,25 @@ public class Cli extends ObservableView implements View{
 
     }
 
+
+    //TODO
+
+    /**
+     *
+     * @param message the message to be shown.
+     */
     @Override
     public void showMessage(String message) {
         out.println("\n" + message);
     }
 
+    //TODO
+
+    /**
+     *
+     * @param disconnectedUser the username of the disconnected player.
+     * @param message the message to be shown.
+     */
     @Override
     public void showDisconnectionMsg(String disconnectedUser, String message) {
         inputThread.interrupt();
@@ -175,6 +220,13 @@ public class Cli extends ObservableView implements View{
         System.exit(1);
     }
 
+    //TODO
+
+    /**
+     *
+     * @param players the list of the playing players.
+     * @param activePlayer the active player's username.
+     */
     @Override
     public void showMatchInfo(List<String> players, String activePlayer) {
         out.print("\nPlayers: ");
@@ -184,6 +236,11 @@ public class Cli extends ObservableView implements View{
         out.println("\nActive player: " + activePlayer);
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void askDevCardToBuy() {
         boolean checkColor = false;
@@ -227,6 +284,12 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateBuyDevCard(finalLevel, finalColor1));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param conversion list of white marble conversion available for the player.
+     */
     @Override
     public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
         int num = 0;
@@ -293,6 +356,14 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateGetFromMarket(finalRowOrCol, finalNum, finalChosenConversion));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param resToPlace resources to be placed.
+     * @param numAny number of any in the HashMap passed as a parameter.
+     * @param extraDepot possible leader card depot, null otherwise.
+     */
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
         HashMap<ResourceType, Integer> convertedAny = new HashMap<>();
@@ -390,6 +461,15 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscarded));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param strongbox the player's strongbox
+     * @param price the price of the production asked.
+     * @param anyPayment How many "Any" resources the player has to pay
+     * @param anyProduce How many "Any" resources the player will gain.
+     */
     @Override
     public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
         out.println("\nConverting ANY Resource in production cost...");
@@ -500,6 +580,13 @@ public class Cli extends ObservableView implements View{
         return convertedAny;
     }
 
+    //TODO
+
+    /**
+     *
+     * @param market the market to be shown.
+     * @param corner the marble corner.
+     */
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
         out.println("\nThis is the marble market:");
@@ -514,6 +601,13 @@ public class Cli extends ObservableView implements View{
 
     }
 
+    //TODO
+
+    /**
+     *
+     * @param availableCards the list of Development Card on the top of the DevMarket.
+     * @param remainingCards the number of cards in each stack.
+     */
     @Override
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         int counter = 0;
@@ -527,6 +621,13 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param strongbox the player's strongbox.
+     * @param username the player's username.
+     */
     @Override
     public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
         String ansiColor = null;
@@ -539,6 +640,14 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param depotToQuantity warehouse's floors associated to the resource quantity.
+     * @param depotToResource warehouse's floors associated to the resource type.
+     * @param username the player's username.
+     */
     @Override
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
         String ansiColor = null;
@@ -549,6 +658,12 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param devCardList the cards they can activate.
+     */
     @Override
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
         ArrayList<DevCard> chosenCards = new ArrayList<>();
@@ -610,11 +725,25 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param message the message to be shown.
+     */
     @Override
     public void showErrorMsg(String message) {
         out.println("\n" + message);
     }
 
+    //TODO
+
+    /**
+     *
+     * @param playerFaith players usernames and their faith points.
+     * @param wasZoneActivated true if a faith zone was activated.
+     * @param whichZone which faith zone has been activated.
+     */
     @Override
     public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
         out.println("\nFaith Track:");
@@ -624,6 +753,12 @@ public class Cli extends ObservableView implements View{
         if(wasZoneActivated) out.println("FaithZone " + whichZone + " has been activated.");
     }
 
+    //TODO
+
+    /**
+     *
+     * @param victoryPoints players usernames and their amount of Victory Points.
+     */
     @Override
     public void showCurrentVP(HashMap<String, Integer> victoryPoints) {
         out.println("\nCurrent Victory Points:");
@@ -632,6 +767,13 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param devCardSlot the Card Slot to be shown.
+     * @param username the player who owns the CardSlot.
+     */
     @Override
     public void showSlots(DevCardSlot devCardSlot, String username) {
         int slotNumber = 0;
@@ -645,11 +787,27 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param username the player's username.
+     * @param remaining number of un-played leader cards.
+     */
     @Override
     public void showRemainingLeaderCards(String username, int remaining) {
         out.println("\nPlayer " + username + " has " + remaining + " un-played leader cards.");
     }
 
+    //TODO
+
+    /**
+     *
+     * @param strongbox the player's strongbox.
+     * @param cardCost card's cost.
+     * @param numAny amount of ANY resource.
+     * @param availableSlots the list of the available slot the player can choose.
+     */
     @Override
     public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
         //Not ANY-resources payment
@@ -720,6 +878,12 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param leaderCards the list of Leader Cards the player can activate.
+     */
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
         LeaderCard chosenLeader = null;
@@ -773,6 +937,12 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updatePlayLeaderCard(finalChosenLeader, finalAction));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param leaderCards the list of initial Leader Cards.
+     */
     @Override
     public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
         int id = -1;
@@ -807,6 +977,12 @@ public class Cli extends ObservableView implements View{
         notifyObserver(obs -> obs.updateDiscardLeader(leaderCards));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param finalPoints the usernames and points of the players.
+     */
     @Override
     public void showWinMessage(HashMap<String, Integer> finalPoints) {
         List<Integer> points = new ArrayList<>();
@@ -838,6 +1014,11 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     */
     @Override
     public void showLoseMessage() {
         out.println("\nGame Over. You lose!");
@@ -851,6 +1032,12 @@ public class Cli extends ObservableView implements View{
         }
     }
 
+    //TODO
+
+    /**
+     *
+     * @param leaderCards list of leader cards with their respective boolean for activated.
+     */
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         out.println("\n");
@@ -862,6 +1049,13 @@ public class Cli extends ObservableView implements View{
         if(leaderCards.isEmpty()) out.println("\nYou have no leader cards!");
     }
 
+    //TODO
+
+    /**
+     *
+     * @param resourceType
+     * @return
+     */
     private String getAnsiColor(ResourceType resourceType) {
         if(resourceType.equals(ResourceType.COIN)) return ANSI_YELLOW;
         else if(resourceType.equals(ResourceType.SERVANT)) return ANSI_PURPLE;

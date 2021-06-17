@@ -1,5 +1,8 @@
 package it.polimi.ingsw.view;
-
+//TODO
+/**
+ *
+ */
 public enum Command {
         MARKET("MARKET"),
         DEVCARD("DEVCARD"),

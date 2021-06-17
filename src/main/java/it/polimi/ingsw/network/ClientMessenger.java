@@ -14,6 +14,10 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+//TODO
+/**
+ *
+ */
 public class ClientMessenger implements Observer, ObserverView {
 
     private String username;
@@ -22,11 +26,22 @@ public class ClientMessenger implements Observer, ObserverView {
     private ClientSocket client;
     private String lobby;
 
+    //TODO
+    /**
+     *
+     * @param view
+     */
     public ClientMessenger(View view) {
         this.view = view;
         queue= Executors.newSingleThreadExecutor();
     }
 
+    //TODO
+    /**
+     *
+     * @param address
+     * @param port
+     */
     public void updateConnect(String address, int port){
         try {
             client = new ClientSocket(address, port);
@@ -39,29 +54,67 @@ public class ClientMessenger implements Observer, ObserverView {
 
     }
 
+    //TODO
+
+    /**
+     *
+     * @param username
+     * @param lobby
+     */
     public void updateLobby(String username, String lobby){
         this.username= username;
         this.lobby=lobby;
         client.sendMessage(new LoginRequest(username, lobby));
     }
+
+    //TODO
     /**
      * Updates new username, if a player with the same username was already in the game.
+     * @param username
      */
     public void updateNewUsername(String username){
         this.username= username;
     }
 
+    //TODO
+
+    /**
+     *
+     * @param numPlayers
+     */
     public void updatePlayersNumber(int numPlayers){
         client.sendMessage(new PlayersNumberRequest(username, numPlayers));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param leaders
+     */
     public void updateDiscardLeader(ArrayList<LeaderCard> leaders){
         client.sendMessage(new StartingLeadersRequestMsg(username, leaders));
     }
-   public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
+
+    //TODO
+
+    /**
+     *
+     * @param depotToResource
+     * @param depotToQuantity
+     * @param leaderToDepot
+     * @param discard
+     */
+    public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
         client.sendMessage(new ResourceToWarehouseRequestMsg(username, depotToResource, depotToQuantity, leaderToDepot ,discard));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param actionCode the action code of the action the player wants to do.
+     */
     public void updateAction(int actionCode){
         ClientMessage msg;
         switch(actionCode){
@@ -109,17 +162,47 @@ public class ClientMessenger implements Observer, ObserverView {
     }
 
 
+    //TODO
 
+    /**
+     *
+     * @param level level of the chosen Development Card.
+     * @param color color of the Development Card.
+     */
     public void updateBuyDevCard(int level, Color color){
         client.sendMessage(new BuyDevCardRequest(username, level, color));
     }
+
+    //TODO
+
+    /**
+     *
+     * @param expenseDepot
+     * @param newStrongbox
+     * @param slotToPlace
+     */
     public void updatePlaceDevCard(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox, int slotToPlace){
         client.sendMessage(new PlaceDevCardRequest(username, expenseDepot, newStrongbox, slotToPlace));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param getFromRow
+     * @param i
+     * @param conversion
+     */
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
         client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
+
+    //TODO
+
+    /**
+     *
+     * @param chosen
+     */
     public void updateChosenProdCards(ArrayList<DevCard> chosen){
         client.sendMessage(new AskProductionRequest(username, chosen));
     }
@@ -130,6 +213,12 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new LeaderActionRequest(username, card, dOrP=='P'));
     }
 
+    //TODO
+
+    /**
+     *
+     * @param msg
+     */
     @Override
     public void update(GeneralMessage msg){
         switch(msg.getMessageType()){

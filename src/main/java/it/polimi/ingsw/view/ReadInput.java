@@ -16,6 +16,14 @@ public class ReadInput implements Callable<String> {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     }
 
+    //TODO
+
+    /**
+     *
+     * @return
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     public String call() throws IOException, InterruptedException {
         String in;

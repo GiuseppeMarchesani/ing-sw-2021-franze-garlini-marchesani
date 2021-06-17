@@ -36,7 +36,7 @@ public class WarehouseTest {
 
 
     }
-
+/*
     @Test
     public void rearrange() {
         HashMap<ResourceType, Integer> testDiscardingResources = new HashMap<>();
@@ -70,6 +70,8 @@ public class WarehouseTest {
         assertEquals("SHIELD", testWarehouse.getDepotList().get(1).getResourceType().toString());
         assertEquals(2, testWarehouse.getDepotList().get(1).getResourceQuantity());
     }
+
+ */
 
     @Test
     public void place() {

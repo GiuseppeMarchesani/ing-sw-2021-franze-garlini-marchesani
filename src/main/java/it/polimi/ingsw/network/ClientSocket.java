@@ -13,7 +13,10 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+//TODO
+/**
+ *
+ */
 public class ClientSocket extends Observable {
     private Socket client;
 
@@ -21,6 +24,14 @@ public class ClientSocket extends Observable {
     private ObjectInputStream input;
     private ExecutorService queue;
 
+    //TODO
+
+    /**
+     *
+     * @param address
+     * @param port
+     * @throws IOException
+     */
     public ClientSocket(String address, int port) throws IOException {
         try {
             this.client = new Socket(address, port);
@@ -32,7 +43,12 @@ public class ClientSocket extends Observable {
             throw new IOException();
         }
     }
+    //TODO
 
+    /**
+     *
+     * @param message
+     */
     public void sendMessage(ClientMessage message) {
         try {
             output.writeObject(message);
@@ -41,6 +57,12 @@ public class ClientSocket extends Observable {
             disconnect();
         }
     }
+
+    //TODO
+
+    /**
+     *
+     */
     public void listen() {
         queue.execute(() ->
         {
@@ -56,6 +78,12 @@ public class ClientSocket extends Observable {
             }
         });
     }
+
+    //TODO
+
+    /**
+     *
+     */
     public void disconnect(){
             if (!client.isClosed()) {
                 queue.shutdownNow();

@@ -1,19 +1,31 @@
 package it.polimi.ingsw.network;
 
-import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.model.Game;
-
 import java.util.*;
 
+
+//TODO
+
+/**
+ *
+ */
 public class LobbyServer {
     public Map<String, Lobby> lobbyMap;
 
+    //TODO
+
+    /**
+     *
+     */
     public LobbyServer() {
         lobbyMap = Collections.synchronizedMap(new HashMap<>());
     }
     //TODO: View
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Lobby getLobby(String id){
         Lobby l = lobbyMap.get(id);
         if (l==null){
@@ -21,8 +33,15 @@ public class LobbyServer {
         }
         return lobbyMap.get(id);
 
-
     }
+
+    //TODO
+
+    /**
+     *
+     * @param id
+     * @param clientHandler
+     */
     public void leaveLobby(String id, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);
         if(lobby.remainingPlayers()==1){

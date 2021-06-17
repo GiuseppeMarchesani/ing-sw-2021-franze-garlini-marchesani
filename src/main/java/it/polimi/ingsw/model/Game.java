@@ -80,7 +80,7 @@ public class Game {
     }
 
     /**
-     * Gets the income of the Development Cards production passed as parameters.
+     * Gets the income of the development Cards production passed as parameters.
      * @param devCardList The ArrayList of DevCards chosen by the player.
      * @return The resources in an HashMap.
      */
@@ -132,8 +132,8 @@ public class Game {
     }
 
     /**
-     * Finds the winner between those players who have the same and the highest score.
-     * @return The ID of the winner.
+     * Takes the development cards from the json file and generates it.
+     * @return returns the deck of leader cards
      */
     private ArrayList<DevCard> generateDevCardDeck() {
 
@@ -213,7 +213,7 @@ public class Game {
     }
 
     /**
-     * Takes the leader cards from the json file and generates it.
+     * Takes the leader cards from the json files and generates it.
      * @return returns the deck of leader cards
      */
     private ArrayList<LeaderCard> generateLeaderCards() {
@@ -277,10 +277,6 @@ public class Game {
         return playersList;
     }
 
-    public ArrayList<LeaderCard> getLeaderCards() {
-        return leaderCards;
-    }
-
     public ArrayList<String> getPlayerListByUsername(){
         ArrayList<String> playerList = new ArrayList<>();
         for(int i=0; i<getPlayersList().size(); i++){
@@ -295,6 +291,11 @@ public class Game {
         return null;
     }
 
+    //TODO
+    /**
+     *
+     * @return
+     */
     public boolean updateFaithTrack(){
         ArrayList<Player> vpWinners=new ArrayList<Player>();
         int thresholdL=getFaithTrack().getNextFaithZone().getStart();
@@ -321,12 +322,18 @@ public class Game {
         return trigger;
     }
 
+    //TODO
+    /**
+     *
+     * @return
+     */
     public int lastActivatedFaithZone() {
        if( faithTrack.indexOfNextFaithZone()<0){
            return 2;
        }
        else return faithTrack.indexOfNextFaithZone()-1;
     }
+
     public HashMap<String, Integer> getFaithMap(){
         HashMap<String, Integer> faith=new HashMap<>();
         for(Player player: playersList){
@@ -334,6 +341,15 @@ public class Game {
         }
         return faith;
     }
+
+    //TODO
+    /**
+     *
+     * @param faith
+     * @param activateOnYourself
+     * @param username
+     * @return
+     */
     public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
         Player active = getPlayer(username);
         if (activateOnYourself) {
