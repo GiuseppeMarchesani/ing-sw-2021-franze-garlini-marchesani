@@ -37,6 +37,12 @@ public class Player {
         this.leaderCards = new HashMap<>();
         this.strongbox = new HashMap<>();
         this.warehouse = new Warehouse();
+        if(username.equals("ricco")){
+            strongbox.put(ResourceType.STONE,999);
+            strongbox.put(ResourceType.COIN,999);
+            strongbox.put(ResourceType.SERVANT,999);
+            strongbox.put(ResourceType.SHIELD,999);
+        }
         this.faithSpace = 0;
         this.devCardSlot = new DevCardSlot();
         this.marbleConversion = new ArrayList<>();
