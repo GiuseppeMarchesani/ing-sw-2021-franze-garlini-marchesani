@@ -416,6 +416,7 @@ public class Cli extends ObservableView implements View{
                 out.println("\nYou must pay " + price.get(res) + " " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
                 if (newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
                     do {
+                        invalidInput=false;
                         out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
                         try {
                             resNumToGet = 0;
@@ -424,15 +425,18 @@ public class Cli extends ObservableView implements View{
                             out.println(STR_WRONG_INPUT);
                             invalidInput = true;
                         }
-                        if (!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
-                            resNumToGet = newStrongbox.get(res);
+                        if(!invalidInput) {
+                            if (resNumToGet < 0 || resNumToGet > price.get(res) || resNumToGet > newStrongbox.get(res))
+                                invalidInput = true;
+                            else invalidInput = false;
+                            if (!invalidInput) {
+                                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                                if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
+                            }
                         }
-                        newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
-                        if(newStrongbox.get(res)==0) newStrongbox.remove(res);
                     } while (invalidInput);
                 }
                 paymentWarehouse.put(res, (price.get(res) - resNumToGet));
-
             }
             out.println("\nAll the other resources will be taken in the warehouse.");
         }
@@ -651,49 +655,87 @@ public class Cli extends ObservableView implements View{
     @Override
     public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
         //Not ANY-resources payment
+        boolean invalidInput=false;
         int resNumToGet = 0;
         HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();
         HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
 
-        for(ResourceType res: cardCost.keySet()) {
-            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
-                out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
-                try {
-                    resNumToGet = 0;
-                    resNumToGet = Integer.parseInt(readLine());
-                } catch (ExecutionException e) {
-                    out.println(STR_WRONG_INPUT);
+        if(!strongbox.isEmpty()) {
+            for (ResourceType res : cardCost.keySet()) {
+                out.println("\nYou must pay " + cardCost.get(res) + " " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+                if (newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
+                    do {
+                        invalidInput=false;
+                        out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                        try {
+                            resNumToGet = 0;
+                            resNumToGet = Integer.parseInt(readLine());
+                        } catch (ExecutionException e) {
+                            out.println(STR_WRONG_INPUT);
+                            invalidInput = true;
+                        }
+                        if(!invalidInput) {
+                            if (resNumToGet < 0 || resNumToGet > cardCost.get(res) || resNumToGet > newStrongbox.get(res))
+                                invalidInput = true;
+                            else invalidInput = false;
+                            if (!invalidInput) {
+                                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                                if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
+                            }
+                        }
+                    } while (invalidInput);
                 }
-                if(!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
-                    resNumToGet = newStrongbox.get(res);
-                }
-                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
-                if(newStrongbox.get(res)==0) newStrongbox.remove(res);
+                paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
             }
-            paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
+            out.println("\nAll the other resources will be taken in the warehouse.");
         }
+        else{
+            for(ResourceType res: cardCost.keySet()){
+                paymentWarehouse.put(res, cardCost.get(res));
+            }
+            out.println("\nAll the resources will be taken in the warehouse");
+        }
+
 
         //ANY-resource payment
         HashMap<ResourceType, Integer> anyToPay = askAnyResource(numAny);
-        for(ResourceType res: anyToPay.keySet()) {
-            out.println("\nYou must pay " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
-            if(newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
-                out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
-                try {
-                    resNumToGet = 0;
-                    resNumToGet = Integer.parseInt(readLine());
-                } catch (ExecutionException e) {
-                    out.println(STR_WRONG_INPUT);
+
+        if(!strongbox.isEmpty()) {
+            for (ResourceType res : anyToPay.keySet()) {
+                out.println("\nYou must pay " + anyToPay.get(res) + " " + getAnsiColor(res) + res.toString() + ANSI_RESET + ".");
+                if (newStrongbox.keySet().contains(res) && newStrongbox.get(res) > 0) {
+                    do {
+                        invalidInput=false;
+                        out.print("Found " + newStrongbox.get(res) + " in strongbox. How many of it you want to use for payment?: ");
+                        try {
+                            resNumToGet = 0;
+                            resNumToGet = Integer.parseInt(readLine());
+                        } catch (ExecutionException e) {
+                            out.println(STR_WRONG_INPUT);
+                            invalidInput=true;
+                        }
+                        if(!invalidInput) {
+                            if (resNumToGet < 0 || resNumToGet > anyToPay.get(res) || resNumToGet > newStrongbox.get(res))
+                                invalidInput = true;
+                            else invalidInput = false;
+                            if (!invalidInput) {
+                                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
+                                if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
+                            }
+                        }
+                    } while(invalidInput);
                 }
-                if(!(resNumToGet >= 0 && resNumToGet <= newStrongbox.get(res))) {
-                    resNumToGet = newStrongbox.get(res);
-                }
-                newStrongbox.replace(res, newStrongbox.get(res) - resNumToGet);
-                if(newStrongbox.get(res)==0) newStrongbox.remove(res);
+                paymentWarehouse.put(res, (anyToPay.get(res) - resNumToGet));
             }
-            paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
+            out.println("\nAll the other resources will be taken in the warehouse.");
         }
+        else{
+            for(ResourceType res: anyToPay.keySet()){
+                paymentWarehouse.put(res, anyToPay.get(res));
+            }
+            out.println("\nAll the resources will be taken in the warehouse");
+        }
+
 
         //Asking slot
         int chosenSlot = -1;
