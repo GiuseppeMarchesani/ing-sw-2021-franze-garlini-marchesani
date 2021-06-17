@@ -7,7 +7,8 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
+public class LeaderDepot extends LeaderCard  {
+    private HashMap<ResourceType, Integer> cost;
     /**
      * Default constructor
      * @param id id associated with the card
@@ -16,7 +17,8 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
      * @param resourceAbility ability related to the card
      */
     public LeaderDepot(int id, int victoryPoints, HashMap<ResourceType, Integer> cost, ResourceType resourceAbility) {
-        super(id, victoryPoints, resourceAbility, LeaderCost.RESOURCES, cost);
+        super(id, victoryPoints, resourceAbility);
+        this.cost=cost;
 
     }
 
@@ -26,9 +28,9 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
                     "requirement: " + "\n" +
                     "{";
 
-        for (ResourceType res : getCost().keySet()) {
-            if (getCost().get(res) > 0) {
-                leaderDepotSTR = leaderDepotSTR.concat("\n    " + res.toString() + ": " + getCost().get(res));
+        for (ResourceType res : cost.keySet()) {
+            if (cost.get(res) > 0) {
+                leaderDepotSTR = leaderDepotSTR.concat("\n    " + res.toString() + ": " + cost.get(res));
             }
         }
         leaderDepotSTR = leaderDepotSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
@@ -40,7 +42,13 @@ public class LeaderDepot extends LeaderCard< HashMap<ResourceType, Integer>>  {
         player.getWarehouse().addDepot(getResourceAbility());
     }
 
+    @Override
+    public LeaderCost getCostType() {
+        return LeaderCost.RESOURCES;
+    }
 
-
-
+    @Override
+    public HashMap<ResourceType, Integer> getResourceCost() {
+        return cost;
+    }
 }

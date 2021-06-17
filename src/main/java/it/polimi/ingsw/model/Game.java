@@ -113,7 +113,7 @@ public class Game {
      * @param level The chosen Development Card level.
      * @return The chosen Development Card.
      */
-    public DevCard pickDevCard(Color color, int level) throws IndexOutOfBoundsException{
+    public DevCard pickDevCard(Color color, int level){
         return cardMarket.pickCard(color, level);
     }
 
@@ -362,5 +362,12 @@ public class Game {
             }
         }
         return updateFaithTrack();
+    }
+    public HashMap<String, Integer> getVictoryPoints(){
+        HashMap<String,Integer> points=new HashMap<>();
+        for(Player p : playersList){
+            points.put(p.getUsername(), p.getDevCardSlot().getCardPoints()+p.getLeaderVp()+p.getVictoryPoint());
+        }
+        return points;
     }
 }

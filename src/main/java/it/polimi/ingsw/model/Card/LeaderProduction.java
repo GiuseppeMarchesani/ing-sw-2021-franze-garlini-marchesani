@@ -7,9 +7,10 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
+public class LeaderProduction extends LeaderCard  {
 
     private HashMap<ResourceType, Integer> productionIncome;
+    private HashMap<Color, Integer> cost;
 
     /**
      * Default constructor
@@ -19,7 +20,8 @@ public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
      * @param resourceAbility ability related to the card
      */
     public LeaderProduction(int id, int victoryPoints, HashMap<Color, Integer> cost, HashMap<ResourceType, Integer> productionIncome, ResourceType resourceAbility) {
-        super(id, victoryPoints, resourceAbility, LeaderCost.LEVEL_TWO, cost);
+        super(id, victoryPoints, resourceAbility  );
+        this.cost=cost;
         this.productionIncome = productionIncome;
 
     }
@@ -30,7 +32,7 @@ public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
     }
 
     public Color getColorCost(){
-        return getCost().entrySet().iterator().next().getKey();
+        return cost.entrySet().iterator().next().getKey();
     }
 
     public HashMap<ResourceType, Integer> getProductionIncome() {
@@ -43,12 +45,22 @@ public class LeaderProduction extends LeaderCard<HashMap<Color, Integer>>  {
                 "requirement: " + "\n" +
                 "{";
 
-        for (Color color : getCost().keySet()) {
-            if (getCost().get(color) > 0) {
-                leaderProdSTR = leaderProdSTR.concat("\n    " + color.toString() + ": " + getCost().get(color) + "\n");
+        for (Color color : cost.keySet()) {
+            if (cost.get(color) > 0) {
+                leaderProdSTR = leaderProdSTR.concat("\n    " + color.toString() + ": " + cost.get(color) + "\n");
             }
         }
         leaderProdSTR = leaderProdSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP());
         return leaderProdSTR;
+    }
+
+    @Override
+    public LeaderCost getCostType() {
+        return LeaderCost.LEVEL_TWO;
+    }
+
+    @Override
+    public HashMap<Color, Integer> getLevelTwoCost() {
+        return cost;
     }
 }

@@ -7,8 +7,9 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
-public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
+public class LeaderMarble extends LeaderCard{
 
+    private HashMap<Color, Integer> cost;
     /**
      * Default constructor
      * @param id id associated with the card
@@ -17,7 +18,8 @@ public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
      * @param resourceAbility ability related to the card
      */
     public LeaderMarble(int id, int victoryPoints, HashMap<Color, Integer> cost, ResourceType resourceAbility) {
-        super(id, victoryPoints, resourceAbility, LeaderCost.DEV_CARD_DOUBLE, cost);
+        super(id, victoryPoints, resourceAbility);
+        this.cost=cost;
     }
 
     @Override
@@ -34,10 +36,19 @@ public class LeaderMarble extends LeaderCard<HashMap<Color, Integer>> {
                 "id: " + getId() + "\n" +
                 "requirement: " + "\n" +
                 "{";
-        for(Color color: getCost().keySet()) {
-            leaderSTR = leaderSTR.concat("\n    " + color.toString() + ": " + getCost().get(color));
+        for(Color color: cost.keySet()) {
+            leaderSTR = leaderSTR.concat("\n    " + color.toString() + ": " + cost.get(color));
         }
         leaderSTR = leaderSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
         return leaderSTR;
+    }
+
+    @Override
+    public LeaderCost getCostType() {
+        return LeaderCost.DEV_CARD_DOUBLE;
+    }
+    @Override
+    public HashMap<Color, Integer> getCardCost() {
+        return cost;
     }
 }

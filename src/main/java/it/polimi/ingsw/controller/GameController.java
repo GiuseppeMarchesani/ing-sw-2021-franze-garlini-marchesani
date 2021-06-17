@@ -381,11 +381,7 @@ public class GameController {
                     startTurn();
                     break;
                 case SHOW_VICTORY_POINTS:
-                    HashMap<String, Integer> vp= new HashMap<>();
-                    for(String user: gameSession.getPlayerListByUsername()){
-                        vp.put(user, gameSession.getPlayer(user).getVictoryPoint());
-                    }
-                    allVirtualView.get(turnController.getActivePlayer()).showCurrentVP(vp);
+                    allVirtualView.get(turnController.getActivePlayer()).showCurrentVP(gameSession.getVictoryPoints());
                     startTurn();
                     break;
                 case SHOW_SLOT:
@@ -456,7 +452,7 @@ public class GameController {
             startTurn();
             return;
         }
-        DevCard card = gameSession.pickDevCard(msg.getColor(), msg.getLevel());
+        DevCard card = gameSession.pickDevCard(msg.getColor(), msg.getLevel()-1);
         if (card == null) {
             allVirtualView.get(msg.getUsername()).showErrorMsg("The pile is empty!");
             startTurn();
@@ -581,13 +577,14 @@ public class GameController {
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
             increaseFaith(1, true);
-            player.discardLeader(card);
+
+            player.discardLeader(card.getId());
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
         }
         else{
             switch(card.getCostType()){
                 case RESOURCES:
-                    if(!player.checkPriceCanBePaid(((LeaderDepot) card).getCost())){
+                    if(!player.checkPriceCanBePaid((card).getResourceCost())){
                         allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");
                         return;
                     }
@@ -610,17 +607,13 @@ public class GameController {
 
                     break;
                 case DEV_CARD_SINGLE:
-                    if(checkCardColorRequirements(player, ((LeaderDiscount) card).getCost())){
-                        player.playLeader(card.getId());
-                    }
-                    else return;
-                    break;
                 case DEV_CARD_DOUBLE:
-                    if(checkCardColorRequirements(player, ((LeaderMarble) card).getCost())){
+                    if(checkCardColorRequirements(player, card.getCardCost())){
                         player.playLeader(card.getId());
                     }
                     else return;
                     break;
+
             }
             broadcastMessage(player.getUsername()+ " has played a Leader Power: " + card.toString());
         }
