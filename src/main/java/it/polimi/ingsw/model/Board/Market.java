@@ -89,7 +89,7 @@ public class Market{
         else if(rowOrCol == 'r') {
             c = marketTray[0][index];
             for(int i=0; i<N_COL-1; i++){
-                marketTray[i][index] = marketTray[i + 1][i];
+                marketTray[i][index] = marketTray[i + 1][index];
             }
             marketTray[N_COL-1][index] = cornerMarble;
         }
