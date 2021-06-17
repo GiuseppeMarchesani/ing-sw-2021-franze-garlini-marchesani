@@ -32,7 +32,7 @@ public class LeaderDiscount extends LeaderCard  {
         }
     }
     public String toString() {
-        String leaderDiscountSTR = "Leader Card Depot: \n" +
+        String leaderDiscountSTR = "Leader Card Discount: \n" +
                 "id: " + getId() + "\n" +
                 "requirement: " + "\n" +
                 "{";

@@ -20,7 +20,7 @@ public class LeaderProduction extends LeaderCard  {
      * @param resourceAbility ability related to the card
      */
     public LeaderProduction(int id, int victoryPoints, HashMap<Color, Integer> cost, HashMap<ResourceType, Integer> productionIncome, ResourceType resourceAbility) {
-        super(id, victoryPoints, resourceAbility  );
+        super(id, victoryPoints, resourceAbility);
         this.cost=cost;
         this.productionIncome = productionIncome;
 
@@ -40,17 +40,17 @@ public class LeaderProduction extends LeaderCard  {
     }
 
     public String toString() {
-        String leaderProdSTR = "Leader Card Depot: \n" +
+        String leaderProdSTR = "Leader Card Production: \n" +
                 "id: " + getId() + "\n" +
                 "requirement: " + "\n" +
                 "{";
 
         for (Color color : cost.keySet()) {
             if (cost.get(color) > 0) {
-                leaderProdSTR = leaderProdSTR.concat("\n    " + color.toString() + ": " + cost.get(color) + "\n");
+                leaderProdSTR = leaderProdSTR.concat("\n    " + color.toString() + ": " + cost.get(color));
             }
         }
-        leaderProdSTR = leaderProdSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP());
+        leaderProdSTR = leaderProdSTR.concat("\n}\nresource ability: " + getResourceAbility().toString() + "\nvictory points: " + getVP() + "\n");
         return leaderProdSTR;
     }
 

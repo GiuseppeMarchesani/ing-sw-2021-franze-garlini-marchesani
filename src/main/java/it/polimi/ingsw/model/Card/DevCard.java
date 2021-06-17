@@ -85,6 +85,8 @@ public class DevCard extends Card {
     @Override
     public String toString() {
         String devcardSTR;
+
+        //Base production scroll
         if(getId()==0) {
             devcardSTR = "Base production scroll: \n" +
                     "id: " + getId() +"\n" +
@@ -92,9 +94,11 @@ public class DevCard extends Card {
                     "Income: 1 ANY\n";
             return devcardSTR;
         }
+
+        //Leader Card Production
         else if(getId() >= STARTING_LEADER_ID) {
             devcardSTR = "Leader Card Production: \n" +
-                    "id: " + getId() + "\n";
+                    "id: " + getId();
         }
         else {
             devcardSTR = "DevCard: \n" +
