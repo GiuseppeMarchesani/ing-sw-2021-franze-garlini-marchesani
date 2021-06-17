@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.enumeration.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * This class represents the CardMarket used to buy DevCards.
+ */
 public class CardMarket {
     private ArrayList<ArrayList<ArrayList<DevCard>>> devCardGrid;
 
@@ -126,7 +129,6 @@ public class CardMarket {
                 }
                 if (removed==2) return;
             }
-
         }
         return;
     }
