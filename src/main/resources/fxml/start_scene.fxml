@@ -22,13 +22,14 @@
             <children>
                 <AnchorPane fx:id="rootPane" layoutX="125.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="486.0">
                     <children>
-                        <Button fx:id="btmNext" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" style="-fx-background-color: #ccac9f; -fx-background-radius: 10; -fx-border-color: #486512; -fx-border-radius: 10;" styleClass="btmNext" text="START" >
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></Button>
+                        <Button fx:id="btmNext" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" style="-fx-background-color: #ccac9f; -fx-background-radius: 10; -fx-border-color: #486512; -fx-border-radius: 10;" text="START" >
+                             <font>
+                                <Font size="20.0" />
+                             </font>
+                             <cursor>
+                                <Cursor fx:constant="HAND" />
+                             </cursor>
+                        </Button>
                   <Text fill="#486512" layoutX="56.0" layoutY="59.0" nodeOrientation="LEFT_TO_RIGHT" smooth="false" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="MASTERS OF RENAISSANCE" textAlignment="CENTER" wrappingWidth="361.222229003906">
                      <font>
                         <Font name="Bodoni MT" size="36.0" />

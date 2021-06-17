@@ -15,7 +15,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askConnect() {
-        Platform.runLater(() -> SceneController.changeRootPane(observers,"/fxml/init_scene.fxml"));
+        //won't be use
     }
 
     @Override

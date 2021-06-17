@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view.GUI.guiController;
+package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.GenericSceneController;
