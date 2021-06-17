@@ -859,6 +859,7 @@ public class Cli extends ObservableView implements View{
             if(leaderCards.get(leader)) out.println(ANSI_RED + "activated" + ANSI_RESET);
             else out.println(ANSI_YELLOW + "not activated" + ANSI_RESET);
         }
+        if(leaderCards.isEmpty()) out.println("\nYou have no leader cards!");
     }
 
     private String getAnsiColor(ResourceType resourceType) {
