@@ -11,10 +11,11 @@ public class FaithZone {
 
 
     /**
-     * Class Constructor.
-     * @param start The starting space of the section.
-     * @param end The ending space of the section.
-     * @param activated Will become true when a player pass the end of the faith zone.
+     * Default constructor.
+     * @param start the starting space of the section.
+     * @param end the ending space of the section.
+     * @param faithZoneVP amount of Victory Points associated to the FaithZone.
+     * @param activated will become true when a player pass the end of the faith zone.
      */
     public FaithZone(int start, int end, int faithZoneVP, Boolean activated) {
         this.start = start;
@@ -22,7 +23,6 @@ public class FaithZone {
         this.faithZoneVP = faithZoneVP;
         this.activated = activated;
     }
-
 
     public int getStart() {
         return start;

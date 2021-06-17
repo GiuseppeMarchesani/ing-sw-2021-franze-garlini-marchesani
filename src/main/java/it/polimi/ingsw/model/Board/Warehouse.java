@@ -1,9 +1,7 @@
 package it.polimi.ingsw.model.Board;
 
-import it.polimi.ingsw.model.Board.Depot;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -94,7 +92,7 @@ public class Warehouse {
      */
     public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
         for(int i=0; i<3; i++){
-            depotList.get(i).replaceDepot(depotToResource.get(i), depotToQuantity.get(i));
+            depotList.get(i).placeInDepot(depotToResource.get(i), depotToQuantity.get(i));
         }
         for(int i=0;i<resourceToLeader.size();i++){
             depotList.get(i+3).setResourceQuantity(resourceToLeader.get(i));

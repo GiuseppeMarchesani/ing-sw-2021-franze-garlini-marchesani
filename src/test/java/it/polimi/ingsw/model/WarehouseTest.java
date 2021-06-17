@@ -1,13 +1,11 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.Board.Depot;
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -25,12 +23,12 @@ public class WarehouseTest {
         testWarehouse.addDepot(ResourceType.STONE);
         assertEquals(4, testWarehouse.getDepotList().size());
         assertEquals(ResourceType.STONE.getVal(), testWarehouse.getDepotList().get(3).getResourceType().getVal());
-        assertEquals(0, testWarehouse.getDepotList().get(3).getRearrangeble());
+        assertEquals(0, testWarehouse.getDepotList().get(3).getArrangeable());
 
         testWarehouse.addDepot(ResourceType.SHIELD);
         assertEquals(5, testWarehouse.getDepotList().size());
         assertEquals(ResourceType.SHIELD.getVal(), testWarehouse.getDepotList().get(4).getResourceType().getVal());
-        assertEquals(0, testWarehouse.getDepotList().get(4).getRearrangeble());
+        assertEquals(0, testWarehouse.getDepotList().get(4).getArrangeable());
     }
 
     @Test

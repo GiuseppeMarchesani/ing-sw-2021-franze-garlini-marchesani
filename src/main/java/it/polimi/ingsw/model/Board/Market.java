@@ -8,7 +8,6 @@ import java.util.*;
 /**
  * This class is used to contain all the marbles.
  */
-
 public class Market{
     private ResourceType[][] marketTray;
     private ResourceType cornerMarble;
@@ -16,12 +15,11 @@ public class Market{
     private final int N_ROW = 3;
 
     /**
-     * Default constructor
-     * @param totalMarbles all marbles in the game
+     * Default constructor.
+     * @param totalMarbles all marbles in the game.
      */
     public Market(ArrayList<ResourceType> totalMarbles){
         this.marketTray = new ResourceType[N_COL][N_ROW];
-
         int d=0;
         Collections.shuffle(totalMarbles);
 
@@ -34,29 +32,14 @@ public class Market{
         cornerMarble= totalMarbles.get(d);
     }
 
-    public ResourceType getCornerMarble() {
-        return cornerMarble;
-    }
-
-
-    public ResourceType[][] getMarketTray() {
-        ResourceType[][] market= new ResourceType[N_COL][N_ROW];
-        for (int i=0; i<N_COL; i++){
-            for(int j=0; j<N_ROW; j++){
-                market[i][j]=marketTray[i][j];
-            }
-        }
-        return market;
-    }
-
     /**
-     * Takes the row or column requested by the player and replaces the marbles
-     * @param rowOrCol 'c' stands for column, 'r' stands for row
-     * @param num which column or which row
-     * @return the resources present in the chosen row or column
+     * Takes the row or column requested by the player and replaces the marbles.
+     * @param rowOrCol 'c' stands for column, 'r' stands for row.
+     * @param num which column or which row.
+     * @param conversion ResourceType associated to the white marble conversion.
+     * @return the resources present in the chosen row or column.
      */
     public HashMap<ResourceType, Integer> pickResources(char rowOrCol, int num, ResourceType conversion) throws InvalidParameterException {
-
         HashMap<ResourceType, Integer> resources = new HashMap<>();
 
         if (rowOrCol == 'c') {
@@ -73,6 +56,7 @@ public class Market{
                     } else resources.put(marketTray[i][num], 1);
                 }
         }
+
         if (resources.get(ResourceType.EMPTY)!=null){
             if(conversion!= null){
                 int change=resources.get(ResourceType.EMPTY);
@@ -90,10 +74,10 @@ public class Market{
 
     /**
      * Repositions the marbles after the player has taken them from the market.
-     * @param rowOrCol 'r' if the player chosen row or 'c' if the player chosen column
-     * @param index index of the row or column chosen by the player
+     * @param rowOrCol 'r' if the player chose row, 'c' if the player chose column.
+     * @param index index of the row or column chosen by the player.
      */
-    private void replace (char rowOrCol, int index) {
+    private void replace(char rowOrCol, int index) {
         ResourceType c = null;
         if(rowOrCol == 'c'){
             c=marketTray[index][0];
@@ -110,6 +94,20 @@ public class Market{
             marketTray[N_COL-1][index] = cornerMarble;
         }
         cornerMarble = c;
+    }
+
+    public ResourceType[][] getMarketTray() {
+        ResourceType[][] market = new ResourceType[N_COL][N_ROW];
+        for (int i=0; i<N_COL; i++){
+            for(int j=0; j<N_ROW; j++){
+                market[i][j]=marketTray[i][j];
+            }
+        }
+        return market;
+    }
+
+    public ResourceType getCornerMarble() {
+        return cornerMarble;
     }
 
 }
