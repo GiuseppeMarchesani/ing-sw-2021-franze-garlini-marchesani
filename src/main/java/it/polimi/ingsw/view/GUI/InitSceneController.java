@@ -1,37 +1,35 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.GenericSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.event.Event;
-import java.util.Map;
 
 public class InitSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
-    private TextField serverAddress;
+    private TextField serverAddressField;
     @FXML
-    private TextField serverPort;
+    private TextField serverPortField;
     @FXML
-    private Button btmNext;
+    private Button btm_next;
 
     @FXML
     public void initialize(){
-        btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
+        btm_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
     }
 
     private void onConnectBtm(Event event){
-        btmNext.setDisable(true);
 
-        String address = serverAddress.getText();
-        Integer port = Integer.parseInt(serverPort.getText());
+        String address = serverAddressField.getText();
+        int chosenPort = Integer.parseInt(serverPortField.getText());
 
-        new Thread(() -> notifyObserver(obs -> obs.updateConnect(address, port))).start();
-        SceneController.changeRootPane(observers, event, "/fxml/lobby_scene.fxml");
-
+        btm_next.setDisable(true);
+        serverPortField.setEditable(false);
+        serverPortField.setEditable(false);
+        notifyObserver(obs -> obs.updateConnect(address, chosenPort));
     }
 
 }

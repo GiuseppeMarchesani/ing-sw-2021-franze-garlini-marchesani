@@ -1,35 +1,40 @@
 package it.polimi.ingsw.view.GUI;
 
+import it.polimi.ingsw.network.BootServer;
+import it.polimi.ingsw.network.ClientHandler;
+import it.polimi.ingsw.network.LobbyServer;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.GenericSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.event.Event;
+import javafx.scene.input.MouseEvent;
 
+import java.net.Socket;
 
 
 public class LobbySceneController extends ObservableView implements GenericSceneController {
 
     @FXML
-    private TextField username;
+    private TextField txtUsername;
     @FXML
-    private TextField gameId;
+    private TextField txtGameId;
     @FXML
-    private Button next;
+    private Button btnNext;
 
     @FXML
-    public void initialize(){
-        next.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinBtm);
+    private void initialize(){
+        btnNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onJoinBtm);
     }
-
     private void onJoinBtm(Event event){
-        next.setDisable(true);
+        btnNext.setDisable(true);
 
-        String user = username.getText();
-        String game = gameId.getText();
+        String username = txtUsername.getText();
+        String game = txtGameId.getText();
 
-        new Thread(()-> notifyObserver(obs -> obs.updateLobby(user, game)));
+        new Thread(() -> notifyObserver(obs -> obs.updateLobby(username, game))).start();
+
+
     }
 }

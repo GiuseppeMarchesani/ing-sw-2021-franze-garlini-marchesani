@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +17,51 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askConnect() {
-        //won't be use
+        InitSceneController isc = new InitSceneController();
+        isc.addAllObservers(observers);
+        Platform.runLater(() -> {
+            try {
+                MainApp.changeRootPane(observers,"/fxml/init_scene");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void askLobby() {
+        LobbySceneController lsc = new LobbySceneController();
+        lsc.addAllObservers(observers);
+        Platform.runLater(() -> {
+            try {
+                MainApp.changeRootPane(observers,"/fxml/lobby_scene");
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        });
+
+
 
     }
 
     @Override
     public void askPlayersNumber() {
+/*
+        NumPlayerSceneController npsc = new NumPlayerSceneController();
+        npsc.addAllObservers(observers);
+        Platform.runLater(()->
+            {
+               try{
+                   MainApp.changeRootPane(observers,"/fxml/board_scene_singleplayer");
+               } catch (IOException e){
+                   e.printStackTrace();
+               }
+            });
+
+
+ */
 
     }
 
