@@ -27,6 +27,29 @@ public class MainApp  extends Application {
         Gui view = new Gui();
         ClientMessenger clientMessenger = new ClientMessenger(view);
         view.addObserver(clientMessenger);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/start_scene.fxml"));
+        Parent rootLayout = null;
+        try {
+            rootLayout = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        StartSceneController controller = loader.getController();
+        controller.addObserver(clientMessenger);
+
+        // Show the scene containing the root layout.
+        Scene scene = new Scene(rootLayout);
+        stage.setScene(scene);
+
+        stage.setResizable(true);
+        stage.setMaximized(false);
+        stage.setFullScreen(false);
+        stage.setTitle("Masters of Renaissance");
+        stage.show();
+
+        /*
         scene = new Scene(loadFXML("/fxml/start_scene"));
 
         StartSceneController newController = new StartSceneController();
@@ -35,42 +58,58 @@ public class MainApp  extends Application {
         stage.setTitle("Masters of Renaissance");
         stage.setMaximized(true);
         stage.show();
+
+
+
+         */
     }
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
-    public static <T> T changeRootPane(List<ObserverView> observerViewList, Scene newScene, String fxml) throws IOException {
-        T controller = null;
-        scene = new Scene(loadFXML(fxml));
-        URL url = SceneController.class.getResource(fxml);
-        FXMLLoader loader = new FXMLLoader(url);
-        controller = loader.getController();
-        ((ObservableView) controller).addAllObservers(observerViewList);
-        try {
-            scene.setRoot(loader.load());
-            scene= newScene;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return controller;
-    }
     public static void changeRootPane(GenericSceneController controller, Event event, String fxml) {
         Scene scene = ((Node) event.getSource()).getScene();
         changeRootPane(controller, scene, fxml);
     }
 
-    public static void changeRootPane(GenericSceneController newController, Scene newScene, String fxml) {
+    public static <T> T changeRootPane(List<ObserverView> observerViewList, Scene newScene, String fxml) {
+
+        T controller = null;
+
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
-            // Setting the controller BEFORE the load() method.
-            loader.setController(newController);
-            activeController = newController;
+            Parent root = loader.load();
+            controller = loader.getController();
+            ((ObservableView) controller).addAllObservers(observerViewList);
 
-            Parent root = loadFXML(fxml);
+            activeController = (GenericSceneController) controller;
+            scene = newScene;
+            scene.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return controller;
+    }
+
+    public static <T> T changeRootPane(List<ObserverView> observerList, String fxml) {
+        return changeRootPane(observerList, scene, fxml);
+    }
+
+
+    public static <T> T changeRootPane(List<ObserverView> observerList, Event event, String fxml) {
+        Scene newScene = ((Node) event.getSource()).getScene();
+        return changeRootPane(observerList, newScene, fxml);
+    }
+    public static void changeRootPane(GenericSceneController controller, Scene newScene, String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
+
+            // Setting the controller BEFORE the load() method.
+            loader.setController(controller);
+            activeController = controller;
+            Parent root = loader.load();
 
             scene = newScene;
             scene.setRoot(root);
@@ -79,14 +118,9 @@ public class MainApp  extends Application {
         }
     }
 
-    public static <T> T changeRootPane(List<ObserverView> observerList, String fxml) throws IOException {
-        return changeRootPane(observerList, scene, fxml);
-    }
-
     public static void changeRootPane(GenericSceneController controller, String fxml) {
         changeRootPane(controller, scene, fxml);
     }
-
     private static Parent loadFXML(String fxml) throws IOException {
 
         URL url = MainApp.class.getResource(fxml + ".fxml");
@@ -98,5 +132,9 @@ public class MainApp  extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static GenericSceneController getActiveController() {
+        return activeController;
     }
 }

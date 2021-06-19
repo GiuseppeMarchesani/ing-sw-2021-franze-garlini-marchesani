@@ -16,12 +16,12 @@ public class StartSceneController extends ObservableView implements GenericScene
     public void initialize() {
         btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPlayBtnClick);
     }
+
     private void onPlayBtnClick(Event event){
         btmNext.setDisable(true);
-        try {
-            MainApp.setRoot("/fxml/init_scene");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        MainApp.changeRootPane(observers, event,"/fxml/init_scene");
+
+
     }
 }

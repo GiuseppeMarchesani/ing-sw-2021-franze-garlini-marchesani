@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.GUI;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -15,16 +16,13 @@ import java.util.List;
 
 public class Gui extends ObservableView implements View {
 
+    private GameController gameController;
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
         isc.addAllObservers(observers);
         Platform.runLater(() -> {
-            try {
-                MainApp.changeRootPane(observers,"/fxml/init_scene");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            MainApp.changeRootPane(observers, "/fxml/init_scene");
         });
     }
 
@@ -32,42 +30,25 @@ public class Gui extends ObservableView implements View {
     public void askLobby() {
         LobbySceneController lsc = new LobbySceneController();
         lsc.addAllObservers(observers);
-        Platform.runLater(() -> {
-            try {
-                MainApp.changeRootPane(observers,"/fxml/lobby_scene");
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        });
-
-
-
+        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/lobby_scene")
+        );
     }
 
     @Override
     public void askPlayersNumber() {
-/*
         NumPlayerSceneController npsc = new NumPlayerSceneController();
         npsc.addAllObservers(observers);
         Platform.runLater(()->
-            {
-               try{
-                   MainApp.changeRootPane(observers,"/fxml/board_scene_singleplayer");
-               } catch (IOException e){
-                   e.printStackTrace();
-               }
-            });
-
-
- */
-
+                MainApp.changeRootPane(observers,"/fxml/numPlayer_scene")
+            );
     }
 
     @Override
     public void askAction() {
-
+        BoardSceneController bsc = new BoardSceneController();
+        bsc.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers, "/fxml/board_scene_4players"));
     }
 
     @Override
@@ -87,8 +68,23 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showMatchInfo(List<String> players, String activePlayer) {
-
+        BoardSceneController bsc = getBoardSceneController();
+        Platform.runLater(() -> bsc.updateMatchInfo(players, activePlayer));
     }
+
+    private BoardSceneController getBoardSceneController() {
+        BoardSceneController bsc;
+        try {
+            bsc = (BoardSceneController) MainApp.getActiveController();
+        } catch (ClassCastException e) {
+            bsc = new BoardSceneController();
+            bsc.addAllObservers(observers);
+            BoardSceneController finalBsc = bsc;
+            Platform.runLater(() -> MainApp.changeRootPane(finalBsc, "/fxml/board_scene_4players"));
+        }
+        return bsc;
+    }
+
 
     @Override
     public void askDevCardToBuy() {
@@ -189,4 +185,5 @@ public class Gui extends ObservableView implements View {
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
 
     }
+
 }
