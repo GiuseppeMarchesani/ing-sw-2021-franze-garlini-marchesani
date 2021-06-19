@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -165,22 +164,6 @@ public class Cli extends ObservableView implements View{
     @Override
     public void showMessage(String message) {
         out.println("\n" + message);
-    }
-
-    @Override
-    public void showDisconnectionMsg(String disconnectedUser, String message) {
-        inputThread.interrupt();
-        out.println("\n" + disconnectedUser + message);
-        System.exit(1);
-    }
-
-    @Override
-    public void showMatchInfo(List<String> players, String activePlayer) {
-        out.print("\nPlayers: ");
-        for(String str: players) {
-            out.print(str + " ");
-        }
-        out.println("\nActive player: " + activePlayer);
     }
 
     @Override
@@ -390,7 +373,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
+    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
         out.println("\nConverting ANY Resource in production cost...");
         HashMap<ResourceType, Integer> anyToPay = askAnyResource(anyPayment);
         boolean invalidInput = false;
@@ -422,11 +405,10 @@ public class Cli extends ObservableView implements View{
                             resNumToGet = 0;
                             resNumToGet = Integer.parseInt(readLine());
                         } catch (ExecutionException e) {
-                            out.println(STR_WRONG_INPUT);
                             invalidInput = true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > price.get(res) || resNumToGet > newStrongbox.get(res))
+                            if (resNumToGet < 0 || resNumToGet > price.get(res) || resNumToGet > newStrongbox.get(res) || price.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {
@@ -434,6 +416,7 @@ public class Cli extends ObservableView implements View{
                                 if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
                             }
                         }
+                        if(invalidInput) out.println("\nInvalid input or invalid payment.");
                     } while (invalidInput);
                 }
                 paymentWarehouse.put(res, (price.get(res) - resNumToGet));
@@ -653,7 +636,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
         //Not ANY-resources payment
         boolean invalidInput=false;
         int resNumToGet = 0;
@@ -671,11 +654,10 @@ public class Cli extends ObservableView implements View{
                             resNumToGet = 0;
                             resNumToGet = Integer.parseInt(readLine());
                         } catch (ExecutionException e) {
-                            out.println(STR_WRONG_INPUT);
                             invalidInput = true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > cardCost.get(res) || resNumToGet > newStrongbox.get(res))
+                            if (resNumToGet < 0 || resNumToGet > cardCost.get(res) || resNumToGet > newStrongbox.get(res) || cardCost.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {
@@ -683,6 +665,7 @@ public class Cli extends ObservableView implements View{
                                 if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
                             }
                         }
+                        if(invalidInput) out.println("\nInvalid input or invalid payment.");
                     } while (invalidInput);
                 }
                 paymentWarehouse.put(res, (cardCost.get(res) - resNumToGet));
@@ -711,11 +694,10 @@ public class Cli extends ObservableView implements View{
                             resNumToGet = 0;
                             resNumToGet = Integer.parseInt(readLine());
                         } catch (ExecutionException e) {
-                            out.println(STR_WRONG_INPUT);
                             invalidInput=true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > anyToPay.get(res) || resNumToGet > newStrongbox.get(res))
+                            if (resNumToGet < 0 || resNumToGet > anyToPay.get(res) || resNumToGet > newStrongbox.get(res) || anyToPay.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {
@@ -723,6 +705,7 @@ public class Cli extends ObservableView implements View{
                                 if (newStrongbox.get(res) == 0) newStrongbox.remove(res);
                             }
                         }
+                        if(invalidInput) out.println("\nInvalid input or invalid payment.");
                     } while(invalidInput);
                 }
                 paymentWarehouse.put(res, (anyToPay.get(res) - resNumToGet));

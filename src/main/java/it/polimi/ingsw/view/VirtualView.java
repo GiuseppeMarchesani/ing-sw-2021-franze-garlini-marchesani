@@ -69,16 +69,6 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showDisconnectionMsg(String disconnectedUser, String message) {
-
-    }
-
-    @Override
-    public void showMatchInfo(List<String> players, String activePlayer) {
-
-    }
-
-    @Override
     public void askDevCardToBuy() {
         clientHandler.sendMessage(new BuyDevCardReply());
     }
@@ -107,9 +97,10 @@ public class VirtualView implements View, Observer {
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
         clientHandler.sendMessage(new AskProductionReply(devCardList));
     }
+
     @Override
-    public void askProduction(HashMap<ResourceType, Integer> strongbox,HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce){
-        clientHandler.sendMessage(new GetProductionReply(strongbox, price, anyPayment, anyProduce));
+    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce){
+        clientHandler.sendMessage(new GetProductionReply(strongbox, warehouse, price, anyPayment, anyProduce));
     }
 
     @Override
@@ -133,8 +124,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askSlot( HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
-        clientHandler.sendMessage(new PlaceDevCardReply(strongbox, cardCost,any, availableSlots));
+    public void askSlot( HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int any, ArrayList<Integer> availableSlots) {
+        clientHandler.sendMessage(new PlaceDevCardReply(strongbox, warehouse, cardCost,any, availableSlots));
     }
 
     @Override

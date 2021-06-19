@@ -81,16 +81,6 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showDisconnectionMsg(String disconnectedUser, String message) {
-
-    }
-
-    @Override
-    public void showMatchInfo(List<String> players, String activePlayer) {
-
-    }
-
-    @Override
     public void askDevCardToBuy() {
 
     }
@@ -106,7 +96,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
+    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse,  HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
 
     }
 
@@ -161,7 +151,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
 
     }
 

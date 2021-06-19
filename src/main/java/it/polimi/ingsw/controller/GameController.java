@@ -475,7 +475,7 @@ public class GameController {
             any=card.getCardCost().get(ResourceType.ANY);
         }
         if (player.checkPriceCanBePaid(discountedPrice)){
-            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), card.getCardCost(), any, slots);
+            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), card.getCardCost(), any, slots);
         }
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
@@ -538,7 +538,7 @@ public class GameController {
             anyPayment=price.get(ResourceType.ANY);
         }
         if(player.checkPriceCanBePaid(price)){
-            allVirtualView.get(turnController.getActivePlayer()).askProduction(player.getStrongbox(), price, anyPayment, anyProduce);
+            allVirtualView.get(turnController.getActivePlayer()).askProduction(player.getStrongbox(), player.getWarehouse().getAllResources(), price, anyPayment, anyProduce);
         }
         else {
             allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Not enough resources!");

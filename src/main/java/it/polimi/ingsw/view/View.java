@@ -50,20 +50,6 @@ public interface View {
     void showMessage(String message);
 
     /**
-     * Shows the player a disconnection message.
-     * @param disconnectedUser the username of the disconnected player.
-     * @param message the message to be shown.
-     */
-    void showDisconnectionMsg(String disconnectedUser, String message);
-
-    /**
-     * Shows the player the numbers of players, their usernames and other info.
-     * @param players the list of the playing players.
-     * @param activePlayer the active player's username.
-     */
-    void showMatchInfo(List<String> players, String activePlayer);
-
-    /**
      * Allows the player to buy a Development Card.
      */
     void askDevCardToBuy();
@@ -89,7 +75,7 @@ public interface View {
      * @param anyPayment How many "Any" resources the player has to pay
      * @param anyProduce How many "Any" resources the player will gain.
      */
-    void askProduction(HashMap<ResourceType, Integer> strongbox,HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce);
+    void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer>  price, int anyPayment, int anyProduce);
 
     /**
      * Shows the Market.
@@ -167,7 +153,7 @@ public interface View {
      * @param numAny amount of ANY resource.
      * @param availableSlots the list of the available slot the player can choose.
      */
-    void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
+    void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots);
 
     /**
      * Allows the player to play a Leader Carder.

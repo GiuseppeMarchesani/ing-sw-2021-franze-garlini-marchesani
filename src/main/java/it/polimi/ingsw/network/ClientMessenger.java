@@ -250,11 +250,11 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case ACTIVATE_PRODUCTION:
                 GetProductionReply paymentMsg= (GetProductionReply) msg;
-                queue.execute(()-> view.askProduction(paymentMsg.getStrongbox(), paymentMsg.getPrice(), paymentMsg.getAnyPayment(), paymentMsg.getAnyProduce()));
+                queue.execute(()-> view.askProduction(paymentMsg.getStrongbox(), paymentMsg.getWarehouse(), paymentMsg.getPrice(), paymentMsg.getAnyPayment(), paymentMsg.getAnyProduce()));
                 break;
             case PICK_DEVCARD:
                 PlaceDevCardReply placeMsg= (PlaceDevCardReply) msg;
-                queue.execute(() ->view.askSlot( placeMsg.getStrongbox(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
+                queue.execute(() ->view.askSlot(placeMsg.getStrongbox(), placeMsg.getWarehouse(), placeMsg.getCardCost(), placeMsg.getAny(), placeMsg.getAvailableSlots()));
                 break;
             case SHOW_MARKET:
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
