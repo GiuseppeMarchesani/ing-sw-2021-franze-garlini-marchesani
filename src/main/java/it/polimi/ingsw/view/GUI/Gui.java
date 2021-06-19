@@ -1,6 +1,4 @@
 package it.polimi.ingsw.view.GUI;
-
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -8,8 +6,6 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -157,11 +153,13 @@ public class Gui extends ObservableView implements View {
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
 
+
     }
 
     @Override
     public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
-
+        ChooseLeaderToKeep cltk = getChooseLeaderToKeep();
+        Platform.runLater(() -> cltk.updateLeader(leaderCards));
     }
 
     @Override
@@ -177,6 +175,14 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
 
+    }
+
+    private ChooseLeaderToKeep getChooseLeaderToKeep() {
+        ChooseLeaderToKeep cltk = new ChooseLeaderToKeep();
+        cltk.addAllObservers(observers);
+        ChooseLeaderToKeep finalCltk = cltk;
+        Platform.runLater(() -> MainApp.changeRootPane(finalCltk, "/fxml/choose_leaderToKeep"));
+        return cltk;
     }
 
 }

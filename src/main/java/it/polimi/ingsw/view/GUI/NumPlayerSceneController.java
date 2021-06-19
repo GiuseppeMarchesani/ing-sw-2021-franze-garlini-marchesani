@@ -1,8 +1,6 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.observer.ObservableView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -10,7 +8,7 @@ import javafx.event.Event;
 
 public class NumPlayerSceneController extends ObservableView implements GenericSceneController {
 
-    private ToggleGroup group = new ToggleGroup();
+    private final ToggleGroup group = new ToggleGroup();
     @FXML
     private RadioButton choose1;
     @FXML
@@ -33,10 +31,25 @@ public class NumPlayerSceneController extends ObservableView implements GenericS
     }
 
     private void onConnectBtm(Event event){
-        Integer numPlayer =Integer.parseInt(group.getSelectedToggle().getUserData().toString());
+        RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
+        String id= selectedRadioButton.getId();
+        Integer numPlayer;
+        switch (id) {
+            case "choose1":
+                numPlayer = 1;
+                break;
+            case "choose2":
+                numPlayer = 2;
+                break;
+            case "choose3":
+                numPlayer = 3;
+                break;
+            default:
+                numPlayer = 4;
+                break;
+        }
         btmNext.setDisable(true);
         notifyObserver(obs -> obs.updatePlayersNumber(numPlayer));
-
     }
 
 }

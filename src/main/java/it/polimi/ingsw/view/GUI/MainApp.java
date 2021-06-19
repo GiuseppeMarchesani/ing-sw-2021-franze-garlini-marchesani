@@ -49,19 +49,6 @@ public class MainApp  extends Application {
         stage.setTitle("Masters of Renaissance");
         stage.show();
 
-        /*
-        scene = new Scene(loadFXML("/fxml/start_scene"));
-
-        StartSceneController newController = new StartSceneController();
-        newController.addObserver(clientMessenger);
-        stage.setScene(scene);
-        stage.setTitle("Masters of Renaissance");
-        stage.setMaximized(true);
-        stage.show();
-
-
-
-         */
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -136,5 +123,9 @@ public class MainApp  extends Application {
 
     public static GenericSceneController getActiveController() {
         return activeController;
+    }
+
+    public static Scene getScene() {
+        return scene;
     }
 }
