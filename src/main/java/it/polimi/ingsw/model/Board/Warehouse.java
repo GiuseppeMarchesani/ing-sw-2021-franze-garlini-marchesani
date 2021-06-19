@@ -6,14 +6,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * The class that contains the resources pick from market by the player
+ * This class represents the place where the player can place market's resources.
  */
 public class Warehouse {
     private int initialDepot = 3;
     private ArrayList<Depot> depotList;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public Warehouse(){
         this.depotList = new ArrayList<>(initialDepot);
@@ -27,17 +27,13 @@ public class Warehouse {
         }
     }
 
-    public ArrayList<Depot> getDepotList(){
-        return depotList;
-    }
-
     /**
-     * Gets all the resources in the warehouse
-     * @return returns the resources
+     * Returns all the warehouse's resources.
+     * @return returns all the resources in a HashMap.
      */
     public HashMap<ResourceType, Integer> getAllResources(){
         HashMap<ResourceType,Integer> resource=new HashMap<ResourceType, Integer>();
-        for(int i=0; i<3;i++){
+        for(int i=0; i<depotList.size();i++){
             resource.put(depotList.get(i).getResourceType(),depotList.get(i).getResourceQuantity());
         }
         for(int i=3;i<depotList.size();i++){
@@ -45,7 +41,6 @@ public class Warehouse {
                 resource.put(depotList.get(i).getResourceType(), resource.get(depotList.get(i).getResourceType())+depotList.get(i).getResourceQuantity());
             }
             else  resource.put(depotList.get(i).getResourceType(),depotList.get(i).getResourceQuantity());
-
         }
         resource.remove(ResourceType.EMPTY);
        return resource;
@@ -53,7 +48,7 @@ public class Warehouse {
 
     /**
      * Takes the resources needed to pay and removed them from the warehouse.
-     * @param resources resources to removed
+     * @param resources resources to be removed.
      */
     public  void spendResources(HashMap<ResourceType, Integer> resources){
         for(int i=0; i<depotList.size(); i++){
@@ -76,7 +71,7 @@ public class Warehouse {
 
     /**
      * This method adds a special depot.
-     * @param resourceType type of resources in leader card' ability
+     * @param resourceType The Depot ResourceType.
      */
     public void addDepot(ResourceType resourceType){
         Depot depotLeader = new Depot(2, 0);
@@ -85,13 +80,13 @@ public class Warehouse {
     }
 
     /**
-     * Replaces the resources after the player has taken the resources from the market.
-     * @param depotToResource resources to put in the depot
-     * @param depotToQuantity quantity of resources to put in the depot
-     * @param resourceToLeader quantity of resources to put in the leader depot
+     * Replaces resources after the player has taken them from the market.
+     * @param depotToResource Resources to put in the depot.
+     * @param depotToQuantity Quantity of resources to put in the depot.
+     * @param resourceToLeader Quantity of resources to put in the leader depot.
      */
     public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
-        for(int i=0; i<3; i++){
+        for(int i=0; i<depotList.size(); i++){
             depotList.get(i).placeInDepot(depotToResource.get(i), depotToQuantity.get(i));
         }
         for(int i=0;i<resourceToLeader.size();i++){
@@ -99,87 +94,10 @@ public class Warehouse {
         }
     }
 
-    public HashMap<Integer,ResourceType> getDepotToResource(){
-        HashMap<Integer,ResourceType> depotToResource=new HashMap<Integer, ResourceType>();
-        for(int i=0; i<depotList.size();i++){
-            depotToResource.put(i, depotList.get(i).getResourceType());
-        }
-        return depotToResource;
-    }
-    public HashMap<Integer,Integer> getDepotToQuantity(){
-        HashMap<Integer,Integer> depotToQuantity=new HashMap<Integer, Integer>();
-        for(int i=0; i<depotList.size();i++){
-            depotToQuantity.put(i, depotList.get(i).getResourceQuantity());
-        }
-        return depotToQuantity;
-    }
-    public ArrayList<ResourceType> getLeaderDepot(){
-        ArrayList<ResourceType> leaderDepot=new ArrayList<ResourceType>();
-        for(int i=3; i<depotList.size();i++){
-            leaderDepot.add(depotList.get(i).getResourceType());
-        }
-        return leaderDepot;
-    }
-
-
-    /*
-    public HashMap<ResourceType, Integer> rearrange(int depot1, int depot2) throws InvalidParameterException{
-        HashMap<ResourceType, Integer> discardingResources = new HashMap<>();
-
-        //From depot2 to tempDepot
-        if(getDepotList().get(depot1).getRearrangeble()==1 && getDepotList().get(depot2).getRearrangeble()==1) {
-            Depot depot = new Depot(depotList.get(depot2).getSize(), depotList.get(depot2).getRearrangeble());
-            depot.setResourceType(depotList.get(depot2).getResourceType());
-            depot.setResourceQuantity(depotList.get(depot2).getResourceQuantity());
-
-            // if depot1's quantity > depot2's size
-            if(depotList.get(depot1).getResourceQuantity() > depotList.get(depot2).getSize()){
-                discardingResources.put(depotList.get(depot1).getResourceType(),
-                        depotList.get(depot1).getResourceQuantity() - depotList.get(depot2).getSize());
-                depotList.get(depot2).setResourceQuantity(depotList.get(depot2).getSize());
-            }
-            // if depot2's quantity > depot1's size
-            else if(depot.getResourceQuantity() > depotList.get(depot1).getSize()){
-                discardingResources.put(depot.getResourceType(), depot.getResourceQuantity() - depotList.get(depot1).getSize());
-                depotList.get(depot1).setResourceQuantity(depotList.get(depot1).getSize());
-            }
-
-            else {
-                depotList.get(depot2).setResourceQuantity(depotList.get(depot1).getResourceQuantity());
-                depotList.get(depot1).setResourceQuantity(depot.getResourceQuantity());
-            }
-
-            depotList.get(depot2).setResourceType(depotList.get(depot1).getResourceType());
-            depotList.get(depot1).setResourceType(depot.getResourceType());
-
-        } else throw new InvalidParameterException();
-        return discardingResources;
-    }
-
-     */
-
-
-    /*
-    public int place(ResourceType resource, int resourceQuantity, int floor){
-        int leftResources = resourceQuantity - getSpace().get(floor);
-        depotList.get(floor).setResourceType(resource);
-        if(leftResources>0) {
-            depotList.get(floor).setResourceQuantity(depotList.get(floor).getSize());
-            return leftResources;
-        }
-        else {
-            depotList.get(floor).setResourceQuantity(resourceQuantity + depotList.get(floor).getResourceQuantity());
-            return 0;
-        }
-
-    }
-
-     */
-
     /**
-     * this method is used to know if there is resource in warehouse
-     * @param res type of resource that are you looking for
-     * @return i the depot that have res, -1 if the depot does not have the requested resource
+     * This method is used to know if there is a certain ResourceType in the Warehouse.
+     * @param res ResourceType that are you looking for.
+     * @return The depot index that have res, -1 if Warehouse does not have the requested resource.
      */
     public int hasResource(ResourceType res){
         for(int i=0; i<depotList.size(); i++){
@@ -192,10 +110,9 @@ public class Warehouse {
     }
 
     /**
-     * this method is used to see if warehouse is empty
-     * @return (true if warehouse is empty and false if it is not)
+     * This method is used to see if warehouse is empty.
+     * @return True if warehouse is empty, false otherwise.
      */
-
     public Boolean isEmpty() {
         for(int i=0; i<depotList.size(); i++){
             if(depotList.get(i).getResourceQuantity() != 0 && depotList.get(i).getResourceType().getVal() != -1)
@@ -204,6 +121,10 @@ public class Warehouse {
         return true;
     }
 
+    /**
+     * This method is used to obtain the available space for each depot.
+     * @return An ArrayList of Integer representing the available space for each Depot.
+     */
     public ArrayList<Integer> getSpace(){
         ArrayList<Integer> space= new ArrayList<>();
         for(int i=0; i<depotList.size(); i++){
@@ -214,9 +135,9 @@ public class Warehouse {
 
 
     /**
-     * Takes the available depot to put the resource requested.
-     * @param res resource requested
-     * @return returns the available depot
+     * Returns the available depot where you can put the requested resource.
+     * @param res ResourceType requested.
+     * @return The available depot for put that ResourceType.
      */
     public ArrayList<Integer> availableDepot(ResourceType res){
         ArrayList<Integer> freeDepot = new ArrayList<>();
@@ -228,4 +149,43 @@ public class Warehouse {
         return freeDepot;
     }
 
+    /**
+     * Used to obtain a HashMap representing the ResourceType for each Depot.
+     * @return A HashMap representing each ResourceType per floor.
+     */
+    public HashMap<Integer,ResourceType> getDepotToResource(){
+        HashMap<Integer,ResourceType> depotToResource=new HashMap<Integer, ResourceType>();
+        for(int i=0; i<depotList.size();i++){
+            depotToResource.put(i, depotList.get(i).getResourceType());
+        }
+        return depotToResource;
+    }
+
+    /**
+     * Used to obtain a HashMap representing the ResourceType quantity for each Depot.
+     * @return A HashMap representing each ResourceType quantity per floor.
+     */
+    public HashMap<Integer,Integer> getDepotToQuantity(){
+        HashMap<Integer,Integer> depotToQuantity=new HashMap<Integer, Integer>();
+        for(int i=0; i<depotList.size();i++){
+            depotToQuantity.put(i, depotList.get(i).getResourceQuantity());
+        }
+        return depotToQuantity;
+    }
+
+    /**
+     * This method returns a list of ResourceType representing the Leader Depot Resource.
+     * @return The Leader Depot Resource as an ArrayList.
+     */
+    public ArrayList<ResourceType> getLeaderDepot(){
+        ArrayList<ResourceType> leaderDepot=new ArrayList<ResourceType>();
+        for(int i=3; i<depotList.size();i++){
+            leaderDepot.add(depotList.get(i).getResourceType());
+        }
+        return leaderDepot;
+    }
+
+    public ArrayList<Depot> getDepotList(){
+        return depotList;
+    }
 }
