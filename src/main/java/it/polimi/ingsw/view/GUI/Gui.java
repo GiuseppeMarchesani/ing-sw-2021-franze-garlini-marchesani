@@ -15,8 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Gui extends ObservableView implements View {
-
-    private GameController gameController;
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -61,12 +59,6 @@ public class Gui extends ObservableView implements View {
 
     }
 
-    @Override
-    public void showDisconnectionMsg(String disconnectedUser, String message) {
-
-    }
-
-    @Override
     public void showMatchInfo(List<String> players, String activePlayer) {
         BoardSceneController bsc = getBoardSceneController();
         Platform.runLater(() -> bsc.updateMatchInfo(players, activePlayer));
@@ -102,9 +94,10 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
+    public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
 
     }
+
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
@@ -157,7 +150,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
+    public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
 
     }
 
