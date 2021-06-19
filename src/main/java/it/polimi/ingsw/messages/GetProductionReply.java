@@ -8,12 +8,14 @@ public class GetProductionReply extends ServerMessage {
 
 
     private HashMap<ResourceType, Integer> strongbox;
+    private HashMap<ResourceType, Integer> warehouse;
     private HashMap<ResourceType, Integer> price;
     private int anyPayment;
     private int anyProduce;
-    public GetProductionReply(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
+    public GetProductionReply(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
         super(MessageType.ACTIVATE_PRODUCTION);
         this.strongbox=strongbox;
+        this.warehouse=warehouse;
         this.price=price;
         this.anyPayment=anyPayment;
         this.anyProduce=anyProduce;
@@ -33,5 +35,9 @@ public class GetProductionReply extends ServerMessage {
 
     public HashMap<ResourceType, Integer> getStrongbox() {
         return strongbox;
+    }
+
+    public HashMap<ResourceType, Integer> getWarehouse() {
+        return warehouse;
     }
 }
