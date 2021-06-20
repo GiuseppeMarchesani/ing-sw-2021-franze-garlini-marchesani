@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Gui extends ObservableView implements View {
+    private static ArrayList<LeaderCard> availableLeader= new ArrayList<>();
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -56,8 +57,6 @@ public class Gui extends ObservableView implements View {
     }
 
     public void showMatchInfo(List<String> players, String activePlayer) {
-        BoardSceneController bsc = getBoardSceneController();
-        Platform.runLater(() -> bsc.updateMatchInfo(players, activePlayer));
     }
 
     private BoardSceneController getBoardSceneController() {
@@ -68,7 +67,7 @@ public class Gui extends ObservableView implements View {
             bsc = new BoardSceneController();
             bsc.addAllObservers(observers);
             BoardSceneController finalBsc = bsc;
-            Platform.runLater(() -> MainApp.changeRootPane(finalBsc, "/fxml/board_scene_4players"));
+            Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/board_scene_4players"));
         }
         return bsc;
     }
@@ -158,8 +157,13 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
-        ChooseLeaderToKeep cltk = getChooseLeaderToKeep();
-        Platform.runLater(() -> cltk.updateLeader(leaderCards));
+        availableLeader.addAll(leaderCards);
+        ChooseLeaderToKeep cltk = new ChooseLeaderToKeep();
+        cltk.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers,"/fxml/choose_leaderToKeep")
+        );
+
     }
 
     @Override
@@ -177,12 +181,9 @@ public class Gui extends ObservableView implements View {
 
     }
 
-    private ChooseLeaderToKeep getChooseLeaderToKeep() {
-        ChooseLeaderToKeep cltk = new ChooseLeaderToKeep();
-        cltk.addAllObservers(observers);
-        ChooseLeaderToKeep finalCltk = cltk;
-        Platform.runLater(() -> MainApp.changeRootPane(finalCltk, "/fxml/choose_leaderToKeep"));
-        return cltk;
+    public static ArrayList<LeaderCard> getAvailableLeader(){
+        return availableLeader;
     }
+
 
 }

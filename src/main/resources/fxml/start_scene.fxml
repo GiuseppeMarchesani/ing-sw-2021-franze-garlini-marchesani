@@ -6,12 +6,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="732.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.StartSceneController">
+<StackPane prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.StartSceneController">
     <children>
-      <ImageView fitHeight="402.0" fitWidth="732.0" layoutX="-1.0" opacity="0.54">
+      <ImageView fitHeight="579.0" fitWidth="911.0" layoutX="-1.0" opacity="0.54">
          <image>
             <Image url="@../images/background2.png" />
          </image>
@@ -20,7 +21,7 @@
             <children>
                 <AnchorPane fx:id="rootPane" layoutX="125.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="486.0">
                     <children>
-                        <Button fx:id="btmNext" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" style="-fx-background-color: #ccac9f; -fx-background-radius: 10; -fx-border-color: #486512; -fx-border-radius: 10;" text="START" >
+                        <Button fx:id="btmNext" layoutX="60.0" layoutY="139.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="351.0" style="-fx-background-color: #ccac9f; -fx-background-radius: 10; -fx-border-color: #486512; -fx-border-radius: 10;" text="START">
                              <font>
                                 <Font size="20.0" />
                              </font>
@@ -39,4 +40,4 @@
         </Group>
     </children>
 
-</AnchorPane>
+</StackPane>

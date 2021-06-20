@@ -13,20 +13,12 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import it.polimi.ingsw.view.GUI.Gui;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChooseLeaderToKeep extends ObservableView implements GenericSceneController {
-
-    @FXML
-    private CheckBox leader1;
-    @FXML
-    private CheckBox leader2;
-    @FXML
-    private CheckBox leader3;
-    @FXML
-    private CheckBox leader4;
     @FXML
     private ImageView imgLeader1;
     @FXML
@@ -35,6 +27,14 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     private ImageView imgLeader3;
     @FXML
     private ImageView imgLeader4;
+    @FXML
+    private CheckBox leader1;
+    @FXML
+    private CheckBox leader2;
+    @FXML
+    private CheckBox leader3;
+    @FXML
+    private CheckBox leader4;
     @FXML
     private Button btmNext;
 
@@ -48,18 +48,32 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
     private int maxNumSelected =  2;
     private IntegerBinding numCheckBoxesSelected = Bindings.size(chooseCheckBoxes);
-
+    private Image image1;
+    private Image image2;
+    private Image image3;
+    private Image image4;
     @FXML
     public void initialize(){
-        Image image1 = new Image(String.valueOf(MainApp.class.getResource("/images/leader_id" + leaderCard1 + ".png")));
-        Image image2 = new Image(String.valueOf(MainApp.class.getResource("/images/leader_id" + leaderCard2 + ".png")));
-        Image image3 = new Image(String.valueOf(MainApp.class.getResource("/images/leader_id" + leaderCard3 + ".png")));
-        Image image4 = new Image(String.valueOf(MainApp.class.getResource("/images/leader_id" + leaderCard4 + ".png")));
+        allLeaders.addAll(Gui.getAvailableLeader());
+        leaderCard1 = allLeaders.get(0).getId()-1;
+        leaderCard2 = allLeaders.get(1).getId()-1;
+        leaderCard3 = allLeaders.get(2).getId()-1;
+        leaderCard4 = allLeaders.get(3).getId()-1;
+        image1 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + leaderCard1 + ".png"));
+        image2 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + leaderCard2 + ".png"));
+        image3 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + leaderCard3 + ".png"));
+        image4 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + leaderCard4 + ".png"));
         imgLeader1.setImage(image1);
         imgLeader2.setImage(image2);
         imgLeader3.setImage(image3);
         imgLeader4.setImage(image4);
 
+
+
+        imgLeader1.setVisible(true);
+        imgLeader2.setVisible(true);
+        imgLeader3.setVisible(true);
+        imgLeader4.setVisible(true);
         numCheckBoxesSelected.addListener((obs, oldSelectedCount, newSelectedCount) ->
         {
             if(newSelectedCount.intValue()>=maxNumSelected){
@@ -74,6 +88,10 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     }
 
     private void onNextBtm(Event event){
+        leader1.setDisable(true);
+        leader2.setDisable(true);
+        leader3.setDisable(true);
+        leader4.setDisable(true);
         HashMap<LeaderCard, CheckBox> checkBoxes=new HashMap<>();
         ArrayList<LeaderCard> chosenLeader = new ArrayList<>();
         checkBoxes.put(allLeaders.get(0),leader1);
@@ -82,18 +100,12 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
         checkBoxes.put(allLeaders.get(3),leader4);
         for(LeaderCard ld: checkBoxes.keySet()){
             if(checkBoxes.get(ld).isSelected()){
-               chosenLeader.add(ld);
+                chosenLeader.add(ld);
             }
         }
 
         notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
 
     }
-    public void updateLeader(ArrayList<LeaderCard> leaders){
-        allLeaders.addAll(leaders);
-        leaderCard1 = leaders.get(0).getId();
-        leaderCard2 = leaders.get(1).getId();
-        leaderCard3 = leaders.get(2).getId();
-        leaderCard4 = leaders.get(3).getId();
-    }
+
 }
