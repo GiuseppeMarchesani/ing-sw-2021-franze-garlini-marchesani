@@ -26,6 +26,7 @@ public class InitSceneController extends ObservableView implements GenericSceneC
         String address = serverAddressField.getText();
         Integer chosenPort = Integer.parseInt(serverPortField.getText());
         btm_next.setDisable(true);
+
         notifyObserver(obs -> obs.updateConnect(address, chosenPort));
     }
 
