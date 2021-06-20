@@ -8,16 +8,21 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This class is used to represents Leader Cards.
+ */
 public abstract class LeaderCard extends Card{
-
     private ResourceType resourceAbility;
     public LeaderCard(int id, int victoryPoints, ResourceType resourceAbility) {
         super(id, victoryPoints);
         this.resourceAbility = resourceAbility;
     }
 
+    /**
+     * This method activates the Leader ability.
+     * @param player the player who owns the Leader Card to activate.
+     */
     public abstract void activateAbility(Player player);
-
 
     public  abstract String toString();
 

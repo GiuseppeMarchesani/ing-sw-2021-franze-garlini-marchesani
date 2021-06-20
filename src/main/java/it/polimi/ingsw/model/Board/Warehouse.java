@@ -50,7 +50,7 @@ public class Warehouse {
      * Takes the resources needed to pay and removed them from the warehouse.
      * @param resources resources to be removed.
      */
-    public  void spendResources(HashMap<ResourceType, Integer> resources){
+    public void spendResources(HashMap<ResourceType, Integer> resources){
         for(int i=0; i<depotList.size(); i++){
             if(resources.containsKey(depotList.get(i).getResourceType())){
                 if(resources.get(depotList.get(i).getResourceType())<=depotList.get(i).getResourceQuantity()){
@@ -71,7 +71,7 @@ public class Warehouse {
 
     /**
      * This method adds a special depot.
-     * @param resourceType The Depot ResourceType.
+     * @param resourceType the Depot ResourceType.
      */
     public void addDepot(ResourceType resourceType){
         Depot depotLeader = new Depot(2, 0);
@@ -81,9 +81,9 @@ public class Warehouse {
 
     /**
      * Replaces resources after the player has taken them from the market.
-     * @param depotToResource Resources to put in the depot.
-     * @param depotToQuantity Quantity of resources to put in the depot.
-     * @param resourceToLeader Quantity of resources to put in the leader depot.
+     * @param depotToResource resources to put in the depot.
+     * @param depotToQuantity quantity of resources to put in the depot.
+     * @param resourceToLeader quantity of resources to put in the leader depot.
      */
     public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
         for(int i=0; i<depotList.size(); i++){
@@ -97,7 +97,7 @@ public class Warehouse {
     /**
      * This method is used to know if there is a certain ResourceType in the Warehouse.
      * @param res ResourceType that are you looking for.
-     * @return The depot index that have res, -1 if Warehouse does not have the requested resource.
+     * @return the depot index that have res, -1 if Warehouse does not have the requested resource.
      */
     public int hasResource(ResourceType res){
         for(int i=0; i<depotList.size(); i++){
@@ -111,9 +111,9 @@ public class Warehouse {
 
     /**
      * This method is used to see if warehouse is empty.
-     * @return True if warehouse is empty, false otherwise.
+     * @return true if warehouse is empty, false otherwise.
      */
-    public Boolean isEmpty() {
+    public boolean isEmpty() {
         for(int i=0; i<depotList.size(); i++){
             if(depotList.get(i).getResourceQuantity() != 0 && depotList.get(i).getResourceType().getVal() != -1)
                 return false;
@@ -123,7 +123,7 @@ public class Warehouse {
 
     /**
      * This method is used to obtain the available space for each depot.
-     * @return An ArrayList of Integer representing the available space for each Depot.
+     * @return an ArrayList of Integer representing the available space for each Depot.
      */
     public ArrayList<Integer> getSpace(){
         ArrayList<Integer> space= new ArrayList<>();
@@ -133,25 +133,9 @@ public class Warehouse {
         return space;
     }
 
-
-    /**
-     * Returns the available depot where you can put the requested resource.
-     * @param res ResourceType requested.
-     * @return The available depot for put that ResourceType.
-     */
-    public ArrayList<Integer> availableDepot(ResourceType res){
-        ArrayList<Integer> freeDepot = new ArrayList<>();
-        for(int i=0; i< getDepotList().size(); i++){
-            if(hasResource(res)==i || getSpace().get(i)==getDepotList().get(i).getSize()){
-                freeDepot.add(i);
-            }
-        }
-        return freeDepot;
-    }
-
     /**
      * Used to obtain a HashMap representing the ResourceType for each Depot.
-     * @return A HashMap representing each ResourceType per floor.
+     * @return a HashMap representing each ResourceType per floor.
      */
     public HashMap<Integer,ResourceType> getDepotToResource(){
         HashMap<Integer,ResourceType> depotToResource=new HashMap<Integer, ResourceType>();
@@ -163,7 +147,7 @@ public class Warehouse {
 
     /**
      * Used to obtain a HashMap representing the ResourceType quantity for each Depot.
-     * @return A HashMap representing each ResourceType quantity per floor.
+     * @return a HashMap representing each ResourceType quantity per floor.
      */
     public HashMap<Integer,Integer> getDepotToQuantity(){
         HashMap<Integer,Integer> depotToQuantity=new HashMap<Integer, Integer>();
@@ -175,7 +159,7 @@ public class Warehouse {
 
     /**
      * This method returns a list of ResourceType representing the Leader Depot Resource.
-     * @return The Leader Depot Resource as an ArrayList.
+     * @return the Leader Depot Resource as an ArrayList.
      */
     public ArrayList<ResourceType> getLeaderDepot(){
         ArrayList<ResourceType> leaderDepot=new ArrayList<ResourceType>();

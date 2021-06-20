@@ -14,7 +14,7 @@ public class Depot {
     /**
      * Default constructor.
      * @param size depot size.
-     * @param arrangeable a boolean representing if the depot is arrangeable.
+     * @param arrangeable it says if the depot is arrangeable.
      */
     public Depot(int size, int arrangeable){
         resourceType = null;

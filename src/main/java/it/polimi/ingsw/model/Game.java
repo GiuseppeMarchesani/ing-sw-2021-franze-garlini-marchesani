@@ -29,10 +29,8 @@ public class Game {
     private ArrayList<Player> playersList;
     private ArrayList<LeaderCard> leaderCards;
 
-
-
     /**
-     * Game class constructor.
+     * Default constructor.
      */
     public Game() {
         playersList = new ArrayList<Player>();
@@ -45,14 +43,13 @@ public class Game {
 
     /**
      * This method adds a player in the playersList.
-     * @param player The player who has just joined.
+     * @param player the player who has just joined.
      */
     public void addPlayer(Player player) {
         if(playersList.size()<4){
             playersList.add(player);
         }
     }
-
 
     /**
      * This method is used to draw a Leader Card from the deck.
@@ -64,44 +61,30 @@ public class Game {
         return temp;
     }
 
-
     /**
      * Calls the method pickResources from the class Market and returns the resources.
      * @param rowOrCol 'c' stands for column, 'r' stands for row.
-     * @param rowOrColNumber The number of the row/column. Starts from 0.
-     * @return The HashMap representing the resources list.
+     * @param rowOrColNumber the number of the row/column. Starts from 0.
+     * @param conversion the ResourceType the player can obtain with the white marble. It must be null if the player doesn't have any conversion.
+     * @return a HashMap representing the resources list.
      */
     public HashMap<ResourceType, Integer> pickMarketRes(char rowOrCol, int rowOrColNumber, ResourceType conversion) {
         return market.pickResources(rowOrCol,rowOrColNumber,conversion);
     }
 
+    /**
+     * This method calls the returnDevCard method from the DevMarket class.
+     * @param card the card to be added.
+     */
     public void returnDevCard(DevCard card){
         cardMarket.returnDevCard(card);
     }
 
     /**
-     * Gets the income of the development Cards production passed as parameters.
-     * @param devCardList The ArrayList of DevCards chosen by the player.
-     * @return The resources in an HashMap.
+     * Returns the player associated to the username passed as parameter.
+     * @param username the username of the player.
+     * @return the player with the given username.
      */
-    public HashMap<ResourceType, Integer> pickProductionRes(ArrayList<DevCard> devCardList) {
-        HashMap<ResourceType, Integer> resources = null;
-
-        //Scanning the DevCards
-        for (int i = 0; i < devCardList.size(); i++) {
-            HashMap<ResourceType, Integer> productionIncome = devCardList.get(i).getProductionIncome();
-            if (i == 0) {
-                resources = new HashMap<ResourceType, Integer>(productionIncome);
-            } else {
-
-                //Building a new HashMap containing the sum of the income of each DevCard
-                for (ResourceType res : resources.keySet()) {
-                    resources.replace(res, resources.get(res) + productionIncome.get(res));
-                }
-            }
-        }
-        return resources;
-    }
     public Player getPlayer(String username){
         int indexPlayer = getPlayerListByUsername().indexOf(username);
         return getPlayersList().get(indexPlayer);
@@ -109,18 +92,17 @@ public class Game {
 
     /**
      * Pick the Development Card with the features passed as parameters.
-     * @param color The chosen Development Card color.
-     * @param level The chosen Development Card level.
-     * @return The chosen Development Card.
+     * @param color the chosen Development Card color.
+     * @param level the chosen Development Card level.
+     * @return the chosen Development Card.
      */
     public DevCard pickDevCard(Color color, int level){
         return cardMarket.pickCard(color, level);
     }
 
-
     /**
      * Ends the game and communicate the result.
-     * @return the Hash Map of user and pointt.
+     * @return the results in a Hash Map.
      */
     public HashMap<String, Integer> endGame() {
         //Turn has already let players to play the last turn.
@@ -133,7 +115,7 @@ public class Game {
 
     /**
      * Takes the development cards from the json file and generates it.
-     * @return returns the deck of leader cards
+     * @return returns the deck of leader cards.
      */
     private ArrayList<DevCard> generateDevCardDeck() {
 
@@ -155,7 +137,7 @@ public class Game {
 
     /**
      * Takes the faith track from the json file and generates it.
-     * @return returns the faith track
+     * @return returns the faith track.
      */
     private ArrayList<FaithZone> generateFaithTrack() {
         //Faith Zone generation
@@ -174,8 +156,8 @@ public class Game {
     }
 
     /**
-     * Takes the victory point spaces from the json file and generates it.
-     * @return returns the victory point spaces
+     * Takes the victory points spaces from the json file and generates it.
+     * @return returns the victory point spaces.
      */
     private LinkedHashMap<Integer, Integer> generateVPspaces() {
         //VPspaces generation
@@ -195,7 +177,7 @@ public class Game {
 
     /**
      * Takes the marbles from the json file and generates it.
-     * @return returns all the marbles
+     * @return returns all the marbles.
      */
     private ArrayList<ResourceType>  generateMarbles() {
         //Marble generation
@@ -214,7 +196,7 @@ public class Game {
 
     /**
      * Takes the leader cards from the json files and generates it.
-     * @return returns the deck of leader cards
+     * @return returns the deck of leader cards.
      */
     private ArrayList<LeaderCard> generateLeaderCards() {
         //LeaderCard generation
@@ -261,6 +243,18 @@ public class Game {
         return leaderCardDeck;
     }
 
+    /**
+     * Used to obtain all the players' usernames.
+     * @return an ArrayList of usernames.
+     */
+    public ArrayList<String> getPlayerListByUsername() {
+        ArrayList<String> playerList = new ArrayList<>();
+        for (int i = 0; i < getPlayersList().size(); i++) {
+            playerList.add(getPlayersList().get(i).getUsername());
+        }
+        return playerList;
+    }
+
     public Market getMarket() {
         return market;
     }
@@ -277,24 +271,18 @@ public class Game {
         return playersList;
     }
 
-    public ArrayList<String> getPlayerListByUsername(){
-        ArrayList<String> playerList = new ArrayList<>();
-        for(int i=0; i<getPlayersList().size(); i++){
-            playerList.add(getPlayersList().get(i).getUsername());
-        }
-        return playerList;
-    }
     public boolean checkLoss(){
         return false;
     }
+
     public ActionToken drawToken(){
         return null;
     }
 
-    //TODO
+
     /**
-     *
-     * @return
+     * Update the FaithTrack and returns a boolean that represents if a FaithZone has been activated.
+     * @return true if a FaithZone has been activated, otherwise false.
      */
     public boolean updateFaithTrack(){
         ArrayList<Player> vpWinners=new ArrayList<Player>();
@@ -322,10 +310,10 @@ public class Game {
         return trigger;
     }
 
-    //TODO
+
     /**
-     *
-     * @return
+     * Returns the last activated FaithZone.
+     * @return the last activated FaithZone.
      */
     public int lastActivatedFaithZone() {
        if( faithTrack.indexOfNextFaithZone()<0){
@@ -334,6 +322,10 @@ public class Game {
        else return faithTrack.indexOfNextFaithZone()-1;
     }
 
+    /**
+     * Used to get the faith space for each player.
+     * @return all the players' faith space.
+     */
     public HashMap<String, Integer> getFaithMap(){
         HashMap<String, Integer> faith=new HashMap<>();
         for(Player player: playersList){
@@ -342,13 +334,12 @@ public class Game {
         return faith;
     }
 
-    //TODO
     /**
-     *
-     * @param faith
-     * @param activateOnYourself
-     * @param username
-     * @return
+     * Increases the faith space of a player.
+     * @param faith points to be added.
+     * @param activateOnYourself true if points must be added to the active player, false if must be added only to others player instead of the active one.
+     * @param username username of the active player.
+     * @return true if a FaithZone has been activated, false otherwise.
      */
     public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
         Player active = getPlayer(username);
@@ -363,6 +354,11 @@ public class Game {
         }
         return updateFaithTrack();
     }
+
+    /**
+     * Returns the Victory Points for each player.
+     * @return all the victory points for each player.
+     */
     public HashMap<String, Integer> getVictoryPoints(){
         HashMap<String,Integer> points=new HashMap<>();
         for(Player p : playersList){

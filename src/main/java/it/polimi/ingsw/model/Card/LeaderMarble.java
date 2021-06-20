@@ -7,15 +7,18 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This class is used to represents the Leader Card which has the white marble ability.
+ */
 public class LeaderMarble extends LeaderCard{
-
     private HashMap<Color, Integer> cost;
+
     /**
-     * Default constructor
-     * @param id id associated with the card
-     * @param victoryPoints victory the points that received from this card
-     * @param cost cost to buy the card
-     * @param resourceAbility ability related to the card
+     * Default constructor.
+     * @param id id associated with the card.
+     * @param victoryPoints victory points you can receive playing this card.
+     * @param cost required resources or cards you must have to play this card.
+     * @param resourceAbility ability related to the card.
      */
     public LeaderMarble(int id, int victoryPoints, HashMap<Color, Integer> cost, ResourceType resourceAbility) {
         super(id, victoryPoints, resourceAbility);

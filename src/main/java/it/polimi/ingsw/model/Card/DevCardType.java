@@ -4,13 +4,15 @@ import it.polimi.ingsw.model.enumeration.Color;
 
 import java.io.Serializable;
 
+/**
+ * This class is used to represent the card type: color and level.
+ */
 public class DevCardType implements Serializable {
     private Color color;
     private int level;
 
     /**
-     *
-     * Default constructor
+     * Default constructor.
      * @param color color associated with the card
      * @param level level associated with the card
      */
@@ -18,6 +20,14 @@ public class DevCardType implements Serializable {
         checkLevelIsOk(level);
         this.color = color;
         this.level = level;
+    }
+
+    /**
+     * Checks that the level is between 1 and 3 otherwise it throws an exception.
+     * @param level the level you want to check.
+     */
+    private void checkLevelIsOk(int level){
+        if (level<0 || level>3)  throw new ArithmeticException("An incorrect level was passed as input! Make sure level is between 0 and 3.");
     }
 
     public Color getColor(){
@@ -35,13 +45,5 @@ public class DevCardType implements Serializable {
     public void setLevel(int level){
         checkLevelIsOk(level);
         this.level = level;
-    }
-
-    /**
-     * Checks that the level is between 1 and 3 otherwise it throws an exception
-     * @param level
-     */
-    private void checkLevelIsOk(int level){
-        if (level<0 || level>3)  throw new ArithmeticException("An incorrect level was passed as input! Make sure level is between 0 and 3.");
     }
 }

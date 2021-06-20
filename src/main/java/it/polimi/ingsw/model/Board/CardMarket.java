@@ -49,13 +49,11 @@ public class CardMarket {
             return requestCard;
         }
         else return null;
-
-
     }
 
     /**
-     * Adds the card to the market
-     * @param card card that needs to be added
+     * Adds the card to the market.
+     * @param card card that needs to be added.
      */
     public void returnDevCard(DevCard card){
         devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel()-1).add(card);
@@ -103,9 +101,6 @@ public class CardMarket {
         return remaining;
     }
 
-    public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
-        return devCardGrid;
-    }
 
     /**
      * Will be called when a discard action token is drawn. This method discards cards from the CardMarket.
@@ -123,7 +118,6 @@ public class CardMarket {
                 if (removed==2) return;
             }
         }
-        return;
     }
 
     /**
@@ -150,5 +144,9 @@ public class CardMarket {
            }
         }
         return false;
+    }
+
+    public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
+        return devCardGrid;
     }
 }

@@ -7,17 +7,20 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This class is used to represents the Leader Card which has the production ability.
+ */
 public class LeaderProduction extends LeaderCard  {
 
     private HashMap<ResourceType, Integer> productionIncome;
     private HashMap<Color, Integer> cost;
 
     /**
-     * Default constructor
-     * @param id id associated with the card
-     * @param victoryPoints victory the points that received from this card
-     * @param cost cost to buy the card
-     * @param resourceAbility ability related to the card
+     * Default constructor.
+     * @param id id associated with the card.
+     * @param victoryPoints victory points you can receive playing this card.
+     * @param cost required resources or cards you must have to play this card.
+     * @param resourceAbility ability related to the card.
      */
     public LeaderProduction(int id, int victoryPoints, HashMap<Color, Integer> cost, HashMap<ResourceType, Integer> productionIncome, ResourceType resourceAbility) {
         super(id, victoryPoints, resourceAbility);
@@ -29,10 +32,6 @@ public class LeaderProduction extends LeaderCard  {
     @Override
     public void activateAbility(Player player) {
         player.getDevCardSlot().getSlotLeader().add(new DevCard(getId(), getResourceAbility(), productionIncome));
-    }
-
-    public Color getColorCost(){
-        return cost.entrySet().iterator().next().getKey();
     }
 
     public HashMap<ResourceType, Integer> getProductionIncome() {
@@ -62,5 +61,9 @@ public class LeaderProduction extends LeaderCard  {
     @Override
     public HashMap<Color, Integer> getLevelTwoCost() {
         return cost;
+    }
+
+    public Color getColorCost(){
+        return cost.entrySet().iterator().next().getKey();
     }
 }
