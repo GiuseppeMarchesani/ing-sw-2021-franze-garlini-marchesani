@@ -21,7 +21,7 @@ public class Player {
     private HashMap<ResourceType, Integer> strongbox;
     private Warehouse warehouse;
     private int faithSpace;
-    private  HashMap<LeaderCard, Boolean> leaderCards;
+    private HashMap<LeaderCard, Boolean> leaderCards;
     private HashMap<ResourceType, Integer> resourceDiscount;
     private ArrayList<ResourceType> marbleConversion;
 

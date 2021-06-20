@@ -27,7 +27,7 @@ public class FaithTrack {
      * @param position the given position of a player.
      * @return true if the given position is equivalent (or bigger) than the final space, false otherwise.
      */
-    public Boolean isOnFinalPosition(int position) {
+    public boolean isOnFinalPosition(int position) {
         return (position >= (faithZones.get(faithZones.size()-1).getEnd()));
     }
 
@@ -37,7 +37,7 @@ public class FaithTrack {
      * @param whichFaithZone the FaithZone to check.
      * @return true if the position is between the FaithZone beginning and end the FaithZone end.
      */
-    public Boolean isInFaithZone(int position, int whichFaithZone) {
+    public boolean isInFaithZone(int position, int whichFaithZone) {
         return (position >= faithZones.get(whichFaithZone).getStart() && position <= faithZones.get(whichFaithZone).getEnd());
     }
 

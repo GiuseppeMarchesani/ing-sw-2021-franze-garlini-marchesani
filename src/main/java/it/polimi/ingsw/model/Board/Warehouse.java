@@ -50,7 +50,7 @@ public class Warehouse {
      * Takes the resources needed to pay and removed them from the warehouse.
      * @param resources resources to be removed.
      */
-    public  void spendResources(HashMap<ResourceType, Integer> resources){
+    public void spendResources(HashMap<ResourceType, Integer> resources){
         for(int i=0; i<depotList.size(); i++){
             if(resources.containsKey(depotList.get(i).getResourceType())){
                 if(resources.get(depotList.get(i).getResourceType())<=depotList.get(i).getResourceQuantity()){
@@ -113,7 +113,7 @@ public class Warehouse {
      * This method is used to see if warehouse is empty.
      * @return true if warehouse is empty, false otherwise.
      */
-    public Boolean isEmpty() {
+    public boolean isEmpty() {
         for(int i=0; i<depotList.size(); i++){
             if(depotList.get(i).getResourceQuantity() != 0 && depotList.get(i).getResourceType().getVal() != -1)
                 return false;
@@ -131,22 +131,6 @@ public class Warehouse {
             space.add(i,depotList.get(i).getSize() - depotList.get(i).getResourceQuantity());
         }
         return space;
-    }
-
-
-    /**
-     * Returns the available depot where you can put the requested resource.
-     * @param res ResourceType requested.
-     * @return the available depot for put that ResourceType.
-     */
-    public ArrayList<Integer> availableDepot(ResourceType res){
-        ArrayList<Integer> freeDepot = new ArrayList<>();
-        for(int i=0; i< getDepotList().size(); i++){
-            if(hasResource(res)==i || getSpace().get(i)==getDepotList().get(i).getSize()){
-                freeDepot.add(i);
-            }
-        }
-        return freeDepot;
     }
 
     /**

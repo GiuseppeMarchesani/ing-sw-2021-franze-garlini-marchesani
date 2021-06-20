@@ -101,9 +101,6 @@ public class CardMarket {
         return remaining;
     }
 
-    public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
-        return devCardGrid;
-    }
 
     /**
      * Will be called when a discard action token is drawn. This method discards cards from the CardMarket.
@@ -121,7 +118,6 @@ public class CardMarket {
                 if (removed==2) return;
             }
         }
-        return;
     }
 
     /**
@@ -148,5 +144,9 @@ public class CardMarket {
            }
         }
         return false;
+    }
+
+    public ArrayList<ArrayList<ArrayList<DevCard>>> getDevCardGrid(){
+        return devCardGrid;
     }
 }

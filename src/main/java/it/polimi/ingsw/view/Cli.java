@@ -408,7 +408,7 @@ public class Cli extends ObservableView implements View{
                             invalidInput = true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > price.get(res) || resNumToGet > newStrongbox.get(res) || price.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
+                            if (resNumToGet < 0 || resNumToGet > price.get(res) || resNumToGet > newStrongbox.get(res) || price.get(res) > (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {
@@ -657,7 +657,7 @@ public class Cli extends ObservableView implements View{
                             invalidInput = true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > cardCost.get(res) || resNumToGet > newStrongbox.get(res) || cardCost.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
+                            if (resNumToGet < 0 || resNumToGet > cardCost.get(res) || resNumToGet > newStrongbox.get(res) || cardCost.get(res) > (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {
@@ -697,7 +697,7 @@ public class Cli extends ObservableView implements View{
                             invalidInput=true;
                         }
                         if(!invalidInput) {
-                            if (resNumToGet < 0 || resNumToGet > anyToPay.get(res) || resNumToGet > newStrongbox.get(res) || anyToPay.get(res) != (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
+                            if (resNumToGet < 0 || resNumToGet > anyToPay.get(res) || resNumToGet > newStrongbox.get(res) || anyToPay.get(res) > (resNumToGet + (warehouse.get(res)!=null ? warehouse.get(res) : 0)))
                                 invalidInput = true;
                             else invalidInput = false;
                             if (!invalidInput) {

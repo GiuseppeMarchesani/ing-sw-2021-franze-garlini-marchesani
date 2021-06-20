@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class DevCardSlot implements Serializable {
     private ArrayList<ArrayList<DevCard>> slotDev;
-    private final int slotNum = 3;
+    private final int SLOT_NUM = 3;
     private ArrayList<DevCard> slotLeader;
 
     /**
@@ -18,7 +18,7 @@ public class DevCardSlot implements Serializable {
      */
     public DevCardSlot(){
         slotDev = new ArrayList<ArrayList<DevCard>>();
-        for(int i=0; i<slotNum;i++){
+        for(int i = 0; i< SLOT_NUM; i++){
             slotDev.add(new ArrayList<DevCard>());
         }
         slotLeader = new ArrayList<DevCard>();
@@ -30,7 +30,7 @@ public class DevCardSlot implements Serializable {
      */
     public int getCardQuantity(){
         int cardQuantity = 0;
-        for(int i=0; i<slotNum; i++) {
+        for(int i = 0; i< SLOT_NUM; i++) {
             cardQuantity += slotDev.get(i).size();
         }
         return cardQuantity;
@@ -46,7 +46,7 @@ public class DevCardSlot implements Serializable {
         //Base production (scroll)
         devCards.add(new DevCard());
 
-        for (int i=0; i<slotNum; i++) {
+        for (int i = 0; i< SLOT_NUM; i++) {
             if (slotDev.get(i).size() > 0)
                 devCards.add(getSlotDev().get(i).get(getSlotDev().get(i).size() - 1));
 
@@ -65,7 +65,7 @@ public class DevCardSlot implements Serializable {
      */
     public ArrayList<Integer> getAvailableSlots(int level){
         ArrayList<Integer> free = new ArrayList<>();
-                for(int i=0; i<slotNum; i++){
+                for(int i = 0; i< SLOT_NUM; i++){
                     if((slotDev.get(i).size()+1)==level){
                         free.add(i);
                     }
@@ -127,12 +127,11 @@ public class DevCardSlot implements Serializable {
             }
         }
         return false;
-
     }
 
     /**
      * Used to get the sum of the Victory Points for each card in the slots.
-     * @return
+     * @return the amount of Victory Points.
      */
     public int getCardPoints(){
         int vp=0;
