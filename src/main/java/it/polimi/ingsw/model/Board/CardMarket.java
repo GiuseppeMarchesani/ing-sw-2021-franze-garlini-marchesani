@@ -49,13 +49,11 @@ public class CardMarket {
             return requestCard;
         }
         else return null;
-
-
     }
 
     /**
-     * Adds the card to the market
-     * @param card card that needs to be added
+     * Adds the card to the market.
+     * @param card card that needs to be added.
      */
     public void returnDevCard(DevCard card){
         devCardGrid.get(card.getCardType().getColor().getVal()).get(card.getCardType().getLevel()-1).add(card);

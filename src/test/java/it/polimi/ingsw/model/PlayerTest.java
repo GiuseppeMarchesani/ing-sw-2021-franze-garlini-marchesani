@@ -45,9 +45,9 @@ public class PlayerTest {
         testResources.put(ResourceType.SHIELD, 1);
         testResources.put(ResourceType.COIN, 2);
         testResources.put(ResourceType.STONE, 1);
+        /*player.storeResources(testResources);
         player.storeResources(testResources);
-        player.storeResources(testResources);
-        player.storeResources(testResources);
+        player.storeResources(testResources);*/
 
         for(ResourceType res: testResources.keySet()){
                 int n = testResources.get(res);
@@ -57,54 +57,6 @@ public class PlayerTest {
 
     }
 
-    @Test
-    public void placeResources() throws InvalidParameterException, IndexOutOfBoundsException {
-        Warehouse testWarehouse = new Warehouse();
-        int rest = 0;
-        rest = player.placeResources(ResourceType.SHIELD, 3, 2);
-        assertEquals(2, rest);
-
-        rest = player.placeResources(ResourceType.SERVANT, 2, 0);
-        assertEquals(0, rest);
-        Assertions.assertThrows(InvalidParameterException.class, ()->{
-            player.placeResources(ResourceType.FAITH, 1,1);
-        });
-        Assertions.assertThrows(IndexOutOfBoundsException.class, ()->{
-            player.placeResources(ResourceType.COIN, 1,0);
-        });
-
-    }
-
-
-    @Test
-    public void testPlaceDevCard() throws InvalidParameterException {
-        String devCardListJson ="";
-        ArrayList<DevCard> devCardDeck = null;
-
-        try {
-            devCardListJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\dev-cards.JSON")));
-
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-        Type foundListType = new TypeToken<ArrayList<DevCard>>(){}.getType();
-        devCardDeck = new Gson().fromJson(devCardListJson, foundListType);
-
-
-        player.placeDevCard(devCardDeck.get(5), 1);
-        player.placeDevCard(devCardDeck.get(16), 1);
-        player.placeDevCard(devCardDeck.get(2), 0);
-        Assert.assertTrue(player.getDevCardSlot().getSlotDev().get(1).contains(devCardDeck.get(5)));
-        Assert.assertTrue(player.getDevCardSlot().getSlotDev().get(1).contains(devCardDeck.get(16)));
-        Assert.assertTrue(player.getDevCardSlot().getSlotDev().get(0).contains(devCardDeck.get(2)));
-        ArrayList<DevCard> finalDevCardDeck = devCardDeck;
-        Assertions.assertThrows(InvalidParameterException.class, ()->{
-            player.placeDevCard(finalDevCardDeck.get(15), 1);
-        });
-        Assertions.assertThrows(InvalidParameterException.class,() ->{
-            player.placeDevCard(finalDevCardDeck.get(8), 0);
-        });
-    }
 
     @Test
     public void testIncreaseFaith(){

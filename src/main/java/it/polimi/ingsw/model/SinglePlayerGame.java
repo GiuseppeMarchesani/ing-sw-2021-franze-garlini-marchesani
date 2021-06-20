@@ -20,7 +20,7 @@ public class SinglePlayerGame extends Game {
     private TokenBag tokenBag;
 
     /**
-     * SinglePlayerGame class constructor.
+     * Default constructor.
      */
     public SinglePlayerGame() {
         super();
@@ -100,23 +100,14 @@ public class SinglePlayerGame extends Game {
         return tokens;
     }
 
-    public BlackCross getBlackCross() {
-        return blackCross;
-    }
-
-    public TokenBag getTokenBag() {
-        return tokenBag;
-    }
-
     @Override
     public boolean checkLoss() {
         return (getFaithTrack().isOnFinalPosition(blackCross.getFaithSpace())|| getCardMarket().noCardsOfAColor());
-
     }
 
     /**
-     * Takes a token from the stack
-     * @return returns the draw token
+     * Takes a token from the TokenBag.
+     * @return returns the drawn token.
      */
     public ActionToken drawToken(){
         ActionToken token =tokenBag.drawToken();
@@ -124,6 +115,10 @@ public class SinglePlayerGame extends Game {
         return token;
     }
 
+    /**
+     * It updates the FaithTrack and checks if a player passed a FaithZone.
+     * @return true if a FaithZone has been activated.
+     */
     public boolean updateFaithTrack(){
       if(super.updateFaithTrack()){
             return true;
@@ -139,6 +134,10 @@ public class SinglePlayerGame extends Game {
 
     }
 
+    /**
+     * It returns the Faith Track stats.
+     * @return the FaithTrack stats.
+     */
     public HashMap<String, Integer> getFaithMap(){
        HashMap<String, Integer> map=  super.getFaithMap();
        map.put("Lorenzo Il Magnifico", blackCross.getFaithSpace());
@@ -146,11 +145,11 @@ public class SinglePlayerGame extends Game {
     }
 
     /**
-     * Moves the player to the faith track
-     * @param faith steps to advance
-     * @param activateOnYourself activated by the player
-     * @param username username of the player
-     * @return
+     * Moves the player on the faith track.
+     * @param faith steps to move forward.
+     * @param activateOnYourself activated by the player.
+     * @param username username of the player.
+     * @return true if a FaithZone has been activated, false otherwise.
      */
     public boolean increaseFaith(int faith, boolean activateOnYourself, String username) {
         Player active = super.getPlayer(username);
@@ -160,5 +159,13 @@ public class SinglePlayerGame extends Game {
             blackCross.increaseBlackCross(faith);
         }
         return updateFaithTrack();
+    }
+
+    public BlackCross getBlackCross() {
+        return blackCross;
+    }
+
+    public TokenBag getTokenBag() {
+        return tokenBag;
     }
 }

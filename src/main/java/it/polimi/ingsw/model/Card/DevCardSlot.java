@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This Class represents the Development Card slot.
+ * This Class represents the Development Card slots.
  */
 public class DevCardSlot implements Serializable {
     private ArrayList<ArrayList<DevCard>> slotDev;
@@ -14,7 +14,7 @@ public class DevCardSlot implements Serializable {
     private ArrayList<DevCard> slotLeader;
 
     /**
-     * Class constructor.
+     * Default constructor.
      */
     public DevCardSlot(){
         slotDev = new ArrayList<ArrayList<DevCard>>();
@@ -22,14 +22,6 @@ public class DevCardSlot implements Serializable {
             slotDev.add(new ArrayList<DevCard>());
         }
         slotLeader = new ArrayList<DevCard>();
-    }
-
-    public ArrayList<ArrayList<DevCard>> getSlotDev(){
-        return slotDev;
-    }
-
-    public ArrayList<DevCard> getSlotLeader(){
-        return slotLeader;
     }
 
     /**
@@ -46,13 +38,14 @@ public class DevCardSlot implements Serializable {
 
     /**
      * This method returns all the Development Cards available for production.
-     * @return the Development Card available for production.
+     * @return a list of Development Cards available for production.
      */
     public ArrayList<DevCard> getCardsAvailable(){
         ArrayList<DevCard> devCards= new ArrayList<DevCard>();
 
         //Base production (scroll)
         devCards.add(new DevCard());
+
         for (int i=0; i<slotNum; i++) {
             if (slotDev.get(i).size() > 0)
                 devCards.add(getSlotDev().get(i).get(getSlotDev().get(i).size() - 1));
@@ -120,6 +113,11 @@ public class DevCardSlot implements Serializable {
         return getAllDevCardsPerColor(color).size();
     }
 
+    /**
+     * This method is used to know if the player owns a level two card for a given color.
+     * @param color the requested color.
+     * @return true if the player has a level two card for the given color, false otherwise.
+     */
     public boolean hasLevelTwoOfColor(Color color){
         for(int i=0;i<3;i++){
             if(slotDev.get(i).size()>=2){
@@ -131,6 +129,11 @@ public class DevCardSlot implements Serializable {
         return false;
 
     }
+
+    /**
+     * Used to get the sum of the Victory Points for each card in the slots.
+     * @return
+     */
     public int getCardPoints(){
         int vp=0;
         for(int i=0; i<3;i++){
@@ -139,5 +142,13 @@ public class DevCardSlot implements Serializable {
             }
         }
         return vp;
+    }
+
+    public ArrayList<ArrayList<DevCard>> getSlotDev(){
+        return slotDev;
+    }
+
+    public ArrayList<DevCard> getSlotLeader(){
+        return slotLeader;
     }
 }

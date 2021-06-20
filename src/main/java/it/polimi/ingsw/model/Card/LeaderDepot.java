@@ -7,14 +7,18 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This class is used to represents the Leader Card which has extra Depot ability.
+ */
 public class LeaderDepot extends LeaderCard  {
     private HashMap<ResourceType, Integer> cost;
+
     /**
-     * Default constructor
-     * @param id id associated with the card
-     * @param victoryPoints victory points that received from this card
-     * @param cost cost to buy the card
-     * @param resourceAbility ability related to the card
+     * Default constructor.
+     * @param id id associated with the card.
+     * @param victoryPoints victory points you can receive playing this card.
+     * @param cost required resources or cards you must have to play this card.
+     * @param resourceAbility ability related to the card.
      */
     public LeaderDepot(int id, int victoryPoints, HashMap<ResourceType, Integer> cost, ResourceType resourceAbility) {
         super(id, victoryPoints, resourceAbility);
