@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.BoardSceneController">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.BoardSceneController">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -33,8 +40,25 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
+               <children>
+                  <ImageView fx:id="res1x0" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <ImageView fx:id="res2x0" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                  <ImageView fx:id="res3x0" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                  <ImageView fx:id="res0x1" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                  <ImageView fx:id="res1x1" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ImageView fx:id="res2x1" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ImageView fx:id="res3x1" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <ImageView fx:id="res0x2" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                  <ImageView fx:id="res1x2" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ImageView fx:id="res2x2" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <ImageView fx:id="res3x2" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <ImageView fx:id="res0x0" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
             </GridPane>
-            <Pane layoutX="100.0" prefHeight="21.0" prefWidth="28.0" style="-fx-border-color: black;" />
+            <Pane layoutX="100.0" prefHeight="21.0" prefWidth="28.0" style="-fx-border-color: black;">
+               <children>
+                  <ImageView fx:id="corner" fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
          </children>
       </Pane>
       <ImageView fx:id="imgMarketBoard" fitHeight="251.0" fitWidth="198.0" layoutX="7.0" layoutY="58.0">
@@ -112,13 +136,6 @@
             <ImageView fx:id="img_depot0_res1" fitHeight="36.0" fitWidth="35.0" layoutX="117.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_depot0_res2" fitHeight="36.0" fitWidth="35.0" layoutX="70.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_depot0_res3" fitHeight="36.0" fitWidth="35.0" layoutX="99.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-            <Pane layoutY="285.0" opacity="0.9" prefHeight="55.0" prefWidth="50.0" style="-fx-background-color: white; -fx-background-radius: 20;">
-               <children>
-                  <Circle fill="#1f93ff00" layoutX="31.0" layoutY="17.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-                  <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="17.0" layoutY="22.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-                  <Button fx:id="btm_showResources" layoutX="4.0" layoutY="4.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
-               </children>
-            </Pane>
          </children>
       </Pane>
       <GridPane gridLinesVisible="true" layoutX="205.0" layoutY="58.0" prefHeight="251.0" prefWidth="257.0">
@@ -137,18 +154,111 @@
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
          </padding>
          <children>
-            <ImageView fx:id="card_0x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="card_1x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <ImageView fx:id="card_2x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-            <ImageView fx:id="card_3x0" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-            <ImageView fx:id="card_0x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-            <ImageView fx:id="card_1x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ImageView fx:id="card_2x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ImageView fx:id="card_3x1" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ImageView fx:id="card_0x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-            <ImageView fx:id="card_1x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ImageView fx:id="card_2x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ImageView fx:id="card_3x2" fitHeight="83.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="card0x0" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="card1x0" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+               <children>
+                  <ImageView fx:id="card2x0" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+               <children>
+                  <ImageView fx:id="card3x0" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="card0x1" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <ImageView fx:id="card1x1" fitHeight="83.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/BackCard.png" />
+               </image>
+            </ImageView>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="card2x1" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="card3x1" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="card0x2" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="card1x2" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="card2x2" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <children>
+                  <ImageView fx:id="card3x2" fitHeight="83.0" fitWidth="62.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/BackCard.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
       <Pane layoutX="222.0" layoutY="319.0" prefHeight="340.0" prefWidth="495.0">
@@ -197,11 +307,9 @@
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <MenuButton fx:id="menu_actions" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Actions" textFill="WHITE" GridPane.rowIndex="2">
+            <MenuButton fx:id="menu_actions" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Actions" textFill="WHITE">
                <items>
                   <MenuItem mnemonicParsing="false">
                      <graphic>
@@ -228,104 +336,18 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </MenuButton>
-            <Button fx:id="btm_info" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Match info" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="btm_vp" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Victory points" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btm_vp" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Victory points" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btmPlayers" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Show players" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <MenuButton fx:id="menu_player1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="player1" textFill="WHITE" GridPane.columnIndex="2">
-               <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_resources1" mnemonicParsing="false" text="Show resources" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_showPlayer1" mnemonicParsing="false" text="Show slots" />
-                     </graphic>
-                  </MenuItem>
-               </items>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton fx:id="menu_player2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="player2" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_resources2" mnemonicParsing="false" text="Show resources" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_showPlayer2" mnemonicParsing="false" text="Show slots" />
-                     </graphic>
-                  </MenuItem>
-               </items>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </MenuButton>
-            <MenuButton fx:id="menu_player3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="player3" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
-               <items>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_resources3" mnemonicParsing="false" text="Show resources" />
-                     </graphic>
-                  </MenuItem>
-                  <MenuItem mnemonicParsing="false">
-                     <graphic>
-                        <Button fx:id="btm_showPlayer3" mnemonicParsing="false" text="Show slots" />
-                     </graphic>
-                  </MenuItem>
-               </items>
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </MenuButton>
          </children>
       </GridPane>
-      <AnchorPane layoutX="150.0" layoutY="3.0" prefHeight="55.0" prefWidth="42.0">
-         <children>
-            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-            <Button fx:id="btm_showMarket" layoutX="-4.0" layoutY="-6.0" minWidth="35.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="35.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="406.0" layoutY="3.0" prefHeight="55.0" prefWidth="50.0">
-         <children>
-            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-            <Button fx:id="btm_showDevMarket" layoutX="2.0" layoutY="-2.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="654.0" layoutY="264.0" prefHeight="55.0" prefWidth="50.0">
-         <children>
-            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-            <Button fx:id="btm_showSLots" layoutX="9.0" layoutY="7.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="1215.0" layoutY="3.0" prefHeight="55.0" prefWidth="50.0">
-         <children>
-            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-            <Button fx:id="btm_showFaithTrack" layoutX="9.0" layoutY="7.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="913.0" layoutY="265.0" prefHeight="55.0" prefWidth="50.0">
-         <children>
-            <Circle fill="#1f93ff00" layoutX="23.0" layoutY="18.0" radius="11.0" stroke="BLACK" strokeLineJoin="ROUND" strokeType="INSIDE" strokeWidth="2.0" />
-            <Line endX="6.3333282470703125" endY="4.999992370605469" layoutX="10.0" layoutY="23.0" startX="-2.3333282470703125" startY="20.666664123535156" strokeWidth="8.0" />
-            <Button fx:id="btm_showLeader" layoutX="-2.0" layoutY="-3.0" mnemonicParsing="false" opacity="0.0" prefHeight="48.0" prefWidth="42.0" />
-         </children>
-      </AnchorPane>
    </children>
    <effect>
       <InnerShadow />

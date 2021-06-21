@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view.GUI;
+import it.polimi.ingsw.model.Board.CardMarket;
+import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.View;
@@ -12,6 +15,12 @@ import java.util.List;
 
 public class Gui extends ObservableView implements View {
     private static ArrayList<LeaderCard> availableLeader= new ArrayList<>();
+    private static ResourceType[][] market = new ResourceType[4][3];
+    private static ResourceType cornerMarble;
+    private static ArrayList<DevCard> cardMarket = new ArrayList<>();
+    private static String activePlayer;
+    private static ArrayList<String> playerList = new ArrayList<>();
+    private static ArrayList<LeaderCard> leaderCards = new ArrayList<>();
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -45,15 +54,20 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askAction() {
-        BoardSceneController bsc = new BoardSceneController();
-        bsc.addAllObservers(observers);
+        BoardSceneController bsc;
+        try {
+            bsc = (BoardSceneController) MainApp.getActiveController();
+        } catch (ClassCastException e) {
+            bsc = new BoardSceneController();
+            bsc.addAllObservers(observers);
+        }
         Platform.runLater(()->
                 MainApp.changeRootPane(observers, "/fxml/board_scene_4players"));
     }
 
     @Override
     public void showLoginResult(String username, String gameId, boolean wasJoined) {
-
+       playerList.add(username);
     }
 
     @Override
@@ -61,22 +75,8 @@ public class Gui extends ObservableView implements View {
 
     }
 
-    public void showMatchInfo(List<String> players, String activePlayer) {
+    public void showMatchInfo(List<String> players, String activePlayer, Market market, CardMarket cardMarket) {
     }
-
-    private BoardSceneController getBoardSceneController() {
-        BoardSceneController bsc;
-        try {
-            bsc = (BoardSceneController) MainApp.getActiveController();
-        } catch (ClassCastException e) {
-            bsc = new BoardSceneController();
-            bsc.addAllObservers(observers);
-            BoardSceneController finalBsc = bsc;
-            Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/board_scene_4players"));
-        }
-        return bsc;
-    }
-
 
     @Override
     public void askDevCardToBuy() {
@@ -101,12 +101,17 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
-
+        for(int i =0; i<4; i++){
+            for (int j = 0; j<3; j++){
+                Gui.market[i][j] = market[i][j];
+            }
+        }
+        cornerMarble = corner;
     }
 
     @Override
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
-
+        cardMarket.addAll(availableCards);
     }
 
     @Override
@@ -157,7 +162,6 @@ public class Gui extends ObservableView implements View {
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
 
-
     }
 
     @Override
@@ -183,12 +187,33 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
-
+        Gui.leaderCards.addAll(leaderCards.keySet());
     }
 
     public static ArrayList<LeaderCard> getAvailableLeader(){
         return availableLeader;
     }
+    public static ArrayList<LeaderCard> getLeaderCards(){
+        return leaderCards;
+    }
 
+    public static ResourceType[][] getMarket() {
+        return market;
+    }
 
+    public static ResourceType getCornerMarble(){
+        return cornerMarble;
+    }
+
+    public static ArrayList<DevCard> getCardMarket(){
+        return cardMarket;
+    }
+
+    public static String getActivePlayer(){
+        return activePlayer;
+    }
+
+    public static ArrayList<String> getPlayerList(){
+        return playerList;
+    }
 }

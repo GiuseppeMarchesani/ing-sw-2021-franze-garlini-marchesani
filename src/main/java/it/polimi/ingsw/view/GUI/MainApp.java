@@ -23,7 +23,7 @@ public class MainApp  extends Application {
     private static GenericSceneController activeController;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage){
         Gui view = new Gui();
         ClientMessenger clientMessenger = new ClientMessenger(view);
         view.addObserver(clientMessenger);
@@ -38,8 +38,6 @@ public class MainApp  extends Application {
         }
         StartSceneController controller = loader.getController();
         controller.addObserver(clientMessenger);
-
-        // Show the scene containing the root layout.
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
 
@@ -92,8 +90,6 @@ public class MainApp  extends Application {
     public static void changeRootPane(GenericSceneController controller, Scene newScene, String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
-
-            // Setting the controller BEFORE the load() method.
             loader.setController(controller);
             activeController = controller;
             Parent root = loader.load();
