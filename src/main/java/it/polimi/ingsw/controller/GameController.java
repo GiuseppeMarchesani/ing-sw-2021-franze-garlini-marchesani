@@ -107,6 +107,7 @@ public class GameController {
                 if(turnController.proxPlayer().equals( turnController.firstPlayer())){
                     if(maxPlayers>=2) {
                         setGameState(GameState.GIVERES);
+                        turnController.proxPlayer();
                     }
                     else{
                         setGameState(GameState.IN_GAME);
@@ -158,7 +159,7 @@ public class GameController {
                 drawLeaderCards();
                 break;
             case GIVERES:
-                choseInitialRes();
+                    choseInitialRes();
                 break;
             case IN_GAME:
             case END_GAME:
@@ -194,26 +195,29 @@ public class GameController {
     /**
      * to pick resource that the player chose.
      */
-    private void choseInitialRes(){
+    private boolean choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
+                return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
+                return true;
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
                 allVirtualView.get(activePlayer).askInitialRes(2);
+                return true;
             }
             else{
                 turnController.proxPlayer();
-                startTurn();
+                return false;
             }
         }
         catch (IndexOutOfBoundsException e){
-            gameState=GameState.INIT;
+            gameState=GameState.IN_GAME;
             turnController.proxPlayer();
-            startTurn();
+            return true;
         }
     }
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
@@ -662,6 +666,9 @@ public class GameController {
         if(turnController.proxPlayer().equals(turnController.firstPlayer())&&gameState==GameState.END_GAME){
             countFinalVictoryPoints();
         }
-        else startTurn();
+        else {
+            broadcastMessage("It's "+turnController.getActivePlayer()+"'s turn");
+            startTurn();
+        }
     }
 }
