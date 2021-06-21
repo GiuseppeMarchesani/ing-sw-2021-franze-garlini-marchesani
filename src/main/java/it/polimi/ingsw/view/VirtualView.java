@@ -45,7 +45,10 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new HostGameReply());
     }
 
-    @Override
+    /**
+     * This method is used to asks the player to choose his initial resources.
+     * Will use the method askResourceToWarehouse.
+     */
     public void askInitialRes(int numAny) {
         askResourceToWarehouse(new HashMap<ResourceType, Integer>(), numAny , new ArrayList<>());
     }
