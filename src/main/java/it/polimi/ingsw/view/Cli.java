@@ -268,6 +268,7 @@ public class Cli extends ObservableView implements View{
                 out.println(STR_WRONG_INPUT);
             }
         }
+        else chosenConversion = conversion.get(0);
 
         char finalRowOrCol = rowOrCol;
         int finalNum = num -1;
@@ -315,14 +316,15 @@ public class Cli extends ObservableView implements View{
                         invalidInput = true;
                         out.println(STR_WRONG_INPUT);
                     }
-
+                    if(!invalidInput){
+                        leaderDepotQuantity.add(resNumToPut);
+                        resToPlace.replace(res, resToPlace.get(res) - resNumToPut);
+                        if(resToPlace.get(res)==0) resToPlace.remove(res);
+                    }
                 } while(invalidInput);
             }
-            leaderDepotQuantity.add(resNumToPut);
-            resToPlace.replace(res, resToPlace.get(res) - resNumToPut);
         }
 
-        int numDepot = 3;
         for(int i=0; i<3; i++) {
                 do {
                     out.print("\nWhat resource do you want to put in the " + (3-i) + " slotted depot? ");
@@ -530,7 +532,10 @@ public class Cli extends ObservableView implements View{
         out.println("\n" + username + "'s warehouse:");
         for(Integer i: depotToQuantity.keySet()) {
             if(i<3) out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/" + (3-i)  + ")");
-            else out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/2)");
+            else{
+                out.println("\nLeader Depot:");
+                out.println(getAnsiColor(depotToResource.get(i)) + depotToResource.get(i).toString() + ANSI_RESET + ": (" + depotToQuantity.get(i).toString() + "/2)");
+            }
         }
     }
 
