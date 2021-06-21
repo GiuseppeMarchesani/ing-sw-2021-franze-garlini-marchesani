@@ -31,6 +31,12 @@ public interface View {
     void askPlayersNumber();
 
     /**
+     * This method is used to asks the player to choose his initial resources.
+     * @param numAny number of resource the player can choose.
+     */
+    void askInitialRes(int numAny);
+
+    /**
      * Asks the player his next action.
      */
     void askAction();

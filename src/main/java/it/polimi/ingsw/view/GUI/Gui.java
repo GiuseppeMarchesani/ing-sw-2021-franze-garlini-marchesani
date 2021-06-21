@@ -39,6 +39,11 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void askInitialRes(int numAny) {
+
+    }
+
+    @Override
     public void askAction() {
         BoardSceneController bsc = new BoardSceneController();
         bsc.addAllObservers(observers);

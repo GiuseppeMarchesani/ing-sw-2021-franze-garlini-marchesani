@@ -54,10 +54,6 @@ public interface ObserverView {
      */
     public void updateGetFromMarket(char rowOrCol, int rowColNumber, ResourceType conversion);
 
-
-
-
-
     /**
      * Sends a message to the server containing the chosen LeaderCard to discard.
      * @param leaderCard the LeaderCard to be discarded.

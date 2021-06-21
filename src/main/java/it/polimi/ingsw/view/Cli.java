@@ -131,6 +131,14 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
+    public void askInitialRes(int numAny) {
+        out.println("\nChoose your initial resources: ");
+        HashMap<ResourceType, Integer> initialResources = new HashMap<>();
+        initialResources = askAnyResource(numAny);
+        askResourceToWarehouse(initialResources, 0, null);
+    }
+
+    @Override
     public void askAction() {
         out.print("\nWhat action do you want to do? ");
 
