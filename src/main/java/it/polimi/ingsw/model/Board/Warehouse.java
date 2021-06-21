@@ -86,7 +86,7 @@ public class Warehouse {
      * @param resourceToLeader quantity of resources to put in the leader depot.
      */
     public void replaceResources(HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, ArrayList<Integer> resourceToLeader){
-        for(int i=0; i<depotList.size(); i++){
+        for(int i=0; i<3; i++){
             depotList.get(i).placeInDepot(depotToResource.get(i), depotToQuantity.get(i));
         }
         for(int i=0;i<resourceToLeader.size();i++){
