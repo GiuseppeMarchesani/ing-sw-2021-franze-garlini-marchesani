@@ -464,22 +464,21 @@ public class GameController {
         }
         tempCards.add(card);
 
-        HashMap<ResourceType, Integer> discountedPrice = new HashMap<>();
-        for (ResourceType r : card.getCardCost().keySet()) {
-            if (player.getResourceDiscount().containsKey(r)) {
-                int updated = card.getCardCost().get(r) - player.getResourceDiscount().get(r);
-                if (updated < 0) {
-                    updated = 0;
-                }
-                discountedPrice.put(r, updated);
-            } else discountedPrice.put(r, card.getCardCost().get(r));
+        HashMap<ResourceType, Integer> discountedPrice = new HashMap<>(card.getCardCost());
+        for(ResourceType r: player.getResourceDiscount().keySet())
+        {
+            if(discountedPrice.get(r)!= null && discountedPrice.get(r)>0) {
+                discountedPrice.replace(r, discountedPrice.get(r) -1);
+                if(discountedPrice.get(r) <= 0) discountedPrice.remove(r);
+            }
         }
+
         int any=0;
         if(card.getCardCost().containsKey(ResourceType.ANY)){
             any=card.getCardCost().get(ResourceType.ANY);
         }
         if (player.checkPriceCanBePaid(discountedPrice)){
-            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), card.getCardCost(), any, slots);
+            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), discountedPrice, any, slots);
         }
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
