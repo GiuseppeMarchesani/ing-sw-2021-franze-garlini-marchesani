@@ -16,6 +16,11 @@ import java.util.*;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
+/**
+ * This class manage the game evolution.
+ * Sends messages through the Virtual Views.
+ * Reads messages coming from the Client.
+ */
 public class GameController {
     private int maxPlayers;
     private Game gameSession;
@@ -24,18 +29,22 @@ public class GameController {
     private GameState gameState;
     private ArrayList<DevCard> tempCards;
 
+    /**
+     * Default constructor.
+     */
     public GameController(){
-        this.allVirtualView= new HashMap<String, VirtualView>();
-        this.gameState= GameState.INIT;
-        maxPlayers=0;
-        tempCards=new ArrayList<DevCard>();
-
+        this.allVirtualView = new HashMap<>();
+        this.gameState = GameState.INIT;
+        maxPlayers = 0;
+        tempCards=new ArrayList<>();
     }
 
-    public HashMap<String, VirtualView> getAllVirtualView() {
-        return allVirtualView;
-    }
-
+    /**
+     * Adds a new Virtual View.
+     * @param username username of the Player's Virtual View.
+     * @param gameId id belonging to the game the Player just joined.
+     * @param virtualView Player's Virtual View.
+     */
     public void newPlayer(String username, String gameId, VirtualView virtualView) {
         if(allVirtualView.isEmpty()){
             allVirtualView.put(username, virtualView);
@@ -51,48 +60,50 @@ public class GameController {
             }
         }
         else virtualView.showLoginResult(username, gameId,false);
-
     }
 
     /** Game state.
-     *
+     * 
      */
-    public void getMessage(ClientMessage receivedMessage)throws InvalidParameterException {
+    public void getMessage(ClientMessage receivedMessage) throws InvalidParameterException {
             switch (gameState) {
                 case INIT:
                     VirtualView virtualView = allVirtualView.get(receivedMessage.getUsername());
                     if(receivedMessage.getMessageType() == PLAYER_NUMBER){
-
                         PlayersNumberRequest pmsg =(PlayersNumberRequest) receivedMessage;
                         maxPlayers=pmsg.getPlayersNumber();
+
                         if(pmsg.getPlayersNumber()==1){gameSession=new SinglePlayerGame();
                         gameSession.addPlayer(new Player(pmsg.getUsername()));
                         virtualView.showMessage("Hosting SinglePlayer Game");
                         startGame();
                         }
-                        else{
+                        else {
                             gameSession=new Game();
                             gameSession.addPlayer(new Player(pmsg.getUsername()));
                             virtualView.showMessage("Hosting MultiPlayer ("+pmsg.getPlayersNumber()+") Game. \nWaiting for other players...");
                         }
-
                     }
                     break;
+
                 case DRAWLEADER:
+
                 case GIVERES:
                     setupGame(receivedMessage);
                     break;
+
                 case IN_GAME:
+
                 case END_GAME:
                     inGame(receivedMessage);
                     break;
+
                 default:
                     for (VirtualView vv : allVirtualView.values()) {
                         vv.showErrorMsg("Error!");
                     }
                     break;
             }
-
     }
 
     /**
@@ -669,5 +680,9 @@ public class GameController {
             broadcastMessage("It's "+turnController.getActivePlayer()+"'s turn");
             startTurn();
         }
+    }
+
+    public HashMap<String, VirtualView> getAllVirtualView() {
+        return allVirtualView;
     }
 }
