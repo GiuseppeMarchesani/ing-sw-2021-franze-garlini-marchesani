@@ -1,7 +1,9 @@
-package it.polimi.ingsw.view.GUI;
+package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.Gui;
+import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.collections.FXCollections;
@@ -106,7 +108,9 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
                 chosenLeader.add(ld);
             }
         }
-
+        allLeaders.remove(chosenLeader.get(0));
+        allLeaders.remove(chosenLeader.get(1));
+        Gui.getChosenLeader().put(Gui.getActivePlayer(), allLeaders);
         notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
 
     }

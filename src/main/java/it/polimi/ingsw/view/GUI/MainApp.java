@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.GUI;
 import it.polimi.ingsw.network.ClientMessenger;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
+import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
+import it.polimi.ingsw.view.GUI.scene.StartSceneController;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;

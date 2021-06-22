@@ -1,12 +1,12 @@
-package it.polimi.ingsw.view.GUI;
+package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.MainApp;
+import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
-
-import java.io.IOException;
 
 public class StartSceneController extends ObservableView implements GenericSceneController {
 

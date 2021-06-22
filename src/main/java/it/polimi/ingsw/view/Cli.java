@@ -146,6 +146,7 @@ public class Cli extends ObservableView implements View{
         } catch (ExecutionException e) {
             out.println(STR_WRONG_INPUT);
         }
+
     }
 
     @Override

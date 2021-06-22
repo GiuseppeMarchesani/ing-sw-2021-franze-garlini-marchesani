@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootPane" prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.LobbySceneController">
+<StackPane fx:id="rootPane" prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.LobbySceneController">
    <children>
       <ImageView fitHeight="579.0" fitWidth="911.0" opacity="0.6">
          <image>
