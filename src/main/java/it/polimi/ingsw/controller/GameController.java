@@ -35,7 +35,13 @@ public class GameController {
     public HashMap<String, VirtualView> getAllVirtualView() {
         return allVirtualView;
     }
-
+    /**
+     *Adds a new player to the game.
+     * Asks for the number of players if the player is the host, starts the game if all players have joined.
+     * @param username the username of the player to add.
+     * @param gameId the name of the lobby
+     * @param virtualView the view of the player joining.
+     * */
     public void newPlayer(String username, String gameId, VirtualView virtualView) {
         if(allVirtualView.isEmpty()){
             allVirtualView.put(username, virtualView);
@@ -54,8 +60,8 @@ public class GameController {
 
     }
 
-    /** Game state.
-     *
+    /** Receives message and sends it to the method associated with the game state.
+     * @param receivedMessage the message sent from the client.
      */
     public void getMessage(ClientMessage receivedMessage)throws InvalidParameterException {
             switch (gameState) {
@@ -96,8 +102,9 @@ public class GameController {
     }
 
     /**
-     * initial phase.
-     * @param msg
+     * Responds to the game setup messages from the client: Gives starting leader cards, inital resources
+     * and changes the game state to IN_GAME when everything has been distributed.
+     * @param msg the message from the client.
      */
     public void setupGame(ClientMessage msg){
         Player player=gameSession.getPlayer(msg.getUsername());
@@ -131,7 +138,9 @@ public class GameController {
         startTurn();
     }
 
-
+    /**
+     * Gives starting faith to players, sets the game state to DRAWLEADER to distribute leader cards.
+     */
     private void startGame() {
         setGameState(GameState.DRAWLEADER);
         turnController=new TurnController(this);
@@ -152,6 +161,10 @@ public class GameController {
         startTurn();
     }
 
+    /**
+     * Starts the turn, the action depends on the state of the game.
+     * Always clears the array of temporary cards.
+     */
     public void startTurn(){
         tempCards.clear();
         switch(gameState){
@@ -169,9 +182,9 @@ public class GameController {
         }
     }
     /**
-     * to discard leader's card that the player chose.
+     * to discard leader cards that the player chose.
      * @param msg
-     * @param player (who send message)
+     * @param player who sent the message.
      */
     private void choseLeader(StartingLeadersRequestMsg msg, Player player){
         for(int i=0; i<2;i++){
@@ -182,6 +195,9 @@ public class GameController {
         }
 
     }
+    /**
+     *Gives 4 leader cards to a player for him to discard.
+     */
     private void drawLeaderCards(){
         broadcastMessage("It's "+ turnController.getActivePlayer()+"'s turn to discard leader cards.");
         ArrayList<LeaderCard> leaderCards= new ArrayList<>();
@@ -193,33 +209,37 @@ public class GameController {
     }
 
     /**
-     * to pick resource that the player chose.
+     *Asks which starting resources a player wants.
+     *
      */
-    private boolean choseInitialRes(){
+    private void choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
-                return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
-                return true;
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
                 allVirtualView.get(activePlayer).askInitialRes(2);
-                return true;
             }
             else{
                 turnController.proxPlayer();
-                return false;
             }
         }
         catch (IndexOutOfBoundsException e){
             gameState=GameState.IN_GAME;
             turnController.proxPlayer();
-            return true;
         }
     }
+    /**
+     * Adds resources to a player's warehouse.
+     * @param player the player to give resources to.
+     * @param depotToResource map from depot floor to resource.
+     * @param depotToQuantity map from depot floor to quantity.
+     * @param resourceToLeader quantity of resources for each leader depot.
+     * @param discard how many resources were discarded
+     */
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
         player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
         for (VirtualView vv : allVirtualView.values()) {
@@ -229,21 +249,31 @@ public class GameController {
     }
 
 
-
+    /**
+     *@return false if game hasn't started yet.
+     */
     public boolean isGameStarted(){
         return gameState!=GameState.INIT;
     }
+
+    /**
+     *@return the game object.
+     */
     public Game getGameSession(){
         return gameSession;
     }
-    public TurnController getTurnController() {
-        return turnController;
-    }
 
+    /**
+     *Sets the game state to a new one.
+     */
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
+    /**
+     *Removes the player from the game and checks if he was the active player, in which case starts a new turn.
+     *@param username the username who disconnected
+     */
     public void disconnect(String username){
         if(turnController.disconnect(username))
         {
@@ -265,37 +295,31 @@ public class GameController {
         }
     }
 
+    /**
+     *@return A List of usernames of disconnected players from an ongoing game
+     */
     public List<String> getInactivePlayers(){
         return turnController.getInactivePlayers();
     }
+    /**
+     *@return if the game is ongoing and has disconnected players.
+     */
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
 
+    /**Reconnects a player who previously disconnected to an ongoing game.
+     * @param username of the player reconnecting.
+     * @param virtualView the view of the player reconnecting.
+     */
     public void reconnect(String username, VirtualView virtualView){
         allVirtualView.put(username, virtualView);
         turnController.reconnect(username);
         broadcastMessage(username + " has reconnected.");
     }
-    public ArrayList<ResourceType> availableRes(){
-        ArrayList<ResourceType> resource= new ArrayList<>();
-        for(ResourceType resourceType: ResourceType.values()){
-            if(!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
-                    !resourceType.equals(ResourceType.FAITH))
-                resource.add(resourceType);
-        }
-        return resource;
-    }
-    public ArrayList<String> availableResToString() {
-        ArrayList<String> resource = new ArrayList<>();
-        for (ResourceType resourceType : ResourceType.values()) {
-            if (!resourceType.equals(ResourceType.ANY) && !resourceType.equals(ResourceType.EMPTY) &&
-                    !resourceType.equals(ResourceType.FAITH))
-                resource.add(resourceType.toString());
-        }
-        return resource;
-    }
-
+    /**Sends a string message to every player in the game
+     * @param  message the String to send.
+     */
     public void broadcastMessage(String message) {
         for (VirtualView vv : allVirtualView.values()) {
             vv.showMessage(message);
