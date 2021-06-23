@@ -16,6 +16,11 @@ import java.util.*;
 
 import static it.polimi.ingsw.messages.MessageType.*;
 
+/**
+ * This class manage the game evolution.
+ * Sends messages through the Virtual Views.
+ * Reads messages coming from the Client.
+ */
 public class GameController {
     private int maxPlayers;
     private Game gameSession;
@@ -24,24 +29,24 @@ public class GameController {
     private GameState gameState;
     private ArrayList<DevCard> tempCards;
 
+    /**
+     * Default constructor.
+     */
     public GameController(){
-        this.allVirtualView= new HashMap<String, VirtualView>();
+        this.allVirtualView= new HashMap<>();
         this.gameState= GameState.INIT;
         maxPlayers=0;
-        tempCards=new ArrayList<DevCard>();
+        tempCards=new ArrayList<>();
 
     }
 
-    public HashMap<String, VirtualView> getAllVirtualView() {
-        return allVirtualView;
-    }
+
     /**
-     *Adds a new player to the game.
-     * Asks for the number of players if the player is the host, starts the game if all players have joined.
-     * @param username the username of the player to add.
-     * @param gameId the name of the lobby
-     * @param virtualView the view of the player joining.
-     * */
+     * Adds a new Virtual View.
+     * @param username username of the Player's Virtual View.
+     * @param gameId id belonging to the game the Player just joined.
+     * @param virtualView Player's Virtual View.
+     */
     public void newPlayer(String username, String gameId, VirtualView virtualView) {
         if(allVirtualView.isEmpty()){
             allVirtualView.put(username, virtualView);
@@ -60,8 +65,8 @@ public class GameController {
 
     }
 
-    /** Receives message and sends it to the method associated with the game state.
-     * @param receivedMessage the message sent from the client.
+    /** Game state.
+     *
      */
     public void getMessage(ClientMessage receivedMessage)throws InvalidParameterException {
             switch (gameState) {
@@ -85,6 +90,7 @@ public class GameController {
                     }
                     break;
                 case DRAWLEADER:
+
                 case GIVERES:
                     setupGame(receivedMessage);
                     break;
@@ -102,9 +108,8 @@ public class GameController {
     }
 
     /**
-     * Responds to the game setup messages from the client: Gives starting leader cards, inital resources
-     * and changes the game state to IN_GAME when everything has been distributed.
-     * @param msg the message from the client.
+     * initial phase.
+     * @param msg
      */
     public void setupGame(ClientMessage msg){
         Player player=gameSession.getPlayer(msg.getUsername());
@@ -184,7 +189,7 @@ public class GameController {
     /**
      * to discard leader cards that the player chose.
      * @param msg
-     * @param player who sent the message.
+     * @param player (who sent the message)
      */
     private void choseLeader(StartingLeadersRequestMsg msg, Player player){
         for(int i=0; i<2;i++){
@@ -212,24 +217,29 @@ public class GameController {
      *Asks which starting resources a player wants.
      *
      */
-    private void choseInitialRes(){
+    private boolean choseInitialRes(){
         String activePlayer= turnController.getActivePlayer();
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
+                return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
+                return true;
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
                 allVirtualView.get(activePlayer).askInitialRes(2);
+                return true;
             }
             else{
                 turnController.proxPlayer();
+                return false;
             }
         }
         catch (IndexOutOfBoundsException e){
             gameState=GameState.IN_GAME;
             turnController.proxPlayer();
+            return true;
         }
     }
     /**
@@ -255,7 +265,6 @@ public class GameController {
     public boolean isGameStarted(){
         return gameState!=GameState.INIT;
     }
-
     /**
      *@return the game object.
      */
@@ -269,7 +278,6 @@ public class GameController {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
-
     /**
      *Removes the player from the game and checks if he was the active player, in which case starts a new turn.
      *@param username the username who disconnected
@@ -294,7 +302,6 @@ public class GameController {
             startTurn();
         }
     }
-
     /**
      *@return A List of usernames of disconnected players from an ongoing game
      */
@@ -307,7 +314,6 @@ public class GameController {
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
-
     /**Reconnects a player who previously disconnected to an ongoing game.
      * @param username of the player reconnecting.
      * @param virtualView the view of the player reconnecting.

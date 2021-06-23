@@ -27,7 +27,7 @@
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/coin.png" />
+                        <Image url="@../images/COIN.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -36,7 +36,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="40.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/shield.png" />
+                        <Image url="@../images/SHIELD.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -45,7 +45,7 @@
                <graphic>
                   <ImageView fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/stone.png" />
+                        <Image url="@../images/STONE.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -54,7 +54,7 @@
                <graphic>
                   <ImageView fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/servant.png" />
+                        <Image url="@../images/SERVANT.png" />
                      </image>
                   </ImageView>
                </graphic>

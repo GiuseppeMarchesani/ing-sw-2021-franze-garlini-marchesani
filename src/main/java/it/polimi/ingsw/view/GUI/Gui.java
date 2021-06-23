@@ -1,17 +1,14 @@
 package it.polimi.ingsw.view.GUI;
-import it.polimi.ingsw.model.Board.CardMarket;
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.scene.*;
 import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Gui extends ObservableView implements View {
     private static ArrayList<LeaderCard> availableLeader= new ArrayList<>();
@@ -21,6 +18,13 @@ public class Gui extends ObservableView implements View {
     private static String activePlayer;
     private static ArrayList<String> playerList = new ArrayList<>();
     private static ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+    private static HashMap<String, ArrayList<LeaderCard>> chosenLeader = new HashMap<>();
+    private static HashMap<String, Integer> faithTrack = new HashMap<>();
+    private static ArrayList<ResourceType> conversion = new ArrayList<>();
+    private static HashMap<ResourceType, Integer> resToPlace = new HashMap<>();
+    private static ArrayList<ResourceType> extraDepot = new ArrayList<>();
+
+
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -48,11 +52,6 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askInitialRes(int numAny) {
-
-    }
-
-    @Override
     public void askAction() {
         BoardSceneController bsc;
         try {
@@ -62,7 +61,7 @@ public class Gui extends ObservableView implements View {
             bsc.addAllObservers(observers);
         }
         Platform.runLater(()->
-                MainApp.changeRootPane(observers, "/fxml/board_scene_4players"));
+                MainApp.changeRootPane(observers, "/fxml/board_scene"));
     }
 
     @Override
@@ -75,9 +74,6 @@ public class Gui extends ObservableView implements View {
 
     }
 
-    public void showMatchInfo(List<String> players, String activePlayer, Market market, CardMarket cardMarket) {
-    }
-
     @Override
     public void askDevCardToBuy() {
 
@@ -85,19 +81,29 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
-
+        Gui.conversion = conversion;
+        MarketSceneController msc = new MarketSceneController();
+        msc.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers,"/fxml/market_scene")
+        );
     }
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-
+        Gui.resToPlace.putAll(resToPlace);
+        Gui.extraDepot = extraDepot;
+        PlaceResourcesSceneController prsc = new PlaceResourcesSceneController();
+        prsc.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers,"/fxml/place_resources_scene")
+        );
     }
 
     @Override
     public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
 
     }
-
 
     @Override
     public void showMarket(ResourceType[][] market, ResourceType corner) {
@@ -136,7 +142,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
-
+        faithTrack.putAll(playerFaith);
     }
 
     @Override
@@ -215,5 +221,29 @@ public class Gui extends ObservableView implements View {
 
     public static ArrayList<String> getPlayerList(){
         return playerList;
+    }
+
+    public static HashMap<String, ArrayList<LeaderCard>> getChosenLeader(){
+        return chosenLeader;
+    }
+
+    public static HashMap<String, Integer> getFaithTrack(){
+        return faithTrack;
+    }
+
+    public static void getActivePlayer(String activePlayer) {
+        Gui.activePlayer = activePlayer;
+    }
+
+    public static ArrayList<ResourceType> getConversion(){
+        return conversion;
+    }
+
+    public static ArrayList<ResourceType> getExtraDepot() {
+        return extraDepot;
+    }
+
+    public static HashMap<ResourceType, Integer> getResToPlace() {
+        return resToPlace;
     }
 }

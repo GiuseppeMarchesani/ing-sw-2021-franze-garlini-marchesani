@@ -3,6 +3,7 @@ package it.polimi.ingsw.model;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.Card.*;
+import it.polimi.ingsw.model.enumeration.Color;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -74,12 +75,12 @@ public class DevCardSlotTest {
         foundHashMapType = new TypeToken<ArrayList<LeaderProduction>>(){}.getType();
         leaderCardDeck.addAll(new Gson().fromJson(leaderJson, foundHashMapType));
 
-        devCardSlot.getSlotDev().get(0).add(devCardDeck.get(0));
-        devCardSlot.getSlotDev().get(0).add(devCardDeck.get(16));
-        devCardSlot.getSlotDev().get(1).add(devCardDeck.get(2));
-        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(1));
-        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(17));
-        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(36));
+        devCardSlot.getSlotDev().get(0).add(devCardDeck.get(0));    //GREEN 1
+        devCardSlot.getSlotDev().get(0).add(devCardDeck.get(19));   //YELLOW 2
+        devCardSlot.getSlotDev().get(1).add(devCardDeck.get(2));    //BLUE 1
+        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(3));    //YELLOW 1
+        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(20));   //GREEN 2
+        devCardSlot.getSlotDev().get(2).add(devCardDeck.get(32));   //GREEN 3
 
     }
 
@@ -130,5 +131,55 @@ public class DevCardSlotTest {
         freeSlots.add(0);
         freeSlots.add(2);
         assertEquals(freeSlots, devCardSlot.getAvailableSlots(3));
+    }
+
+    @Test
+    public void testGetAllDevCards() {
+        assertEquals(6, devCardSlot.getAllDevCards().size());
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(0)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(16)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(2)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(1)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(17)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(36)));
+    }
+
+    @Test
+    public void testGetAllDevCardsPerColor() {
+        assertEquals(0, devCardSlot.getAllDevCardsPerColor(Color.PURPLE).size());
+        assertEquals(3, devCardSlot.getAllDevCardsPerColor(Color.GREEN).size());
+        assertEquals(2, devCardSlot.getAllDevCardsPerColor(Color.YELLOW).size());
+        assertEquals(1, devCardSlot.getAllDevCardsPerColor(Color.BLUE).size());
+
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.GREEN).contains(devCardDeck.get(0)));
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.GREEN).contains(devCardDeck.get(32)));
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.GREEN).contains(devCardDeck.get(20)));
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.YELLOW).contains(devCardDeck.get(19)));
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.YELLOW).contains(devCardDeck.get(3)));
+        assertTrue(devCardSlot.getAllDevCardsPerColor(Color.BLUE).contains(devCardDeck.get(2)));
+        assertFalse(devCardSlot.getAllDevCardsPerColor(Color.YELLOW).contains(devCardDeck.get(20)));
+        assertFalse(devCardSlot.getAllDevCardsPerColor(Color.BLUE).contains(devCardDeck.get(0)));
+        assertFalse(devCardSlot.getAllDevCardsPerColor(Color.YELLOW).contains(devCardDeck.get(0)));
+        assertFalse(devCardSlot.getAllDevCardsPerColor(Color.GREEN).contains(devCardDeck.get(19)));
+    }
+
+    @Test
+    public void testNumCardsPerColor() {
+        assertEquals(3, devCardSlot.numCardsPerColor(Color.GREEN));
+        assertEquals(0, devCardSlot.numCardsPerColor(Color.PURPLE));
+        assertEquals(2, devCardSlot.numCardsPerColor(Color.YELLOW));
+    }
+
+    @Test
+    public void hasLevelTwoOfColor() {
+        assertTrue(devCardSlot.hasLevelTwoOfColor(Color.GREEN));
+        assertTrue(devCardSlot.hasLevelTwoOfColor(Color.YELLOW));
+        assertFalse(devCardSlot.hasLevelTwoOfColor(Color.PURPLE));
+        assertFalse(devCardSlot.hasLevelTwoOfColor(Color.BLUE));
+    }
+
+    @Test
+    public void testGetCardPoints() {
+        assertEquals(23, devCardSlot.getCardPoints());
     }
 }
