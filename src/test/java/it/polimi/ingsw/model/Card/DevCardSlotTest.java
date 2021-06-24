@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Card;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -137,11 +137,11 @@ public class DevCardSlotTest {
     public void testGetAllDevCards() {
         assertEquals(6, devCardSlot.getAllDevCards().size());
         assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(0)));
-        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(16)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(19)));
         assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(2)));
-        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(1)));
-        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(17)));
-        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(36)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(3)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(20)));
+        assertTrue(devCardSlot.getAllDevCards().contains(devCardDeck.get(32)));
     }
 
     @Test

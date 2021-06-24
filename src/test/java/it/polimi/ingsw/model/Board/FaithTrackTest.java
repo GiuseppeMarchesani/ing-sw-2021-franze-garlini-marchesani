@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -99,8 +99,24 @@ public class FaithTrackTest {
         assertEquals(faithTrack.getAssociatedVP(21),16);
         assertEquals(faithTrack.getAssociatedVP(23),16);
         assertEquals(faithTrack.getAssociatedVP(24),20);
-        assertEquals(faithTrack.getAssociatedVP(27),20);
-
     }
 
+    @Test
+    public void testNextFaithZone(){
+        assertEquals(5, faithTrack.getNextFaithZone().getStart());
+        faithTrack.getFaithZones().get(0).setActivated();
+        assertEquals(12, faithTrack.getNextFaithZone().getStart());
+        faithTrack.getFaithZones().get(1).setActivated();
+        faithTrack.getFaithZones().get(2).setActivated();
+        assertEquals(100, faithTrack.getNextFaithZone().getStart());
+    }
+
+    @Test
+    public void testIndexOfNextFaithZone() {
+        assertEquals(0, faithTrack.indexOfNextFaithZone());
+        faithTrack.getFaithZones().get(0).setActivated();
+        assertEquals(1, faithTrack.indexOfNextFaithZone());
+        faithTrack.getFaithZones().get(1).setActivated();
+        assertEquals(2, faithTrack.indexOfNextFaithZone());
+    }
 }

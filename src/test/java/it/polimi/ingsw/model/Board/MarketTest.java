@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,15 +49,17 @@ public class MarketTest {
         ResourceType[][] testMarketTray = testMarket.getMarketTray();
         HashMap<ResourceType, Integer> test = new HashMap<>();
         ResourceType testCorner = testMarket.getCornerMarble();
+
+        ResourceType res20 = testMarketTray[2][0];
+        ResourceType res21 = testMarketTray[2][1];
+        ResourceType res22 = testMarketTray[2][2];
         test = testMarket.pickResources('c', 2, null);
 
-        ArrayList<ResourceType> lKey = new ArrayList<>();
-        for (ResourceType key : test.keySet()) {
-            lKey.add(key);
-        }
-        assertTrue(lKey.contains(testMarketTray[2][0]));
-        assertTrue(lKey.contains(testMarketTray[2][1]));
-        assertTrue(lKey.contains(testMarketTray[2][2]));
+        ArrayList<ResourceType> lKey = new ArrayList<>(test.keySet());
+
+        if(res20!=ResourceType.EMPTY) assertTrue(lKey.contains(res20));
+        if(res21!=ResourceType.EMPTY) assertTrue(lKey.contains(res21));
+        if(res22!=ResourceType.EMPTY) assertTrue(lKey.contains(res22));
 
         ResourceType[][] testMarketTrayPost = testMarket.getMarketTray();
         ResourceType testCornerPost = testMarket.getCornerMarble();

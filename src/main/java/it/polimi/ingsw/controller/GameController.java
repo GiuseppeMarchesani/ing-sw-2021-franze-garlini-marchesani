@@ -701,4 +701,8 @@ public class GameController {
             startTurn();
         }
     }
+
+    public HashMap<String, VirtualView> getAllVirtualView() {
+        return allVirtualView;
+    }
 }

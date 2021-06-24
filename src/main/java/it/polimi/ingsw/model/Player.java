@@ -82,6 +82,7 @@ public class Player {
     public void discardLeader(int cardId){
         for(LeaderCard leader: leaderCards.keySet()) {
             if(leader.getId()==cardId) leaderCards.remove(leader);
+            break;
         }
     }
 
@@ -264,6 +265,10 @@ public class Player {
 
     public HashMap<LeaderCard, Boolean> getLeaderCards() {
         return leaderCards;
+    }
+
+    public void setLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
+        this.leaderCards = leaderCards;
     }
 }
 

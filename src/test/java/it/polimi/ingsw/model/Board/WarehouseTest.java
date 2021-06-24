@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.Board;
 
 import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.enumeration.ResourceType;
