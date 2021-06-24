@@ -333,8 +333,8 @@ public class GameController {
     }
 
     /**
-     * in game phase
-     * @param msg
+     * Handles messages when gameState==GameState.IN_GAME
+     * @param msg message sent from the client.
      */
     public void inGame(ClientMessage msg){
         if (msg.getUsername().equals(turnController.getActivePlayer())){
@@ -449,7 +449,11 @@ public class GameController {
         }
     }
 
-
+    /**Asks the player in which depots he would like to store the resources obtained with a market action.
+     *
+     * @param msg the message containing the row or column sent from the active player
+     * @param player the player object associated to the active player
+     */
 
     public void getMarketResources(GetMarketResRequest msg,Player player){
 
@@ -478,6 +482,12 @@ public class GameController {
             allVirtualView.get(turnController.getActivePlayer()).askResourceToWarehouse(resource,any,player.getWarehouse().getLeaderDepot());
 
     }
+
+    /**Asks the player in which slot he would like to store the card, if no card is available sends an error message.
+     *
+     * @param msg the message containing the color and the level of the card requested.
+     * @param player the player object associated to the active player
+     */
     public void getMarketDevCard(BuyDevCardRequest msg, Player player) {
 
         ArrayList<Integer> slots = player.getDevCardSlot().getAvailableSlots(msg.getLevel());
@@ -520,6 +530,12 @@ public class GameController {
 
 
     }
+
+    /**Places the card in the requested slot and triggers the endgame turns if the player has 7 cards.
+     *
+     * @param msg the message containing the requested slot.
+     * @param player the player object associated to the active player
+     */
     public void placeCard(PlaceDevCardRequest msg, DevCard card, Player player){
         player.setStrongbox(msg.getNewStrongbox());
         player.getDevCardSlot().getSlotDev().get(msg.getSlotToPlace()).add(card);
@@ -537,6 +553,12 @@ public class GameController {
         }
 
     }
+
+    /**
+     * Increases faith of active player, or every other player (Moves the black cross in case of SinglePlayer Game
+     * @param faithQuantity the quantity to add to the current faith space
+     * @param activateOnYourself if true, increases faith of active player, if false, increase of every other player.
+     */
     public void increaseFaith(int faithQuantity, boolean activateOnYourself){
         boolean trigger =gameSession.increaseFaith(faithQuantity, activateOnYourself, turnController.getActivePlayer());
 
@@ -551,6 +573,7 @@ public class GameController {
             }
 
     }
+
     public void produceResources(ArrayList<DevCard> cards, Player player){
         HashMap<ResourceType, Integer> price= new HashMap<>();
         int anyProduce=0;

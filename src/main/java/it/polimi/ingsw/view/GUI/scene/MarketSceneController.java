@@ -211,7 +211,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('c',1, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('r',2, null));
 
 
     }
