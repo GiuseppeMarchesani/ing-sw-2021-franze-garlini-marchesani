@@ -23,6 +23,8 @@ public class Gui extends ObservableView implements View {
     private static ArrayList<ResourceType> conversion = new ArrayList<>();
     private static HashMap<ResourceType, Integer> resToPlace = new HashMap<>();
     private static ArrayList<ResourceType> extraDepot = new ArrayList<>();
+    private static HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
+    private static HashMap<Integer, Integer> activeDepotQ = new HashMap<>();
 
 
     @Override
@@ -98,6 +100,7 @@ public class Gui extends ObservableView implements View {
         Platform.runLater(()->
                 MainApp.changeRootPane(observers,"/fxml/place_resources_scene")
         );
+
     }
 
     @Override
@@ -127,7 +130,14 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
-
+        activeDepotT.putAll(depotToResource);
+        activeDepotQ.putAll(depotToQuantity);
+        activePlayer = username;
+        ShowWarehouseSceneController swsc = new ShowWarehouseSceneController();
+        swsc.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers,"/fxml/showWarehouse_scene")
+        );
     }
 
     @Override
@@ -245,5 +255,13 @@ public class Gui extends ObservableView implements View {
 
     public static HashMap<ResourceType, Integer> getResToPlace() {
         return resToPlace;
+    }
+
+    public static HashMap<Integer, Integer> getActiveDepotQ() {
+        return activeDepotQ;
+    }
+
+    public static HashMap<Integer, ResourceType> getActiveDepotT() {
+        return activeDepotT;
     }
 }
