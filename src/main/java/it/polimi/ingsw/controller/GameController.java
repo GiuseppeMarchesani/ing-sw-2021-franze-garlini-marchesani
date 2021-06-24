@@ -574,6 +574,12 @@ public class GameController {
 
     }
 
+    /**
+     * Checks if the player can pay the production cost of the chosen cards and, if so, asks the player
+     * how he would like to pay
+     * @param cards the chosen dev cards
+     * @param player the player object associated to the active player
+     */
     public void produceResources(ArrayList<DevCard> cards, Player player){
         HashMap<ResourceType, Integer> price= new HashMap<>();
         int anyProduce=0;
@@ -603,7 +609,12 @@ public class GameController {
         }
 
     }
-
+    /**
+     * Sets the player's strongbox to a new one after resources have been spent and produced. Removes resources paid from depot
+     * @param depotExpense payment of a resource from the warehouse
+     * @param strongbox  new strongbox
+     * @param player the player object associated to the active player
+     */
     public void confirmProduction(HashMap<ResourceType, Integer> depotExpense, HashMap<ResourceType, Integer> strongbox, Player player){
         player.getWarehouse().spendResources(depotExpense);
         for(DevCard card :tempCards){
@@ -627,10 +638,20 @@ public class GameController {
         }
     }
 
+    /**
+     * Sends drawn leader cards to a player
+     * @param cards the drawn cards
+     */
     public void sendLeaderCards(ArrayList<LeaderCard> cards){
         allVirtualView.get(turnController.getActivePlayer()).askLeaderCardToPlay(cards);
     }
 
+    /**
+     * Executes a leader action
+     * @param card the card to play or discard
+     * @param choseToPlay true if the player wants to play it, false if the player wants to discard it.
+     * @param player the player object associated to the active player
+     */
     private void leaderAction(LeaderCard card, boolean choseToPlay, Player player) {
         if(!choseToPlay){
             increaseFaith(1, true);
@@ -678,6 +699,13 @@ public class GameController {
             vv.showRemainingLeaderCards(player.getUsername(), player.getLeaderCardList().size());
         }
     }
+
+    /**
+     * checks if the player has enough cards of certain colors
+     * @param player the player object associated to the active player
+     * @param requirement the color requirement
+     * @return true if the player has the required cards
+     */
     public boolean checkCardColorRequirements(Player player, HashMap<Color, Integer> requirement){
         for(Color c: requirement.keySet()){
             if(! player.checkHasEnoughCardOfColor(c, requirement.get(c))){
@@ -687,15 +715,29 @@ public class GameController {
         }
         return true;
     }
+    /**
+     * checks if the player has a level two card of a certain color
+     * @param player the player object associated to the active player
+     * @param color the color requirement
+     * @return true if the player has the required card
+     */
     public boolean checkLevelTwoColor(Color color , Player player){
         return player.getDevCardSlot().hasLevelTwoOfColor(color);
     }
+
+    /**
+     * Counts all victory points at the end of the game and sends a message to all players.
+     */
     public void countFinalVictoryPoints(){
         for(VirtualView vv: allVirtualView.values()){
             vv.showWinMessage(gameSession.endGame());
         }
 
     }
+
+    /**
+     * Ends the turn by drawing a token and moves the turn to the next player.
+     */
     public void endTurn(){
         ActionToken token = gameSession.drawToken();
         if(token!=null){
@@ -725,6 +767,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Returns the variable allVirtualView
+     * @return the views of every connected player
+     */
     public HashMap<String, VirtualView> getAllVirtualView() {
         return allVirtualView;
     }
