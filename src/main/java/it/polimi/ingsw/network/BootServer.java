@@ -6,11 +6,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class BootServer {
-    //RIVEDERE
 
 
-    BootServer(){}
-
+    /**
+     * Boots the Server.
+     * @param args parameters ip and port.
+     */
     public static void main(String args[]) {
         int port;
         String address;

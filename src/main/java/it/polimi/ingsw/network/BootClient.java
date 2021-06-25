@@ -9,7 +9,10 @@ import java.util.Scanner;
 
 public class BootClient {
 
-
+    /**
+     * Boots the client and asks the user if he wants to play with CLI or GUI
+     * @param args
+     */
     public static void main(String[] args) {
         System.out.println("Welcome! Type \"CLI\" to play a game with the command line, or \"GUI\" to play a game with a graphical interface (Without the quotation marks!)");
         Scanner in = new Scanner(System.in);

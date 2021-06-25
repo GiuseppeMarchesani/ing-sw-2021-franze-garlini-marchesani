@@ -26,9 +26,9 @@ public class ClientHandler implements Runnable {
 
 
     /**
-     *
-     * @param client
-     * @param lobbyServer
+     *Default constructor
+     * @param client the client socket to send messages to
+     * @param lobbyServer The default lobby server
      */
     ClientHandler(Socket client, LobbyServer lobbyServer)
         {
@@ -45,26 +45,22 @@ public class ClientHandler implements Runnable {
             }
         }
 
+    /**
+     * Execute thread service of reading messages
+     */
         @Override
         public void run()
         {
             System.out.println("Connected to " + client.getInetAddress());
 
-            try {
                 handleMessage();
-            } catch (IOException e) {
-                e.printStackTrace();
-                disconnect();
-            }
 
     }
 
-    //TODO
     /**
-     *
-     * @throws IOException
+     *Handles a message sent from the client.
      */
-    private void handleMessage() throws IOException
+    private void handleMessage()
     {
         try {
 
@@ -88,10 +84,9 @@ public class ClientHandler implements Runnable {
         }
     }
 
-    //TODO
     /**
-     *
-     * @param message
+     *Sends a message to the client
+     * @param message the message to send
      */
     public void sendMessage(GeneralMessage message)
     {
@@ -107,10 +102,9 @@ public class ClientHandler implements Runnable {
        }
 
     }
-    //TODO
 
     /**
-     *
+     *Disconnect the socket from the server.
      */
     public void disconnect() {
             try {
