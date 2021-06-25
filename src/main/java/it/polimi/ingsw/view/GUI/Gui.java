@@ -78,7 +78,11 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askDevCardToBuy() {
-
+        ChooseDevCardSceneController cdcsc = new ChooseDevCardSceneController();
+        cdcsc.addAllObservers(observers);
+        Platform.runLater(()->
+                MainApp.changeRootPane(observers,"/fxml/cardMarket_scene")
+        );
     }
 
     @Override
