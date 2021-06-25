@@ -193,7 +193,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<String,ArrayList<LeaderCard>> leaderCards = new HashMap<>();
     private ArrayList<ImageView> imgLeader = new ArrayList<>();
     private HashMap<String, Integer> faithTrack = new HashMap<>();
-    private String activePlayer;
     private int leaderAction = 0;
 
     @FXML
