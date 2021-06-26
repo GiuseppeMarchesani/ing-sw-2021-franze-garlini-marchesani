@@ -12,6 +12,9 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+/**
+ * This class implements the Command Line Interface.
+ */
 public class Cli extends ObservableView implements View{
     private PrintStream out;
     private Thread inputThread;
@@ -41,7 +44,6 @@ public class Cli extends ObservableView implements View{
 
     /**
      * Reads a line from the standard input.
-     *
      * @return the read string.
      * @throws ExecutionException if the input stream thread is interrupted.
      */
@@ -449,7 +451,7 @@ public class Cli extends ObservableView implements View{
 
     /**
      * This method is used for the Any Resource conversion.
-     * @return The resources converted from Any.
+     * @return the resources converted from Any.
      */
     private HashMap<ResourceType, Integer> askAnyResource(int numAny) {
         int i=0;
