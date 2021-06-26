@@ -3,28 +3,23 @@ package it.polimi.ingsw.network;
 import java.util.*;
 
 
-//TODO
 
 /**
- *
+ *This class keeps track of all games being played.
  */
 public class LobbyServer {
     public Map<String, Lobby> lobbyMap;
-
-    //TODO
-
     /**
-     *
+     *Default Constructor
      */
     public LobbyServer() {
         lobbyMap = Collections.synchronizedMap(new HashMap<>());
     }
-    //TODO: View
 
     /**
-     *
-     * @param id
-     * @return
+     *Gets the lobby associated to a game Id
+     * @param id the id of the game
+     * @return the associated lobby
      */
     public Lobby getLobby(String id){
         Lobby l = lobbyMap.get(id);
@@ -35,12 +30,11 @@ public class LobbyServer {
 
     }
 
-    //TODO
 
     /**
-     *
-     * @param id
-     * @param clientHandler
+     *Makes a user leave a lobby
+     * @param id the lobby to leave from
+     * @param clientHandler the clienthandler of the client handler that leaves.
      */
     public void leaveLobby(String id, ClientHandler clientHandler){
         Lobby lobby= lobbyMap.get(id);

@@ -13,9 +13,9 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-//TODO
+
 /**
- *
+ *This class implements the connection between the client and the server, client-side
  */
 public class ClientSocket extends Observable {
     private Socket client;
@@ -24,13 +24,13 @@ public class ClientSocket extends Observable {
     private ObjectInputStream input;
     private ExecutorService queue;
 
-    //TODO
+
 
     /**
-     *
-     * @param address
-     * @param port
-     * @throws IOException
+     *Default Constructor
+     * @param address the ip address to connect to
+     * @param port the port to connect to
+     * @throws IOException when the player isnt able to connect
      */
     public ClientSocket(String address, int port) throws IOException {
         try {
@@ -43,11 +43,9 @@ public class ClientSocket extends Observable {
             throw new IOException();
         }
     }
-    //TODO
-
     /**
-     *
-     * @param message
+     *Sends a message to the server
+     * @param message The message to send
      */
     public void sendMessage(ClientMessage message) {
         try {
@@ -58,10 +56,9 @@ public class ClientSocket extends Observable {
         }
     }
 
-    //TODO
 
     /**
-     *
+     * Listens for messages from the server
      */
     public void listen() {
         queue.execute(() ->
@@ -79,10 +76,9 @@ public class ClientSocket extends Observable {
         });
     }
 
-    //TODO
 
     /**
-     *
+     *Disconnects the client from the server
      */
     public void disconnect(){
             if (!client.isClosed()) {

@@ -10,9 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-//TODO
-/**
- *
+
+/**This class represents the client on the server's side.
+ *Handles the received messages from the client.
+ * Sends messages sent by GameController to the client.
  */
 public class ClientHandler implements Runnable {
     private Socket client;

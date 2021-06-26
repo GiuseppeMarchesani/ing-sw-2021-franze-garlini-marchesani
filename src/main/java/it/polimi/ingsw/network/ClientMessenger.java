@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-//TODO
-/**
- *
+
+/**This class gets input from the view and packages it into a message.
+ *This class also notifies the view that a certain message has arrived
  */
 public class ClientMessenger implements Observer, ObserverView {
 
@@ -26,21 +26,21 @@ public class ClientMessenger implements Observer, ObserverView {
     private ClientSocket client;
     private String lobby;
 
-    //TODO
+
     /**
-     *
-     * @param view
+     * Default Constructor
+     * @param view the view to interact with
      */
     public ClientMessenger(View view) {
         this.view = view;
         queue= Executors.newSingleThreadExecutor();
     }
 
-    //TODO
+
     /**
-     *
-     * @param address
-     * @param port
+     *Tries to connect the client to a socket.
+     * @param address The ip address to connect to.
+     * @param port The port to connect to
      */
     public void updateConnect(String address, int port){
         try {
@@ -54,12 +54,11 @@ public class ClientMessenger implements Observer, ObserverView {
 
     }
 
-    //TODO
 
     /**
-     *
-     * @param username
-     * @param lobby
+     *Tries to log the user to a certain lobby
+     * @param username The username of the player trying to log in
+     * @param lobby The lobby/game id.
      */
     public void updateLobby(String username, String lobby){
         this.username= username;
@@ -67,7 +66,6 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new LoginRequest(username, lobby));
     }
 
-    //TODO
     /**
      * Updates new username, if a player with the same username was already in the game.
      * @param username
@@ -76,43 +74,36 @@ public class ClientMessenger implements Observer, ObserverView {
         this.username= username;
     }
 
-    //TODO
-
     /**
-     *
-     * @param numPlayers
+     *Sends the number of players of the game you are hosting
+     * @param numPlayers the player number of the game
      */
     public void updatePlayersNumber(int numPlayers){
         client.sendMessage(new PlayersNumberRequest(username, numPlayers));
     }
 
-    //TODO
 
     /**
-     *
-     * @param leaders
+     *Sends the cards that the player keeps after the initial setup draw.
+     * @param leaders the cards the player wants to keep
      */
     public void updateDiscardLeader(ArrayList<LeaderCard> leaders){
         client.sendMessage(new StartingLeadersRequestMsg(username, leaders));
     }
 
-    //TODO
-
     /**
-     *
-     * @param depotToResource
-     * @param depotToQuantity
-     * @param leaderToDepot
-     * @param discard
+     *Updates the player warehouse after getting resources from market
+     * @param depotToResource Map Floor to Resource Type
+     * @param depotToQuantity Map Floor to Quantity
+     * @param leaderToDepot Array of quantity for every leader depot
+     * @param discard number of discarded resources
      */
     public void updateWarehouse(HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> leaderToDepot,int discard){
         client.sendMessage(new ResourceToWarehouseRequestMsg(username, depotToResource, depotToQuantity, leaderToDepot ,discard));
     }
 
-    //TODO
-
     /**
-     *
+     *Requests an action to do
      * @param actionCode the action code of the action the player wants to do.
      */
     public void updateAction(int actionCode){
@@ -162,10 +153,8 @@ public class ClientMessenger implements Observer, ObserverView {
     }
 
 
-    //TODO
-
     /**
-     *
+     *Asks to buy a card from the market.
      * @param level level of the chosen Development Card.
      * @param color color of the Development Card.
      */
@@ -173,51 +162,57 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new BuyDevCardRequest(username, level, color));
     }
 
-    //TODO
 
     /**
-     *
-     * @param expenseDepot
-     * @param newStrongbox
-     * @param slotToPlace
+     *Spends resources and places a card in a slot.
+     * @param expenseDepot the resource that will be spent from the depot
+     * @param newStrongbox the new strongbox
+     * @param slotToPlace the slot to place the game.
      */
     public void updatePlaceDevCard(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox, int slotToPlace){
         client.sendMessage(new PlaceDevCardRequest(username, expenseDepot, newStrongbox, slotToPlace));
     }
 
-    //TODO
-
     /**
-     *
-     * @param getFromRow
-     * @param i
-     * @param conversion
+     *Asks for resources from the resource market
+     * @param getFromRow identifies if the player wants a column or a row
+     * @param i the index of the column/row
+     * @param conversion the conversion chosen for white marbles
      */
     public void updateGetFromMarket(char getFromRow, int i, ResourceType conversion){
         client.sendMessage(new GetMarketResRequest(username, getFromRow, i, conversion));
     }
 
-    //TODO
-
     /**
-     *
-     * @param chosen
+     *Sends chosen DevCards to be activated
+     * @param chosen the chosen devcards
      */
     public void updateChosenProdCards(ArrayList<DevCard> chosen){
         client.sendMessage(new AskProductionRequest(username, chosen));
     }
+
+    /**
+     * Gets production resources by paying their cost
+     * @param newStrongbox the new strongbox
+     * @param expenseDepot the resource that will be spent from the depot
+     */
     public void updateGetProdRes(HashMap<ResourceType, Integer> newStrongbox, HashMap<ResourceType, Integer> expenseDepot){
         client.sendMessage(new GetProductionRequest(username, expenseDepot, newStrongbox));
     }
+
+    /**
+     * Plays or discards a leader card
+     * @param card the chosen card
+     * @param dOrP identifies if the player wants to discard or play the chosen card
+     */
     public void updatePlayLeaderCard(LeaderCard card, char dOrP){
         client.sendMessage(new LeaderActionRequest(username, card, dOrP=='p'));
     }
 
-    //TODO
 
     /**
-     *
-     * @param msg
+     *Notifies the view when a message is received
+     * @param msg The received message
      */
     @Override
     public void update(GeneralMessage msg){
