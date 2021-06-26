@@ -6,6 +6,7 @@ import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.observer.Observer;
@@ -175,5 +176,13 @@ public class VirtualView implements View, Observer {
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         clientHandler.sendMessage(new ShowLeaderCardsMsg(leaderCards));
+    }
+    @Override
+    public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer) {
+        clientHandler.sendMessage(new ShowPlayedLeadersMsg(playedLeaderCards, activePlayer));
+    }
+    @Override
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards){
+        clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards));
     }
 }

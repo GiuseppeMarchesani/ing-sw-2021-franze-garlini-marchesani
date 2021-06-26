@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 /**
@@ -183,4 +184,14 @@ public interface View {
      * @param leaderCards list of leader cards with their respective boolean for activated.
      */
     void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards);
-}
+
+    /**
+     * Shows played leadercards to the player
+     * @param playedLeaderCards list of played leader cards
+     * @param activePlayer the username of the player
+     */
+    void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer);
+
+    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards);
+
+    }

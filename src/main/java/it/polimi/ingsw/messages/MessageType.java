@@ -44,5 +44,5 @@ public enum MessageType {
 
     ERROR,
     WIN,
-    LOSE;
+    LOSE, SHOW_PLAYED_LEADERS, SHOW_PLAYER;
 }

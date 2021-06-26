@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -139,7 +140,26 @@ public class Cli extends ObservableView implements View{
         try {
             while(true) {
                 String command = readLine();
-                if(commandList.contains(command.toUpperCase())) {
+                if(command.equalsIgnoreCase("SHOW_PLAYER")){
+                    out.print("\nWhich player? ");
+                    try{
+                        int c = Integer.parseInt(readLine());
+                        if(c>4||c<=0) {
+                            out.println(STR_WRONG_INPUT);
+                            out.println("Insert another Command. ");
+                        }
+                        else { notifyObserver(obs -> obs.updateShowPlayer(c));
+                        break;
+                        }
+
+
+                    }
+                    catch(Exception e){
+                        out.println(STR_WRONG_INPUT);
+                    }
+
+                }
+                else if(commandList.contains(command.toUpperCase())) {
                     notifyObserver(obs -> obs.updateAction(commandList.indexOf(command.toUpperCase())));
                     break;
                 }
@@ -644,6 +664,14 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
+    public void showPlayedLeaderCards(ArrayList<LeaderCard> leaderCards, String username){
+        out.println("\nPlayer " + username + " has played a Leader Card. ");
+        for(LeaderCard leader: leaderCards) {
+            out.println(leader.toString());
+        }
+
+    }
+    @Override
     public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
         //Not ANY-resources payment
         boolean invalidInput=false;
@@ -906,5 +934,15 @@ public class Cli extends ObservableView implements View{
         else if(resourceType.equals(ResourceType.FAITH)) return ANSI_RED;
         else if(resourceType.equals(ResourceType.EMPTY)) return ANSI_WHITE;
         else return ANSI_RESET;
+    }
+
+    @Override
+    public void showPlayer(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards){
+        out.println("Showing player "+username);
+        out.println("Their faith is: "+faithSpace);
+        showWarehouse(depotToQuantity,depotToResource, username);
+        showStrongbox(strongbox, username);
+        showSlots(devCardSlot,username);
+        showPlayedLeaderCards(playedLeaderCards,username);
     }
 }

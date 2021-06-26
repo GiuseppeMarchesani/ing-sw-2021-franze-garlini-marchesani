@@ -102,4 +102,6 @@ public interface ObserverView {
      * @param dOrP identifies if the player wants to discard or play the chosen card.
      */
     public void updatePlayLeaderCard(LeaderCard card, char dOrP);
+
+    public void updateShowPlayer(int indexOf);
 }

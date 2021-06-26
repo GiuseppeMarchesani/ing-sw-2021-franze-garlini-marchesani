@@ -26,6 +26,8 @@ public class Gui extends ObservableView implements View {
     private static HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
     private static HashMap<Integer, Integer> activeDepotQ = new HashMap<>();
 
+    private static HashMap<ResourceType, Integer> strongbox = new HashMap<>();
+
 
     @Override
     public void askConnect() {
@@ -148,6 +150,11 @@ public class Gui extends ObservableView implements View {
         );
 
          */
+    }
+
+    @Override
+    public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
+
     }
 
     @Override

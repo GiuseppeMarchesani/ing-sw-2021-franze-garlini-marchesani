@@ -270,6 +270,20 @@ public class Player {
     public void setLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         this.leaderCards = leaderCards;
     }
+
+    /**
+     * Returns a list of played leader cards.
+     * @return a list of played leadercards.
+     */
+    public ArrayList<LeaderCard> getPlayedLeaderCards() {
+        ArrayList<LeaderCard> list=new ArrayList<>();
+        for(LeaderCard lc: leaderCards.keySet()){
+            if(leaderCards.get(lc)){
+                list.add(lc);
+            }
+        }
+        return list;
+    }
 }
 
 

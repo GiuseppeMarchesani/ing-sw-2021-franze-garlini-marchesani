@@ -442,6 +442,15 @@ public class GameController {
                     allVirtualView.get(turnController.getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
                     startTurn();
                     break;
+                case SHOW_PLAYER:
+                    if(((ShowPlayerRequest) msg).getNumber()>maxPlayers){
+                        allVirtualView.get(turnController.getActivePlayer()).showErrorMsg("Player does not exist.");
+                    }
+                    else {
+                        player=gameSession.getPlayersList().get((((ShowPlayerRequest) msg).getNumber()));
+                        allVirtualView.get(turnController.getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards());
+                    }
+                    startTurn();
             }
         }
         else{
@@ -668,14 +677,14 @@ public class GameController {
                     }
                     player.playLeader(card.getId());
                     for(VirtualView vv: allVirtualView.values()) {
-                        vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+                        vv.showPlayedLeaderCards(player.getPlayedLeaderCards(), turnController.getActivePlayer());
                     }
                     break;
                 case LEVEL_TWO:
                     if(checkLevelTwoColor(((LeaderProduction) card).getColorCost(), player)){
                         player.playLeader(card.getId());
                         for(VirtualView vv: allVirtualView.values()) {
-                            vv.showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+                            vv.showPlayedLeaderCards(player.getPlayedLeaderCards(), turnController.getActivePlayer());
                         }
                      }
                     else  {
@@ -688,6 +697,9 @@ public class GameController {
                 case DEV_CARD_DOUBLE:
                     if(checkCardColorRequirements(player, card.getCardCost())){
                         player.playLeader(card.getId());
+                        for(VirtualView vv: allVirtualView.values()) {
+                            vv.showPlayedLeaderCards(player.getPlayedLeaderCards(), turnController.getActivePlayer());
+                        }
                     }
                     else return;
                     break;

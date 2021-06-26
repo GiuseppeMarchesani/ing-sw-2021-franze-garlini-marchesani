@@ -27,18 +27,25 @@ public class ShowWarehouseSceneController extends ObservableView implements Gene
     private ImageView res2_depot2;
     @FXML
     private ImageView res1_depot3;
-
+    @FXML
+    private ImageView depotLeader1_res1;
+    @FXML
+    private ImageView depotLeader1_res2;
+    @FXML
+    private ImageView depotLeader2_res2;
+    @FXML
+    private ImageView depotLeader2_res1;
 
 
     private HashMap<Integer, Integer> depotQ = new HashMap<>();
     private HashMap<Integer, ResourceType> depotR = new HashMap<>();
 
     @FXML
-    public void initialize(){
+    public void initialize() {
         depotQ.putAll(Gui.getActiveDepotQ());
         depotR.putAll(Gui.getActiveDepotT());
-        for(Integer depot : depotR.keySet()){
-            for(int i=1; i<=depotQ.get(depot); i++){
+        for (Integer depot : depotR.keySet()) {
+            for (int i = 1; i <= depotQ.get(depot); i++) {
                 Image image = new Image(MainApp.class.getResourceAsStream("/images/" + depotR.get(depot).toString() + ".png"));
                 setImage(depot, depotQ.get(depot), image);
             }
@@ -46,32 +53,52 @@ public class ShowWarehouseSceneController extends ObservableView implements Gene
         username.setText(Gui.getActivePlayer());
     }
 
-    private void setImage(int n, int quantity, Image img){
-        if(n==0){
-            if(quantity==1){
-                res1_depot1.setImage(img);
-            }
-            else if(quantity==2){
-                res1_depot1.setImage(img);
-                res2_depot1.setImage(img);
-            }
-            else if(quantity==3){
-                res1_depot1.setImage(img);
-                res2_depot1.setImage(img);
-                res3_depot1.setImage(img);
-            }
-        }
-        else if(n==1){
-            if(quantity==1){
-                res1_depot2.setImage(img);
-            }
-            else if(quantity==2){
-                res1_depot2.setImage(img);
-                res2_depot2.setImage(img);
-            }
-        }
-        else if(n==2){
-            res1_depot3.setImage(img);
+    private void setImage(int n, int quantity, Image img) {
+        switch (n) {
+            case 0:
+                switch (quantity) {
+
+                    case 3:
+                        res3_depot1.setImage(img);
+                    case 2:
+                        res2_depot1.setImage(img);
+                    case 1:
+                        res1_depot1.setImage(img);
+                        break;
+
+                }
+                break;
+            case 1:
+                switch (quantity) {
+                    case 2:
+                        res2_depot2.setImage(img);
+                    case 1:
+                        res1_depot2.setImage(img);
+                        break;
+                }
+                break;
+            case 2:
+                res1_depot3.setImage(img);
+                break;
+
+            case 3:
+                switch (quantity) {
+                    case 2:
+                        depotLeader1_res2.setImage(img);
+                    case 1:
+                        depotLeader1_res1.setImage(img);
+                        break;
+                }
+                break;
+            case 4:
+                switch (quantity) {
+                    case 2:
+                        depotLeader2_res2.setImage(img);
+                    case 1:
+                        depotLeader2_res1.setImage(img);
+                        break;
+                }
+                break;
         }
     }
 }
