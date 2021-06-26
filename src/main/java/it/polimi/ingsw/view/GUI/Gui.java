@@ -124,7 +124,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
-        cardMarket.addAll(availableCards);
+        Gui.cardMarket.addAll(availableCards);
     }
 
     @Override
@@ -134,6 +134,10 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
+        Gui.activeDepotQ.putAll(depotToQuantity);
+        Gui.activeDepotT.putAll(depotToResource);
+        Gui.activePlayer = username;
+        /*
         activeDepotT.putAll(depotToResource);
         activeDepotQ.putAll(depotToQuantity);
         activePlayer = username;
@@ -142,6 +146,8 @@ public class Gui extends ObservableView implements View {
         Platform.runLater(()->
                 MainApp.changeRootPane(observers,"/fxml/showWarehouse_scene")
         );
+
+         */
     }
 
     @Override

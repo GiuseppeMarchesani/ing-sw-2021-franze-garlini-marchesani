@@ -108,8 +108,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
                 chosenLeader.add(ld);
             }
         }
-        allLeaders.remove(chosenLeader.get(0));
-        allLeaders.remove(chosenLeader.get(1));
+        allLeaders.removeAll(chosenLeader);
         Gui.getChosenLeader().put(Gui.getActivePlayer(), allLeaders);
         notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
 

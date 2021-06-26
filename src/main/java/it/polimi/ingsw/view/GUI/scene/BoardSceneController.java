@@ -193,6 +193,8 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<String,ArrayList<LeaderCard>> leaderCards = new HashMap<>();
     private ArrayList<ImageView> imgLeader = new ArrayList<>();
     private HashMap<String, Integer> faithTrack = new HashMap<>();
+    private HashMap<Integer, Integer> depotQuantity = new HashMap<>();
+    private HashMap<Integer, ResourceType> depotResource = new HashMap<>();
     private int leaderAction = 0;
 
     @FXML
@@ -353,6 +355,10 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    private void updateWarehouse(){
+        depotQuantity.putAll(Gui.getActiveDepotQ());
+        depotResource.putAll(Gui.getActiveDepotT());
+    }
     private void updateFaithTrack(){
         this.faithTrack.putAll(Gui.getFaithTrack());
 

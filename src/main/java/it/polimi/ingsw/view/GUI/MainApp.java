@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.GUI;
 import it.polimi.ingsw.network.ClientMessenger;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
+import it.polimi.ingsw.view.GUI.scene.BoardSceneController;
 import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
 import it.polimi.ingsw.view.GUI.scene.StartSceneController;
 import javafx.application.Application;
@@ -23,6 +24,7 @@ public class MainApp  extends Application {
 
     private static Scene scene;
     private static GenericSceneController activeController;
+    private static BoardSceneController mainScene;
 
     @Override
     public void start(Stage stage){
@@ -70,7 +72,11 @@ public class MainApp  extends Application {
             Parent root = loader.load();
             controller = loader.getController();
             ((ObservableView) controller).addAllObservers(observerViewList);
-
+            try{
+                mainScene = (BoardSceneController) controller;
+            } catch (ClassCastException e){
+                mainScene = mainScene;
+            }
             activeController = (GenericSceneController) controller;
             scene = newScene;
             scene.setRoot(root);
@@ -125,5 +131,9 @@ public class MainApp  extends Application {
 
     public static Scene getScene() {
         return scene;
+    }
+
+    public static BoardSceneController getMainScene(){
+        return mainScene;
     }
 }
