@@ -8,17 +8,17 @@ import it.polimi.ingsw.view.VirtualView;
 
 import java.util.*;
 import java.util.function.ToDoubleBiFunction;
-//TODO
+
 /**
- *
+ *This class keeps track of all the connected clients to the server that have the same game in common
  */
 public class Lobby {
     private Map<ClientHandler, String> clientHandlerMap;
     private GameController gameController;
     private String gameId;
-    //TODO
+
     /**
-     *
+     *Default constructor
      * @param gameId
      */
     public Lobby(String gameId) {
@@ -26,12 +26,11 @@ public class Lobby {
         gameController=new GameController();
         this.gameId=gameId;
     }
-    //TODO
 
     /**
-     *
-     * @param username
-     * @param clientHandler
+     *Adds a new player to the lobby
+     * @param username the username of the player
+     * @param clientHandler the clienthandler of the player
      */
     public void addPlayer(String username, ClientHandler clientHandler){
         VirtualView virtualView=new VirtualView(clientHandler);
@@ -62,34 +61,31 @@ public class Lobby {
 
     }
 
-    //TODO
 
     /**
-     *
-     * @param clientHandler
+     *Removes a player from the lobby.
+     * @param clientHandler the associated clienthandler
      */
     public void removePlayer(ClientHandler clientHandler){
         clientHandlerMap.remove(clientHandler);
     }
 
-    //TODO
 
     /**
-     *
-     * @param clientHandler
+     * Disconnects a player from the lobby.
+     * @param clientHandler the associated client handler
      */
     public void disconnect(ClientHandler clientHandler){
 
             gameController.disconnect(clientHandlerMap.get(clientHandler));
             removePlayer(clientHandler);
     }
-    //TODO
 
     /**
-     *
-     * @param username
-     * @param clientHandler
-     * @param virtualView
+     *Reconnects a player to the lobby
+     * @param username the username of the player
+     * @param clientHandler the associated clienthandler
+     * @param virtualView the associated virtual view
      */
     public void reconnect(String username, ClientHandler clientHandler,VirtualView virtualView){
         clientHandlerMap.put(clientHandler, username);
@@ -97,42 +93,46 @@ public class Lobby {
 
     }
 
-    //TODO
 
     /**
-     *
-     * @return
+     *Checks if the game is idle or ongoing
+     * @return if the game has already started
      */
     public boolean isGameStarted(){
         return gameController.isGameStarted();
     }
 
-
+    /**
+     *Returns a list of inactive players.
+     * @returna list of inactive players.
+     */
     public List<String> getInactivePlayers(){
         return gameController.getInactivePlayers();
     }
 
-    //TODO
 
     /**
-     *
-     * @return
+     *Checks if the game has inactive players
+     * @return true if the game has inactive players
      */
     public boolean hasInactivePLayers(){
 
         return gameController.hasInactivePlayers();
     }
 
+    /**
+     * passes a message to the gamecontroller
+     * @param clientMessage a message from the client
+     */
     public void getMessage(ClientMessage clientMessage){
         gameController.getMessage(clientMessage);
 
     }
 
-    //TODO
 
     /**
-     *
-     * @param clientHandler
+     *Handles a disconnection from the client
+     * @param clientHandler the clienthandler of the disconnected client
      */
     public void onDisconnect(ClientHandler clientHandler){
         if (gameController.isGameStarted()){
@@ -142,12 +142,9 @@ public class Lobby {
             removePlayer(clientHandler);
         }
     }
-
-    //TODO
-
     /**
-     *
-     * @return
+     *Checks how many players are connected
+     * @return the number of connected players
      */
     public int remainingPlayers(){
         return clientHandlerMap.size();
