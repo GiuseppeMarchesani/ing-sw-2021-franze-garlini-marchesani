@@ -152,11 +152,13 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private ArrayList<Integer> leaderDepotQuantity = new ArrayList<>();
     private int finalDiscard = 0;
     private ArrayList<ResourceType> resType = new ArrayList<>();
+    private final Image imgEmpty = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
     @FXML
+
     private void initialize(){
         resToPlace.putAll(Gui.getResToPlace());
         extraDepot.addAll(Gui.getExtraDepot());
-        Image imgEmpty = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
+
 
         radio0_extra_res4.setDisable(true);
         radio1_extra_res4.setDisable(true);
@@ -170,8 +172,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         radio0_extra_res1.setDisable(true);
         radio1_extra_res1.setDisable(true);
         radio2_extra_res1.setDisable(true);
-
-
 
         for(ResourceType res : resToPlace.keySet()){
            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
@@ -222,12 +222,326 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             }
             k++;
         }
-
-
         btm_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onNextBtm);
+        radio_depot1_res1.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot1Res1);
+        radio_depot1_res2.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot1Res2);
+        radio_depot1_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot1Res3);
+        radio_depot1_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot1Res4);
+        radio_depot2_res1.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot2Res1);
+        radio_depot2_res2.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot2Res2);
+        radio_depot2_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot2Res3);
+        radio_depot2_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot2Res4);
+        radio_depot3_res1.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot3Res1);
+        radio_depot3_res2.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot3Res2);
+        radio_depot3_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot3Res3);
+        radio_depot3_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadioDepot3Res4);
+        radio0_res1.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res1);
+        radio0_res2.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res2);
+        radio0_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res3);
+        radio0_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res4);
+    }
+
+    private void onRadioDepot1Res1(Event event) {
+        radio0_res1.setSelected(false);
+        radio_depot1_res2.setDisable(true);
+        radio_depot1_res3.setDisable(true);
+        radio_depot1_res4.setDisable(true);
+        radio_depot1_res2.setSelected(false);
+        radio_depot1_res3.setSelected(false);
+        radio_depot1_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 1);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot1Res2(Event event) {
+        radio0_res2.setSelected(false);
+        radio_depot1_res1.setDisable(true);
+        radio_depot1_res3.setDisable(true);
+        radio_depot1_res4.setDisable(true);
+        radio_depot1_res1.setSelected(false);
+        radio_depot1_res3.setSelected(false);
+        radio_depot1_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 1);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot1Res3(Event event) {
+        radio0_res3.setSelected(false);
+        radio_depot1_res2.setDisable(true);
+        radio_depot1_res1.setDisable(true);
+        radio_depot1_res4.setDisable(true);
+        radio_depot1_res2.setSelected(false);
+        radio_depot1_res1.setSelected(false);
+        radio_depot1_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 1);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot1Res4(Event event) {
+        radio0_res4.setSelected(false);
+        radio_depot1_res2.setDisable(true);
+        radio_depot1_res3.setDisable(true);
+        radio_depot1_res1.setDisable(true);
+        radio_depot1_res2.setSelected(false);
+        radio_depot1_res3.setSelected(false);
+        radio_depot1_res1.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 1);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot2Res1(Event event) {
+        radio0_res1.setSelected(false);
+        radio_depot2_res2.setDisable(true);
+        radio_depot2_res3.setDisable(true);
+        radio_depot2_res4.setDisable(true);
+        radio_depot2_res2.setSelected(false);
+        radio_depot2_res3.setSelected(false);
+        radio_depot2_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 2);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot2Res2(Event event) {
+        radio0_res2.setSelected(false);
+        radio_depot2_res1.setDisable(true);
+        radio_depot2_res3.setDisable(true);
+        radio_depot2_res4.setDisable(true);
+        radio_depot2_res1.setSelected(false);
+        radio_depot2_res3.setSelected(false);
+        radio_depot2_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 2);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot2Res3(Event event) {
+        radio0_res3.setSelected(false);
+        radio_depot2_res2.setDisable(true);
+        radio_depot2_res1.setDisable(true);
+        radio_depot2_res4.setDisable(true);
+        radio_depot2_res2.setSelected(false);
+        radio_depot2_res1.setSelected(false);
+        radio_depot2_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 2);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot2Res4(Event event) {
+        radio0_res4.setSelected(false);
+        radio_depot2_res2.setDisable(true);
+        radio_depot2_res1.setDisable(true);
+        radio_depot2_res3.setDisable(true);
+        radio_depot2_res2.setSelected(false);
+        radio_depot2_res1.setSelected(false);
+        radio_depot2_res3.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 2);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot3Res1(Event event) {
+        radio0_res1.setSelected(false);
+        radio_depot3_res2.setDisable(true);
+        radio_depot3_res3.setDisable(true);
+        radio_depot3_res4.setDisable(true);
+        radio_depot3_res2.setSelected(false);
+        radio_depot3_res3.setSelected(false);
+        radio_depot3_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 3);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot3Res2(Event event) {
+        radio0_res2.setSelected(false);
+        radio_depot3_res1.setDisable(true);
+        radio_depot3_res3.setDisable(true);
+        radio_depot3_res4.setDisable(true);
+        radio_depot3_res1.setSelected(false);
+        radio_depot3_res3.setSelected(false);
+        radio_depot3_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 3);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot3Res3(Event event) {
+        radio0_res3.setSelected(false);
+        radio_depot3_res1.setDisable(true);
+        radio_depot3_res2.setDisable(true);
+        radio_depot3_res4.setDisable(true);
+        radio_depot3_res1.setSelected(false);
+        radio_depot3_res2.setSelected(false);
+        radio_depot3_res4.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 3);
+            }
+            k++;
+        }
+    }
+
+    private void onRadioDepot3Res4(Event event) {
+        radio0_res4.setSelected(false);
+        radio_depot3_res1.setDisable(true);
+        radio_depot3_res2.setDisable(true);
+        radio_depot3_res3.setDisable(true);
+        radio_depot3_res1.setSelected(false);
+        radio_depot3_res2.setSelected(false);
+        radio_depot3_res3.setSelected(false);
+
+        int k=0;
+        for(Image image: imgRes) {
+            if(!image.equals(imgEmpty)) {
+                enableButton(k, 3);
+            }
+            k++;
+        }
+    }
+
+    private void onRadio0Res1(Event event) {
+        radio_depot1_res1.setSelected(false);
+        radio_depot2_res1.setSelected(false);
+        radio_depot3_res1.setSelected(false);
+    }
+
+    private void onRadio0Res2(Event event) {
+        radio_depot1_res2.setSelected(false);
+        radio_depot2_res2.setSelected(false);
+        radio_depot3_res2.setSelected(false);
+    }
+
+    private void onRadio0Res3(Event event) {
+        radio_depot1_res3.setSelected(false);
+        radio_depot2_res3.setSelected(false);
+        radio_depot3_res3.setSelected(false);
+    }
+
+    private void onRadio0Res4(Event event) {
+        radio_depot1_res4.setSelected(false);
+        radio_depot2_res4.setSelected(false);
+        radio_depot3_res4.setSelected(false);
     }
 
     private void onNextBtm(Event event){
+        for(int j=0; j<3; j++) {
+            floorQuantity.put(j, 0);
+            floorResources.put(j, ResourceType.EMPTY);
+        }
+
+        for(int i=0; i<imgRes.size(); i++) {
+            if(!imgRes.get(i).equals(imgEmpty)) {
+                if(i==0 && !radio0_res1.isSelected()) {
+                    RadioButton selectedDepotRes1 = (RadioButton) depot_res1.getSelectedToggle();
+                    int numDepot = Integer.parseInt(selectedDepotRes1.getText()) -1;
+                    RadioButton selectedQuantityRes1 = (RadioButton) quantity1.getSelectedToggle();
+                    int numRes = Integer.parseInt(selectedQuantityRes1.getText());
+                    floorResources.put(numDepot, resType.get(i));
+                    floorQuantity.put(numDepot, numRes);
+                    finalDiscard += Integer.parseInt(quantity_res1.getText()) - numRes;
+                }
+                else if(i==1 && !radio0_res2.isSelected()) {
+                    RadioButton selectedDepotRes2 = (RadioButton) depot_res2.getSelectedToggle();
+                    int numDepot = Integer.parseInt(selectedDepotRes2.getText()) -1;
+                    RadioButton selectedQuantityRes2 = (RadioButton) quantity2.getSelectedToggle();
+                    int numRes = Integer.parseInt(selectedQuantityRes2.getText());
+                    floorResources.put(numDepot, resType.get(i));
+                    floorQuantity.put(numDepot, numRes);
+                    finalDiscard += Integer.parseInt(quantity_res2.getText()) - numRes;
+                }
+                else if(i==2 && !radio0_res3.isSelected()) {
+                    RadioButton selectedDepotRes3 = (RadioButton) depot_res3.getSelectedToggle();
+                    int numDepot = Integer.parseInt(selectedDepotRes3.getText()) -1;
+                    RadioButton selectedQuantityRes3 = (RadioButton) quantity3.getSelectedToggle();
+                    int numRes = Integer.parseInt(selectedQuantityRes3.getText());
+                    floorResources.put(numDepot, resType.get(i));
+                    floorQuantity.put(numDepot, numRes);
+                    finalDiscard += Integer.parseInt(quantity_res3.getText()) - numRes;
+                }
+                else if(i==3 && !radio0_res4.isSelected()) {
+                    RadioButton selectedDepotRes4 = (RadioButton) depot_res4.getSelectedToggle();
+                    int numDepot = Integer.parseInt(selectedDepotRes4.getText()) -1;
+                    RadioButton selectedQuantityRes4 = (RadioButton) quantity4.getSelectedToggle();
+                    int numRes = Integer.parseInt(selectedQuantityRes4.getText());
+                    floorResources.put(numDepot, resType.get(i));
+                    floorQuantity.put(numDepot, numRes);
+                    finalDiscard += Integer.parseInt(quantity_res4.getText()) - numRes;
+                }
+                else if(radio0_res1.isSelected()) {
+                    finalDiscard += Integer.parseInt(quantity_res1.getText());
+                }
+                else if(radio0_res2.isSelected()) {
+                    finalDiscard += Integer.parseInt(quantity_res2.getText());
+                }
+                else if(radio0_res3.isSelected()) {
+                    finalDiscard += Integer.parseInt(quantity_res3.getText());
+                }
+                else if(radio0_res4.isSelected()) {
+                    finalDiscard += Integer.parseInt(quantity_res4.getText());
+                }
+
+            }
+        }
+
+        /*
         if(!radio0_extra_res1.isDisable()){
             RadioButton chooseExtraDepot1 = (RadioButton) extraDepot1.getSelectedToggle();
             String ed1 = chooseExtraDepot1.getText();
@@ -289,13 +603,11 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             floorQuantity.put( Integer.parseInt(dt4)-1, Integer.parseInt(qt4));
             finalDiscard += countDiscard(Integer.parseInt(qt4), resQuantity.get(3));
 
-        }
-
+        }*/
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscard));
-
     }
 
-    private void activeExtraButton(int n){
+    private void activeExtraButton(int n) {
             if(n==0){
                 radio0_extra_res1.setDisable(false);
                 radio1_extra_res1.setDisable(false);
@@ -316,8 +628,57 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
                 radio1_extra_res4.setDisable(false);
                 radio2_extra_res4.setDisable(false);
             }
+    }
+
+    private void enableButton(int k, int i) {
+        if(i==1) {
+            if (k == 0) {
+                radio_depot2_res1.setDisable(false);
+                radio_depot3_res1.setDisable(false);
+            } else if (k == 1) {
+                radio_depot2_res2.setDisable(false);
+                radio_depot3_res2.setDisable(false);
+            } else if (k == 2) {
+                radio_depot2_res3.setDisable(false);
+                radio_depot3_res3.setDisable(false);
+            } else if (k == 3) {
+                radio_depot2_res4.setDisable(false);
+                radio_depot3_res4.setDisable(false);
+            }
         }
-    private void disableButton(int k){
+        else if(i==2) {
+            if (k == 0) {
+                radio_depot1_res1.setDisable(false);
+                radio_depot3_res1.setDisable(false);
+            } else if (k == 1) {
+                radio_depot1_res2.setDisable(false);
+                radio_depot3_res2.setDisable(false);
+            } else if (k == 2) {
+                radio_depot1_res3.setDisable(false);
+                radio_depot3_res3.setDisable(false);
+            } else if (k == 3) {
+                radio_depot1_res4.setDisable(false);
+                radio_depot3_res4.setDisable(false);
+            }
+        }
+        else if(i==3) {
+            if (k == 0) {
+                radio_depot2_res1.setDisable(false);
+                radio_depot1_res1.setDisable(false);
+            } else if (k == 1) {
+                radio_depot2_res2.setDisable(false);
+                radio_depot1_res2.setDisable(false);
+            } else if (k == 2) {
+                radio_depot2_res3.setDisable(false);
+                radio_depot1_res3.setDisable(false);
+            } else if (k == 3) {
+                radio_depot2_res4.setDisable(false);
+                radio_depot1_res4.setDisable(false);
+            }
+        }
+    }
+
+    private void disableButton(int k) {
         if(k==0){
             radio0_res1.setDisable(true);
             radio1_res1.setDisable(true);
@@ -355,6 +716,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             radio_depot3_res4.setDisable(true);
         }
     }
+
     private int countDiscard(int chooseQuantity, int quantity){
         int count=0;
         if(chooseQuantity<quantity){
@@ -362,6 +724,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         }
         return count;
     }
+
     private void controlQuantity(int n, int k){
         if(n==0){
             if(k==1){

@@ -569,7 +569,7 @@
                         <Font name="Arial" size="14.0" />
                      </font>
                   </Button>
-                  <Label layoutX="22.0" layoutY="34.0" text="Attention! All the rest resources will be discarded" textFill="RED">
+                  <Label layoutX="22.0" layoutY="34.0" text="All left resources will be discarded!" textFill="RED">
                      <font>
                         <Font size="26.0" />
                      </font>
