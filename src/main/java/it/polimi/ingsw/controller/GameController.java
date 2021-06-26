@@ -550,11 +550,12 @@ public class GameController {
         player.getDevCardSlot().getSlotDev().get(msg.getSlotToPlace()).add(card);
         player.getWarehouse().spendResources(msg.getExpenseDepot());
         for (VirtualView vv : allVirtualView.values()) {
-            vv.showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
-            vv.showStrongbox(msg.getNewStrongbox(), turnController.getActivePlayer());
-            vv.showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
+
             vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
         }
+        allVirtualView.get(turnController.getActivePlayer()).showSlots(player.getDevCardSlot(), turnController.getActivePlayer());
+        allVirtualView.get(turnController.getActivePlayer()).showStrongbox(msg.getNewStrongbox(), turnController.getActivePlayer());
+        allVirtualView.get(turnController.getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), turnController.getActivePlayer());
         if(player.getDevCardSlot().getCardQuantity()==7){
 
             broadcastMessage("We're in the endgame now.");
@@ -572,9 +573,9 @@ public class GameController {
         boolean trigger =gameSession.increaseFaith(faithQuantity, activateOnYourself, turnController.getActivePlayer());
 
         for(VirtualView vv: allVirtualView.values()){
-            vv.showFaithTrack(gameSession.getFaithMap(), trigger,gameSession.lastActivatedFaithZone() );
+            vv.showFaithTrack(trigger,gameSession.lastActivatedFaithZone() );
         }
-
+        allVirtualView.get(turnController.getActivePlayer()).showFaith(gameSession.getPlayer(turnController.getActivePlayer()).getFaithSpace());
         if (trigger&& gameSession.lastActivatedFaithZone()==2){
             broadcastMessage("We're in the endgame now.");
                 setGameState(GameState.END_GAME);

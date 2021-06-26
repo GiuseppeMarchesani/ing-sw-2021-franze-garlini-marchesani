@@ -158,6 +158,11 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards) {
+
+    }
+
+    @Override
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
 
     }
@@ -281,4 +286,6 @@ public class Gui extends ObservableView implements View {
     public static HashMap<Integer, ResourceType> getActiveDepotT() {
         return activeDepotT;
     }
+
+
 }
