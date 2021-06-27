@@ -937,14 +937,14 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showPlayer(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
-        out.println("Showing player "+username);
-        out.println("Their faith is: "+faithSpace);
-        showWarehouse(depotToQuantity,depotToResource, username);
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
+        out.println("\nShowing player " + username);
+        out.println("\nTheir faith is: " + faithSpace);
+        showWarehouse(depotToQuantity, depotToResource, username);
         showStrongbox(strongbox, username);
         showSlots(devCardSlot,username);
         showPlayedLeaderCards(playedLeaderCards,username);
-        out.println("They have "+ remainingLeaderCards+" leader cards left.");
+        out.println("\nThey have " + remainingLeaderCards+" leader cards left.");
 
     }
 }
