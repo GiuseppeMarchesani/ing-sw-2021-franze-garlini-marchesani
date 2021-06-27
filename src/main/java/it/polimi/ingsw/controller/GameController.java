@@ -156,12 +156,6 @@ public class GameController {
             case 3:
                 gameSession.getPlayersList().get(2).increaseFaith(1);
                 allVirtualView.get(gameSession.getPlayerListByUsername().get(2)).showPlayerFaith(gameSession.getFaith(gameSession.getPlayerListByUsername().get(2)));
-            default:
-                //Don't increase faith but update track
-
-                for(VirtualView vv: allVirtualView.values()){
-                    vv.showFaithTrack(false,0);
-                }
         }
         broadcastMessage("Everyone joined the game!");
         startTurn();
