@@ -25,7 +25,7 @@ public class Gui extends ObservableView implements View {
     private static ArrayList<ResourceType> extraDepot = new ArrayList<>();
     private static HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
     private static HashMap<Integer, Integer> activeDepotQ = new HashMap<>();
-
+    private static HashMap<String, Integer> finalVip = new HashMap<>();
     private static HashMap<ResourceType, Integer> strongbox = new HashMap<>();
 
 
@@ -215,7 +215,10 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showWinMessage(HashMap<String, Integer> finalPoints) {
-
+        finalVip.putAll(finalPoints);
+        WinSceneController wsc = new WinSceneController();
+        wsc.addAllObservers(observers);
+        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/winner_scene"));
     }
 
     @Override
@@ -287,5 +290,9 @@ public class Gui extends ObservableView implements View {
         return activeDepotT;
     }
 
+
+    public static HashMap<String, Integer> getFinalVp(){
+        return finalVip;
+    }
 
 }
