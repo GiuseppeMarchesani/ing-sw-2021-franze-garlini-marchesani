@@ -291,7 +291,7 @@ public class Cli extends ObservableView implements View{
                 out.println(STR_WRONG_INPUT);
             }
         }
-        else chosenConversion = conversion.get(0);
+        else if(conversion.size()==1) chosenConversion = conversion.get(0);
 
         char finalRowOrCol = rowOrCol;
         int finalNum = num -1;
@@ -630,8 +630,8 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
-        if(wasZoneActivated) out.println("FaithZone " + whichZone + " has been activated.");
-        else out.println("No new FaithZone was activated.");
+        if(wasZoneActivated) out.println("\nFaithZone " + whichZone + " has been activated.");
+        else out.println("\nNo new FaithZone was activated.");
     }
 
     @Override
@@ -882,7 +882,7 @@ public class Cli extends ObservableView implements View{
             out.println("\nFinal results.");
             for(String username: finalPoints.keySet()) {
                 if(finalPoints.get(username) == points.get(i)) {
-                    out.println(i + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
+                    out.println((i+1) + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
                 }
             }
         }
