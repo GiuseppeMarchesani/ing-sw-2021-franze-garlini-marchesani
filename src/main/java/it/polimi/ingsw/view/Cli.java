@@ -629,12 +629,9 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
-        out.println("\nFaith Track:");
-        for(String username: playerFaith.keySet()) {
-            out.println(username + ": " + playerFaith.get(username));
-        }
+    public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
         if(wasZoneActivated) out.println("FaithZone " + whichZone + " has been activated.");
+        else out.println("No new FaithZone was activated.");
     }
 
     @Override
@@ -657,11 +654,14 @@ public class Cli extends ObservableView implements View{
             }
         }
     }
-
     @Override
-    public void showRemainingLeaderCards(String username, int remaining) {
-        out.println("\nPlayer " + username + " has " + remaining + " un-played leader cards.");
+    public void showPlayerFaith(ArrayList<Integer> faith){
+        out.println("Your Faith: "+ faith.get(0));
+        if(faith.size()>1){
+            out.println("Lorenzo's Faith: "+ faith.get(1));
+        }
     }
+
 
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> leaderCards, String username){
@@ -937,12 +937,14 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showPlayer(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards){
+    public void showPlayer(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
         out.println("Showing player "+username);
         out.println("Their faith is: "+faithSpace);
         showWarehouse(depotToQuantity,depotToResource, username);
         showStrongbox(strongbox, username);
         showSlots(devCardSlot,username);
         showPlayedLeaderCards(playedLeaderCards,username);
+        out.println("They have "+ remainingLeaderCards+" leader cards left.");
+
     }
 }

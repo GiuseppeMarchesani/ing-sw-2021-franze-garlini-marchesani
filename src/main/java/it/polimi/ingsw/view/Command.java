@@ -11,11 +11,12 @@ public enum Command {
         SHOW_LEADER("SHOW_LEADER"),
         SHOW_MARKET("SHOW_MARKET"),
         SHOW_DEV_MARKET("SHOW_DEV_MARKET"),
-        SHOW_FAITH("SHOW_FAITH"),
+        SHOW_FAITH_TRACK("SHOW_FAITH_TRACK"),
         SHOW_SLOT("SHOW_SLOT"),
         SHOW_WAREHOUSE("SHOW_WAREHOUSE"),
         SHOW_STRONGBOX("SHOW_STRONGBOX"),
         SHOW_VP("SHOW_VP"),
+        SHOW_FAITH("SHOW_FAITH"),
         END_TURN("END_TURN");
 
     private String command;

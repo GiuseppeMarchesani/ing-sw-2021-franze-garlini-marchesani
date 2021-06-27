@@ -121,11 +121,10 @@ public interface View {
 
     /**
      * Shows the player the Faith Track state.
-     * @param playerFaith players usernames and their faith points.
      * @param wasZoneActivated true if a faith zone was activated.
      * @param whichZone which faith zone has been activated.
      */
-    void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone);
+    void showFaithTrack(boolean wasZoneActivated, int whichZone);
 
     /**
      * Shows the current Victory Points owned by all players.
@@ -139,13 +138,6 @@ public interface View {
      * @param username the player who owns the CardSlot.
      */
     void showSlots(DevCardSlot devCardSlot, String username);
-
-    /**
-     * Shows the number of un-played leader cards owned by a player.
-     * @param username the player's username.
-     * @param remaining number of un-played leader cards.
-     */
-    void showRemainingLeaderCards(String username, int remaining);
 
     /**
      * Asks the player to choose one slot among the slots in the list passed as parameter.
@@ -192,6 +184,7 @@ public interface View {
      */
     void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer);
 
-    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards);
+    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards);
 
-    }
+    void showPlayerFaith(ArrayList<Integer> faith);
+}

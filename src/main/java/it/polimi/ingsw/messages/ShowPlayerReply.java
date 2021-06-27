@@ -15,7 +15,8 @@ public class ShowPlayerReply extends ServerMessage {
     private DevCardSlot devCardSlot;
     private ArrayList<LeaderCard> playedLeaderCards;
     private String username;
-    public ShowPlayerReply(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards) {
+    private int remainingLeaderCards;
+    public ShowPlayerReply(String username,int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards,int remainingLeaderCards) {
         super(MessageType.SHOW_PLAYER);
         this.username=username;
         this.faithSpace=faithSpace;
@@ -24,6 +25,7 @@ public class ShowPlayerReply extends ServerMessage {
         this.strongbox=strongbox;
         this.playedLeaderCards=playedLeaderCards;
         this.devCardSlot=devCardSlot;
+        this.remainingLeaderCards=remainingLeaderCards;
     }
 
     public ArrayList<LeaderCard> getPlayedLeaderCards() {
@@ -52,5 +54,9 @@ public class ShowPlayerReply extends ServerMessage {
 
     public String getUsername() {
         return username;
+    }
+
+    public int getRemainingLeaderCards() {
+        return remainingLeaderCards;
     }
 }

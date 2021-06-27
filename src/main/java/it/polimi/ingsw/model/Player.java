@@ -62,7 +62,7 @@ public class Player {
     }
 
     /**
-     * Returns the Leader Cards owned by the player.
+     * Returns the Leader Cards owned and not played by the player.
      * @return the list of Leader Cards owned by the player.
      */
     public ArrayList<LeaderCard> getLeaderCardList() {
@@ -73,6 +73,14 @@ public class Player {
             }
         }
         return cards;
+    }
+
+    /**
+     * Returns the number of leadercards in a player's hand.
+     * @return the number of leadercards in a player's hand.
+     */
+    public int remainingLeaderCards(){
+        return getLeaderCardList().size();
     }
 
     /**

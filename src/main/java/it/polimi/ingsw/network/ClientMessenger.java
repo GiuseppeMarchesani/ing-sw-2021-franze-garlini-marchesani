@@ -145,6 +145,9 @@ public class ClientMessenger implements Observer, ObserverView {
             case 11:
                 msg= new ActionRequest(username, MessageType.SHOW_VICTORY_POINTS);
                 break;
+            case 12:
+                msg= new ActionRequest(username, MessageType.SHOW_PLAYER_FAITH);
+                break;
             default:
                 msg= new ActionRequest(username, MessageType.END_TURN);
 
@@ -257,7 +260,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.showMarket(((ShowMarketMsg) msg).getMarket(),((ShowMarketMsg) msg).getCornerMarble()));
                 break;
             case SHOW_FAITH_TRACK:
-                queue.execute(() -> view.showFaithTrack(((ShowFaithTrackMsg) msg).getPlayerFaith(),((ShowFaithTrackMsg) msg).isZoneActivated(),((ShowFaithTrackMsg) msg).getWhichZone()));
+                queue.execute(() -> view.showFaithTrack(((ShowFaithTrackMsg) msg).isZoneActivated(),((ShowFaithTrackMsg) msg).getWhichZone()));
                 break;
             case SHOW_DEV_MARKET:
                 queue.execute(()-> view.showDevMarket(((ShowDevMarketMsg) msg).getAvailableCards(),((ShowDevMarketMsg) msg).getRemainingCards()));
@@ -285,9 +288,6 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(()-> view.showLoseMessage());
                 client.disconnect();
                 break;
-            case SHOW_REMAINING_LEADERS:
-                queue.execute(() -> view.showRemainingLeaderCards(((ShowRemainingLeaderMsg) msg).getUsername(),((ShowRemainingLeaderMsg) msg).getRemaining()));
-                break;
             case SHOW_LEADER:
                 queue.execute(() ->view.showLeaderCards(((ShowLeaderCardsMsg) msg).getCards()));
                 break;
@@ -303,10 +303,12 @@ public class ClientMessenger implements Observer, ObserverView {
             case SHOW_PLAYER:
                 ShowPlayerReply player=(ShowPlayerReply) msg;
                 if(player.getUsername().equals(username)) {
-                    queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards()));
+                    queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards(),player.getRemainingLeaderCards()));
                 }
                 else  queue.execute(()-> view.showErrorMsg("That's you!"));
                 break;
+            case SHOW_PLAYER_FAITH:
+                queue.execute(()->view.showPlayerFaith(((ShowPlayerFaithMsg) msg).getFaith()));
         }
     }
 

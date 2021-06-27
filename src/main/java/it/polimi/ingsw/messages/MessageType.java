@@ -27,7 +27,6 @@ public enum MessageType {
     SHOW_VICTORY_POINTS,
     SHOW_STRONGBOX,
     SHOW_WAREHOUSE,
-    SHOW_REMAINING_LEADERS,
     SHOW_SLOT,
 
     //action
@@ -44,5 +43,5 @@ public enum MessageType {
 
     ERROR,
     WIN,
-    LOSE, SHOW_PLAYED_LEADERS, SHOW_PLAYER;
+    LOSE, SHOW_PLAYED_LEADERS, SHOW_PLAYER, SHOW_PLAYER_FAITH;
 }

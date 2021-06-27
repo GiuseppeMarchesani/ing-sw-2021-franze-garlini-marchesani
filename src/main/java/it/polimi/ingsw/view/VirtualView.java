@@ -110,8 +110,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
-        clientHandler.sendMessage(new ShowFaithTrackMsg(playerFaith, wasZoneActivated, whichZone));
+    public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
+        clientHandler.sendMessage(new ShowFaithTrackMsg( wasZoneActivated, whichZone));
     }
 
     @Override
@@ -163,10 +163,7 @@ public class VirtualView implements View, Observer {
     public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String activePlayer){
         clientHandler.sendMessage(new ShowStrongboxMsg(strongbox, activePlayer));
     }
-    @Override
-    public void showRemainingLeaderCards(String username, int remaining){
-        clientHandler.sendMessage(new ShowRemainingLeaderMsg(username, remaining));
-    }
+
 
     @Override
     public void showLoseMessage() {
@@ -182,7 +179,11 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new ShowPlayedLeadersMsg(playedLeaderCards, activePlayer));
     }
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards){
-        clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards));
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
+        clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards, remainingLeaderCards));
+    }
+    @Override
+    public void showPlayerFaith(ArrayList<Integer> faith){
+        clientHandler.sendMessage(new ShowPlayerFaithMsg(faith));
     }
 }

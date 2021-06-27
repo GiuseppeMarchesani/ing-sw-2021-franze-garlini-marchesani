@@ -323,14 +323,12 @@ public class Game {
     }
 
     /**
-     * Used to get the faith space for each player.
-     * @return all the players' faith space.
+     * Used to get the faith space.
+     * @return the players' faith space.
      */
-    public HashMap<String, Integer> getFaithMap(){
-        HashMap<String, Integer> faith=new HashMap<>();
-        for(Player player: playersList){
-            faith.put(player.getUsername(), player.getFaithSpace());
-        }
+    public ArrayList<Integer> getFaith(String username){
+        ArrayList<Integer> faith=new ArrayList<>();
+        faith.add(getPlayer(username).getFaithSpace());
         return faith;
     }
 

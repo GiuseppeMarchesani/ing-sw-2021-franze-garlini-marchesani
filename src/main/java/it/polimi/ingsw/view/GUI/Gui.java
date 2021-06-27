@@ -158,7 +158,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards) {
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards) {
+
+    }
+
+    @Override
+    public void showPlayerFaith(ArrayList<Integer> faith) {
 
     }
 
@@ -173,8 +178,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showFaithTrack(HashMap<String, Integer> playerFaith, boolean wasZoneActivated, int whichZone) {
-        faithTrack.putAll(playerFaith);
+    public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
     }
 
     @Override
@@ -187,10 +191,6 @@ public class Gui extends ObservableView implements View {
 
     }
 
-    @Override
-    public void showRemainingLeaderCards(String username, int remaining) {
-
-    }
 
     @Override
     public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {

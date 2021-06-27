@@ -138,10 +138,10 @@ public class SinglePlayerGame extends Game {
      * It returns the Faith Track stats.
      * @return the FaithTrack stats.
      */
-    public HashMap<String, Integer> getFaithMap(){
-       HashMap<String, Integer> map=  super.getFaithMap();
-       map.put("Lorenzo Il Magnifico", blackCross.getFaithSpace());
-       return map;
+    public ArrayList<Integer> getFaith(String username){
+        ArrayList<Integer> faith=  super.getFaith(username);
+       faith.add( blackCross.getFaithSpace());
+       return faith;
     }
 
     /**
