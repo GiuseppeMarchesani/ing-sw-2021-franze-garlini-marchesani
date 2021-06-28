@@ -24,7 +24,9 @@ public class MainApp  extends Application {
 
     private static Scene scene;
     private static GenericSceneController activeController;
-    private static BoardSceneController mainScene;
+    private static BoardSceneController mainController;
+    private static Scene mainScene;
+    private static Parent mainRoot;
 
     @Override
     public void start(Stage stage){
@@ -53,15 +55,6 @@ public class MainApp  extends Application {
 
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-
-    public static void changeRootPane(GenericSceneController controller, Event event, String fxml) {
-        Scene scene = ((Node) event.getSource()).getScene();
-        changeRootPane(controller, scene, fxml);
-    }
 
     public static <T> T changeRootPane(List<ObserverView> observerViewList, Scene newScene, String fxml) {
 
@@ -72,11 +65,7 @@ public class MainApp  extends Application {
             Parent root = loader.load();
             controller = loader.getController();
             ((ObservableView) controller).addAllObservers(observerViewList);
-            try{
-                mainScene = (BoardSceneController) controller;
-            } catch (ClassCastException e){
-                mainScene = mainScene;
-            }
+
             activeController = (GenericSceneController) controller;
             scene = newScene;
             scene.setRoot(root);
@@ -90,43 +79,40 @@ public class MainApp  extends Application {
         return changeRootPane(observerList, scene, fxml);
     }
 
+    public static <T> void changeRootMainScene(List<ObserverView> observerList) {
+        T controller;
+        if(mainController==null){
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/board_scene.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+                controller = loader.getController();
+                ((ObservableView) controller).addAllObservers(observerList);
+                mainController = (BoardSceneController) controller;
+                activeController = (GenericSceneController) controller;
+                scene.setRoot(root);
+                mainRoot = root;
+                mainScene = scene;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else{
+
+            scene = mainScene;
+            activeController = mainController;
+            scene.setRoot(mainRoot);
+        }
+    }
 
     public static <T> T changeRootPane(List<ObserverView> observerList, Event event, String fxml) {
         Scene newScene = ((Node) event.getSource()).getScene();
         return changeRootPane(observerList, newScene, fxml);
     }
-    public static void changeRootPane(GenericSceneController controller, Scene newScene, String fxml) {
-        try {
-            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
-            loader.setController(controller);
-            activeController = controller;
-            Parent root = loader.load();
-
-            scene = newScene;
-            scene.setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void changeRootPane(GenericSceneController controller, String fxml) {
-        changeRootPane(controller, scene, fxml);
-    }
-    private static Parent loadFXML(String fxml) throws IOException {
-
-        URL url = MainApp.class.getResource(fxml + ".fxml");
-
-        FXMLLoader fxmlLoader = new FXMLLoader(url);
-        return fxmlLoader.load();
-    }
-
 
     public static void main(String[] args) {
         launch();
-    }
-
-    public static GenericSceneController getActiveController() {
-        return activeController;
     }
 
     public static Scene getScene() {
@@ -134,6 +120,6 @@ public class MainApp  extends Application {
     }
 
     public static BoardSceneController getMainScene(){
-        return mainScene;
+        return mainController;
     }
 }

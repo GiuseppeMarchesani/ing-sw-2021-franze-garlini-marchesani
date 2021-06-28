@@ -1,4 +1,5 @@
 package it.polimi.ingsw.view.GUI;
+import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Gui extends ObservableView implements View {
-    private static ArrayList<LeaderCard> availableLeader= new ArrayList<>();
+    private static HashMap<String, ArrayList<LeaderCard>> availableLeader= new HashMap<>();
     private static ResourceType[][] market = new ResourceType[4][3];
     private static ResourceType cornerMarble;
     private static ArrayList<DevCard> cardMarket = new ArrayList<>();
@@ -26,7 +27,8 @@ public class Gui extends ObservableView implements View {
     private static HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
     private static HashMap<Integer, Integer> activeDepotQ = new HashMap<>();
     private static HashMap<String, Integer> finalVip = new HashMap<>();
-    private static HashMap<ResourceType, Integer> strongbox = new HashMap<>();
+    private static HashMap<String, HashMap<ResourceType, Integer>> strongbox = new HashMap<>();
+    private boolean startGame = false;
 
 
     @Override
@@ -57,15 +59,15 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askAction() {
-        BoardSceneController bsc;
-        try {
-            bsc = (BoardSceneController) MainApp.getActiveController();
-        } catch (ClassCastException e) {
-            bsc = new BoardSceneController();
-            bsc.addAllObservers(observers);
+        if(!startGame){
+            startGame = true;
+        }
+        else{
+            Platform.runLater(() -> MainApp.getMainScene().update(Gui.market, Gui.cornerMarble, Gui.cardMarket, Gui.activeDepotQ, Gui.activeDepotT, Gui.chosenLeader.get(activePlayer)));
         }
         Platform.runLater(()->
-                MainApp.changeRootPane(observers, "/fxml/board_scene"));
+                MainApp.changeRootMainScene(observers));
+
     }
 
     @Override
@@ -121,7 +123,7 @@ public class Gui extends ObservableView implements View {
                 Gui.market[i][j] = market[i][j];
             }
         }
-        cornerMarble = corner;
+        Gui.cornerMarble = corner;
     }
 
     @Override
@@ -138,7 +140,6 @@ public class Gui extends ObservableView implements View {
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
         Gui.activeDepotQ.putAll(depotToQuantity);
         Gui.activeDepotT.putAll(depotToResource);
-        Gui.activePlayer = username;
         /*
         activeDepotT.putAll(depotToResource);
         activeDepotQ.putAll(depotToQuantity);
@@ -164,7 +165,9 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayerFaith(ArrayList<Integer> faith) {
-
+        for(int i=0; i<playerList.size(); i++){
+            faithTrack.put(playerList.get(i), faith.get(i));
+        }
     }
 
     @Override
@@ -204,7 +207,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askLeaderCardToKeep(ArrayList<LeaderCard> leaderCards) {
-        availableLeader.addAll(leaderCards);
+        availableLeader.put(activePlayer, leaderCards);
         ChooseLeaderToKeep cltk = new ChooseLeaderToKeep();
         cltk.addAllObservers(observers);
         Platform.runLater(()->
@@ -225,13 +228,19 @@ public class Gui extends ObservableView implements View {
     public void showLoseMessage() {
 
     }
+/*
+    private HashMap<ResourceType, Integer> askAnyResource(int numAny){
+
+    }
+
+ */
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         Gui.leaderCards.addAll(leaderCards.keySet());
     }
 
-    public static ArrayList<LeaderCard> getAvailableLeader(){
+    public static HashMap<String, ArrayList<LeaderCard>> getAvailableLeader(){
         return availableLeader;
     }
     public static ArrayList<LeaderCard> getLeaderCards(){
@@ -264,10 +273,6 @@ public class Gui extends ObservableView implements View {
 
     public static HashMap<String, Integer> getFaithTrack(){
         return faithTrack;
-    }
-
-    public static void getActivePlayer(String activePlayer) {
-        Gui.activePlayer = activePlayer;
     }
 
     public static ArrayList<ResourceType> getConversion(){
