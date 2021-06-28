@@ -110,7 +110,31 @@ public class Game {
         for(Player player : playersList){
             userPoints.put(player.getUsername(), player.getFinalVP()+faithTrack.getAssociatedVP(player.getFaithSpace()));
         }
-        return userPoints;
+        ArrayList<String> keys = new ArrayList<>(userPoints.keySet());
+        ArrayList<Integer> values = new ArrayList<>(userPoints.values());
+        Collections.sort(values);
+        Collections.sort(keys);
+
+        HashMap<String,Integer> sortedPoints= new HashMap<>();
+
+        Iterator<Integer> sortInt = values.iterator();
+        while (sortInt.hasNext()) {
+            Integer points = sortInt.next();
+            Iterator<String> user= keys.iterator();
+
+            while (user.hasNext()) {
+                String key = user.next();
+                Integer comparePoints1 = userPoints.get(key);
+                Integer comparePoints2 = points;
+
+                if (comparePoints1.equals(comparePoints2)) {
+                    user.remove();
+                    sortedPoints.put(key, points);
+                    break;
+                }
+            }
+        }
+        return sortedPoints;
     }
 
     /**
