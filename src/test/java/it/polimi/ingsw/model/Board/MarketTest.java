@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +19,7 @@ public class MarketTest {
     private Market testMarket;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         String marbleJson = "";
         ArrayList<ResourceType> totalMarbles = null;
@@ -63,10 +62,10 @@ public class MarketTest {
 
         ResourceType[][] testMarketTrayPost = testMarket.getMarketTray();
         ResourceType testCornerPost = testMarket.getCornerMarble();
-        assertTrue(testMarketTray[2][1].getVal() == testMarketTrayPost[2][0].getVal());
-        assertTrue(testCornerPost.getVal() == testMarketTray[2][0].getVal());
-        assertTrue(testMarketTray[2][2].getVal() == testMarketTrayPost[2][1].getVal());
-        assertTrue(testMarketTrayPost[2][2].getVal() == testCorner.getVal());
+        assertEquals(testMarketTray[2][1].getVal(), testMarketTrayPost[2][0].getVal());
+        assertEquals(testCornerPost.getVal(), testMarketTray[2][0].getVal());
+        assertEquals(testMarketTray[2][2].getVal(), testMarketTrayPost[2][1].getVal());
+        assertEquals(testMarketTrayPost[2][2].getVal(), testCorner.getVal());
 
     }
 

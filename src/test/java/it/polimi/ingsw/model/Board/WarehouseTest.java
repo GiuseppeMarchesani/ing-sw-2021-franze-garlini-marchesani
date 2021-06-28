@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.Board;
 
-import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,10 +2,9 @@ package it.polimi.ingsw.model.Action;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Action.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.testng.Assert;
+
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -13,14 +12,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import static org.junit.Assert.*;
+
 public class TokenBagTest {
     private TokenBag testTokenBag;
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
-        ArrayList<ActionToken> tokens = new ArrayList<>();
+        ArrayList<ActionToken> tokens;
         String actionTokenJson = "";
 
         //ActionDiscard generation
@@ -61,12 +62,12 @@ public class TokenBagTest {
     public void testDrawToken() {
         TokenBag beforeTokenBag= testTokenBag;
         ActionToken testTokenRemoved = testTokenBag.drawToken();
-        Assert.assertTrue(testTokenBag.getUsedTokens().contains(testTokenRemoved));
-        Assert.assertEquals(testTokenBag.getAvailableTokens().size(), 6);
+        assertTrue(testTokenBag.getUsedTokens().contains(testTokenRemoved));
+        assertEquals(testTokenBag.getAvailableTokens().size(), 6);
 
         testTokenRemoved = testTokenBag.drawToken();
-        Assert.assertTrue(testTokenBag.getUsedTokens().contains(testTokenRemoved));
-        Assert.assertEquals(testTokenBag.getAvailableTokens().size(), 5);
+        assertTrue(testTokenBag.getUsedTokens().contains(testTokenRemoved));
+        assertEquals(testTokenBag.getAvailableTokens().size(), 5);
 
 
     }
@@ -75,8 +76,8 @@ public class TokenBagTest {
     public void shuffle() {
         ActionToken testTokenRemoved=testTokenBag.drawToken();
         testTokenBag.shuffle();
-        Assert.assertEquals(testTokenBag.getAvailableTokens().size(), 7);
-        Assert.assertEquals(testTokenBag.getUsedTokens().size(),0);
+        assertEquals(testTokenBag.getAvailableTokens().size(), 7);
+        assertEquals(testTokenBag.getUsedTokens().size(),0);
 
     }
 

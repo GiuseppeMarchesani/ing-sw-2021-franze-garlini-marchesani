@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.Card;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Card.LeaderMarble;
+
 import it.polimi.ingsw.model.Player;
 import org.junit.Before;
 import org.junit.Test;

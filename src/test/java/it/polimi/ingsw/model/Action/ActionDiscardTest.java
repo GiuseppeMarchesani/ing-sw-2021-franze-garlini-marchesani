@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.SinglePlayerGame;
 import it.polimi.ingsw.model.enumeration.Color;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class ActionDiscardTest {
     }
 
     @Test
-    void doOperation() {
+    public void doOperation() {
         setUp();
 
         ArrayList<Integer> stacks = testGame.getCardMarket().remainingCards();
@@ -37,27 +37,27 @@ public class ActionDiscardTest {
         }
 
         testActionDiscardBlue.doOperation(testGame);
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(4));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(2));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(4));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(2));
 
         testActionDiscardBlue.doOperation(testGame);
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(4));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(0));
-        Assert.assertFalse(testGame.getCardMarket().remainingCards().contains(2));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(4));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(0));
+        assertFalse(testGame.getCardMarket().remainingCards().contains(2));
 
         testActionDiscardBlue.doOperation(testGame);
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(4));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(0));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(2));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(4));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(0));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(2));
 
         testActionDiscardBlue.doOperation(testGame);
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(4));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(0));
-        Assert.assertFalse(testGame.getCardMarket().remainingCards().contains(2));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(4));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(0));
+        assertFalse(testGame.getCardMarket().remainingCards().contains(2));
 
         testActionDiscardYellow.doOperation(testGame);
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(4));
-        Assert.assertTrue(testGame.getCardMarket().remainingCards().contains(2));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(4));
+        assertTrue(testGame.getCardMarket().remainingCards().contains(2));
     }
 
 }

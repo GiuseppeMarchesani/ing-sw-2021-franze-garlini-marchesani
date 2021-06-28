@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.Card;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.model.Card.LeaderProduction;
 import it.polimi.ingsw.model.Player;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,13 +39,13 @@ public class LeaderProductionTest {
         assertEquals(0, player.getDevCardSlot().getSlotLeader().size());
         leader.activateAbility(player);
         assertEquals(1, player.getDevCardSlot().getSlotLeader().size());
-        assertTrue(player. getDevCardSlot().getSlotLeader().get(0).getId() == leader.getId());
-        assertTrue(player. getDevCardSlot().getSlotLeader().get(0).getProductionCost().get(leader.getResourceAbility())==1);
+        assertEquals(player.getDevCardSlot().getSlotLeader().get(0).getId(), leader.getId());
+        assertEquals(1, (int) player.getDevCardSlot().getSlotLeader().get(0).getProductionCost().get(leader.getResourceAbility()));
 
         leader2.activateAbility(player);
         assertEquals(2, player.getDevCardSlot().getSlotLeader().size());
-        assertTrue(player. getDevCardSlot().getSlotLeader().get(1).getId() == leader2.getId());
-        assertTrue(player. getDevCardSlot().getSlotLeader().get(1).getProductionCost().get(leader2.getResourceAbility())==1);
+        assertEquals(player.getDevCardSlot().getSlotLeader().get(1).getId(), leader2.getId());
+        assertEquals(1, (int) player.getDevCardSlot().getSlotLeader().get(1).getProductionCost().get(leader2.getResourceAbility()));
     }
 
 }

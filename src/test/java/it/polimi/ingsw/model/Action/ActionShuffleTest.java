@@ -1,18 +1,9 @@
 package it.polimi.ingsw.model.Action;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.SinglePlayerGame;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.*;
 

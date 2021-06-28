@@ -38,7 +38,7 @@ public class CardMarketTest {
 
     @Test
     public void pickCard() {
-        assertTrue(testCM.getDevCardGrid().get(Color.GREEN.getVal()).get(1).get(testCM.getDevCardGrid().get(Color.GREEN.getVal()).get(1).size()-1) == testCM.pickCard(Color.GREEN, 1));
+        assertSame(testCM.getDevCardGrid().get(Color.GREEN.getVal()).get(1).get(testCM.getDevCardGrid().get(Color.GREEN.getVal()).get(1).size() - 1), testCM.pickCard(Color.GREEN, 1));
     }
 
     @Test
@@ -52,11 +52,11 @@ public class CardMarketTest {
 
     @Test
     public void availableCards() {
-        assertTrue(testCM.availableCards().size()==12);
+        assertEquals(12, testCM.availableCards().size());
         assertTrue(testCM.availableCards().contains(testCM.getDevCardGrid().get(0).get(1).get(testCM.getDevCardGrid().get(0).get(1).size()-1)));
         assertTrue(testCM.availableCards().contains(testCM.getDevCardGrid().get(1).get(1).get(testCM.getDevCardGrid().get(0).get(1).size()-1)));
         testCM.discardDevCard(Color.PURPLE);
-        assertTrue(testCM.availableCards().size()==12);
+        assertEquals(12, testCM.availableCards().size());
     }
 
     @Test
