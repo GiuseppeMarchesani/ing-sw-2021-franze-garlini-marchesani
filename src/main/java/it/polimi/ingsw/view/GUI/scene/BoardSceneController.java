@@ -182,15 +182,29 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private Button btm_vp;
     @FXML
     private Button btmPlayers;
+    @FXML
+    private ImageView img_depot1_res1;
+    @FXML
+    private ImageView img_depot2_res3;
+    @FXML
+    private ImageView img_depot3_res1;
+    @FXML
+    private ImageView img_depot1_res2;
+    @FXML
+    private ImageView img_depot2_res2;
+    @FXML
+    private ImageView img_depot2_res1;
+
 
 
 
     private ArrayList<ImageView> cards = new ArrayList<>();
     private ArrayList<ImageView> market = new ArrayList<>();
+    private ResourceType[][] marbleMarket = new ResourceType[4][3];
     private ResourceType cornerMarket;
     private ArrayList<DevCard> cardMarket = new ArrayList<>();
     private ArrayList <String> numPlayer = new ArrayList<>();
-    private HashMap<String,ArrayList<LeaderCard>> leaderCards = new HashMap<>();
+    private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
     private ArrayList<ImageView> imgLeader = new ArrayList<>();
     private HashMap<String, Integer> faithTrack = new HashMap<>();
     private HashMap<Integer, Integer> depotQuantity = new HashMap<>();
@@ -199,6 +213,28 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
     @FXML
     public void initialize(){
+        market.add(res0x0);
+        market.add(res0x1);
+        market.add(res0x2);
+        market.add(res1x0);
+        market.add(res1x1);
+        market.add(res1x2);
+        market.add(res2x0);
+        market.add(res2x1);
+        market.add(res2x2);
+        market.add(res3x0);
+        market.add(res3x1);
+        market.add(res3x2);
+
+        this.faithTrack.putAll(Gui.getFaithTrack());
+        this.cornerMarket = Gui.getCornerMarble();
+        this.cardMarket.addAll(Gui.getCardMarket());
+        this.leaderCards.addAll(Gui.getChosenLeader().get(Gui.getActivePlayer()));
+        for(int i=0; i<4; i++){
+            for(int j=0; j<3; j++){
+                marbleMarket[i][j] = Gui.getMarket()[i][j];
+            }
+        }
         updateMarket();
         updateCardMarket();
         updateLeader();
@@ -247,15 +283,20 @@ public class BoardSceneController extends ObservableView implements GenericScene
     public void onVpBtm(Event event){
         notifyObserver(obs -> obs.updateAction(11));
     }
+
     public void onPlayerBtm(Event event){
 
     }
     public void onEndTurnBtm(Event event){
-        notifyObserver(obs -> obs.updateAction(-1));
+        btmResources.setDisable(false);
+        btmDevCard.setDisable(false);
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        notifyObserver(obs -> obs.updateAction(13));
     }
 
     private void updateCardMarket(){
-        cardMarket.addAll(Gui.getCardMarket());
+
         cards.add(card0x0);
         cards.add(card0x1);
         cards.add(card0x2);
@@ -280,11 +321,11 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateLeader(){
-        leaderCards.putAll(Gui.getChosenLeader());
+
         imgLeader.add(img_leader1);
         imgLeader.add(img_leader2);
         int i=0;
-        for(LeaderCard ld: leaderCards.get(Gui.getActivePlayer())){
+        for(LeaderCard ld: leaderCards){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
             imgLeader.get(i).setImage(image);
             imgLeader.get(i).setVisible(true);
@@ -294,35 +335,23 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
     private void updateMarket(){
         int n=0;
-        market.add(res0x0);
-        market.add(res0x1);
-        market.add(res0x2);
-        market.add(res1x0);
-        market.add(res1x1);
-        market.add(res1x2);
-        market.add(res2x0);
-        market.add(res2x1);
-        market.add(res2x2);
-        market.add(res3x0);
-        market.add(res3x1);
-        market.add(res3x2);
 
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 Image image;
-                if(Gui.getMarket()[i][j] == ResourceType.COIN){
+                if(marbleMarket[i][j] == ResourceType.COIN){
                     image = new Image(MainApp.class.getResourceAsStream("/images/yellowMarble.png"));
                 }
-                else if(Gui.getMarket()[i][j] == ResourceType.SERVANT){
+                else if(marbleMarket[i][j] == ResourceType.SERVANT){
                     image = new Image(MainApp.class.getResourceAsStream("/images/purpleMarble.png"));
                 }
-                else if(Gui.getMarket()[i][j] == ResourceType.SHIELD){
+                else if(marbleMarket[i][j] == ResourceType.SHIELD){
                     image = new Image(MainApp.class.getResourceAsStream("/images/blueMarble.png"));
                 }
-                else if(Gui.getMarket()[i][j] == ResourceType.STONE){
+                else if(marbleMarket[i][j] == ResourceType.STONE){
                     image = new Image(MainApp.class.getResourceAsStream("/images/greyMarble.png"));
                 }
-                else if (Gui.getMarket()[i][j] == ResourceType.EMPTY){
+                else if (marbleMarket[i][j] == ResourceType.EMPTY){
                     image = new Image(MainApp.class.getResourceAsStream("/images/whiteMarble.png"));
                 }
                 else{
@@ -334,7 +363,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
             }
         }
-        cornerMarket = Gui.getCornerMarble();
+
         if(cornerMarket == ResourceType.COIN){
             corner.setImage(new Image("/images/yellowMarble.png"));
         }
@@ -356,11 +385,52 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateWarehouse(){
-        depotQuantity.putAll(Gui.getActiveDepotQ());
-        depotResource.putAll(Gui.getActiveDepotT());
+        this.depotQuantity.putAll(Gui.getActiveDepotQ());
+        this.depotResource.putAll(Gui.getActiveDepotT());
+        img_depot1_res1.setImage(null);
+        img_depot1_res2.setImage(null);
+        img_depot2_res3.setImage(null);
+        img_depot2_res1.setImage(null);
+        img_depot2_res2.setImage(null);
+        img_depot3_res1.setImage(null);
+        for (Integer depot : depotResource.keySet()) {
+            for (int i = 1; i <= depotQuantity.get(depot); i++) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + depotResource.get(depot).toString() + ".png"));
+                setImage(depot, depotQuantity.get(depot), image);
+            }
+        }
+    }
+    private void setImage(int n, int quantity, Image img) {
+        switch (n) {
+            case 0:
+                switch (quantity) {
+
+                    case 3:
+                        img_depot2_res3.setImage(img);
+                    case 2:
+                        img_depot1_res2.setImage(img);
+                    case 1:
+                        img_depot1_res1.setImage(img);
+                        break;
+
+                }
+                break;
+            case 1:
+                switch (quantity) {
+                    case 2:
+                        img_depot2_res2.setImage(img);
+                    case 1:
+                        img_depot2_res1.setImage(img);
+                        break;
+                }
+                break;
+            case 2:
+                img_depot3_res1.setImage(img);
+                break;
+
+        }
     }
     private void updateFaithTrack(){
-        this.faithTrack.putAll(Gui.getFaithTrack());
 
         for(String name: faithTrack.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/cross.png"));
@@ -478,5 +548,23 @@ public class BoardSceneController extends ObservableView implements GenericScene
                     break;
             }
         }
+    }
+
+    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader){
+        this.cornerMarket = cornerMarble;
+        this.cardMarket = cardMarket;
+        this.depotQuantity = activeDepotQ;
+        this.depotResource = activeDepotT;
+        this.leaderCards = chosenLeader;
+        for(int i=0; i<4; i++){
+            for(int j=0; j<3; j++){
+                this.marbleMarket[i][j]= market[i][j];
+            }
+        }
+        updateMarket();
+        updateCardMarket();
+        updateLeader();
+        updateFaithTrack();
+        updateWarehouse();
     }
 }

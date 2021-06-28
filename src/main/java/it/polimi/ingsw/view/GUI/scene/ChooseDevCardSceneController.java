@@ -70,7 +70,28 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
 
     @FXML
     public void initialize(){
-        updateCardMarket();
+        cardMarket.addAll(Gui.getCardMarket());
+        int i=0;
+        cards.add(card0x0);
+        cards.add(card0x1);
+        cards.add(card0x2);
+        cards.add(card1x0);
+        cards.add(card1x1);
+        cards.add(card1x2);
+        cards.add(card2x0);
+        cards.add(card2x1);
+        cards.add(card2x2);
+        cards.add(card3x0);
+        cards.add(card3x1);
+        cards.add(card3x2);
+
+        for (DevCard devCard : cardMarket){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId()-1) + ".png"));
+            cards.get(i).setImage(image);
+            cards.get(i).setVisible(true);
+            i++;
+        }
+
         btm_0x0.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x0);
         btm_0x1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x1);
         btm_0x2.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x2);
@@ -134,29 +155,4 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
 
     }
 
-
-    private void updateCardMarket(){
-        cardMarket.addAll(Gui.getCardMarket());
-        cards.add(card0x0);
-        cards.add(card0x1);
-        cards.add(card0x2);
-        cards.add(card1x0);
-        cards.add(card1x1);
-        cards.add(card1x2);
-        cards.add(card2x0);
-        cards.add(card2x1);
-        cards.add(card2x2);
-        cards.add(card3x0);
-        cards.add(card3x1);
-        cards.add(card3x2);
-
-        int i=0;
-
-        for (DevCard devCard : cardMarket){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId()-1) + ".png"));
-            cards.get(i).setImage(image);
-            cards.get(i).setVisible(true);
-            i++;
-        }
-    }
 }

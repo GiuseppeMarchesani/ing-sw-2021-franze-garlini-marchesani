@@ -55,7 +55,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
 
     @FXML
     public void initialize() {
-        allLeaders.addAll(Gui.getAvailableLeader());
+        allLeaders.addAll(Gui.getAvailableLeader().get(Gui.getActivePlayer()));
         leaderCard1 = allLeaders.get(0).getId() - 1;
         leaderCard2 = allLeaders.get(1).getId() - 1;
         leaderCard3 = allLeaders.get(2).getId() - 1;
