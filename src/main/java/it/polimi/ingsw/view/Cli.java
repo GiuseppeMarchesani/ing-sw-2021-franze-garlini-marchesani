@@ -878,8 +878,8 @@ public class Cli extends ObservableView implements View{
         Collections.sort(points);
 
         //Printing results
+        out.println("\nFinal results.");
         for(int i=0; i< points.size(); i++) {
-            out.println("\nFinal results.");
             for(String username: finalPoints.keySet()) {
                 if(finalPoints.get(username) == points.get(i)) {
                     out.println((i+1) + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
