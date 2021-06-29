@@ -14,6 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -121,53 +123,53 @@ public class BoardSceneController extends ObservableView implements GenericScene
     @FXML
     private ImageView img_space24;
     @FXML
-    private Label name1;
+    private Text name1;
     @FXML
-    private Label name2;
+    private Text name2;
     @FXML
-    private Label name3;
+    private Text name3;
     @FXML
-    private Label name4;
+    private Text name4;
     @FXML
-    private Label name5;
+    private Text name5;
     @FXML
-    private Label name6;
+    private Text name6;
     @FXML
-    private Label name7;
+    private Text name7;
     @FXML
-    private Label name8;
+    private Text name8;
     @FXML
-    private Label name9;
+    private Text name9;
     @FXML
-    private Label name10;
+    private Text name10;
     @FXML
-    private Label name11;
+    private Text name11;
     @FXML
-    private Label name12;
+    private Text name12;
     @FXML
-    private Label name13;
+    private Text name13;
     @FXML
-    private Label name14;
+    private Text name14;
     @FXML
-    private Label name15;
+    private Text name15;
     @FXML
-    private Label name16;
+    private Text name16;
     @FXML
-    private Label name17;
+    private Text name17;
     @FXML
-    private Label name18;
+    private Text name18;
     @FXML
-    private Label name19;
+    private Text name19;
     @FXML
-    private Label name20;
+    private Text name20;
     @FXML
-    private Label name21;
+    private Text name21;
     @FXML
-    private Label name22;
+    private Text name22;
     @FXML
-    private Label name23;
+    private Text name23;
     @FXML
-    private Label name24;
+    private Text name24;
     @FXML
     private Button end_turn;
     @FXML
@@ -194,9 +196,26 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private ImageView img_depot2_res2;
     @FXML
     private ImageView img_depot2_res1;
-
-
-
+    @FXML
+    private ImageView strong_res1;
+    @FXML
+    private ImageView strong_res2;
+    @FXML
+    private ImageView strong_res3;
+    @FXML
+    private ImageView strong_res4;
+    @FXML
+    private Label strong_quantity1;
+    @FXML
+    private Label strong_quantity2;
+    @FXML
+    private Label strong_quantity3;
+    @FXML
+    private Label strong_quantity4;
+    @FXML
+    private Label state_leader1;
+    @FXML
+    private  Label state_leader2;
 
     private ArrayList<ImageView> cards = new ArrayList<>();
     private ArrayList<ImageView> market = new ArrayList<>();
@@ -204,7 +223,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private ResourceType cornerMarket;
     private ArrayList<DevCard> cardMarket = new ArrayList<>();
     private ArrayList <String> numPlayer = new ArrayList<>();
-    private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+    private HashMap<LeaderCard, Boolean> leaderCards = new HashMap<>();
     private ArrayList<ImageView> imgLeader = new ArrayList<>();
     private HashMap<String, Integer> faithTrack = new HashMap<>();
     private HashMap<Integer, Integer> depotQuantity = new HashMap<>();
@@ -296,10 +315,16 @@ public class BoardSceneController extends ObservableView implements GenericScene
         imgLeader.add(img_leader1);
         imgLeader.add(img_leader2);
         int i=0;
-        for(LeaderCard ld: leaderCards){
+        for(LeaderCard ld: leaderCards.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
             imgLeader.get(i).setImage(image);
             imgLeader.get(i).setVisible(true);
+            if(leaderCards.get(ld) && i==0){
+                state_leader1.setText("ACTIVATED");
+            }
+            else if(leaderCards.get(ld) && i==1){
+                state_leader2.setText("ACTIVATED");
+            }
             i++;
         }
     }
@@ -462,7 +487,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         name23.setText("");
         name24.setText("");
 
-
         for(String name: faithTrack.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/cross.png"));
             switch (faithTrack.get(name)){
@@ -604,11 +628,32 @@ public class BoardSceneController extends ObservableView implements GenericScene
             }
         }
     }
+
     private void updateStrongbox(){
-        //TODO
+        int n=0;
+        for(ResourceType res: strongbox.keySet()){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
+            if(n==0){
+                strong_res1.setImage(image);
+                strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+            }
+            else if(n==1){
+                strong_res2.setImage(image);
+                strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+            }
+            else if(n==2){
+                strong_res3.setImage(image);
+                strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+            }
+            else{
+                strong_res4.setImage(image);
+                strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+            }
+            n++;
+        }
     }
 
-    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader, HashMap<String, Integer> faithTrack,
+    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, HashMap<String, Integer> faithTrack,
                        HashMap<ResourceType, Integer> strongbox){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;

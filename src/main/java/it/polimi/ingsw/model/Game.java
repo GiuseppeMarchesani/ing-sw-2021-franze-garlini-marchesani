@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.ingsw.model.Action.ActionToken;
 import it.polimi.ingsw.model.Board.CardMarket;
@@ -14,6 +15,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -148,8 +150,12 @@ public class Game {
         ArrayList<DevCard> devCardDeck = null;
 
         try {
-            devCardListJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\dev-cards.JSON")));
-
+            InputStream is = Game.class.getResourceAsStream("/dev-cards.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            devCardListJson = sb.toString();
         } catch(IOException e) {
             e.printStackTrace();
         }
@@ -169,8 +175,12 @@ public class Game {
         ArrayList<FaithZone> faithZones = null;
 
         try {
-            faithZonesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\faith-track.JSON")));
-
+            InputStream is = Game.class.getResourceAsStream("/faith-track.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            faithZonesJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -189,7 +199,12 @@ public class Game {
         LinkedHashMap<Integer, Integer> VPspaces = null;
 
         try {
-            VPspacesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\vp-spaces.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/vp-spaces.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            VPspacesJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -203,13 +218,18 @@ public class Game {
      * Takes the marbles from the json file and generates it.
      * @return returns all the marbles.
      */
-    private ArrayList<ResourceType>  generateMarbles() {
+    private ArrayList<ResourceType> generateMarbles() {
         //Marble generation
         String marbleJson ="";
         ArrayList<ResourceType> totalMarbles = null;
 
         try {
-            marbleJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\marbles.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/marbles.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            marbleJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -229,7 +249,12 @@ public class Game {
 
         //LeaderDepot generation
         try {
-            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-depot.JSON")));
+                InputStream is = Game.class.getResourceAsStream("/leader-depot.JSON");
+                StringBuilder sb = new StringBuilder();
+                for (int ch; (ch = is.read()) != -1; ) {
+                    sb.append((char) ch);
+                }
+                leaderJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -239,7 +264,12 @@ public class Game {
 
         //LeaderDiscount generation
         try {
-            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-discount.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/leader-discount.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            leaderJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -248,7 +278,12 @@ public class Game {
 
         //LeaderMarble generation
         try {
-            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-marble.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/leader-marble.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            leaderJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -257,7 +292,12 @@ public class Game {
 
         //LeaderProduction generation
         try {
-            leaderJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\leader-production.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/leader-production.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            leaderJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
