@@ -44,7 +44,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     private int leaderCard3;
     private int leaderCard4;
     private ArrayList<LeaderCard> allLeaders = new ArrayList<>();
-    private ArrayList<LeaderCard> restLeader = new ArrayList<>();
+    private HashMap<LeaderCard, Boolean> restLeader = new HashMap<>();
 
     private ObservableSet<CheckBox> chooseCheckBoxes = FXCollections.observableSet();
     private ObservableSet<CheckBox> unselectedCheckBoxes = FXCollections.observableSet();
@@ -110,7 +110,9 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
             }
         }
         allLeaders.removeAll(chosenLeader);
-        restLeader.addAll(allLeaders);
+        for(LeaderCard ld: allLeaders){
+            restLeader.put(ld, false);
+        }
         notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
 
     }
@@ -139,7 +141,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
         this.allLeaders= allLeaders;
     }
 
-    public ArrayList<LeaderCard> getRestLeader(){
+    public HashMap<LeaderCard, Boolean> getRestLeader(){
         return restLeader;
     }
 }

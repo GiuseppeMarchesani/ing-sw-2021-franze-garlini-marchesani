@@ -317,13 +317,21 @@ public class BoardSceneController extends ObservableView implements GenericScene
             Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
             imgLeader.get(i).setImage(image);
             imgLeader.get(i).setVisible(true);
+
             if(leaderCards.get(ld) && i==0){
                 state_leader1.setText("ACTIVATED");
             }
             else if(leaderCards.get(ld) && i==1){
                 state_leader2.setText("ACTIVATED");
             }
+            else if(!leaderCards.get(ld) && i==0){
+                state_leader1.setText("NOT ACTIVATED");
+            }
+            else if(!leaderCards.get(ld) && i==1){
+                state_leader2.setText("NOT ACTIVATED");
+            }
             i++;
+
         }
     }
 
