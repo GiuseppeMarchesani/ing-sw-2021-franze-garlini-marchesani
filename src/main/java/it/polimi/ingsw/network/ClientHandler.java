@@ -31,7 +31,7 @@ public class ClientHandler implements Runnable {
      * @param client the client socket to send messages to
      * @param lobbyServer The default lobby server
      */
-    ClientHandler(Socket client, LobbyServer lobbyServer)
+    public ClientHandler(Socket client, LobbyServer lobbyServer)
         {
             this.client = client;
             this.lobbyServer=lobbyServer;

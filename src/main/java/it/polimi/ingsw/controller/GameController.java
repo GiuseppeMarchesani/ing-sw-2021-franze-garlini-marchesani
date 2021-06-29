@@ -271,6 +271,14 @@ public class GameController {
         this.gameState = gameState;
     }
     /**
+     *Returns the gamestate
+     * @return returns the current gamestate
+     */
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    /**
      *Removes the player from the game and checks if he was the active player, in which case starts a new turn.
      *@param username the username who disconnected
      */
@@ -771,5 +779,9 @@ public class GameController {
      */
     public HashMap<String, VirtualView> getAllVirtualView() {
         return allVirtualView;
+    }
+
+    public void setMaxPlayers(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 }
