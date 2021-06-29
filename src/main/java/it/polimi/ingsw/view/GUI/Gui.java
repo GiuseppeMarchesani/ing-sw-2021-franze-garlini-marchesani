@@ -1,5 +1,4 @@
 package it.polimi.ingsw.view.GUI;
-import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
@@ -9,7 +8,6 @@ import it.polimi.ingsw.view.GUI.scene.*;
 import it.polimi.ingsw.view.View;
 import javafx.application.Platform;
 
-import java.security.DrbgParameters;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -200,7 +198,7 @@ public class Gui extends ObservableView implements View {
                 anyRes.put(res, 1);
             }
         }
-        askSlotSceneController assc = new askSlotSceneController();
+        AskSlotSceneController assc = new AskSlotSceneController();
         assc.addAllObservers(observers);
         assc.setCardCost(cardCost);
         assc.setStrongbox(strongbox);

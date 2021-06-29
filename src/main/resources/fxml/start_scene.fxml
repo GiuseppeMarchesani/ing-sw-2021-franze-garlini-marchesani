@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.StartSceneController">
+<StackPane prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.StartSceneController">
     <children>
       <ImageView fitHeight="579.0" fitWidth="911.0" opacity="0.39">
          <image>
@@ -24,34 +24,34 @@
             <children>
                 <AnchorPane fx:id="rootPane" layoutX="125.0" layoutY="61.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="268.0" prefWidth="486.0">
                     <children>
-                        <Button fx:id="btmNext" layoutX="81.0" layoutY="168.0" mnemonicParsing="false" prefHeight="67.0" prefWidth="296.0" style="-fx-background-color: #00039d; -fx-background-radius: 5;" text="START" textFill="WHITE">
+                        <Button fx:id="btmNext" layoutX="154.0" layoutY="212.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="169.0" style="-fx-background-color: #104160; -fx-background-radius: 5;" text="START" textFill="WHITE">
                              <font>
-                                <Font size="40.0" />
+                                <Font name="Bell MT" size="20.0" />
                              </font>
                              <cursor>
                                 <Cursor fx:constant="HAND" />
                              </cursor>
                         </Button>
-                  <Text fontSmoothingType="LCD" layoutX="56.0" layoutY="66.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="true" smooth="false" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="MASTERS OF RENAISSANCE" textAlignment="CENTER" wrappingWidth="361.222229003906">
+                  <Text blendMode="MULTIPLY" fontSmoothingType="LCD" layoutX="62.0" layoutY="77.0" nodeOrientation="LEFT_TO_RIGHT" pickOnBounds="true" smooth="false" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="0.0" text="MASTERS OF RENAISSANCE" textAlignment="CENTER" wrappingWidth="361.222229003906">
                      <font>
-                        <Font name="Bodoni MT" size="36.0" />
+                        <Font name="Bell MT" size="36.0" />
                      </font>
                      <fill>
-                        <RadialGradient centerX="0.5" centerY="0.5063492184593564" radius="0.5">
+                        <RadialGradient centerX="0.3611111111111111" centerY="0.5285714285714286" radius="0.5">
                            <stops>
                               <Stop>
                                  <color>
                                     <Color red="0.20278319716453552" green="0.6687982678413391" blue="0.9385964870452881" />
                                  </color>
                               </Stop>
-                              <Stop offset="0.007633587786259542">
+                              <Stop offset="0.00763358778625954">
                                  <color>
-                                    <Color red="0.20278319716453552" green="0.6687982678413391" blue="0.9385964870452881" />
+                                    <Color red="0.9011934995651245" green="0.9300000071525574" blue="0.2046000063419342" />
                                  </color>
                               </Stop>
                               <Stop offset="1.0">
                                  <color>
-                                    <Color green="0.016959063708782196" blue="0.5087719559669495" />
+                                    <Color red="0.062745101749897" green="0.2549019753932953" blue="0.3764705955982208" />
                                  </color>
                               </Stop>
                            </stops>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="rootPane" prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.LobbySceneController">
+<StackPane fx:id="rootPane" prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.LobbySceneController">
    <children>
       <ImageView fitHeight="579.0" fitWidth="911.0" opacity="0.6">
          <image>
@@ -19,34 +19,37 @@
       </ImageView>
       <Group scaleX="1.5" scaleY="1.5" scaleZ="1.5">
          <children>
-            <AnchorPane layoutX="8.0" layoutY="1.0" prefHeight="380.0" prefWidth="434.0">
+            <AnchorPane layoutX="32.0" layoutY="75.0" prefHeight="380.0" prefWidth="434.0">
                <children>
-                  <TextField fx:id="txtUsername" layoutX="194.0" layoutY="139.0" prefHeight="38.0" prefWidth="135.0">
+                  <TextField fx:id="txtUsername" layoutX="243.0" layoutY="139.0" prefHeight="38.0" prefWidth="135.0">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="txtGameId" layoutX="193.0" layoutY="218.0" prefHeight="38.0" prefWidth="135.0">
+                  <TextField fx:id="txtGameId" layoutX="242.0" layoutY="218.0" prefHeight="38.0" prefWidth="135.0">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="26.0" layoutY="143.0" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #00039d; -fx-background-radius: 5;" text="Username: " textFill="WHITE" wrapText="true">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="75.0" layoutY="143.0" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #424282; -fx-background-radius: 5;" text="Username: " textFill="WHITE" wrapText="true">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="26.0" layoutY="223.0" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #00039d; -fx-background-radius: 5;" text="Game ID: " textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="75.0" layoutY="223.0" prefHeight="32.0" prefWidth="117.0" style="-fx-background-color: #424282; -fx-background-radius: 5;" text="Game ID: " textFill="WHITE">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="160.0" layoutY="46.0" prefHeight="83.0" prefWidth="113.0" text="LOGIN" textFill="#00039d">
+                  <Label layoutX="168.0" layoutY="33.0" prefHeight="83.0" prefWidth="113.0" text="LOGIN" textFill="#104160">
                      <font>
-                        <Font size="34.0" />
+                        <Font name="Bell MT" size="34.0" />
                      </font>
                   </Label>
-                <Button fx:id="btnNext" layoutX="297.0" layoutY="308.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="91.0" text="NEXT" />
+                <Button fx:id="btnNext" layoutX="136.0" layoutY="310.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="169.0" style="-fx-background-color: #104160;" text="NEXT" textFill="WHITE">
+                     <font>
+                        <Font name="Bell MT" size="20.0" />
+                     </font></Button>
                </children>
             </AnchorPane>
          </children>
