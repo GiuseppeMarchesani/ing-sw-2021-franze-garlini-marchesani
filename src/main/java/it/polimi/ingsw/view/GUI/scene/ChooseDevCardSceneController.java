@@ -86,9 +86,16 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
         cards.add(card3x2);
 
         for (DevCard devCard : cardMarket){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId()-1) + ".png"));
-            cards.get(i).setImage(image);
-            cards.get(i).setVisible(true);
+            if(devCard!= null) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId() - 1) + ".png"));
+                cards.get(i).setImage(image);
+                cards.get(i).setVisible(true);
+            }
+            else{
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
+                cards.get(i).setImage(image);
+                cards.get(i).setVisible(true);
+            }
             i++;
         }
 
@@ -107,19 +114,19 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
     }
 
     private void onBtm0x0(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.GREEN));
+        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.GREEN));
     }
 
     private void onBtm1x0(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.PURPLE));
+        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.PURPLE));
 
     }
     private void onBtm2x0(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.YELLOW));
+        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.YELLOW));
 
     }
     private void onBtm3x0(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.BLUE));
+        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.BLUE));
 
     }
     private void onBtm0x1(Event event){
@@ -139,19 +146,19 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
 
     }
     private void onBtm0x2(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.GREEN));
+        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.GREEN));
 
     }
     private void onBtm1x2(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.PURPLE));
+        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.PURPLE));
 
     }
     private void onBtm2x2(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.YELLOW));
+        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.YELLOW));
 
     }
     private void onBtm3x2(Event event){
-        notifyObserver(obs -> obs.updateBuyDevCard(1, Color.BLUE));
+        notifyObserver(obs -> obs.updateBuyDevCard(3, Color.BLUE));
 
     }
 

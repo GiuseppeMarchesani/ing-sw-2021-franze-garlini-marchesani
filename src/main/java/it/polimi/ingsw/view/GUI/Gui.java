@@ -27,8 +27,14 @@ public class Gui extends ObservableView implements View {
     private static HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
     private static HashMap<Integer, Integer> activeDepotQ = new HashMap<>();
     private static HashMap<String, Integer> finalVip = new HashMap<>();
-    private static HashMap<String, HashMap<ResourceType, Integer>> strongbox = new HashMap<>();
+    private static HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private boolean startGame = false;
+    private static HashMap<ResourceType, Integer> anyRes = new HashMap<>();
+    private static int numAny;
+    private static String message;
+    private static HashMap<Boolean, Integer> faithZone = new HashMap<>();
+    private static HashMap<ResourceType, Integer> cardCost = new HashMap<>();
+    private static ArrayList<Integer> availableSlots = new ArrayList<>();
 
 
     @Override
@@ -63,7 +69,7 @@ public class Gui extends ObservableView implements View {
             startGame = true;
         }
         else{
-            Platform.runLater(() -> MainApp.getMainScene().update(Gui.market, Gui.cornerMarble, Gui.cardMarket, Gui.activeDepotQ, Gui.activeDepotT, Gui.chosenLeader.get(activePlayer)));
+            Platform.runLater(() -> MainApp.getMainScene().update(Gui.market, Gui.cornerMarble, Gui.cardMarket, Gui.activeDepotQ, Gui.activeDepotT, Gui.chosenLeader.get(activePlayer), Gui.getFaithTrack()));
         }
         Platform.runLater(()->
                 MainApp.changeRootMainScene(observers));
@@ -128,29 +134,19 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
-        Gui.cardMarket.addAll(availableCards);
+        Gui.cardMarket = availableCards;
     }
 
     @Override
     public void showStrongbox(HashMap<ResourceType, Integer> strongbox, String username) {
-
+        Gui.strongbox= strongbox;
+        Gui.activePlayer = username;
     }
 
     @Override
     public void showWarehouse(HashMap<Integer, Integer> depotToQuantity, HashMap<Integer, ResourceType> depotToResource, String username) {
         Gui.activeDepotQ.putAll(depotToQuantity);
         Gui.activeDepotT.putAll(depotToResource);
-        /*
-        activeDepotT.putAll(depotToResource);
-        activeDepotQ.putAll(depotToQuantity);
-        activePlayer = username;
-        ShowWarehouseSceneController swsc = new ShowWarehouseSceneController();
-        swsc.addAllObservers(observers);
-        Platform.runLater(()->
-                MainApp.changeRootPane(observers,"/fxml/showWarehouse_scene")
-        );
-
-         */
     }
 
     @Override
@@ -177,11 +173,12 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showErrorMsg(String message) {
-
+        Platform.runLater(() -> MessageSceneController.display("Error", message));
     }
 
     @Override
     public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
+        Gui.faithZone.put(wasZoneActivated, whichZone);
     }
 
     @Override
@@ -197,7 +194,15 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askSlot(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> cardCost, int numAny, ArrayList<Integer> availableSlots) {
-
+        Gui.cardCost = cardCost;
+        Gui.availableSlots = availableSlots;
+        for(int i=0; i<numAny; i++){
+            askAnyResource(numAny);
+        }
+        Gui.strongbox = strongbox;
+        askSlotSceneController assc = new askSlotSceneController();
+        assc.addAllObservers(observers);
+        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/askSlot_scene"));
     }
 
     @Override
@@ -228,12 +233,16 @@ public class Gui extends ObservableView implements View {
     public void showLoseMessage() {
 
     }
-/*
-    private HashMap<ResourceType, Integer> askAnyResource(int numAny){
+
+    private void askAnyResource(int numAny){
+        Gui.numAny = numAny;
+        AnySceneController asc = new AnySceneController();
+        asc.addAllObservers(observers);
+        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/any_scene"));
 
     }
 
- */
+
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
@@ -295,9 +304,31 @@ public class Gui extends ObservableView implements View {
         return activeDepotT;
     }
 
+    public static String getMessage(){
+        return message;
+    }
 
     public static HashMap<String, Integer> getFinalVp(){
         return finalVip;
     }
 
+    public static HashMap<Boolean, Integer> getFaithZone(){
+        return faithZone;
+    }
+
+    public static HashMap<ResourceType, Integer> getAnyRes(){
+        return anyRes;
+    }
+
+    public static HashMap<ResourceType, Integer> getStrongbox(){
+        return strongbox;
+    }
+
+    public static ArrayList<Integer> getAvailableSlots(){
+        return availableSlots;
+    }
+
+    public static HashMap<ResourceType, Integer> getCardCost(){
+        return cardCost;
+    }
 }

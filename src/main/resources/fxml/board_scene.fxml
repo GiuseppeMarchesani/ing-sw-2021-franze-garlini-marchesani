@@ -89,29 +89,29 @@
             <ImageView fx:id="img_space22" fitHeight="36.0" fitWidth="35.0" layoutX="675.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_space23" fitHeight="36.0" fitWidth="35.0" layoutX="717.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_space24" fitHeight="36.0" fitWidth="35.0" layoutX="752.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="name1" layoutX="69.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name2" layoutX="112.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name3" layoutX="69.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name4" layoutX="112.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name5" layoutX="153.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name6" layoutX="188.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name8" layoutX="267.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name7" layoutX="226.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name9" layoutX="311.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name10" layoutX="350.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name11" layoutX="311.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name13" layoutX="389.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name12" layoutX="350.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name14" layoutX="431.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name15" layoutX="472.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name16" layoutX="513.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name17" layoutX="548.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name18" layoutX="507.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name19" layoutX="548.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name20" layoutX="593.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name21" layoutX="628.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name22" layoutX="672.0" prefHeight="28.0" prefWidth="42.0" />
-            <Label fx:id="name23" layoutX="710.0" prefHeight="28.0" prefWidth="42.0" />
+            <Label fx:id="name1" layoutX="69.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;" />
+            <Label fx:id="name2" layoutX="112.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name3" layoutX="69.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name4" layoutX="112.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name5" layoutX="153.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name6" layoutX="188.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name8" layoutX="267.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name7" layoutX="226.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name9" layoutX="311.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name10" layoutX="350.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name11" layoutX="311.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name13" layoutX="389.0" layoutY="135.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name12" layoutX="350.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name14" layoutX="431.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name15" layoutX="472.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name16" layoutX="513.0" layoutY="143.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name17" layoutX="548.0" layoutY="69.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name18" layoutX="507.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name19" layoutX="548.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name20" layoutX="593.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name21" layoutX="628.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name22" layoutX="672.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
+            <Label fx:id="name23" layoutX="710.0" prefHeight="28.0" prefWidth="42.0" style="-fx-background-color: white;"/>
             <Label fx:id="name24" layoutX="756.0" layoutY="-6.0" prefHeight="28.0" prefWidth="42.0" />
          </children>
       </Pane>

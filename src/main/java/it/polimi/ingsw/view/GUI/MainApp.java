@@ -5,6 +5,7 @@ import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.GUI.scene.BoardSceneController;
 import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
+import it.polimi.ingsw.view.GUI.scene.MessageSceneController;
 import it.polimi.ingsw.view.GUI.scene.StartSceneController;
 import javafx.application.Application;
 import javafx.event.Event;
@@ -12,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PopupControl;
 import javafx.stage.Stage;
 
 
@@ -49,7 +51,7 @@ public class MainApp  extends Application {
 
         stage.setResizable(true);
         stage.setMaximized(false);
-        stage.setFullScreen(false);
+        stage.setFullScreen(true);
         stage.setTitle("Masters of Renaissance");
         stage.show();
 
@@ -110,6 +112,7 @@ public class MainApp  extends Application {
         Scene newScene = ((Node) event.getSource()).getScene();
         return changeRootPane(observerList, newScene, fxml);
     }
+
 
     public static void main(String[] args) {
         launch();

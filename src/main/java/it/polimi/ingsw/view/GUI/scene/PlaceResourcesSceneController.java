@@ -541,69 +541,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             }
         }
 
-        /*
-        if(!radio0_extra_res1.isDisable()){
-            RadioButton chooseExtraDepot1 = (RadioButton) extraDepot1.getSelectedToggle();
-            String ed1 = chooseExtraDepot1.getText();
-            leaderDepotQuantity.add(Integer.parseInt(ed1));
-            resQuantity.add(0, resQuantity.get(0) - Integer.parseInt(ed1));
-        }
-        if(!radio0_extra_res2.isDisable()){
-            RadioButton chooseExtraDepot2 = (RadioButton) extraDepot2.getSelectedToggle();
-            String ed2 = chooseExtraDepot2.getText();
-            leaderDepotQuantity.add(Integer.parseInt(ed2));
-            resQuantity.add(1, resQuantity.get(1) - Integer.parseInt(ed2));
-        }
-        if(!radio0_extra_res3.isDisable()){
-            RadioButton chooseExtraDepot3 = (RadioButton) extraDepot3.getSelectedToggle();
-            String ed3 = chooseExtraDepot3.getText();
-            leaderDepotQuantity.add(Integer.parseInt(ed3));
-            resQuantity.add(2, resQuantity.get(2) - Integer.parseInt(ed3));
-        }
-        if(!radio0_extra_res4.isDisable()){
-            RadioButton chooseExtraDepot4 = (RadioButton) extraDepot4.getSelectedToggle();
-            String ed4 = chooseExtraDepot4.getText();
-            leaderDepotQuantity.add(Integer.parseInt(ed4));
-            resQuantity.add(3, resQuantity.get(3) - Integer.parseInt(ed4));
-        }
-        if(!radio_depot1_res1.isDisable()){
-            RadioButton chooseQuantity1 = (RadioButton) quantity1.getSelectedToggle();
-            RadioButton chooseDepot1 = (RadioButton) depot_res1.getSelectedToggle();
-            String qt1 = chooseQuantity1.getText();
-            String dt1 = chooseDepot1.getText();
-            floorResources.put(Integer.parseInt(dt1)-1, resType.get(0));
-            floorQuantity.put(Integer.parseInt(dt1)-1, Integer.parseInt(qt1));
-            finalDiscard += countDiscard(Integer.parseInt(qt1), resQuantity.get(0));
-        }
-        if(!radio_depot1_res2.isDisable()){
-            RadioButton chooseQuantity2 = (RadioButton) quantity2.getSelectedToggle();
-            RadioButton chooseDepot2 = (RadioButton) depot_res2.getSelectedToggle();
-            String qt2 = chooseQuantity2.getText();
-            String dt2 = chooseDepot2.getText();
-            floorResources.put(Integer.parseInt(dt2)-1, resType.get(0));
-            floorQuantity.put(Integer.parseInt(dt2)-1, Integer.parseInt(qt2));
-            finalDiscard += countDiscard(Integer.parseInt(qt2), resQuantity.get(1));
-
-        }
-        if(!radio_depot1_res3.isDisable()){
-            RadioButton chooseQuantity3 = (RadioButton) quantity3.getSelectedToggle();
-            RadioButton chooseDepot3 = (RadioButton) depot_res3.getSelectedToggle();
-            String qt3= chooseQuantity3.getText();
-            String dt3 = chooseDepot3.getText();
-            floorResources.put(Integer.parseInt(dt3)-1, resType.get(0));
-            floorQuantity.put(Integer.parseInt(dt3)-1, Integer.parseInt(qt3));
-            finalDiscard += countDiscard(Integer.parseInt(qt3), resQuantity.get(2));
-        }
-        if(!radio_depot1_res4.isDisable()){
-            RadioButton chooseQuantity4 = (RadioButton) quantity4.getSelectedToggle();
-            RadioButton chooseDepot4 = (RadioButton) depot_res4.getSelectedToggle();
-            String qt4= chooseQuantity4.getText();
-            String dt4 = chooseDepot4.getText();
-            floorResources.put(Integer.parseInt(dt4)-1, resType.get(0));
-            floorQuantity.put( Integer.parseInt(dt4)-1, Integer.parseInt(qt4));
-            finalDiscard += countDiscard(Integer.parseInt(qt4), resQuantity.get(3));
-
-        }*/
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscard));
     }
 
@@ -717,13 +654,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         }
     }
 
-    private int countDiscard(int chooseQuantity, int quantity){
-        int count=0;
-        if(chooseQuantity<quantity){
-            count = quantity-chooseQuantity;
-        }
-        return count;
-    }
 
     private void controlQuantity(int n, int k){
         if(n==0){

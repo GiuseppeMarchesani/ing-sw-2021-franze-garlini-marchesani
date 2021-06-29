@@ -256,9 +256,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     public void onBuyCardBtm(Event event){
-        btmProduction.setDisable(true);
-        btmResources.setDisable(true);
-        btmDevCard.setDisable(true);
+
         notifyObserver(obs -> obs.updateAction(1));
     }
     public void onResourcesBtm(Event event){
@@ -268,9 +266,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(0));
     }
     public void onProductionBtm(Event event){
-        btmProduction.setDisable(true);
-        btmResources.setDisable(true);
-        btmDevCard.setDisable(true);
+
         notifyObserver(obs -> obs.updateAction(2));
     }
     public void onLeaderBtm(Event event){
@@ -431,6 +427,55 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
     private void updateFaithTrack(){
+        img_space1.setImage(null);
+        img_space2.setImage(null);
+        img_space3.setImage(null);
+        img_space4.setImage(null);
+        img_space5.setImage(null);
+        img_space6.setImage(null);
+        img_space7.setImage(null);
+        img_space8.setImage(null);
+        img_space9.setImage(null);
+        img_space10.setImage(null);
+        img_space11.setImage(null);
+        img_space12.setImage(null);
+        img_space13.setImage(null);
+        img_space14.setImage(null);
+        img_space15.setImage(null);
+        img_space16.setImage(null);
+        img_space17.setImage(null);
+        img_space18.setImage(null);
+        img_space19.setImage(null);
+        img_space20.setImage(null);
+        img_space21.setImage(null);
+        img_space22.setImage(null);
+        img_space23.setImage(null);
+        img_space24.setImage(null);
+        name1.setText("");
+        name2.setText("");
+        name3.setText("");
+        name4.setText("");
+        name5.setText("");
+        name6.setText("");
+        name7.setText("");
+        name8.setText("");
+        name9.setText("");
+        name10.setText("");
+        name11.setText("");
+        name12.setText("");
+        name13.setText("");
+        name14.setText("");
+        name15.setText("");
+        name16.setText("");
+        name17.setText("");
+        name18.setText("");
+        name19.setText("");
+        name20.setText("");
+        name21.setText("");
+        name22.setText("");
+        name23.setText("");
+        name24.setText("");
+
 
         for(String name: faithTrack.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/cross.png"));
@@ -439,123 +484,148 @@ public class BoardSceneController extends ObservableView implements GenericScene
                     img_space1.setImage(image);
                     img_space1.setVisible(true);
                     name1.setText(name1.getText() + " " + name);
+                    break;
                 case 2:
                     img_space2.setImage(image);
                     img_space2.setVisible(true);
                     name2.setText(name2.getText() + " " + name);
+                    break;
                 case 3:
                     img_space3.setImage(image);
                     img_space3.setVisible(true);
                     name3.setText(name3.getText() + " " + name);
+                    break;
                 case 4:
                     img_space4.setImage(image);
                     img_space4.setVisible(true);
                     name4.setText(name4.getText() + " " + name);
+                    break;
                 case 5:
                     img_space5.setImage(image);
                     img_space5.setVisible(true);
                     name5.setText(name5.getText() + " " + name);
+                    break;
                 case 6:
                     img_space6.setImage(image);
                     img_space6.setVisible(true);
                     name6.setText(name6.getText() + " " + name);
+                    break;
                 case 7:
                     img_space7.setImage(image);
                     img_space7.setVisible(true);
                     name7.setText(name7.getText() + " " + name);
+                    break;
                 case 8:
                     img_space8.setImage(image);
                     img_space8.setVisible(true);
                     name8.setText(name8.getText() + " " + name);
+                    break;
                 case 9:
                     img_space9.setImage(image);
                     img_space9.setVisible(true);
                     name9.setText(name9.getText() + " " + name);
+                    break;
                 case 10:
                     img_space10.setImage(image);
                     img_space10.setVisible(true);
                     name10.setText(name10.getText() + " " + name);
+                    break;
                 case 11:
                     img_space11.setImage(image);
                     img_space11.setVisible(true);
                     name11.setText(name11.getText() + " " + name);
+                    break;
 
                 case 12:
                     img_space12.setImage(image);
                     img_space12.setVisible(true);
                     name12.setText(name12.getText() + " " + name);
+                    break;
 
                 case 13:
                     img_space13.setImage(image);
                     img_space13.setVisible(true);
                     name13.setText(name13.getText() + " " + name);
+                    break;
 
                 case 14:
                     img_space14.setImage(image);
                     img_space14.setVisible(true);
                     name14.setText(name14.getText() + " " + name);
+                    break;
 
                 case 15:
                     img_space15.setImage(image);
                     img_space15.setVisible(true);
                     name15.setText(name15.getText() + " " + name);
+                    break;
 
                 case 16:
                     img_space16.setImage(image);
                     img_space16.setVisible(true);
                     name16.setText(name16.getText() + " " + name);
+                    break;
 
                 case 17:
                     img_space17.setImage(image);
                     img_space17.setVisible(true);
                     name17.setText(name17.getText() + " " + name);
+                    break;
 
                 case 18:
                     img_space18.setImage(image);
                     img_space18.setVisible(true);
                     name18.setText(name18.getText() + " " + name);
+                    break;
 
                 case 19:
                     img_space19.setImage(image);
                     img_space19.setVisible(true);
                     name19.setText(name19.getText() + " " + name);
+                    break;
 
                 case 20:
                     img_space20.setImage(image);
                     img_space20.setVisible(true);
                     name20.setText(name20.getText() + " " + name);
+                    break;
 
                 case 21:
                     img_space21.setImage(image);
                     img_space21.setVisible(true);
                     name21.setText(name21.getText() + " " + name);
+                    break;
 
                 case 22:
                     img_space22.setImage(image);
                     img_space22.setVisible(true);
                     name22.setText(name22.getText() + " " + name);
+                    break;
 
                 case 23:
                     img_space23.setImage(image);
                     img_space23.setVisible(true);
                     name23.setText(name23.getText() + " " + name);
+                    break;
 
                 case 24:
                     img_space24.setImage(image);
                     img_space24.setVisible(true);
                     name24.setText(name24.getText() + " " + name);
+                    break;
                 default:
                     break;
             }
         }
     }
 
-    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader){
+    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader, HashMap<String, Integer> faithTrack){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;
         this.depotQuantity = activeDepotQ;
         this.depotResource = activeDepotT;
         this.leaderCards = chosenLeader;
+        this.faithTrack = faithTrack;
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 this.marbleMarket[i][j]= market[i][j];

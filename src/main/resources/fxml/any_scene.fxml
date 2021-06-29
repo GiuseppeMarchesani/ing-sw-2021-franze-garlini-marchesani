@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="278.0" prefWidth="662.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.AnySceneController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="129.33332570393878" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="560.6666692097981" minWidth="10.0" prefWidth="533.333340962728" />
@@ -23,38 +23,38 @@
       </ImageView>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
-            <RadioButton mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0" textFill="#be9217">
+            <RadioButton fx:id="coin" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0" textFill="#be9217">
                <graphic>
                   <ImageView fitHeight="38.0" fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/COIN.png" />
+                        <Image url="@../images/coin.png" />
                      </image>
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+            <RadioButton fx:id="shield" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="40.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/SHIELD.png" />
+                        <Image url="@../images/shield.png" />
                      </image>
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+            <RadioButton fx:id="stone" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                <graphic>
                   <ImageView fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/STONE.png" />
+                        <Image url="@../images/stone.png" />
                      </image>
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+            <RadioButton fx:id="servant" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                <graphic>
                   <ImageView fitWidth="49.0" preserveRatio="true">
                      <image>
-                        <Image url="@../images/SERVANT.png" />
+                        <Image url="@../images/servant.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -63,7 +63,7 @@
       </HBox>
       <HBox prefHeight="61.0" prefWidth="93.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #7a5245; -fx-background-radius: 7;" text="NEXT" textFill="WHITE" HBox.hgrow="SOMETIMES">
+            <Button fx:id="btm_next" mnemonicParsing="false" prefHeight="26.0" prefWidth="67.0" style="-fx-background-color: #7a5245; -fx-background-radius: 7;" text="NEXT" textFill="WHITE" HBox.hgrow="SOMETIMES">
                <HBox.margin>
                   <Insets left="450.0" top="35.0" />
                </HBox.margin>
