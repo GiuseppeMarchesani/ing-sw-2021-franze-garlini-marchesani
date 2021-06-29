@@ -15,7 +15,7 @@ import java.net.Socket;
  *Handles the received messages from the client.
  * Sends messages sent by GameController to the client.
  */
-public class ClientHandler implements Runnable {
+public class ClientHandler implements Runnable, ClientHandlerInterface {
     private Socket client;
     private ObjectOutputStream output;
     private ObjectInputStream input;

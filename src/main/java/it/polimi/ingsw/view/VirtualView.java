@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
+import it.polimi.ingsw.network.ClientHandlerInterface;
 import it.polimi.ingsw.observer.Observer;
 
 import java.util.ArrayList;
@@ -20,14 +21,14 @@ import java.util.List;
  * The controller calls methods from this class instead of calling methods from the view.
  */
 public class VirtualView implements View, Observer {
-    private final ClientHandler clientHandler;
+    private final ClientHandlerInterface clientHandler;
 
 
     /**
      * Class constructor.
      * @param clientHandler the clientHandler the view will sends messages to.
      */
-    public VirtualView(ClientHandler clientHandler) {
+    public VirtualView(ClientHandlerInterface clientHandler) {
         this.clientHandler = clientHandler;
     }
 

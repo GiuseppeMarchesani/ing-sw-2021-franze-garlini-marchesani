@@ -18,7 +18,7 @@ public class Gui extends ObservableView implements View {
     private static ArrayList<DevCard> cardMarket = new ArrayList<>();
     private static ArrayList<String> playerList = new ArrayList<>();
     private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-    private ArrayList<LeaderCard> chosenLeader = new ArrayList<>();
+    private HashMap<LeaderCard, Boolean> chosenLeader = new HashMap<>();
     private static HashMap<String, Integer> faithTrack = new HashMap<>();
     private ArrayList<ResourceType> conversion = new ArrayList<>();
     private HashMap<Integer, ResourceType> activeDepotT = new HashMap<>();
@@ -67,9 +67,6 @@ public class Gui extends ObservableView implements View {
             Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
             Platform.runLater(()-> MainApp.changeRootMainScene(observers));
         }
-
-
-
     }
 
     @Override
@@ -184,6 +181,7 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showSlots(DevCardSlot devCardSlot, String username) {
 
+
     }
 
     @Override
@@ -220,7 +218,8 @@ public class Gui extends ObservableView implements View {
         Platform.runLater(()->
                 MainApp.changeRootPane(cltk,"/fxml/choose_leaderToKeep")
         );
-        chosenLeader = cltk.getRestLeader();
+        chosenLeader.put(cltk.getRestLeader().get(0), false);
+        chosenLeader.put(cltk.getRestLeader().get(1), false);
     }
 
     @Override
