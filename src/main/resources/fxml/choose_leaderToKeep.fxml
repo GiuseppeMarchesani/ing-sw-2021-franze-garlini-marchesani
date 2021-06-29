@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.Cursor?>
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.ChooseLeaderToKeep">
    <children>
       <ImageView fitHeight="579.0" fitWidth="913.0" opacity="0.6">
@@ -20,33 +18,21 @@
             <Image url="@../images/background.png" />
          </image>
       </ImageView>
-      <GridPane>
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="447.33331298828125" minWidth="10.0" prefWidth="197.99998982747397" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="748.6667022705078" minWidth="10.0" prefWidth="713.3333435058594" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="413.3333435058594" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="185.0" minHeight="0.0" prefHeight="149.33333333333337" vgrow="SOMETIMES" />
-        </rowConstraints>
+      <Group>
          <children>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane layoutY="9.0" prefHeight="579.0" prefWidth="911.0">
                <children>
-                  <Label alignment="CENTER" layoutX="4.0" layoutY="96.0" prefHeight="33.0" prefWidth="189.0" style="-fx-background-color: #7a5245;" text="Choose 2 cards " textFill="#e9e5e5">
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="232.0" prefHeight="33.0" prefWidth="189.0" style="-fx-background-color: #7a5245;" text="Choose 2 cards " textFill="#e9e5e5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="4.0" layoutY="129.0" prefHeight="27.0" prefWidth="189.0" style="-fx-background-color: #7a5245;" text="to discard:" textFill="#e9e5e5">
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="265.0" prefHeight="27.0" prefWidth="189.0" style="-fx-background-color: #7a5245;" text="to discard:" textFill="#e9e5e5">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <Button fx:id="btmNext" layoutX="506.0" layoutY="81.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" style="-fx-background-color: #7a5245; -fx-background-radius: 7;" text="NEXT" textFill="WHITE">
+                  <Button fx:id="btmNext" layoutX="760.0" layoutY="504.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="114.0" style="-fx-background-color: #7a5245; -fx-background-radius: 7;" text="NEXT" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="13.0" />
                      </font>
@@ -54,11 +40,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="container" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <CheckBox fx:id="leader1" layoutX="9.0" layoutY="70.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+                  <CheckBox fx:id="leader1" layoutX="238.0" layoutY="154.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                      <graphic>
                         <ImageView fx:id="imgLeader1" fitHeight="208.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,8 +48,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </CheckBox>
-                  <CheckBox fx:id="leader2" layoutX="188.0" layoutY="70.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+                  <CheckBox fx:id="leader2" layoutX="397.0" layoutY="154.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                      <graphic>
                         <ImageView fx:id="imgLeader2" fitHeight="208.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -75,8 +60,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </CheckBox>
-                  <CheckBox fx:id="leader3" layoutX="365.0" layoutY="70.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+                  <CheckBox fx:id="leader3" layoutX="556.0" layoutY="154.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                      <graphic>
                         <ImageView fx:id="imgLeader3" fitHeight="208.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -84,8 +72,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </CheckBox>
-                  <CheckBox fx:id="leader4" layoutX="542.0" layoutY="73.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
+                  <CheckBox fx:id="leader4" layoutX="715.0" layoutY="154.0" mnemonicParsing="false" prefHeight="230.0" prefWidth="143.0">
                      <graphic>
                         <ImageView fx:id="imgLeader4" fitHeight="208.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -93,10 +84,13 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </CheckBox>
                </children>
             </AnchorPane>
          </children>
-      </GridPane>
+      </Group>
    </children>
 </StackPane>
