@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
 import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class askSlotSceneController extends ObservableView implements GenericSceneController {
+public class AskSlotSceneController extends ObservableView implements GenericSceneController {
     @FXML
     private ImageView img_res1;
     @FXML
