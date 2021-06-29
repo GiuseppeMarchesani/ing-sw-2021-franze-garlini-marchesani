@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Action.*;
 import it.polimi.ingsw.model.Board.FaithTrack;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -69,7 +70,12 @@ public class SinglePlayerGame extends Game {
 
         //ActionDiscard generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-discard.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/token-discard.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,8 +85,13 @@ public class SinglePlayerGame extends Game {
 
 
         //ActionShuffle generation
-        try{
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-shuffle.JSON")));
+        try {
+            InputStream is = Game.class.getResourceAsStream("/token-shuffle.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -90,8 +101,12 @@ public class SinglePlayerGame extends Game {
 
         //ActionCross generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-cross.JSON")));
-        } catch (IOException e) {
+            InputStream is = Game.class.getResourceAsStream("/token-cross.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();} catch (IOException e) {
             e.printStackTrace();
         }
         foundListType = new TypeToken<ArrayList<ActionCross>>(){}.getType();
