@@ -56,10 +56,9 @@ public class MarketSceneController extends ObservableView implements GenericScen
     private Button btm_row2;
 
     private final ArrayList<ImageView> market = new ArrayList<>();
-    private final ArrayList<ResourceType> conversion = new ArrayList<>();
+    private ResourceType conversion;
     @FXML
     public void initialize(){
-        conversion.addAll(Gui.getConversion());
         int n=0;
         market.add(res0x0);
         market.add(res0x1);
@@ -139,7 +138,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('c',0, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('c',0, conversion));
 
     }
     private void onCol1Btm(Event event){
@@ -151,7 +150,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('c',1, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('c',1, conversion));
 
     }
     private void onCol2Btm(Event event){
@@ -163,7 +162,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('c',2, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('c',2, conversion));
 
     }
     private void onCol3Btm(Event event){
@@ -175,7 +174,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('c',3, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('c',3, conversion));
 
     }
     private void onRow0Btm(Event event){
@@ -187,7 +186,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('r',0, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('r',0, conversion));
 
     }
     private void onRow1Btm(Event event){
@@ -199,7 +198,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('r',1, null));
+        notifyObserver(obs -> obs.updateGetFromMarket('r',1, conversion));
 
     }
     private void onRow2Btm(Event event){
@@ -211,8 +210,9 @@ public class MarketSceneController extends ObservableView implements GenericScen
         btm_col2.setDisable(true);
         btm_col3.setDisable(true);
 
-        notifyObserver(obs -> obs.updateGetFromMarket('r',2, null));
-
-
+        notifyObserver(obs -> obs.updateGetFromMarket('r',2, conversion));
+    }
+    public void setConversion(ResourceType conversion){
+        this.conversion=conversion;
     }
 }

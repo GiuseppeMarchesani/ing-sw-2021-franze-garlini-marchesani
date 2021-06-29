@@ -35,8 +35,6 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
     private ArrayList<String> usernameList = new ArrayList<>();
     @FXML
     public void initialize(){
-        finalVp.putAll(Gui.getFinalVp());
-
         usernameList.addAll(finalVp.keySet());
 
         if(finalVp.size() == 1){
@@ -75,6 +73,9 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
         }
     }
 
+    public void setFinalVp(HashMap<String, Integer> finalVp){
+        this.finalVp = finalVp;
+    }
 
 
 

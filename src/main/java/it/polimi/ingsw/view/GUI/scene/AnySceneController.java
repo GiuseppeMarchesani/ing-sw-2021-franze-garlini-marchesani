@@ -10,9 +10,12 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
+import java.util.HashMap;
+
 
 public class AnySceneController extends ObservableView implements GenericSceneController {
     private final ToggleGroup group = new ToggleGroup();
+    private ResourceType anyRes;
     @FXML
     private RadioButton coin;
     @FXML
@@ -29,7 +32,6 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
         servant.setToggleGroup(group);
         shield.setToggleGroup(group);
         stone.setToggleGroup(group);
-
         btm_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onNextBtm);
     }
 
@@ -38,38 +40,22 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
         String id = selectedRadioButton.getId();
         switch (id){
             case "coin":
-                if(Gui.getAnyRes().containsKey(ResourceType.COIN)){
-                    Gui.getAnyRes().put(ResourceType.COIN, Gui.getAnyRes().get(ResourceType.COIN)+1);
-                }
-                else{
-                    Gui.getAnyRes().put(ResourceType.COIN, 1);
-                }
+                anyRes = ResourceType.COIN;
                 break;
             case "servant":
-                if(Gui.getAnyRes().containsKey(ResourceType.SERVANT)){
-                    Gui.getAnyRes().put(ResourceType.SERVANT, Gui.getAnyRes().get(ResourceType.SERVANT)+1);
-                }
-                else{
-                    Gui.getAnyRes().put(ResourceType.SERVANT, 1);
-                }
+                anyRes = ResourceType.SERVANT;
                 break;
             case "shield":
-                if(Gui.getAnyRes().containsKey(ResourceType.SHIELD)){
-                    Gui.getAnyRes().put(ResourceType.SHIELD, Gui.getAnyRes().get(ResourceType.SHIELD)+1);
-                }
-                else{
-                    Gui.getAnyRes().put(ResourceType.SHIELD, 1);
-                }
+                anyRes = ResourceType.SHIELD;
                 break;
             default:
-                if(Gui.getAnyRes().containsKey(ResourceType.STONE)){
-                    Gui.getAnyRes().put(ResourceType.STONE, Gui.getAnyRes().get(ResourceType.STONE)+1);
-                }
-                else{
-                    Gui.getAnyRes().put(ResourceType.STONE, 1);
-                }
+                anyRes = ResourceType.STONE;
 
                 break;
         }
+    }
+
+    public ResourceType getAny(){
+        return anyRes;
     }
 }

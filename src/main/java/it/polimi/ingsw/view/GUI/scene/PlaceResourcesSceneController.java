@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
 import it.polimi.ingsw.view.GUI.MainApp;;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -156,8 +155,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     @FXML
 
     private void initialize(){
-        resToPlace.putAll(Gui.getResToPlace());
-        extraDepot.addAll(Gui.getExtraDepot());
 
 
         radio0_extra_res4.setDisable(true);
@@ -693,4 +690,12 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             }
         }
     }
+
+    public void setResToPlace(HashMap<ResourceType, Integer> resToPlace){
+        this.resToPlace=resToPlace;
+    }
+    public void setExtraDepot(ArrayList<ResourceType> extraDepot){
+        this.extraDepot=extraDepot;
+    }
+
 }

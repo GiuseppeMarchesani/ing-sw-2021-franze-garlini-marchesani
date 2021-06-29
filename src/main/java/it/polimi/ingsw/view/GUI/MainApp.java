@@ -80,6 +80,24 @@ public class MainApp  extends Application {
     public static <T> T changeRootPane(List<ObserverView> observerList, String fxml) {
         return changeRootPane(observerList, scene, fxml);
     }
+    public static void changeRootPane(GenericSceneController controller, String fxml) {
+        changeRootPane(controller, scene, fxml);
+    }
+
+    public static void changeRootPane(GenericSceneController controller, Scene scene, String fxml) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
+
+            loader.setController(controller);
+            MainApp.activeController = controller;
+            Parent root = loader.load();
+
+            MainApp.scene = scene;
+            MainApp.scene.setRoot(root);
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+    }
 
     public static <T> void changeRootMainScene(List<ObserverView> observerList) {
         T controller;
@@ -125,4 +143,5 @@ public class MainApp  extends Application {
     public static BoardSceneController getMainScene(){
         return mainController;
     }
+
 }

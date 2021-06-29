@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class askSlotSceneController extends ObservableView implements GenericSceneController {
@@ -78,8 +78,10 @@ public class askSlotSceneController extends ObservableView implements GenericSce
     private ArrayList<Integer> resQuantity = new ArrayList<>();
     private ArrayList<ResourceType> resType = new ArrayList<>();
     private final Image imgEmpty = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
-
-
+    private HashMap<ResourceType, Integer> strongbox= new HashMap<>();
+    private HashMap<ResourceType, Integer> cardCost = new HashMap<>();
+    private ArrayList<Integer> availableSlots = new ArrayList<>();
+    private HashMap<ResourceType, Integer> warehouse = new HashMap<>();
 
     @FXML
     public void initialize(){
@@ -89,17 +91,17 @@ public class askSlotSceneController extends ObservableView implements GenericSce
         radio_slot1.setToggleGroup(group);
         radio_slot2.setToggleGroup(group);
         radio_slot3.setToggleGroup(group);
-        if(Gui.getStrongbox().isEmpty()){
+        if(strongbox.isEmpty()){
             txt_pay_strong1.setEditable(false);
             txt_pay_strong2.setEditable(false);
             txt_pay_strong3.setEditable(false);
             txt_pay_strong4.setEditable(false);
         }
 
-        for(ResourceType res: Gui.getCardCost().keySet()){
+        for(ResourceType res: cardCost.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
             imgRes.add(image);
-            resQuantity.add(Gui.getCardCost().get(res));
+            resQuantity.add(cardCost.get(res));
             resType.add(res);
         }
         while (imgRes.size()<4){
@@ -109,5 +111,16 @@ public class askSlotSceneController extends ObservableView implements GenericSce
         }
 
     }
-
+    public void setStrongbox(HashMap<ResourceType, Integer> strongbox){
+        this.strongbox=strongbox;
+    }
+    public void setCardCost(HashMap<ResourceType, Integer> cardCost){
+        this.cardCost = cardCost;
+    }
+    public void setAvailableSlots(ArrayList<Integer> availableSlots){
+        this.availableSlots = availableSlots;
+    }
+    public void setWarehouse(HashMap<ResourceType, Integer> warehouse){
+        this.warehouse = warehouse;
+    }
 }

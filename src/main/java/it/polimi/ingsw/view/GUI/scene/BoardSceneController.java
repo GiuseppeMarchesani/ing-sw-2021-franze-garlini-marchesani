@@ -209,36 +209,11 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<String, Integer> faithTrack = new HashMap<>();
     private HashMap<Integer, Integer> depotQuantity = new HashMap<>();
     private HashMap<Integer, ResourceType> depotResource = new HashMap<>();
+    private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private int leaderAction = 0;
 
     @FXML
     public void initialize(){
-        market.add(res0x0);
-        market.add(res0x1);
-        market.add(res0x2);
-        market.add(res1x0);
-        market.add(res1x1);
-        market.add(res1x2);
-        market.add(res2x0);
-        market.add(res2x1);
-        market.add(res2x2);
-        market.add(res3x0);
-        market.add(res3x1);
-        market.add(res3x2);
-
-        this.faithTrack.putAll(Gui.getFaithTrack());
-        this.cornerMarket = Gui.getCornerMarble();
-        this.cardMarket.addAll(Gui.getCardMarket());
-        this.leaderCards.addAll(Gui.getChosenLeader().get(Gui.getActivePlayer()));
-        for(int i=0; i<4; i++){
-            for(int j=0; j<3; j++){
-                marbleMarket[i][j] = Gui.getMarket()[i][j];
-            }
-        }
-        updateMarket();
-        updateCardMarket();
-        updateLeader();
-        updateFaithTrack();
 
         numPlayer = Gui.getPlayerList();
         if(numPlayer.size()==1) {
@@ -332,6 +307,19 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private void updateMarket(){
         int n=0;
 
+        market.add(res0x0);
+        market.add(res0x1);
+        market.add(res0x2);
+        market.add(res1x0);
+        market.add(res1x1);
+        market.add(res1x2);
+        market.add(res2x0);
+        market.add(res2x1);
+        market.add(res2x2);
+        market.add(res3x0);
+        market.add(res3x1);
+        market.add(res3x2);
+
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 Image image;
@@ -381,8 +369,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateWarehouse(){
-        this.depotQuantity.putAll(Gui.getActiveDepotQ());
-        this.depotResource.putAll(Gui.getActiveDepotT());
         img_depot1_res1.setImage(null);
         img_depot1_res2.setImage(null);
         img_depot2_res3.setImage(null);
@@ -618,19 +604,25 @@ public class BoardSceneController extends ObservableView implements GenericScene
             }
         }
     }
+    private void updateStrongbox(){
+        //TODO
+    }
 
-    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader, HashMap<String, Integer> faithTrack){
+    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, ArrayList<LeaderCard> chosenLeader, HashMap<String, Integer> faithTrack,
+                       HashMap<ResourceType, Integer> strongbox){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;
         this.depotQuantity = activeDepotQ;
         this.depotResource = activeDepotT;
         this.leaderCards = chosenLeader;
         this.faithTrack = faithTrack;
+        this.strongbox = strongbox;
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 this.marbleMarket[i][j]= market[i][j];
             }
         }
+        updateStrongbox();
         updateMarket();
         updateCardMarket();
         updateLeader();
