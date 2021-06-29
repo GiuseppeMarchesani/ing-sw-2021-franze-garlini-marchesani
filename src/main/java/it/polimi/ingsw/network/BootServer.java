@@ -30,6 +30,7 @@ public class BootServer {
             socket = new ServerSocket(port,100, InetAddress.getByName(address));
         } catch (IOException e) {
             System.out.println("cannot open server socket");
+            e.printStackTrace();
             System.exit(1);
             return;
         }

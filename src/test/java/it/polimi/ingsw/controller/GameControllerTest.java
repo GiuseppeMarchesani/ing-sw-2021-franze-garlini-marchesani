@@ -2,14 +2,12 @@ package it.polimi.ingsw.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import it.polimi.ingsw.messages.GeneralMessage;
-import it.polimi.ingsw.messages.PlayersNumberRequest;
-import it.polimi.ingsw.messages.ServerMessage;
-import it.polimi.ingsw.messages.StartingLeadersRequestMsg;
+import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.GameState;
+import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.network.ClientHandlerInterface;
 import it.polimi.ingsw.network.LobbyServer;
@@ -125,9 +123,55 @@ public class GameControllerTest {
         }
         assertEquals("1", gameControllerMulti.getActivePlayer());
         assertEquals(GameState.GIVERES, gameControllerMulti.getGameState());
+        HashMap<Integer, ResourceType> depotToResource= new HashMap<>();
+        HashMap<Integer, Integer> depotToQuantity= new HashMap<>();
+        depotToResource.put(0, ResourceType.COIN);
+        depotToQuantity.put(0,1);
+        depotToResource.put(1, ResourceType.EMPTY);
+        depotToQuantity.put(1,0);
+        depotToResource.put(2, ResourceType.EMPTY);
+        depotToQuantity.put(2,0);
+        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("1",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
+
+        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("2",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
+        depotToQuantity.put(0,2);
+        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("3",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
+        assertEquals("0", gameControllerMulti.getActivePlayer());
+        assertEquals(GameState.IN_GAME, gameControllerMulti.getGameState());
+        gameControllerMulti.getMessage(new ActionRequest("0", MessageType.MAIN_MARBLE));
+
+        int faithMarket=0;
+        for(int i=0;i<3;i++){
+            if(gameControllerMulti.getGameSession().getMarket().getMarketTray()[3][i]==ResourceType.FAITH){
+                faithMarket=1;
+                break;
+            }
+        }
+        gameControllerMulti.getMessage(new GetMarketResRequest("0", 'c', 3, ResourceType.EMPTY));
+        emptyHashMapWarehouse(depotToResource,depotToQuantity);
+        assertTrue(gameControllerMulti.isMainActionDone());
+        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("0", depotToResource, depotToQuantity, new ArrayList<Integer>(),3));
+        assertEquals(faithMarket, gameControllerMulti.getGameSession().getPlayer("0").getFaithSpace());
+        assertEquals(3, gameControllerMulti.getGameSession().getPlayer("1").getFaithSpace());
+        assertEquals(4, gameControllerMulti.getGameSession().getPlayer("2").getFaithSpace());
+        assertEquals(5, gameControllerMulti.getGameSession().getPlayer("3").getFaithSpace());
+
+        gameControllerMulti.getMessage(new ActionRequest("0", MessageType.END_TURN));
+        assertFalse(gameControllerMulti.isMainActionDone());
+        gameControllerMulti.getMessage(new ActionRequest("1", MessageType.END_TURN));
+        gameControllerMulti.getMessage(new ActionRequest("2", MessageType.END_TURN));
+        assertEquals("3", gameControllerMulti.getActivePlayer());
+        gameControllerMulti.disconnect("3");
+        assertEquals("0", gameControllerMulti.getActivePlayer());
 
     }
 
+    public void emptyHashMapWarehouse(HashMap<Integer, ResourceType> depotToResource,    HashMap<Integer, Integer> depotToQuantity){
+        for(int i=0;i<3;i++){
+            depotToQuantity.put(i,0);
+            depotToResource.put(i, ResourceType.EMPTY);
+        }
+    }
     @Test
     public void testSinglePlayer(){
         assertFalse( gameControllerSingle.isGameStarted());
@@ -144,6 +188,7 @@ public class GameControllerTest {
         gameControllerSingle.getMessage(new StartingLeadersRequestMsg("0", hand));
         assertEquals("0", gameControllerSingle.getActivePlayer());
         assertEquals(GameState.IN_GAME, gameControllerSingle.getGameState());
+
     }
 
 

@@ -356,7 +356,7 @@ public class GameController {
                     produceResources(((AskProductionRequest) msg).getChosen(), player);
                     break;
                 case MAIN_PRODUCTION:
-                    if(!turnController.getMainAction()){
+                    if(!isMainActionDone()){
                         allVirtualView.get(msg.getUsername()).askCardsToActivateProd(player.getDevCardSlot().getCardsAvailable());
                     }
                     else {
@@ -374,7 +374,7 @@ public class GameController {
                     getMarketDevCard((BuyDevCardRequest) msg, player);
                     break;
                 case MAIN_CARD:
-                    if(!turnController.getMainAction()){
+                    if(!isMainActionDone()){
                         allVirtualView.get(msg.getUsername()).askDevCardToBuy();
                     }
                     else {
@@ -389,7 +389,7 @@ public class GameController {
                     startTurn();
                     break;
                 case MAIN_MARBLE:
-                    if(!turnController.getMainAction()){
+                    if(!isMainActionDone()){
                     allVirtualView.get(msg.getUsername()).askMarketLineToGet(player.getMarbleConversion());
                     turnController.setMainAction(true);
                     }
@@ -781,10 +781,12 @@ public class GameController {
         return allVirtualView;
     }
 
-    public void setMaxPlayers(int maxPlayers) {
-        this.maxPlayers = maxPlayers;
-    }
+
     public String getActivePlayer(){
         return turnController.getActivePlayer();
+    }
+
+    public boolean isMainActionDone(){
+        return turnController.getMainAction();
     }
 }
