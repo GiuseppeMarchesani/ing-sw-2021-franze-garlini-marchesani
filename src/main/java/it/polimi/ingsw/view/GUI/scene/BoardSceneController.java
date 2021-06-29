@@ -1,7 +1,5 @@
 package it.polimi.ingsw.view.GUI.scene;
 
-
-import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;

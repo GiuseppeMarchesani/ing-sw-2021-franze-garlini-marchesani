@@ -2,14 +2,14 @@ package it.polimi.ingsw.model.Action;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Game;
 import org.junit.Before;
 import org.junit.Test;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -21,15 +21,19 @@ public class TokenBagTest {
     @Before
     public void setUp() {
 
-        ArrayList<ActionToken> tokens;
+        ArrayList<ActionToken> tokens = new ArrayList<>();
         String actionTokenJson = "";
 
         //ActionDiscard generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-discard.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/token-discard.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
-            //DA AGG A TUTTI
         }
 
         Type foundListType = new TypeToken<ArrayList<ActionDiscard>>(){}.getType();
@@ -37,10 +41,15 @@ public class TokenBagTest {
 
 
         //ActionShuffle generation
-        try{
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-shuffle.JSON")));
+        try {
+            InputStream is = Game.class.getResourceAsStream("/token-shuffle.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();
         } catch (IOException e) {
-            System.out.println("Error while reading token-shuffle.JSON");
+            e.printStackTrace();
         }
         foundListType = new TypeToken<ActionShuffle>(){}.getType();
         tokens.add(new Gson().fromJson(actionTokenJson, foundListType));
@@ -48,9 +57,13 @@ public class TokenBagTest {
 
         //ActionCross generation
         try {
-            actionTokenJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\token-cross.JSON")));
-        } catch (IOException e) {
-            System.out.println("Error while reading token-cross.JSON");
+            InputStream is = Game.class.getResourceAsStream("/token-cross.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            actionTokenJson = sb.toString();} catch (IOException e) {
+            e.printStackTrace();
         }
         foundListType = new TypeToken<ArrayList<ActionCross>>(){}.getType();
         tokens.addAll(new Gson().fromJson(actionTokenJson, foundListType));
