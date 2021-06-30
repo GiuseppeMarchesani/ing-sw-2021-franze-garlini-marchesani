@@ -19,7 +19,7 @@ public class StartSceneController extends ObservableView implements GenericScene
     private void onPlayBtnClick(Event event){
         btmNext.setDisable(true);
 
-        MainApp.changeRootPane(observers, event,"/fxml/init_scene");
+        SceneController.changeRootPane(observers, event,"/fxml/init_scene");
 
 
     }

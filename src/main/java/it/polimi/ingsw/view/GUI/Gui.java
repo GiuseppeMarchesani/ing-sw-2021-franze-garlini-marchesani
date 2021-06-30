@@ -36,7 +36,7 @@ public class Gui extends ObservableView implements View {
         InitSceneController isc = new InitSceneController();
         isc.addAllObservers(observers);
         Platform.runLater(() -> {
-            MainApp.changeRootPane(observers, "/fxml/init_scene");
+            SceneController.changeRootPane(observers, "/fxml/init_scene");
         });
     }
 
@@ -44,7 +44,7 @@ public class Gui extends ObservableView implements View {
     public void askLobby() {
         LobbySceneController lsc = new LobbySceneController();
         lsc.addAllObservers(observers);
-        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/lobby_scene")
+        Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/lobby_scene")
         );
     }
 
@@ -53,7 +53,7 @@ public class Gui extends ObservableView implements View {
         NumPlayerSceneController npsc = new NumPlayerSceneController();
         npsc.addAllObservers(observers);
         Platform.runLater(()->
-                MainApp.changeRootPane(observers,"/fxml/numPlayer_scene")
+                SceneController.changeRootPane(observers,"/fxml/numPlayer_scene")
             );
     }
 
@@ -61,12 +61,12 @@ public class Gui extends ObservableView implements View {
     public void askAction() {
         if(!startGame){
             startGame = true;
-            Platform.runLater(()-> MainApp.changeRootMainScene(observers));
-            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(()-> SceneController.changeRootMainScene(observers));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
         }
         else{
-            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
-            Platform.runLater(()-> MainApp.changeRootMainScene(observers));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(()-> SceneController.changeRootMainScene(observers));
         }
     }
 
@@ -87,7 +87,7 @@ public class Gui extends ObservableView implements View {
         cdcsc.setDevCard(cardMarket);
         cdcsc.setRemainingCards(remainingCards);
         Platform.runLater(()->
-                MainApp.changeRootPane(cdcsc,"/fxml/cardMarket_scene")
+                SceneController.changeRootPane(cdcsc,"/fxml/cardMarket_scene")
         );
     }
 
@@ -96,7 +96,7 @@ public class Gui extends ObservableView implements View {
         MarketSceneController msc = new MarketSceneController();
         msc.addAllObservers(observers);
         Platform.runLater(()->
-                MainApp.changeRootPane(msc,"/fxml/market_scene")
+                SceneController.changeRootPane(msc,"/fxml/market_scene")
         );
     }
 
@@ -108,7 +108,7 @@ public class Gui extends ObservableView implements View {
                 asc.addAllObservers(observers);
                 asc.setResToPlace(resToPlace);
                 asc.setExtraDepot(extraDepot);
-                Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/any_scene"));
+                Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/any_scene"));
             }
         }
         else {
@@ -117,7 +117,7 @@ public class Gui extends ObservableView implements View {
             prsc.setResToPlace(resToPlace);
             prsc.setExtraDepot(extraDepot);
             Platform.runLater(() ->
-                    MainApp.changeRootPane(prsc, "/fxml/place_resources_scene")
+                    SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
             );
         }
 
@@ -132,7 +132,7 @@ public class Gui extends ObservableView implements View {
         apsc.setPrice(price);
         apsc.setAnyPayment(anyPayment);
         apsc.setAnyProduce(anyProduce);
-        Platform.runLater(() -> MainApp.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
+        Platform.runLater(() -> SceneController.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
     }
 
     @Override
@@ -184,7 +184,7 @@ public class Gui extends ObservableView implements View {
         AskCardsForProdSceneController acsc = new AskCardsForProdSceneController();
         acsc.addAllObservers(observers);
         acsc.setDevCardList(devCardList);
-        Platform.runLater(() -> MainApp.changeRootPane(acsc, "/fxml/chooseCard_production_scene"));
+        Platform.runLater(() -> SceneController.changeRootPane(acsc, "/fxml/chooseCard_production_scene"));
     }
 
     @Override
@@ -225,7 +225,7 @@ public class Gui extends ObservableView implements View {
         assc.setStrongbox(strongbox);
         assc.setAvailableSlots(availableSlots);
         assc.setWarehouse(warehouse);
-        Platform.runLater(() -> MainApp.changeRootPane(assc, "/fxml/askSlot_scene"));
+        Platform.runLater(() -> SceneController.changeRootPane(assc, "/fxml/askSlot_scene"));
     }
 
     @Override
@@ -239,7 +239,7 @@ public class Gui extends ObservableView implements View {
         cltk.addAllObservers(observers);
         cltk.setAllLeaders(leaderCards);
         Platform.runLater(()->
-                MainApp.changeRootPane(cltk,"/fxml/choose_leaderToKeep")
+                SceneController.changeRootPane(cltk,"/fxml/choose_leaderToKeep")
         );
         chosenLeader = cltk.getRestLeader();
     }
@@ -250,7 +250,7 @@ public class Gui extends ObservableView implements View {
         WinSceneController wsc = new WinSceneController();
         wsc.addAllObservers(observers);
         wsc.setFinalVp(finalPoints);
-        Platform.runLater(() -> MainApp.changeRootPane(wsc, "/fxml/winner_scene"));
+        Platform.runLater(() -> SceneController.changeRootPane(wsc, "/fxml/winner_scene"));
     }
 
     @Override
@@ -261,7 +261,7 @@ public class Gui extends ObservableView implements View {
     private ResourceType askAnyResource(){
         AnySceneController asc = new AnySceneController();
         asc.addAllObservers(observers);
-        Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/any_scene"));
+        Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/any_scene"));
         return asc.getAny();
     }
 

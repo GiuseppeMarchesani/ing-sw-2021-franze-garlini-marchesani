@@ -63,7 +63,7 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
         prsc.setResToPlace(resToPlace);
         prsc.setExtraDepot(extraDepot);
         Platform.runLater(() ->
-                MainApp.changeRootPane(prsc, "/fxml/place_resources_scene")
+                SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
         );
     }
 
