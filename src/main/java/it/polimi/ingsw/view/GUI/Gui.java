@@ -125,7 +125,14 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
-
+        AskProductionSceneController apsc = new AskProductionSceneController();
+        apsc.addAllObservers(observers);
+        apsc.setStrongbox(strongbox);
+        apsc.setWarehouse(warehouse);
+        apsc.setPrice(price);
+        apsc.setAnyPayment(anyPayment);
+        apsc.setAnyProduce(anyProduce);
+        Platform.runLater(() -> MainApp.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
     }
 
     @Override
