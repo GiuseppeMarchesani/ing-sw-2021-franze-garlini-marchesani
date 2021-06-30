@@ -458,7 +458,7 @@ public class GameController {
                     }
                     else {
                         player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
-                        if(player.equals(getActivePlayer())) {
+                        if((((ShowPlayerRequest) msg).getPlayer()).equals(getActivePlayer())) {
                             showPlayer(player, true);
                             startTurn();
                         }
