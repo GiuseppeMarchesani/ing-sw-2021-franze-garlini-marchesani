@@ -214,13 +214,17 @@ public class GameController {
         String activePlayer= getActivePlayer();
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
+                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(1);
+
                 return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
+                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(1);
                 return true;
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
+                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(2);
                 return true;
             }
@@ -231,7 +235,9 @@ public class GameController {
         }
         catch (IndexOutOfBoundsException e){
             gameState=GameState.IN_GAME;
+
             turnController.proxPlayer();
+            broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             return true;
         }
     }
