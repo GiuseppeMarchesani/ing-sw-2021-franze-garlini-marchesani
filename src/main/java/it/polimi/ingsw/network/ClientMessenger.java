@@ -175,6 +175,11 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updatePlaceDevCard(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox, int slotToPlace){
         client.sendMessage(new PlaceDevCardRequest(username, expenseDepot, newStrongbox, slotToPlace));
     }
+
+    /**
+     * Shows a player
+     * @param player the player to show
+     */
     public void updateShowPlayer(String player){
         client.sendMessage(new ShowPlayerRequest(username, player));
     }

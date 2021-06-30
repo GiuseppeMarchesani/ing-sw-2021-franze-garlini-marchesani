@@ -144,9 +144,6 @@ public class Cli extends ObservableView implements View{
                     try{
                         String c=readLine();
                         notifyObserver(obs -> obs.updateShowPlayer(c));
-
-
-
                     }
                     catch(Exception e){
                         out.println(STR_WRONG_INPUT);

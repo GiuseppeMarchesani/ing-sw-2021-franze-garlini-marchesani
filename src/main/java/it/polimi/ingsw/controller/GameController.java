@@ -444,6 +444,7 @@ public class GameController {
                 case SHOW_PLAYER:
                     if(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer())){
                         allVirtualView.get(getActivePlayer()).showErrorMsg("Player does not exist.");
+                        startTurn();
                     }
                     else {
                         player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
@@ -453,6 +454,7 @@ public class GameController {
                         }
                         else showPlayer(player, false);
                     }
+                    break;
                 case SHOW_PLAYER_FAITH:
                     allVirtualView.get(getActivePlayer()).showPlayerFaith(gameSession.getFaith(getActivePlayer()));
                     startTurn();
