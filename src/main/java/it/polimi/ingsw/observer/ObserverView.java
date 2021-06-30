@@ -103,5 +103,5 @@ public interface ObserverView {
      */
     public void updatePlayLeaderCard(LeaderCard card, char dOrP);
 
-    public void updateShowPlayer(int indexOf);
+    public void updateShowPlayer(String indexOf);
 }

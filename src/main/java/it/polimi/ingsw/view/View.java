@@ -2,13 +2,10 @@ package it.polimi.ingsw.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import it.polimi.ingsw.model.Board.Warehouse;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 /**
@@ -184,7 +181,7 @@ public interface View {
      */
     void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer);
 
-    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards);
+    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you);
 
     void showPlayerFaith(ArrayList<Integer> faith);
 }

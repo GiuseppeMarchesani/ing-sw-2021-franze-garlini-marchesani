@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -143,14 +142,9 @@ public class Cli extends ObservableView implements View{
                 if(command.equalsIgnoreCase("SHOW_PLAYER")){
                     out.print("\nWhich player? ");
                     try{
-                        int c = Integer.parseInt(readLine());
-                        if(c>4||c<=0) {
-                            out.println(STR_WRONG_INPUT);
-                            out.println("Insert another Command. ");
-                        }
-                        else { notifyObserver(obs -> obs.updateShowPlayer(c));
-                        break;
-                        }
+                        String c=readLine();
+                        notifyObserver(obs -> obs.updateShowPlayer(c));
+
 
 
                     }
@@ -937,7 +931,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you){
         out.println("\nShowing player " + username);
         out.println("\nTheir faith is: " + faithSpace);
         showWarehouse(depotToQuantity, depotToResource, username);
