@@ -32,7 +32,9 @@ public class SinglePlayerGameTest {
     public void testDrawToken() {
         assertEquals(7, game.getTokenBag().getAvailableTokens().size());
         assertEquals(0, game.getTokenBag().getUsedTokens().size());
-        ActionToken tkn = game.drawToken();
+        ActionToken tkn = game.getTokenBag().drawToken();
+        assertEquals(6, game.getTokenBag().getAvailableTokens().size());
+        assertEquals(1, game.getTokenBag().getUsedTokens().size());
         assertFalse((game.getTokenBag().getAvailableTokens().contains(tkn)));
         assertTrue((game.getTokenBag().getUsedTokens().contains(tkn)));
     }

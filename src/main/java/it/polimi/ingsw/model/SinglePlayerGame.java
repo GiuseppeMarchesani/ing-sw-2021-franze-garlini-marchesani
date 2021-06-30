@@ -125,7 +125,7 @@ public class SinglePlayerGame extends Game {
      * @return returns the drawn token.
      */
     public ActionToken drawToken(){
-        ActionToken token =tokenBag.drawToken();
+        ActionToken token = tokenBag.drawToken();
         token.doOperation(this);
         return token;
     }

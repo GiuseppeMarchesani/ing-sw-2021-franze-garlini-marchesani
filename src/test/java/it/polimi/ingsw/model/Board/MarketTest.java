@@ -2,11 +2,13 @@ package it.polimi.ingsw.model.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,12 +23,17 @@ public class MarketTest {
     @Before
     public void setUp() {
 
-        String marbleJson = "";
+        //Marble generation
+        String marbleJson ="";
         ArrayList<ResourceType> totalMarbles = null;
 
-
         try {
-            marbleJson =(String) new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\marbles.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/marbles.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            marbleJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }

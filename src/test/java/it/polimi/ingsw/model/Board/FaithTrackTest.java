@@ -2,10 +2,12 @@ package it.polimi.ingsw.model.Board;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.ingsw.model.Game;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,7 +26,12 @@ public class FaithTrackTest {
         ArrayList<FaithZone> faithZones = null;
 
         try {
-            faithZonesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\faith-track.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/faith-track.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            faithZonesJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,7 +44,12 @@ public class FaithTrackTest {
         LinkedHashMap<Integer, Integer> VPspaces = null;
 
         try {
-            VPspacesJson = new String(Files.readAllBytes(Paths.get(System.getProperty("user.dir")+ "\\src\\main\\resources\\vp-spaces.JSON")));
+            InputStream is = Game.class.getResourceAsStream("/vp-spaces.JSON");
+            StringBuilder sb = new StringBuilder();
+            for (int ch; (ch = is.read()) != -1; ) {
+                sb.append((char) ch);
+            }
+            VPspacesJson = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }

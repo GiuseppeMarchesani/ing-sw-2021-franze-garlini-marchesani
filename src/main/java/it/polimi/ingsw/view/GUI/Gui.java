@@ -17,7 +17,7 @@ public class Gui extends ObservableView implements View {
     private static ResourceType cornerMarble;
     private static ArrayList<DevCard> cardMarket = new ArrayList<>();
     private static ArrayList<String> playerList = new ArrayList<>();
-    private ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+    private HashMap<LeaderCard, Boolean> leaderCards = new HashMap<>();
     private HashMap<LeaderCard, Boolean> chosenLeader = new HashMap<>();
     private static HashMap<String, Integer> faithTrack = new HashMap<>();
     private ArrayList<ResourceType> conversion = new ArrayList<>();
@@ -28,6 +28,7 @@ public class Gui extends ObservableView implements View {
     private boolean startGame = false;
     private HashMap<ResourceType, Integer> anyRes = new HashMap<>();
     private HashMap<Boolean, Integer> faithZone = new HashMap<>();
+    private DevCardSlot devCardSlot = new DevCardSlot();
 
 
     @Override
@@ -180,8 +181,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showSlots(DevCardSlot devCardSlot, String username) {
-
-
+        this.devCardSlot = devCardSlot;
     }
 
     @Override
@@ -218,8 +218,7 @@ public class Gui extends ObservableView implements View {
         Platform.runLater(()->
                 MainApp.changeRootPane(cltk,"/fxml/choose_leaderToKeep")
         );
-        chosenLeader.put(cltk.getRestLeader().get(0), false);
-        chosenLeader.put(cltk.getRestLeader().get(1), false);
+        chosenLeader = cltk.getRestLeader();
     }
 
     @Override
@@ -245,7 +244,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
-        this.leaderCards.addAll(leaderCards.keySet());
+        this.leaderCards = leaderCards;
     }
 
     public static ResourceType[][] getMarket() {
