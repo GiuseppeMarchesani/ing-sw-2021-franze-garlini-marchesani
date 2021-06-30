@@ -936,6 +936,6 @@ public class Cli extends ObservableView implements View{
         showSlots(devCardSlot,username);
         showPlayedLeaderCards(playedLeaderCards,username);
         out.println("\nThey have " + remainingLeaderCards+" leader cards left.");
-
+        out.println("\nPress Enter to show your data and continue...");
     }
 }
