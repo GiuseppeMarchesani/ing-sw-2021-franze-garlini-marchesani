@@ -39,9 +39,9 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                <children>
-                  <Label layoutX="35.0" layoutY="60.0" prefHeight="60.0" prefWidth="529.0" text="Choose the resource type you want to exchange the white marble with:">
+                  <Label layoutX="67.0" layoutY="75.0" prefHeight="37.0" prefWidth="466.0" style="-fx-background-color: #7a5245; -fx-background-radius: 5;" text="Choose the resource type you want to exchange the white marble with:" textFill="WHITE">
                      <font>
-                        <Font name="Rockwell" size="16.0" />
+                        <Font name="Bell MT" size="16.0" />
                      </font>
                   </Label>
                </children>
@@ -50,7 +50,7 @@
                <children>
                   <Button layoutX="500.0" layoutY="75.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="71.0" style="-fx-background-color: #7a5245; -fx-background-radius: 5;" text="NEXT" textFill="WHITE">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Bell MT" size="14.0" />
                      </font>
                   </Button>
                </children>

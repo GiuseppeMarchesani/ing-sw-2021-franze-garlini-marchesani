@@ -43,27 +43,27 @@
                      <children>
                         <AnchorPane prefHeight="89.0" prefWidth="97.0">
                            <children>
-                              <Label layoutX="8.0" layoutY="33.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="RESOURCES">
+                              <Label layoutX="8.0" layoutY="33.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="RESOURCES">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="91.0" prefWidth="157.0" GridPane.columnIndex="1">
                            <children>
-                              <Label layoutX="26.0" layoutY="33.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="QUANTITY">
+                              <Label layoutX="19.0" layoutY="33.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="QUANTITY">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                            <children>
-                              <Label layoutX="11.0" layoutY="33.0" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Choose which depot">
+                              <Label layoutX="9.0" layoutY="33.0" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Choose which depot">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
                            </children>
@@ -72,7 +72,7 @@
                            <children>
                               <RadioButton fx:id="radio_depot1_res1" layoutX="5.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -83,7 +83,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio_depot2_res1" layoutX="65.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$depot_res1">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -94,7 +94,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -104,9 +104,9 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
                            <children>
-                              <Label layoutX="18.0" layoutY="33.0" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Choose how many">
+                              <Label layoutX="10.0" layoutY="33.0" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Choose how many">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
                            </children>
@@ -117,29 +117,29 @@
                         <ImageView fx:id="img_res4" fitHeight="100.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
                         <Label fx:id="quantity_res1" alignment="CENTER" prefHeight="31.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
                         <Label fx:id="quantity_res2" alignment="CENTER" prefHeight="31.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
                         <Label fx:id="quantity_res3" alignment="CENTER" prefHeight="31.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
                         <Label fx:id="quantity_res4" alignment="CENTER" prefHeight="31.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <font>
-                              <Font name="System Bold" size="18.0" />
+                              <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                            <children>
                               <RadioButton fx:id="radio_depot1_res2" layoutX="7.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -150,7 +150,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio_depot2_res2" layoutX="69.0" layoutY="33.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$depot_res2">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -161,7 +161,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -173,7 +173,7 @@
                            <children>
                               <RadioButton fx:id="radio_depot1_res3" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -184,7 +184,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio_depot2_res3" layoutX="63.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$depot_res3">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -195,7 +195,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -207,7 +207,7 @@
                            <children>
                               <RadioButton fx:id="radio_depot1_res4" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -218,7 +218,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio_depot2_res4" layoutX="64.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$depot_res4">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -229,7 +229,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -244,7 +244,7 @@
                            <children>
                               <RadioButton fx:id="radio1_res1" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -255,7 +255,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio2_res1" layoutX="91.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$quantity1">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -266,7 +266,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -274,7 +274,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio0_res1" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE" toggleGroup="$quantity1">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -286,7 +286,7 @@
                            <children>
                               <RadioButton fx:id="radio1_res2" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -297,7 +297,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio2_res2" layoutX="91.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$quantity2">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -308,7 +308,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -316,7 +316,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio0_res2" layoutX="11.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE" toggleGroup="$quantity2">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -328,7 +328,7 @@
                            <children>
                               <RadioButton fx:id="radio1_res3" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -339,7 +339,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio2_res3" layoutX="91.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$quantity3">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -350,7 +350,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -358,7 +358,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio0_res3" layoutX="11.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE" toggleGroup="$quantity3">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -370,7 +370,7 @@
                            <children>
                               <RadioButton fx:id="radio1_res4" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -381,7 +381,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio2_res4" layoutX="91.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$quantity4">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -392,7 +392,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -400,7 +400,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio0_res4" layoutX="11.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE" toggleGroup="$quantity4">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -410,14 +410,14 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="91.0" prefWidth="157.0" GridPane.columnIndex="2">
                            <children>
-                              <Label layoutX="21.0" layoutY="14.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="Extra depot">
+                              <Label layoutX="21.0" layoutY="14.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Extra depot">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="21.0" layoutY="41.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 40;" text="quantity">
+                              <Label alignment="CENTER" layoutX="21.0" layoutY="41.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="quantity">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="Bell MT" size="18.0" />
                                  </font>
                               </Label>
                            </children>
@@ -426,7 +426,7 @@
                            <children>
                               <RadioButton fx:id="radio0_extra_res1" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -437,7 +437,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio1_extra_res1" layoutX="53.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot1">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -448,7 +448,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -460,7 +460,7 @@
                            <children>
                               <RadioButton fx:id="radio0_extra_res2" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -471,7 +471,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio1_extra_res2" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot2">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -482,7 +482,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -494,7 +494,7 @@
                            <children>
                               <RadioButton fx:id="radio0_extra_res3" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -505,7 +505,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio1_extra_res3" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot3">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -516,7 +516,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -528,7 +528,7 @@
                            <children>
                               <RadioButton fx:id="radio0_extra_res4" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -539,7 +539,7 @@
                               </RadioButton>
                               <RadioButton fx:id="radio1_extra_res4" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot4">
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -550,7 +550,7 @@
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
-                                    <Font size="11.0" />
+                                    <Font name="Bell MT" size="11.0" />
                                  </font>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -566,12 +566,17 @@
                <children>
                   <Button fx:id="btm_next" defaultButton="true" layoutX="671.0" layoutY="36.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="NEXT" textFill="WHITE">
                      <font>
-                        <Font name="Arial" size="14.0" />
+                        <Font name="Bell MT" size="14.0" />
                      </font>
                   </Button>
-                  <Label layoutX="22.0" layoutY="34.0" text="All left resources will be discarded!" textFill="RED">
+                  <Label layoutX="174.0" layoutY="37.0" text="all the left resources will be discarded!">
                      <font>
-                        <Font size="26.0" />
+                        <Font name="Bell MT" size="26.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="4.0" layoutY="37.0" text="ATTENTION:" textFill="RED">
+                     <font>
+                        <Font name="Bell MT" size="26.0" />
                      </font>
                   </Label>
                </children>
