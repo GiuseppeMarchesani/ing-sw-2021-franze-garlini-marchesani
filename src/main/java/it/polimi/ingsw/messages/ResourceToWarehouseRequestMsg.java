@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This message contains the new warehouse state of a player.
+ */
 public class ResourceToWarehouseRequestMsg extends ClientMessage {
     private HashMap<Integer, ResourceType> depotToResource;
     private HashMap<Integer, Integer> depotToQuantity;

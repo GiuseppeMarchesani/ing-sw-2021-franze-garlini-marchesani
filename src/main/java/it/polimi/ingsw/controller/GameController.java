@@ -784,11 +784,18 @@ public class GameController {
         return allVirtualView;
     }
 
-
+    /**
+     * Gets the current active player
+     * @return THe active player's username
+     */
     public String getActivePlayer(){
         return turnController.getActivePlayer();
     }
 
+    /**
+     * Checks if the main action has been done
+     * @return true if a main action has been done.
+     */
     public boolean isMainActionDone(){
         return turnController.getMainAction();
     }

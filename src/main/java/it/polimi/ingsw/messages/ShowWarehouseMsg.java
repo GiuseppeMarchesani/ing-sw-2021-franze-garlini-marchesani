@@ -3,7 +3,9 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
-
+/**
+ * This message contains the data of the Player's warehouse
+ */
 public class ShowWarehouseMsg extends ServerMessage {
     private HashMap<Integer, ResourceType> depotToResource;
     private HashMap<Integer, Integer> depotToQuantity;

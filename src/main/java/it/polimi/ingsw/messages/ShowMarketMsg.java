@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+/**
+ * This message contains the data of the Marble Market
+ */
 public class ShowMarketMsg extends ServerMessage{
     private final ResourceType[][] market;
     private final ResourceType cornerMarble;

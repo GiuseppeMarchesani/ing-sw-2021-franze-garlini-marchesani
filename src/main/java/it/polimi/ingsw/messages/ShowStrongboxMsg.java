@@ -3,7 +3,9 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
-
+/**
+ * This message contains the data of the Player's strongbox
+ */
 public class ShowStrongboxMsg extends ServerMessage {
     private HashMap<ResourceType, Integer> strongbox;
     private String username;

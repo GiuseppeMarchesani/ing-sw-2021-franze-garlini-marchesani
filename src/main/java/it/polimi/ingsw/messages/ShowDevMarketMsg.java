@@ -5,6 +5,9 @@ import it.polimi.ingsw.model.Card.DevCard;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This message contains the data of the devcardMarket
+ */
 public class ShowDevMarketMsg extends ServerMessage {
     ArrayList<DevCard> availableCards;
     ArrayList<Integer> remainingCards;

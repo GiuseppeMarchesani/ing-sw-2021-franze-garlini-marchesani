@@ -3,6 +3,9 @@ package it.polimi.ingsw.messages;
 import it.polimi.ingsw.model.Board.Market;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 
+/**
+ * This message contains the chosen row or column of the marble market and the chosen conversion
+ */
 public class GetMarketResRequest extends ClientMessage{
         private char rowOrCol;
         private int num;

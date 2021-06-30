@@ -1,5 +1,8 @@
 package it.polimi.ingsw.messages;
 
+/**
+ * Enum class of all different message types.
+ */
 public enum MessageType {
     //game's messages
     LOGIN,

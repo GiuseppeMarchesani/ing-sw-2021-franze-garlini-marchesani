@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This meessage contains the resources that need to be spent from
+ * the warehouse and the new strongbox after the expenses.
+ */
 public class GetProductionRequest extends ClientMessage {
     private HashMap<ResourceType, Integer> expenseDepot;
     private HashMap<ResourceType, Integer> newStrongbox;

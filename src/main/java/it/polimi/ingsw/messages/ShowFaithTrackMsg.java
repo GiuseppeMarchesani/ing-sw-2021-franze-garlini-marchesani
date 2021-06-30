@@ -2,6 +2,9 @@ package it.polimi.ingsw.messages;
 
 import java.util.HashMap;
 
+/**
+ * This message contains the data of the FaithTrack
+ */
 public class ShowFaithTrackMsg extends ServerMessage {
     private boolean zoneActivated;
     private int whichZone;

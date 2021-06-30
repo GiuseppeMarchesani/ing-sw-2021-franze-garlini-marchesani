@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 
 import java.util.ArrayList;
 
+/**
+ * This message contains the data of the Played Leader Cards.
+ */
 public class ShowPlayedLeadersMsg extends ServerMessage {
     private ArrayList<LeaderCard> playedLeaderCards;
     private String activePlayer;
