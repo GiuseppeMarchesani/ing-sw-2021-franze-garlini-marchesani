@@ -161,7 +161,10 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
-
+        AskCardsForProdSceneController acsc = new AskCardsForProdSceneController();
+        acsc.addAllObservers(observers);
+        acsc.setDevCardList(devCardList);
+        Platform.runLater(() -> MainApp.changeRootPane(acsc, "/fxml/chooseCard_production_scene"));
     }
 
     @Override

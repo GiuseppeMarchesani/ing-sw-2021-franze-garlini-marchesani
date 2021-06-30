@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.image.Image;
@@ -94,27 +95,37 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     }
 
     private void onNextBtm(Event event) {
-        leader1.setDisable(true);
-        leader2.setDisable(true);
-        leader3.setDisable(true);
-        leader4.setDisable(true);
+
         HashMap<LeaderCard, CheckBox> checkBoxes = new HashMap<>();
         ArrayList<LeaderCard> chosenLeader = new ArrayList<>();
         checkBoxes.put(allLeaders.get(0), leader1);
         checkBoxes.put(allLeaders.get(1), leader2);
         checkBoxes.put(allLeaders.get(2), leader3);
         checkBoxes.put(allLeaders.get(3), leader4);
+        int count=0;
         for (LeaderCard ld : checkBoxes.keySet()) {
             if (checkBoxes.get(ld).isSelected()) {
                 chosenLeader.add(ld);
+                count++;
             }
         }
-        allLeaders.removeAll(chosenLeader);
-        for(LeaderCard ld: allLeaders){
-            restLeader.put(ld, false);
+        if(count==2) {
+            allLeaders.removeAll(chosenLeader);
+            for (LeaderCard ld : allLeaders) {
+                restLeader.put(ld, false);
+            }
+            notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
         }
-        notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
-
+        else {
+            Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("You must select two Leader Cards!");
+            errorAlert.showAndWait();
+        }
+        /*leader1.setDisable(true);
+        leader2.setDisable(true);
+        leader3.setDisable(true);
+        leader4.setDisable(true);*/
     }
 
     private void configureCheckBox(CheckBox checkBox) {
