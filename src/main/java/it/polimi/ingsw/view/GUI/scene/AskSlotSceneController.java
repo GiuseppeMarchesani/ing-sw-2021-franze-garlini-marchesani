@@ -220,7 +220,9 @@ public class AskSlotSceneController extends ObservableView implements GenericSce
                     break;
                 }
                 if(resQuantity.get(i) == fromWare + fromStrong) {
-                    newStrongbox.replace(resType.get(i), newStrongbox.get(resType.get(i)) - fromStrong);
+                    if(newStrongbox.get(resType.get(i))!=null) {
+                        newStrongbox.replace(resType.get(i), newStrongbox.get(resType.get(i)) - fromStrong);
+                    }
                     paymentWarehouse.put(resType.get(i), fromWare);
                 }
                 else {
