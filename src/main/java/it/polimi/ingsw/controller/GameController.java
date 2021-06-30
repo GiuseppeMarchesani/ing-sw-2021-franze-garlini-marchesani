@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Action.ActionToken;
-import it.polimi.ingsw.model.Action.ActionTokenType;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
@@ -132,12 +131,14 @@ public class GameController {
             placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
              if(turnController.proxPlayer().equals( turnController.firstPlayer())) {
                  setGameState(GameState.IN_GAME);
+
              }
         }
         if(gameState==GameState.IN_GAME){
             for(VirtualView vv: allVirtualView.values()){
                 vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
                 vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+                broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             }
         }
         startTurn();
@@ -212,9 +213,11 @@ public class GameController {
      */
     private boolean choseInitialRes(){
         String activePlayer= getActivePlayer();
+        broadcastMessage("It's "+getActivePlayer()+"'s turn to choose resources.");
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
+
                 return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
@@ -231,7 +234,9 @@ public class GameController {
         }
         catch (IndexOutOfBoundsException e){
             gameState=GameState.IN_GAME;
+
             turnController.proxPlayer();
+            broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             return true;
         }
     }
@@ -294,6 +299,7 @@ public class GameController {
                         break;
                     case GIVERES:
                         setGameState(GameState.IN_GAME);
+                        broadcastMessage("It's "+getActivePlayer()+"'s turn!");
                         break;
                     default:
                         //None
@@ -316,6 +322,7 @@ public class GameController {
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
+
     /**Reconnects a player who previously disconnected to an ongoing game.
      * @param username of the player reconnecting.
      * @param virtualView the view of the player reconnecting.
@@ -325,6 +332,9 @@ public class GameController {
         turnController.reconnect(username);
         broadcastMessage(username + " has reconnected.");
         showPlayer(gameSession.getPlayer(username),true);
+        allVirtualView.get(username).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+        allVirtualView.get(username).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+
     }
     /**Sends a string message to every player in the game
      * @param  message the String to send.
@@ -442,7 +452,7 @@ public class GameController {
                     startTurn();
                     break;
                 case SHOW_PLAYER:
-                    if(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer())){
+                    if(!(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer()))){
                         allVirtualView.get(getActivePlayer()).showErrorMsg("Player does not exist.");
                         startTurn();
                     }
@@ -812,7 +822,7 @@ public class GameController {
      * @param isYou is the shown player the same one who requested to show.
      */
     public void showPlayer(Player player, boolean isYou){
-        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(),isYou);
+        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(), getActivePlayer());
 
     }
 }

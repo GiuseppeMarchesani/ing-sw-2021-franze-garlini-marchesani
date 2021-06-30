@@ -177,8 +177,8 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new ShowPlayedLeadersMsg(playedLeaderCards, activePlayer));
     }
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you){
-        clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards, remainingLeaderCards, you));
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self){
+        clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards, remainingLeaderCards));
     }
     @Override
     public void showPlayerFaith(ArrayList<Integer> faith){

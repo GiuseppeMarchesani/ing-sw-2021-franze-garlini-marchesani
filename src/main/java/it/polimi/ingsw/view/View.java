@@ -181,7 +181,7 @@ public interface View {
      */
     void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer);
 
-    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you);
+    void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self);
 
     void showPlayerFaith(ArrayList<Integer> faith);
 }

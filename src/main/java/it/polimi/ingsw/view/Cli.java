@@ -144,6 +144,7 @@ public class Cli extends ObservableView implements View{
                     try{
                         String c=readLine();
                         notifyObserver(obs -> obs.updateShowPlayer(c));
+                        break;
                     }
                     catch(Exception e){
                         out.println(STR_WRONG_INPUT);
@@ -928,7 +929,8 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you){
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String user){
+
         out.println("\nShowing player " + username);
         out.println("\nTheir faith is: " + faithSpace);
         showWarehouse(depotToQuantity, depotToResource, username);
@@ -936,6 +938,16 @@ public class Cli extends ObservableView implements View{
         showSlots(devCardSlot,username);
         showPlayedLeaderCards(playedLeaderCards,username);
         out.println("\nThey have " + remainingLeaderCards+" leader cards left.");
-        out.println("\nPress Enter to show your data and continue...");
+        if(!(username.equals(user))){
+
+
+            out.println("\nPress Enter to show your data and continue...");
+            try {
+                String s=readLine();
+            } catch (ExecutionException e) {
+            }
+            notifyObserver(obs -> obs.updateShowPlayer(user));
+        }
+
     }
 }

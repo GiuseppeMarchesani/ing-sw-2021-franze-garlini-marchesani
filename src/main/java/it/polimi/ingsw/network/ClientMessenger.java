@@ -307,10 +307,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SHOW_PLAYER:
                 ShowPlayerReply player=(ShowPlayerReply) msg;
-                queue.execute(()-> view.showErrorMsg("That's you!"));
-                queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards(),player.getRemainingLeaderCards(), player.isYou()));
-                updateShowPlayer(username);
-
+                queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards(),player.getRemainingLeaderCards(), username));
                 break;
             case SHOW_PLAYER_FAITH:
                 queue.execute(()->view.showPlayerFaith(((ShowPlayerFaithMsg) msg).getFaith()));
