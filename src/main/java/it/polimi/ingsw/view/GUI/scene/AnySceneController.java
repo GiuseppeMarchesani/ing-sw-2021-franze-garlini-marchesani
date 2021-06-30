@@ -58,6 +58,7 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
 
                 break;
         }
+        resToPlace.put(anyRes, 1);
         PlaceResourcesSceneController prsc = new PlaceResourcesSceneController();
         prsc.addAllObservers(observers);
         prsc.setResToPlace(resToPlace);
