@@ -237,7 +237,10 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
-
+        ChooseLeaderToPlay cltp = new ChooseLeaderToPlay();
+        cltp.addAllObservers(observers);
+        cltp.setLeaderCards(leaderCards);
+        Platform.runLater(() -> SceneController.changeRootPane(cltp, "/fxml/choose_leaderToPlay"));
     }
 
     @Override
