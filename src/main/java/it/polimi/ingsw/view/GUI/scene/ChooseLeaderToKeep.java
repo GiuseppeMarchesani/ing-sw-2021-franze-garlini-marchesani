@@ -117,7 +117,6 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
 
     }
 
-
     private void configureCheckBox(CheckBox checkBox) {
 
         if (checkBox.isSelected()) {
@@ -144,4 +143,5 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
     public HashMap<LeaderCard, Boolean> getRestLeader(){
         return restLeader;
     }
+
 }
