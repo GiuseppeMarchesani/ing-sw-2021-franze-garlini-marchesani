@@ -1,7 +1,7 @@
 package it.polimi.ingsw.messages;
 
 /**
- * This message contains the requested player's index
+ * This message contains the requested player's username
  */
 public class ShowPlayerRequest extends ClientMessage{
     private String player;

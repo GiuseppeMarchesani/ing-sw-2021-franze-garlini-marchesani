@@ -212,19 +212,17 @@ public class GameController {
      */
     private boolean choseInitialRes(){
         String activePlayer= getActivePlayer();
+        broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
-                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(1);
 
                 return true;
             }
             else if (activePlayer.equals(turnController.getPlayerOrder().get(2))) {
-                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(1);
                 return true;
             } else if(activePlayer.equals(turnController.getPlayerOrder().get(3))) {
-                broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
                 allVirtualView.get(activePlayer).askInitialRes(2);
                 return true;
             }
@@ -448,7 +446,7 @@ public class GameController {
                     startTurn();
                     break;
                 case SHOW_PLAYER:
-                    if(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer())){
+                    if(!(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer()))){
                         allVirtualView.get(getActivePlayer()).showErrorMsg("Player does not exist.");
                         startTurn();
                     }
