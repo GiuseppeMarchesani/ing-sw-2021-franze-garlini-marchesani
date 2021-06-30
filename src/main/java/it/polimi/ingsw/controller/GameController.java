@@ -818,7 +818,7 @@ public class GameController {
      * @param isYou is the shown player the same one who requested to show.
      */
     public void showPlayer(Player player, boolean isYou){
-        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(),isYou, getActivePlayer());
+        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(), getActivePlayer());
 
     }
 }
