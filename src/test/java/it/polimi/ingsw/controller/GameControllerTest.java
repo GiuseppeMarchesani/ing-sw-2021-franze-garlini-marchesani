@@ -6,6 +6,7 @@ import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.network.ClientHandler;
@@ -102,25 +103,30 @@ public class GameControllerTest {
     public void testMultiPlayer() {
         assertFalse( gameControllerMulti.isGameStarted());
 
-        for(int i=0; i<4;i++){
+        for(int i=0; i<3;i++){
             gameControllerMulti.newPlayer(""+i , "gameId", multiViews.get(i));
             assertEquals(i+1, gameControllerMulti.getAllVirtualView().size());
             if(i==0){
                 gameControllerMulti.getMessage(new PlayersNumberRequest("0",4));
             }
         }
+        gameControllerMulti.newPlayer("ricco" , "gameId", excessView);
         gameControllerMulti.newPlayer("4" , "gameId", excessView);
         assertEquals(4, gameControllerMulti.getAllVirtualView().size());
 
 
         assertTrue( gameControllerMulti.isGameStarted());
         assertEquals(GameState.DRAWLEADER, gameControllerMulti.getGameState());
-        for(int i=0; i<4;i++) {
+        for(int i=0; i<3;i++) {
             ArrayList<LeaderCard> hand=new ArrayList<>();
             hand.add(leaderCardDeck.get(2*i));
             hand.add(leaderCardDeck.get(2*i+1));
             gameControllerMulti.getMessage(new StartingLeadersRequestMsg(""+i, hand));
         }
+        ArrayList<LeaderCard> hand=new ArrayList<>();
+        hand.add(leaderCardDeck.get(6));
+        hand.add(leaderCardDeck.get(7));
+        gameControllerMulti.getMessage(new StartingLeadersRequestMsg("ricco", hand));
         assertEquals("1", gameControllerMulti.getActivePlayer());
         assertEquals(GameState.GIVERES, gameControllerMulti.getGameState());
         HashMap<Integer, ResourceType> depotToResource= new HashMap<>();
@@ -135,7 +141,7 @@ public class GameControllerTest {
 
         gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("2",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
         depotToQuantity.put(0,2);
-        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("3",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
+        gameControllerMulti.getMessage(new ResourceToWarehouseRequestMsg("ricco",depotToResource,depotToQuantity, new ArrayList<Integer>(),0));
         assertEquals("0", gameControllerMulti.getActivePlayer());
         assertEquals(GameState.IN_GAME, gameControllerMulti.getGameState());
         gameControllerMulti.getMessage(new ActionRequest("0", MessageType.MAIN_MARBLE));
@@ -154,14 +160,35 @@ public class GameControllerTest {
         assertEquals(faithMarket, gameControllerMulti.getGameSession().getPlayer("0").getFaithSpace());
         assertEquals(3, gameControllerMulti.getGameSession().getPlayer("1").getFaithSpace());
         assertEquals(4, gameControllerMulti.getGameSession().getPlayer("2").getFaithSpace());
-        assertEquals(5, gameControllerMulti.getGameSession().getPlayer("3").getFaithSpace());
-
+        assertEquals(5, gameControllerMulti.getGameSession().getPlayer("ricco").getFaithSpace());
         gameControllerMulti.getMessage(new ActionRequest("0", MessageType.END_TURN));
         assertFalse(gameControllerMulti.isMainActionDone());
-        gameControllerMulti.getMessage(new ActionRequest("1", MessageType.END_TURN));
+        assertEquals("1", gameControllerMulti.getActivePlayer());
+       gameControllerMulti.disconnect("1");
+
+        assertEquals("2", gameControllerMulti.getActivePlayer());
+
+        gameControllerMulti.getMessage(new ActionRequest("2", MessageType.MAIN_CARD));
+
+        gameControllerMulti.getMessage(new BuyDevCardRequest("2", 2, Color.PURPLE));
+        assertFalse(gameControllerMulti.isMainActionDone());
+        gameControllerMulti.getMessage(new BuyDevCardRequest("1", 2, Color.PURPLE));
+        assertFalse(gameControllerMulti.isMainActionDone());
+        ArrayList<DevCard> any=new ArrayList<>();
+        any.add(new DevCard());
+        gameControllerMulti.getMessage(new AskProductionRequest("2",any));
+        assertFalse(gameControllerMulti.isMainActionDone());
+        gameControllerMulti.getMessage(new LeaderActionRequest("2",leaderCardDeck.get(4), false));
+        gameControllerMulti.getMessage(new LeaderActionRequest("2",leaderCardDeck.get(5), false));
+        assertEquals(faithMarket, gameControllerMulti.getGameSession().getPlayer("0").getFaithSpace());
+        assertEquals(3, gameControllerMulti.getGameSession().getPlayer("1").getFaithSpace());
+        assertEquals(6, gameControllerMulti.getGameSession().getPlayer("2").getFaithSpace());
+        assertEquals(5, gameControllerMulti.getGameSession().getPlayer("ricco").getFaithSpace());
+        assertEquals(0,gameControllerMulti.getGameSession().getPlayer("2").getLeaderCards().size());
         gameControllerMulti.getMessage(new ActionRequest("2", MessageType.END_TURN));
-        assertEquals("3", gameControllerMulti.getActivePlayer());
-        gameControllerMulti.disconnect("3");
+        assertEquals("ricco", gameControllerMulti.getActivePlayer());
+
+        gameControllerMulti.getMessage(new ActionRequest("ricco", MessageType.END_TURN));
         assertEquals("0", gameControllerMulti.getActivePlayer());
 
     }
@@ -172,6 +199,7 @@ public class GameControllerTest {
             depotToResource.put(i, ResourceType.EMPTY);
         }
     }
+
     @Test
     public void testSinglePlayer(){
         assertFalse( gameControllerSingle.isGameStarted());

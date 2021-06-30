@@ -283,7 +283,7 @@ public class GameController {
      *@param username the username who disconnected
      */
     public void disconnect(String username){
-        if(turnController.disconnect(username))
+        if(username.equals(getActivePlayer()))
         {
 
             if(turnController.proxPlayer().equals(turnController.firstPlayer())&&turnController.getActivePlayers().size()!=0){
@@ -299,8 +299,10 @@ public class GameController {
                         //None
                 }
             }
+            turnController.disconnect(username);
             startTurn();
         }
+        turnController.disconnect(username);
     }
     /**
      *@return A List of usernames of disconnected players from an ongoing game
@@ -366,7 +368,7 @@ public class GameController {
                     }
                     break;
                 case PLACE_CARD:
-                    turnController.setMainAction(true);
+
                     placeCard((PlaceDevCardRequest) msg, tempCards.get(0), player);
                     startTurn();
                     break;
@@ -528,6 +530,7 @@ public class GameController {
         }
         if (player.checkPriceCanBePaid(discountedPrice)){
             allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), card.getCardCost(), any, slots);
+            turnController.setMainAction(true);
         }
         else{
             allVirtualView.get(msg.getUsername()).showErrorMsg("Not enough resources!");
@@ -556,7 +559,7 @@ public class GameController {
         allVirtualView.get(getActivePlayer()).showStrongbox(msg.getNewStrongbox(), getActivePlayer());
         allVirtualView.get(getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), getActivePlayer());
         if(player.getDevCardSlot().getCardQuantity()==7){
-            broadcastMessage("A player has bought 7 decelopment cards.");
+            broadcastMessage("A player has bought 7 development cards.");
             broadcastMessage("We're in the endgame now.");
             setGameState(GameState.END_GAME);
         }
