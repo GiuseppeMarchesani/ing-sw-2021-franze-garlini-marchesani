@@ -51,7 +51,6 @@ public class MainApp  extends Application {
 
         stage.setResizable(true);
         stage.setMaximized(false);
-        stage.setFullScreen(true);
         stage.setTitle("Masters of Renaissance");
         stage.show();
 
