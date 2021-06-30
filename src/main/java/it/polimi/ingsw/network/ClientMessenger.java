@@ -175,8 +175,8 @@ public class ClientMessenger implements Observer, ObserverView {
     public void updatePlaceDevCard(HashMap<ResourceType, Integer> expenseDepot, HashMap<ResourceType, Integer> newStrongbox, int slotToPlace){
         client.sendMessage(new PlaceDevCardRequest(username, expenseDepot, newStrongbox, slotToPlace));
     }
-    public void updateShowPlayer(int n){
-        client.sendMessage(new ShowPlayerRequest(username, n));
+    public void updateShowPlayer(String player){
+        client.sendMessage(new ShowPlayerRequest(username, player));
     }
     /**
      *Asks for resources from the resource market
@@ -302,10 +302,10 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SHOW_PLAYER:
                 ShowPlayerReply player=(ShowPlayerReply) msg;
-                if(player.getUsername().equals(username)) {
-                    queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards(),player.getRemainingLeaderCards()));
-                }
-                else  queue.execute(()-> view.showErrorMsg("That's you!"));
+                queue.execute(()-> view.showErrorMsg("That's you!"));
+                queue.execute(() -> view.showPlayer(player.getUsername(), player.getFaithSpace(), player.getDepotToResource(), player.getDepotToQuantity(), player.getStrongbox(), player.getDevCardSlot(), player.getPlayedLeaderCards(),player.getRemainingLeaderCards(), player.isYou()));
+
+
                 break;
             case SHOW_PLAYER_FAITH:
                 queue.execute(()->view.showPlayerFaith(((ShowPlayerFaithMsg) msg).getFaith()));

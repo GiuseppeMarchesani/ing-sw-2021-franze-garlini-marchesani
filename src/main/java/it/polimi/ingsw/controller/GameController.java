@@ -324,6 +324,7 @@ public class GameController {
         allVirtualView.put(username, virtualView);
         turnController.reconnect(username);
         broadcastMessage(username + " has reconnected.");
+        showPlayer(gameSession.getPlayer(username),true);
     }
     /**Sends a string message to every player in the game
      * @param  message the String to send.
@@ -441,14 +442,17 @@ public class GameController {
                     startTurn();
                     break;
                 case SHOW_PLAYER:
-                    if(((ShowPlayerRequest) msg).getNumber()>maxPlayers){
+                    if(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer())){
                         allVirtualView.get(getActivePlayer()).showErrorMsg("Player does not exist.");
                     }
                     else {
-                        player=gameSession.getPlayersList().get((((ShowPlayerRequest) msg).getNumber()));
-                        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards());
+                        player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
+                        if(player.equals(getActivePlayer())) {
+                            showPlayer(player, true);
+                            startTurn();
+                        }
+                        else showPlayer(player, false);
                     }
-                    startTurn();
                 case SHOW_PLAYER_FAITH:
                     allVirtualView.get(getActivePlayer()).showPlayerFaith(gameSession.getFaith(getActivePlayer()));
                     startTurn();
@@ -798,5 +802,15 @@ public class GameController {
      */
     public boolean isMainActionDone(){
         return turnController.getMainAction();
+    }
+
+    /**
+     * Shows a player
+     * @param player The player to show
+     * @param isYou is the shown player the same one who requested to show.
+     */
+    public void showPlayer(Player player, boolean isYou){
+        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(),isYou);
+
     }
 }

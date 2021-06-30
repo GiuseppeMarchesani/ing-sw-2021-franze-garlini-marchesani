@@ -6,15 +6,12 @@ import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enumeration.ResourceType;
-import it.polimi.ingsw.network.ClientHandler;
 import it.polimi.ingsw.network.ClientHandlerInterface;
 import it.polimi.ingsw.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Hides the network implementation from the controller.
@@ -180,7 +177,7 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new ShowPlayedLeadersMsg(playedLeaderCards, activePlayer));
     }
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards){
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, boolean you){
         clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards, remainingLeaderCards));
     }
     @Override
