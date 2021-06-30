@@ -657,7 +657,7 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> leaderCards, String username){
-        out.println("\nPlayer " + username + " has played a Leader Card. ");
+        if(leaderCards!=null && leaderCards.size()>0) out.println("\nPlayer " + username + " has played a Leader Card. ");
         for(LeaderCard leader: leaderCards) {
             out.println(leader.toString());
         }
