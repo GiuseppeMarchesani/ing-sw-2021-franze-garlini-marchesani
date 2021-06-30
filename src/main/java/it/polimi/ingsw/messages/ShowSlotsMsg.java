@@ -1,7 +1,9 @@
 package it.polimi.ingsw.messages;
 
 import it.polimi.ingsw.model.Card.DevCardSlot;
-
+/**
+ * This message contains the data of the Player's devcardslot
+ */
 public class ShowSlotsMsg extends ServerMessage {
     private String username;
     private DevCardSlot devCardSlot;

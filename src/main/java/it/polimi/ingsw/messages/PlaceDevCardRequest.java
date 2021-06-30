@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This message identifies the expenses from the warehouse, the new strongbox after
+ * expense and the chosen slot to place a devcard after a buy dev card action.
+ */
 public class PlaceDevCardRequest extends ClientMessage {
     private HashMap<ResourceType, Integer> expenseDepot;
     private HashMap<ResourceType, Integer> newStrongbox;

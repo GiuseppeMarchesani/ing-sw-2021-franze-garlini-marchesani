@@ -4,6 +4,11 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.util.HashMap;
 
+/**
+ * This message contains the player's strongbox and warehouse,
+ * the resource cost and how many ANY resources
+ * need to be paid or produced, after choosing production cards.
+ */
 public class GetProductionReply extends ServerMessage {
 
 

@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This message contains the data of a player
+ */
 public class ShowPlayerReply extends ServerMessage {
     private int faithSpace;
     private HashMap<Integer,ResourceType> depotToResource;

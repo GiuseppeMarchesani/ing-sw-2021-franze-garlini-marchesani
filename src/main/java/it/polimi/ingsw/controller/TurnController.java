@@ -10,6 +10,9 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class controls the flow of the turns during the game.
+ */
 
 public class TurnController {
 

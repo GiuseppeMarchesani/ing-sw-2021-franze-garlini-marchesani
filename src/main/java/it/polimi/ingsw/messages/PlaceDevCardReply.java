@@ -5,6 +5,10 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This message contains the price of a devcard and the resources of the player,
+ * and also the available slots for the bought devcard to be placed.
+ */
 public class PlaceDevCardReply extends ServerMessage {
     private HashMap<ResourceType, Integer> strongbox;
     private HashMap<ResourceType, Integer> warehouse;

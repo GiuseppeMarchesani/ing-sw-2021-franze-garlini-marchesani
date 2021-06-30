@@ -1,5 +1,8 @@
 package it.polimi.ingsw.messages;
 
+/**
+ * Identifies if a login was succesful
+ */
 public class LoginReply extends ServerMessage {
      private boolean joined;
      private String username;
