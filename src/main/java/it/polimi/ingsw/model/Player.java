@@ -89,22 +89,20 @@ public class Player {
      */
     public void discardLeader(int cardId){
         for(LeaderCard leader: leaderCards.keySet()) {
-            if(leader.getId()==cardId) leaderCards.remove(leader);
-            break;
+            if(leader.getId()==cardId){ leaderCards.remove(leader);
+            break;}
         }
     }
 
     /**
      * Plays a Leader Card from the player's hand.
-     * @param cardId the id of the card to be played.
+     * @param leader the card to be played
      */
-    public void playLeader(int cardId){
-        for(LeaderCard leader: leaderCards.keySet()) {
-            if(leader.getId()==cardId){
-                leaderCards.replace(leader, true);
+    public void playLeader(LeaderCard leader){
+
+                leaderCards.put(leader, true);
                 leader.activateAbility(this);
-            }
-        }
+
     }
 
     /**

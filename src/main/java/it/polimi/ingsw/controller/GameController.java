@@ -678,13 +678,13 @@ public class GameController {
                         allVirtualView.get(getActivePlayer()).showErrorMsg("Not enough resources!");
                         return;
                     }
-                    player.playLeader(card.getId());
+                    player.playLeader(card);
                         allVirtualView.get(getActivePlayer()).showPlayedLeaderCards(player.getPlayedLeaderCards(), getActivePlayer());
 
                     break;
                 case LEVEL_TWO:
                     if(checkLevelTwoColor(((LeaderProduction) card).getColorCost(), player)){
-                        player.playLeader(card.getId());
+                        player.playLeader(card);
                         allVirtualView.get(getActivePlayer()).showPlayedLeaderCards(player.getPlayedLeaderCards(), getActivePlayer());
 
                      }
@@ -697,7 +697,7 @@ public class GameController {
                 case DEV_CARD_SINGLE:
                 case DEV_CARD_DOUBLE:
                     if(checkCardColorRequirements(player, card.getCardCost())){
-                        player.playLeader(card.getId());
+                        player.playLeader(card);
                         allVirtualView.get(getActivePlayer()).showPlayedLeaderCards(player.getPlayedLeaderCards(), getActivePlayer());
                     }
                     else return;

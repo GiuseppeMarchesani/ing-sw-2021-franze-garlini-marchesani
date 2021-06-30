@@ -107,10 +107,10 @@ public class PlayerTest {
             assertEquals(false, (boolean) testPlayer.getLeaderCards().get(leader));
         }
         LeaderCard played = testPlayer.getLeaderCardList().get(0);
-        testPlayer.playLeader(played.getId());
+        testPlayer.playLeader(played);
         assertTrue((boolean) testPlayer.getLeaderCards().get(played));
         played = testPlayer.getLeaderCardList().get(0);
-        testPlayer.playLeader(played.getId());
+        testPlayer.playLeader(played);
         for(LeaderCard leader: testPlayer.getLeaderCards().keySet()) {
             assertEquals(true, (boolean) testPlayer.getLeaderCards().get(leader));
         }
@@ -192,7 +192,7 @@ public class PlayerTest {
 
         vp = testPlayer.getLeaderCardList().get(0).getVP();
         vp += testPlayer.getLeaderCardList().get(1).getVP();
-        for(LeaderCard leader: testPlayer.getLeaderCards().keySet()) testPlayer.playLeader(leader.getId());
+        for(LeaderCard leader: testPlayer.getLeaderCards().keySet()) testPlayer.playLeader(leader);
         assertEquals(8, testPlayer.getLeaderVp());
     }
 }

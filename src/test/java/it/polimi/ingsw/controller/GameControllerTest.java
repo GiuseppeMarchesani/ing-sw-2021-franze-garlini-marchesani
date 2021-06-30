@@ -125,7 +125,7 @@ public class GameControllerTest {
         }
         ArrayList<LeaderCard> hand=new ArrayList<>();
         hand.add(leaderCardDeck.get(6));
-        hand.add(leaderCardDeck.get(7));
+        hand.add(leaderCardDeck.get(12));
         gameControllerMulti.getMessage(new StartingLeadersRequestMsg("ricco", hand));
         assertEquals("1", gameControllerMulti.getActivePlayer());
         assertEquals(GameState.GIVERES, gameControllerMulti.getGameState());
@@ -185,11 +185,38 @@ public class GameControllerTest {
         assertEquals(6, gameControllerMulti.getGameSession().getPlayer("2").getFaithSpace());
         assertEquals(5, gameControllerMulti.getGameSession().getPlayer("ricco").getFaithSpace());
         assertEquals(0,gameControllerMulti.getGameSession().getPlayer("2").getLeaderCards().size());
+        gameControllerMulti.getMessage(new GetMarketResRequest("0", 'r', 3, ResourceType.EMPTY));
+        assertFalse(gameControllerMulti.isMainActionDone());
+        gameControllerMulti.getMessage(new GetMarketResRequest("2", 'r', 2, ResourceType.EMPTY));
         gameControllerMulti.getMessage(new ActionRequest("2", MessageType.END_TURN));
-        assertEquals("ricco", gameControllerMulti.getActivePlayer());
 
+        assertEquals("ricco", gameControllerMulti.getActivePlayer());
+        gameControllerMulti.getMessage(new LeaderActionRequest("ricco",leaderCardDeck.get(6), true));
+        gameControllerMulti.getMessage(new LeaderActionRequest("ricco",leaderCardDeck.get(12), true));
+        gameControllerMulti.getMessage(new BuyDevCardRequest("ricco", 1, Color.YELLOW));
+        gameControllerMulti.getMessage(new PlaceDevCardRequest("ricco", new HashMap<ResourceType, Integer>(), fullStrongbox(),1));
+        assertEquals(0, gameControllerMulti.getGameSession().getPlayer("ricco").getPlayedLeaderCards().size());
+        assertEquals(1, gameControllerMulti.getGameSession().getPlayer("ricco").getDevCardSlot().getAllDevCards().size());
+        assertEquals(0, gameControllerMulti.getGameSession().getPlayer("ricco").getDevCardSlot().getSlotLeader().size());
+        gameControllerMulti.disconnect("0");
+        gameControllerMulti.disconnect("2");
+        gameControllerMulti.getMessage(new ActionRequest("ricco", MessageType.END_TURN));
+        assertEquals("ricco", gameControllerMulti.getActivePlayer());
+        gameControllerMulti.getMessage(new BuyDevCardRequest("ricco", 2, Color.YELLOW));
+        gameControllerMulti.getMessage(new PlaceDevCardRequest("ricco", new HashMap<ResourceType, Integer>(), fullStrongbox(),1));
+        gameControllerMulti.getMessage(new LeaderActionRequest("ricco",leaderCardDeck.get(6), true));
+        gameControllerMulti.getMessage(new LeaderActionRequest("ricco",leaderCardDeck.get(12), true));
+        assertEquals(1, gameControllerMulti.getGameSession().getPlayer("ricco").getPlayedLeaderCards().size());
+        assertEquals(1, gameControllerMulti.getGameSession().getPlayer("ricco").getDevCardSlot().getSlotLeader().size());
+        assertEquals(3, gameControllerMulti.getGameSession().getPlayer("ricco").getDevCardSlot().getCardsAvailable().size());
+        gameControllerMulti.reconnect("0", multiViews.get(0));
         gameControllerMulti.getMessage(new ActionRequest("ricco", MessageType.END_TURN));
         assertEquals("0", gameControllerMulti.getActivePlayer());
+        gameControllerMulti.disconnect("0");
+        assertEquals("ricco", gameControllerMulti.getActivePlayer());
+
+        gameControllerMulti.getMessage(new AskProductionRequest("ricco", gameControllerMulti.getGameSession().getPlayer("ricco").getDevCardSlot().getCardsAvailable()));
+        gameControllerMulti.getMessage(new GetProductionRequest("ricco", new HashMap<ResourceType, Integer>(), fullStrongbox()));
 
     }
 
@@ -198,6 +225,15 @@ public class GameControllerTest {
             depotToQuantity.put(i,0);
             depotToResource.put(i, ResourceType.EMPTY);
         }
+    }
+    public HashMap<ResourceType, Integer> fullStrongbox(){
+        HashMap<ResourceType, Integer> newStrongbox = new HashMap<>();
+        newStrongbox.put(ResourceType.COIN,999);
+        newStrongbox.put(ResourceType.STONE,999);
+        newStrongbox.put(ResourceType.SERVANT,999);
+        newStrongbox.put(ResourceType.SHIELD,999);
+        return newStrongbox;
+
     }
 
     @Test
