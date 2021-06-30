@@ -102,13 +102,24 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-        PlaceResourcesSceneController prsc = new PlaceResourcesSceneController();
-        prsc.addAllObservers(observers);
-        prsc.setResToPlace(resToPlace);
-        prsc.setExtraDepot(extraDepot);
-        Platform.runLater(()->
-                MainApp.changeRootPane(prsc,"/fxml/place_resources_scene")
-        );
+        if (numAny > 0) {
+            for(int i=0; i<numAny; i++){
+                AnySceneController asc = new AnySceneController();
+                asc.addAllObservers(observers);
+                asc.setResToPlace(resToPlace);
+                asc.setExtraDepot(extraDepot);
+                Platform.runLater(() -> MainApp.changeRootPane(observers, "/fxml/any_scene"));
+            }
+        }
+        else {
+            PlaceResourcesSceneController prsc = new PlaceResourcesSceneController();
+            prsc.addAllObservers(observers);
+            prsc.setResToPlace(resToPlace);
+            prsc.setExtraDepot(extraDepot);
+            Platform.runLater(() ->
+                    MainApp.changeRootPane(prsc, "/fxml/place_resources_scene")
+            );
+        }
 
     }
 
