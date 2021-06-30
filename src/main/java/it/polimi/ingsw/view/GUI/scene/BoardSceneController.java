@@ -206,6 +206,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
         btmProduction.setDisable(true);
         btmResources.setDisable(true);
         btmDevCard.setDisable(true);
+        end_turn.setDisable(false);
         notifyObserver(obs -> obs.updateAction(0));
     }
     public void onProductionBtm(Event event){
@@ -568,5 +569,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         updateLeader();
         updateFaithTrack();
         updateWarehouse();
+
     }
 }
