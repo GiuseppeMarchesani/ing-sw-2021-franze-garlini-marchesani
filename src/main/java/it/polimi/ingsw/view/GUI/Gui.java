@@ -27,10 +27,9 @@ public class Gui extends ObservableView implements View {
     private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private boolean startGame = false;
     private HashMap<ResourceType, Integer> anyRes = new HashMap<>();
-    private HashMap<Boolean, Integer> faithZone = new HashMap<>();
+    private HashMap<Integer, Boolean> faithZone = new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
     private static ArrayList<Integer> remainingCards = new ArrayList<>();
-
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -59,13 +58,18 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askAction() {
+        if(faithZone.size()==0){
+            faithZone.put(0, false);
+            faithZone.put(1, false);
+            faithZone.put(2, false);
+        }
         if(!startGame){
             startGame = true;
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
         }
         else{
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
         }
     }
@@ -176,6 +180,9 @@ public class Gui extends ObservableView implements View {
     public void showPlayerFaith(ArrayList<Integer> faith) {
         for(int i=0; i<playerList.size(); i++){
             faithTrack.put(playerList.get(i), faith.get(i));
+            if(playerList.size()==1) {
+                faithTrack.put("Lorenzo il Magnifico", faith.get(i+1));
+            }
         }
     }
 
@@ -194,7 +201,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
-        this.faithZone.put(wasZoneActivated, whichZone);
+        faithZone.replace(whichZone, wasZoneActivated);
     }
 
     @Override

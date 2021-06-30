@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.BoardSceneController">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.BoardSceneController">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -72,126 +65,57 @@
                   <Image url="@../images/FaithTrack.png" />
                </image>
             </ImageView>
-            <Text fx:id="name5" layoutX="150.0" layoutY="38.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name1" layoutX="72.0" layoutY="108.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name16" fill="WHITE" layoutX="561.0" layoutY="110.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="7.0" />
-               </font>
-            </Text>
-            <Text fx:id="name15" layoutX="475.0" layoutY="107.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name14" layoutX="433.0" layoutY="111.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name13" layoutX="392.0" layoutY="110.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name12" layoutX="351.0" layoutY="111.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name11" layoutX="315.0" layoutY="111.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name10" layoutX="315.0" layoutY="72.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name9" layoutX="315.0" layoutY="47.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name8" fill="WHITE" layoutX="272.0" layoutY="10.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="7.0" />
-               </font>
-            </Text>
-            <Text fx:id="name6" layoutX="195.0" layoutY="48.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name4" layoutX="115.0" layoutY="34.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name3" layoutX="114.0" layoutY="74.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name2" layoutX="114.0" layoutY="111.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name7" layoutX="230.0" layoutY="41.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name17" layoutX="513.0" layoutY="73.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name18" layoutX="513.0" layoutY="45.0" text="MARTI" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name19" layoutX="550.0" layoutY="38.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name20" layoutX="596.0" layoutY="37.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name21" layoutX="631.0" layoutY="48.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name22" layoutX="671.0" layoutY="37.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name24" layoutX="755.0" layoutY="7.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
-            <Text fx:id="name23" layoutX="712.0" layoutY="36.0" wrappingWidth="34.99999999999977">
-               <font>
-                  <Font name="Bell MT" size="6.0" />
-               </font>
-            </Text>
+            <ImageView fx:id="img_space1" fitHeight="23.0" fitWidth="21.0" layoutX="86.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space2" fitHeight="21.0" fitWidth="21.0" layoutX="129.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space3" fitHeight="21.0" fitWidth="21.0" layoutX="129.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space4" fitHeight="21.0" fitWidth="21.0" layoutX="128.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space5" fitHeight="21.0" fitWidth="21.0" layoutX="170.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space6" fitHeight="21.0" fitWidth="21.0" layoutX="214.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space7" fitHeight="21.0" fitWidth="21.0" layoutX="249.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space8" fitHeight="21.0" fitWidth="21.0" layoutX="285.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space9" fitHeight="21.0" fitWidth="21.0" layoutX="333.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space10" fitHeight="21.0" fitWidth="21.0" layoutX="333.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space11" fitHeight="21.0" fitWidth="21.0" layoutX="323.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space12" fitHeight="21.0" fitWidth="21.0" layoutX="371.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space13" fitHeight="21.0" fitWidth="21.0" layoutX="409.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space14" fitHeight="21.0" fitWidth="21.0" layoutX="448.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space15" fitHeight="21.0" fitWidth="21.0" layoutX="489.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space16" fitHeight="21.0" fitWidth="21.0" layoutX="534.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space17" fitHeight="21.0" fitWidth="21.0" layoutX="530.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space18" fitHeight="21.0" fitWidth="21.0" layoutX="524.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space19" fitHeight="21.0" fitWidth="21.0" layoutX="568.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space20" fitHeight="21.0" fitWidth="21.0" layoutX="610.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space21" fitHeight="21.0" fitWidth="21.0" layoutX="650.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space22" fitHeight="21.0" fitWidth="21.0" layoutX="687.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space23" fitHeight="21.0" fitWidth="21.0" layoutX="731.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="img_space24" fitHeight="21.0" fitWidth="21.0" layoutX="767.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross1" fitHeight="23.0" fitWidth="21.0" layoutX="74.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross2" fitHeight="23.0" fitWidth="21.0" layoutX="111.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross3" fitHeight="23.0" fitWidth="21.0" layoutX="111.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross4" fitHeight="23.0" fitWidth="21.0" layoutX="111.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross5" fitHeight="23.0" fitWidth="21.0" layoutX="150.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross6" fitHeight="23.0" fitWidth="21.0" layoutX="191.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross7" fitHeight="23.0" fitWidth="21.0" layoutX="235.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross8" fitHeight="23.0" fitWidth="21.0" layoutX="270.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross9" fitHeight="23.0" fitWidth="21.0" layoutX="312.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross10" fitHeight="23.0" fitWidth="21.0" layoutX="312.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross11" fitHeight="23.0" fitWidth="21.0" layoutX="312.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross12" fitHeight="23.0" fitWidth="21.0" layoutX="354.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross13" fitHeight="23.0" fitWidth="21.0" layoutX="392.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross14" fitHeight="23.0" fitWidth="21.0" layoutX="430.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross15" fitHeight="23.0" fitWidth="21.0" layoutX="469.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross16" fitHeight="23.0" fitWidth="21.0" layoutX="514.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross17" fitHeight="23.0" fitWidth="21.0" layoutX="514.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross18" fitHeight="23.0" fitWidth="21.0" layoutX="514.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross19" fitHeight="23.0" fitWidth="21.0" layoutX="555.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross20" fitHeight="23.0" fitWidth="21.0" layoutX="595.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross21" fitHeight="23.0" fitWidth="21.0" layoutX="631.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross22" fitHeight="23.0" fitWidth="21.0" layoutX="671.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross23" fitHeight="23.0" fitWidth="21.0" layoutX="712.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="blackCross24" fitHeight="23.0" fitWidth="21.0" layoutX="757.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pope1" fitHeight="61.0" fitWidth="63.0" layoutX="197.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pope2" fitHeight="61.0" fitWidth="63.0" layoutX="398.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pope3" fitHeight="61.0" fitWidth="63.0" layoutX="640.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Pane id="resources" layoutX="5.0" layoutY="319.0" prefHeight="340.0" prefWidth="217.0">

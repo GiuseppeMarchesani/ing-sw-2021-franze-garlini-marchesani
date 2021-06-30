@@ -1,10 +1,10 @@
 package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.Card.DevCard;
+import it.polimi.ingsw.model.Card.DevCardSlot;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
 import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,53 +72,101 @@ public class BoardSceneController extends ObservableView implements GenericScene
     @FXML
     private ImageView img_leader2;
     @FXML
-    private Text name1;
+    private ImageView img_space1;
     @FXML
-    private Text name2;
+    private ImageView img_space2;
     @FXML
-    private Text name3;
+    private ImageView img_space3;
     @FXML
-    private Text name4;
+    private ImageView img_space4;
     @FXML
-    private Text name5;
+    private ImageView img_space5;
     @FXML
-    private Text name6;
+    private ImageView img_space6;
     @FXML
-    private Text name7;
+    private ImageView img_space7;
     @FXML
-    private Text name8;
+    private ImageView img_space8;
     @FXML
-    private Text name9;
+    private ImageView img_space9;
     @FXML
-    private Text name10;
+    private ImageView img_space10;
     @FXML
-    private Text name11;
+    private ImageView img_space11;
     @FXML
-    private Text name12;
+    private ImageView img_space12;
     @FXML
-    private Text name13;
+    private ImageView img_space13;
     @FXML
-    private Text name14;
+    private ImageView img_space14;
     @FXML
-    private Text name15;
+    private ImageView img_space15;
     @FXML
-    private Text name16;
+    private ImageView img_space16;
     @FXML
-    private Text name17;
+    private ImageView img_space17;
     @FXML
-    private Text name18;
+    private ImageView img_space18;
     @FXML
-    private Text name19;
+    private ImageView img_space19;
     @FXML
-    private Text name20;
+    private ImageView img_space20;
     @FXML
-    private Text name21;
+    private ImageView img_space21;
     @FXML
-    private Text name22;
+    private ImageView img_space22;
     @FXML
-    private Text name23;
+    private ImageView img_space23;
     @FXML
-    private Text name24;
+    private ImageView img_space24;
+    @FXML
+    private ImageView blackCross1;
+    @FXML
+    private ImageView blackCross2;
+    @FXML
+    private ImageView blackCross3;
+    @FXML
+    private ImageView blackCross4;
+    @FXML
+    private ImageView blackCross5;
+    @FXML
+    private ImageView blackCross6;
+    @FXML
+    private ImageView blackCross7;
+    @FXML
+    private ImageView blackCross8;
+    @FXML
+    private ImageView blackCross9;
+    @FXML
+    private ImageView blackCross10;
+    @FXML
+    private ImageView blackCross11;
+    @FXML
+    private ImageView blackCross12;
+    @FXML
+    private ImageView blackCross13;
+    @FXML
+    private ImageView blackCross14;
+    @FXML
+    private ImageView blackCross15;
+    @FXML
+    private ImageView blackCross16;
+    @FXML
+    private ImageView blackCross17;
+    @FXML
+    private ImageView blackCross18;
+    @FXML
+    private ImageView blackCross19;
+    @FXML
+    private ImageView blackCross20;
+    @FXML
+    private ImageView blackCross21;
+    @FXML
+    private ImageView blackCross22;
+    @FXML
+    private ImageView blackCross23;
+    @FXML
+    private ImageView blackCross24;
     @FXML
     private Button end_turn;
     @FXML
@@ -166,6 +213,31 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private Label state_leader1;
     @FXML
     private  Label state_leader2;
+    @FXML
+    private ImageView pope1;
+    @FXML
+    private ImageView pope2;
+    @FXML
+    private ImageView pope3;
+    @FXML
+    private ImageView img_slot0_card0;
+    @FXML
+    private ImageView img_slot0_card1;
+    @FXML
+    private ImageView img_slot0_card2;
+    @FXML
+    private ImageView img_slot1_card0;
+    @FXML
+    private ImageView img_slot1_card1;
+    @FXML
+    private ImageView img_slot1_card2;
+    @FXML
+    private ImageView img_slot2_card0;
+    @FXML
+    private ImageView img_slot2_card1;
+    @FXML
+    private ImageView img_slot2_card2;
+
 
     private ArrayList<ImageView> cards = new ArrayList<>();
     private ArrayList<ImageView> market = new ArrayList<>();
@@ -181,15 +253,13 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private int leaderAction = 0;
     private ArrayList<Integer> remainingCards = new ArrayList<>();
+    private HashMap<Integer, Boolean> faithZone= new HashMap<>();
+    private DevCardSlot devCardSlot = new DevCardSlot();
+
     @FXML
     public void initialize(){
         end_turn.setDisable(true);
-        numPlayer = Gui.getPlayerList();
-        if(numPlayer.size()==1) {
-            btmPlayers.setDisable(true);
-            btmPlayers.setVisible(false);
 
-        }
         btmDevCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBuyCardBtm);
         btmResources.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onResourcesBtm);
         btmProduction.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onProductionBtm);
@@ -406,121 +476,289 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
     private void updateFaithTrack(){
-        name1.setText("");
-        name2.setText("");
-        name3.setText("");
-        name4.setText("");
-        name5.setText("");
-        name6.setText("");
-        name7.setText("");
-        name8.setText("");
-        name9.setText("");
-        name10.setText("");
-        name11.setText("");
-        name12.setText("");
-        name13.setText("");
-        name14.setText("");
-        name15.setText("");
-        name16.setText("");
-        name17.setText("");
-        name18.setText("");
-        name19.setText("");
-        name20.setText("");
-        name21.setText("");
-        name22.setText("");
-        name23.setText("");
-        name24.setText("");
+        img_space1.setImage(null);
+        img_space2.setImage(null);
+        img_space3.setImage(null);
+        img_space4.setImage(null);
+        img_space5.setImage(null);
+        img_space6.setImage(null);
+        img_space7.setImage(null);
+        img_space8.setImage(null);
+        img_space9.setImage(null);
+        img_space10.setImage(null);
+        img_space11.setImage(null);
+        img_space12.setImage(null);
+        img_space13.setImage(null);
+        img_space14.setImage(null);
+        img_space15.setImage(null);
+        img_space16.setImage(null);
+        img_space17.setImage(null);
+        img_space18.setImage(null);
+        img_space19.setImage(null);
+        img_space20.setImage(null);
+        img_space21.setImage(null);
+        img_space22.setImage(null);
+        img_space23.setImage(null);
+        img_space24.setImage(null);
+        blackCross1.setImage(null);
+        blackCross2.setImage(null);
+        blackCross3.setImage(null);
+        blackCross4.setImage(null);
+        blackCross5.setImage(null);
+        blackCross6.setImage(null);
+        blackCross7.setImage(null);
+        blackCross8.setImage(null);
+        blackCross9.setImage(null);
+        blackCross10.setImage(null);
+        blackCross11.setImage(null);
+        blackCross12.setImage(null);
+        blackCross13.setImage(null);
+        blackCross14.setImage(null);
+        blackCross15.setImage(null);
+        blackCross16.setImage(null);
+        blackCross17.setImage(null);
+        blackCross18.setImage(null);
+        blackCross19.setImage(null);
+        blackCross20.setImage(null);
+        blackCross21.setImage(null);
+        blackCross22.setImage(null);
+        blackCross23.setImage(null);
+        blackCross24.setImage(null);
 
         for(String name: faithTrack.keySet()){
-            switch (faithTrack.get(name)){
-                case 1:
-                    name1.setText(name1.getText() + " " + name);
-                    break;
-                case 2:
-                    name2.setText(name2.getText() + " " + name);
-                    break;
-                case 3:
-                    name3.setText(name3.getText() + " " + name);
-                    break;
-                case 4:
-                    name4.setText(name4.getText() + " " + name);
-                    break;
-                case 5:
-                    name5.setText(name5.getText() + " " + name);
-                    break;
-                case 6:
-                    name6.setText(name6.getText() + " " + name);
-                    break;
-                case 7:
-                    name7.setText(name7.getText() + " " + name);
-                    break;
-                case 8:
-                    name8.setText(name8.getText() + " " + name);
-                    break;
-                case 9:
-                    name9.setText(name9.getText() + " " + name);
-                    break;
-                case 10:
-                    name10.setText(name10.getText() + " " + name);
-                    break;
-                case 11:
-                    name11.setText(name11.getText() + " " + name);
-                    break;
+            if(name.equals("Lorenzo il Magnifico")) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/BlackCross.png"));
+                switch (faithTrack.get(name)) {
+                    case 1:
+                        blackCross1.setImage(image);
+                        blackCross1.setVisible(true);
+                        break;
+                    case 2:
+                        blackCross2.setImage(image);
+                        blackCross2.setVisible(true);
+                        break;
+                    case 3:
+                        blackCross3.setImage(image);
+                        blackCross3.setVisible(true);
+                        break;
+                    case 4:
+                        blackCross4.setImage(image);
+                        blackCross4.setVisible(true);
+                        break;
+                    case 5:
+                        blackCross5.setImage(image);
+                        blackCross5.setVisible(true);
+                        break;
+                    case 6:
+                        blackCross6.setImage(image);
+                        blackCross6.setVisible(true);
+                        break;
+                    case 7:
+                        blackCross7.setImage(image);
+                        blackCross7.setVisible(true);
+                        break;
+                    case 8:
+                        blackCross8.setImage(image);
+                        blackCross8.setVisible(true);
+                        break;
+                    case 9:
+                        blackCross9.setImage(image);
+                        blackCross9.setVisible(true);
+                        break;
+                    case 10:
+                        blackCross10.setImage(image);
+                        blackCross10.setVisible(true);
+                        break;
+                    case 11:
+                        blackCross11.setImage(image);
+                        blackCross11.setVisible(true);
+                        break;
 
-                case 12:
-                    name12.setText(name12.getText() + " " + name);
-                    break;
+                    case 12:
+                        blackCross12.setImage(image);
+                        blackCross12.setVisible(true);
+                        break;
 
-                case 13:
-                    name13.setText(name13.getText() + " " + name);
-                    break;
+                    case 13:
+                        blackCross13.setImage(image);
+                        blackCross13.setVisible(true);
+                        break;
 
-                case 14:
-                    name14.setText(name14.getText() + " " + name);
-                    break;
+                    case 14:
+                        blackCross14.setImage(image);
+                        blackCross14.setVisible(true);
+                        break;
 
-                case 15:
-                    name15.setText(name15.getText() + " " + name);
-                    break;
+                    case 15:
+                        blackCross15.setImage(image);
+                        blackCross15.setVisible(true);
+                        break;
 
-                case 16:
-                    name16.setText(name16.getText() + " " + name);
-                    break;
+                    case 16:
+                        blackCross16.setImage(image);
+                        blackCross16.setVisible(true);
+                        break;
 
-                case 17:
-                    name17.setText(name17.getText() + " " + name);
-                    break;
+                    case 17:
+                        blackCross17.setImage(image);
+                        blackCross17.setVisible(true);
+                        break;
 
-                case 18:
-                    name18.setText(name18.getText() + " " + name);
-                    break;
+                    case 18:
+                        blackCross18.setImage(image);
+                        blackCross18.setVisible(true);
+                        break;
 
-                case 19:
-                    name19.setText(name19.getText() + " " + name);
-                    break;
+                    case 19:
+                        blackCross19.setImage(image);
+                        blackCross19.setVisible(true);
+                        break;
 
-                case 20:
-                    name20.setText(name20.getText() + " " + name);
-                    break;
+                    case 20:
+                        blackCross20.setImage(image);
+                        blackCross20.setVisible(true);
+                        break;
 
-                case 21:
-                    name21.setText(name21.getText() + " " + name);
-                    break;
+                    case 21:
+                        blackCross21.setImage(image);
+                        blackCross21.setVisible(true);
+                        break;
 
-                case 22:
-                    name22.setText(name22.getText() + " " + name);
-                    break;
+                    case 22:
+                        blackCross22.setImage(image);
+                        blackCross22.setVisible(true);
+                        break;
 
-                case 23:
-                    name23.setText(name23.getText() + " " + name);
-                    break;
+                    case 23:
+                        blackCross23.setImage(image);
+                        blackCross23.setVisible(true);
+                        break;
 
-                case 24:
-                    name24.setText(name24.getText() + " " + name);
-                    break;
-                default:
-                    break;
+                    case 24:
+                        blackCross24.setImage(image);
+                        blackCross24.setVisible(true);
+                        break;
+                    default:
+                        break;
+                }
             }
+            else{
+                Image image2 = new Image(MainApp.class.getResourceAsStream("/images/cross.png"));
+                switch (faithTrack.get(name)){
+                    case 1:
+                        img_space1.setImage(image2);
+                        img_space1.setVisible(true);
+                        break;
+                    case 2:
+                        img_space2.setImage(image2);
+                        img_space2.setVisible(true);
+                        break;
+                    case 3:
+                        img_space3.setImage(image2);
+                        img_space3.setVisible(true);
+                        break;
+                    case 4:
+                        img_space4.setImage(image2);
+                        img_space4.setVisible(true);
+                        break;
+                    case 5:
+                        img_space5.setImage(image2);
+                        img_space5.setVisible(true);
+                        break;
+                    case 6:
+                        img_space6.setImage(image2);
+                        img_space6.setVisible(true);
+                        break;
+                    case 7:
+                        img_space7.setImage(image2);
+                        img_space7.setVisible(true);
+                        break;
+                    case 8:
+                        img_space8.setImage(image2);
+                        img_space8.setVisible(true);
+                        break;
+                    case 9:
+                        img_space9.setImage(image2);
+                        img_space9.setVisible(true);
+                        break;
+                    case 10:
+                        img_space10.setImage(image2);
+                        img_space10.setVisible(true);
+                        break;
+                    case 11:
+                        img_space11.setImage(image2);
+                        img_space11.setVisible(true);
+                        break;
+
+                    case 12:
+                        img_space12.setImage(image2);
+                        img_space12.setVisible(true);
+                        break;
+
+                    case 13:
+                        img_space13.setImage(image2);
+                        img_space13.setVisible(true);
+                        break;
+
+                    case 14:
+                        img_space14.setImage(image2);
+                        img_space14.setVisible(true);
+                        break;
+
+                    case 15:
+                        img_space15.setImage(image2);
+                        img_space15.setVisible(true);
+                        break;
+
+                    case 16:
+                        img_space16.setImage(image2);
+                        img_space16.setVisible(true);
+                        break;
+
+                    case 17:
+                        img_space17.setImage(image2);
+                        img_space17.setVisible(true);
+                        break;
+
+                    case 18:
+                        img_space18.setImage(image2);
+                        img_space18.setVisible(true);
+                        break;
+
+                    case 19:
+                        img_space19.setImage(image2);
+                        img_space19.setVisible(true);
+                        break;
+
+                    case 20:
+                        img_space20.setImage(image2);
+                        img_space20.setVisible(true);
+                        break;
+
+                    case 21:
+                        img_space21.setImage(image2);
+                        img_space21.setVisible(true);
+                        break;
+
+                    case 22:
+                        img_space22.setImage(image2);
+                        img_space22.setVisible(true);
+                        break;
+
+                    case 23:
+                        img_space23.setImage(image2);
+                        img_space23.setVisible(true);
+                        break;
+
+                    case 24:
+                        img_space24.setImage(image2);
+                        img_space24.setVisible(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
         }
     }
 
@@ -548,8 +786,74 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    private void updateSlots(){
+        for(int i=0; i<devCardSlot.getSlotDev().size(); i++){
+            if(i==0){
+                if(devCardSlot.getSlotDev().get(i).size() == 1){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot0_card0.setImage(image1);
+                }
+                else if(devCardSlot.getSlotDev().get(i).size() == 2){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot0_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot0_card1.setImage(image2);
+                }
+                else if (devCardSlot.getSlotDev().get(i).size() == 3){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot0_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot0_card1.setImage(image2);
+                    Image image3= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(2).getId()-1) + ".png"));
+                    img_slot0_card2.setImage(image3);
+                }
+            }
+
+            else if(i==1){
+                if(devCardSlot.getSlotDev().get(i).size() == 1){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot1_card0.setImage(image1);
+                }
+                else if(devCardSlot.getSlotDev().get(i).size() == 2){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot1_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot1_card1.setImage(image2);
+                }
+                else if (devCardSlot.getSlotDev().get(i).size() == 3){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot1_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot1_card1.setImage(image2);
+                    Image image3= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(2).getId()-1) + ".png"));
+                    img_slot1_card2.setImage(image3);
+                }
+            }
+            else if(i==2){
+                if(devCardSlot.getSlotDev().get(i).size() == 1){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot2_card0.setImage(image1);
+                }
+                else if(devCardSlot.getSlotDev().get(i).size() == 2){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot2_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot2_card1.setImage(image2);
+                }
+                else if (devCardSlot.getSlotDev().get(i).size() == 3){
+                    Image image1= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(0).getId()-1) + ".png"));
+                    img_slot2_card0.setImage(image1);
+                    Image image2= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(1).getId()-1) + ".png"));
+                    img_slot2_card1.setImage(image2);
+                    Image image3= new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCardSlot.getSlotDev().get(i).get(2).getId()-1) + ".png"));
+                    img_slot2_card2.setImage(image3);
+                }
+            }
+        }
+    }
+
     public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, ArrayList<Integer> remainingCards, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, HashMap<String, Integer> faithTrack,
-                       HashMap<ResourceType, Integer> strongbox){
+                       HashMap<Integer, Boolean> faithZone, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;
         this.depotQuantity = activeDepotQ;
@@ -558,10 +862,26 @@ public class BoardSceneController extends ObservableView implements GenericScene
         this.faithTrack = faithTrack;
         this.strongbox = strongbox;
         this.remainingCards = remainingCards;
+        this.devCardSlot = devCardSlot;
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 this.marbleMarket[i][j]= market[i][j];
             }
+        }
+        Image zone1 = new Image(MainApp.class.getResourceAsStream("/images/pope_favor1_front.png"));
+        Image zone2 = new Image(MainApp.class.getResourceAsStream("/images/pope_favor2_front.png"));
+        Image zone3 = new Image(MainApp.class.getResourceAsStream("/images/pope_favor3_front.png"));
+        pope1.setImage(zone1);
+        pope2.setImage(zone2);
+        pope3.setImage(zone3);
+        if(faithZone.get(0)){
+            pope1.setVisible(false);
+        }
+        if (faithZone.get(1)){
+            pope2.setVisible(false);
+        }
+        if (faithZone.get(2)){
+            pope3.setVisible(false);
         }
         updateStrongbox();
         updateMarket();
@@ -569,6 +889,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         updateLeader();
         updateFaithTrack();
         updateWarehouse();
-
+        updateSlots();
     }
 }

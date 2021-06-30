@@ -2,8 +2,6 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
-import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
