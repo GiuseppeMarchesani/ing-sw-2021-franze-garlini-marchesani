@@ -29,7 +29,7 @@ public class Gui extends ObservableView implements View {
     private HashMap<ResourceType, Integer> anyRes = new HashMap<>();
     private HashMap<Boolean, Integer> faithZone = new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
-
+    private static ArrayList<Integer> remainingCards = new ArrayList<>();
 
     @Override
     public void askConnect() {
@@ -62,10 +62,10 @@ public class Gui extends ObservableView implements View {
         if(!startGame){
             startGame = true;
             Platform.runLater(()-> MainApp.changeRootMainScene(observers));
-            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
         }
         else{
-            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> MainApp.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
             Platform.runLater(()-> MainApp.changeRootMainScene(observers));
         }
     }
@@ -84,14 +84,15 @@ public class Gui extends ObservableView implements View {
     public void askDevCardToBuy() {
         ChooseDevCardSceneController cdcsc = new ChooseDevCardSceneController();
         cdcsc.addAllObservers(observers);
+        cdcsc.setDevCard(cardMarket);
+        cdcsc.setRemainingCards(remainingCards);
         Platform.runLater(()->
-                MainApp.changeRootPane(observers,"/fxml/cardMarket_scene")
+                MainApp.changeRootPane(cdcsc,"/fxml/cardMarket_scene")
         );
     }
 
     @Override
     public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
-        //TODO: add conversion
         MarketSceneController msc = new MarketSceneController();
         msc.addAllObservers(observers);
         Platform.runLater(()->
@@ -129,6 +130,7 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showDevMarket(ArrayList<DevCard> availableCards, ArrayList<Integer> remainingCards) {
         Gui.cardMarket = availableCards;
+        Gui.remainingCards = remainingCards;
     }
 
     @Override
@@ -256,10 +258,6 @@ public class Gui extends ObservableView implements View {
 
     public static ResourceType getCornerMarble(){
         return cornerMarble;
-    }
-
-    public static ArrayList<DevCard> getCardMarket(){
-        return cardMarket;
     }
 
     public static ArrayList<String> getPlayerList(){

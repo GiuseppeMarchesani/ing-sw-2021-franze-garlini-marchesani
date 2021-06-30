@@ -67,11 +67,10 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
 
     private ArrayList<DevCard> cardMarket = new ArrayList<>();
     private ArrayList<ImageView> cards = new ArrayList<>();
+    private ArrayList<Integer> remainingCards = new ArrayList<>();
 
     @FXML
     public void initialize(){
-        cardMarket.addAll(Gui.getCardMarket());
-        int i=0;
         cards.add(card0x0);
         cards.add(card0x1);
         cards.add(card0x2);
@@ -85,19 +84,41 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
         cards.add(card3x1);
         cards.add(card3x2);
 
-        for (DevCard devCard : cardMarket){
-            if(devCard!= null) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId() - 1) + ".png"));
-                cards.get(i).setImage(image);
-                cards.get(i).setVisible(true);
+        int counter=0;
+        int n=0;
+        if(remainingCards!= null){
+            for(int num : remainingCards) {
+                Image image;
+                if (num > 0) {
+                    image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (cardMarket.get(counter).getId() - 1) + ".png"));
+                    cards.get(n).setImage(image);
+                    cards.get(n).setVisible(true);
+                    counter++;
+                } else {
+                    image = new Image(MainApp.class.getResourceAsStream("/images/BackCard.png"));
+                    cards.get(n).setImage(image);
+                    cards.get(n).setVisible(true);
+                }
+                n++;
             }
-            else{
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
-                cards.get(i).setImage(image);
-                cards.get(i).setVisible(true);
-            }
-            i++;
         }
+        else{
+            for (DevCard devCard : cardMarket){
+                if(devCard!= null) {
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/devCards/dev_Id" + (devCard.getId() - 1) + ".png"));
+                    cards.get(counter).setImage(image);
+                    cards.get(counter).setVisible(true);
+                }
+                else{
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
+                    cards.get(counter).setImage(image);
+                    cards.get(counter).setVisible(true);
+                }
+                counter++;
+            }
+        }
+
+
 
         btm_0x0.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x0);
         btm_0x1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x1);
@@ -161,5 +182,11 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
         notifyObserver(obs -> obs.updateBuyDevCard(3, Color.BLUE));
 
     }
+    public void setRemainingCards(ArrayList<Integer> remainingCards){
+        this.remainingCards = remainingCards;
+    }
 
+    public void setDevCard(ArrayList<DevCard> cardMarket){
+        this.cardMarket = cardMarket;
+    }
 }
