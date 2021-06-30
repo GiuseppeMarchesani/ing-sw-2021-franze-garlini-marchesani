@@ -322,6 +322,7 @@ public class GameController {
     public boolean hasInactivePlayers(){
         return turnController.hasInactivePlayers();
     }
+
     /**Reconnects a player who previously disconnected to an ongoing game.
      * @param username of the player reconnecting.
      * @param virtualView the view of the player reconnecting.
@@ -331,6 +332,9 @@ public class GameController {
         turnController.reconnect(username);
         broadcastMessage(username + " has reconnected.");
         showPlayer(gameSession.getPlayer(username),true);
+        allVirtualView.get(username).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+        allVirtualView.get(username).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+
     }
     /**Sends a string message to every player in the game
      * @param  message the String to send.

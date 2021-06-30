@@ -930,14 +930,16 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String user){
+
+        out.println("\nShowing player " + username);
+        out.println("\nTheir faith is: " + faithSpace);
+        showWarehouse(depotToQuantity, depotToResource, username);
+        showStrongbox(strongbox, username);
+        showSlots(devCardSlot,username);
+        showPlayedLeaderCards(playedLeaderCards,username);
+        out.println("\nThey have " + remainingLeaderCards+" leader cards left.");
         if(!(username.equals(user))){
-            out.println("\nShowing player " + username);
-            out.println("\nTheir faith is: " + faithSpace);
-            showWarehouse(depotToQuantity, depotToResource, username);
-            showStrongbox(strongbox, username);
-            showSlots(devCardSlot,username);
-            showPlayedLeaderCards(playedLeaderCards,username);
-            out.println("\nThey have " + remainingLeaderCards+" leader cards left.");
+
 
             out.println("\nPress Enter to show your data and continue...");
             try {
