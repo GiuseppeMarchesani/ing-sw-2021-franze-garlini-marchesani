@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.messages.*;
 import it.polimi.ingsw.model.Action.ActionToken;
-import it.polimi.ingsw.model.Action.ActionTokenType;
 import it.polimi.ingsw.model.Card.*;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.GameState;
@@ -132,12 +131,14 @@ public class GameController {
             placeResWarehouse(player, message.getDepotToResource(), message.getDepotToQuantity(), new ArrayList<Integer>(), 0);
              if(turnController.proxPlayer().equals( turnController.firstPlayer())) {
                  setGameState(GameState.IN_GAME);
+
              }
         }
         if(gameState==GameState.IN_GAME){
             for(VirtualView vv: allVirtualView.values()){
                 vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
                 vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+                broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             }
         }
         startTurn();
@@ -212,7 +213,7 @@ public class GameController {
      */
     private boolean choseInitialRes(){
         String activePlayer= getActivePlayer();
-        broadcastMessage("It's "+getActivePlayer()+"'s turn to chose resources.");
+        broadcastMessage("It's "+getActivePlayer()+"'s turn to choose resources.");
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
@@ -298,6 +299,7 @@ public class GameController {
                         break;
                     case GIVERES:
                         setGameState(GameState.IN_GAME);
+                        broadcastMessage("It's "+getActivePlayer()+"'s turn!");
                         break;
                     default:
                         //None
@@ -816,7 +818,7 @@ public class GameController {
      * @param isYou is the shown player the same one who requested to show.
      */
     public void showPlayer(Player player, boolean isYou){
-        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(),isYou);
+        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(),isYou, getActivePlayer());
 
     }
 }
