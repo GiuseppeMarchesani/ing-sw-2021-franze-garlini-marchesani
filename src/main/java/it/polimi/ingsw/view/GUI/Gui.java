@@ -186,8 +186,13 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
         for(LeaderCard ld: playedLeaderCards){
-            chosenLeader.replace(ld, false, true);
-        }
+            for(LeaderCard ld1 : chosenLeader.keySet()){
+                if(ld1.getId() == ld.getId()){
+                    chosenLeader.remove(ld1);
+                    chosenLeader.put(ld, true);
+                }
+            }
+    }
 
     }
 
@@ -261,7 +266,6 @@ public class Gui extends ObservableView implements View {
         cltp.addAllObservers(observers);
         cltp.setAllLeaderCards(allLeaderCards);
         Platform.runLater(() -> SceneController.changeRootPane(cltp, "/fxml/choose_leaderToPlay"));
-
     }
 
     @Override

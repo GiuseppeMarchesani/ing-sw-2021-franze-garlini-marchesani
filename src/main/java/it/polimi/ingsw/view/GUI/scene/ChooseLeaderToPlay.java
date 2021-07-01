@@ -34,83 +34,69 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
     private final ToggleGroup group = new ToggleGroup();
     private ArrayList<LeaderCard> allLeaderCards = new ArrayList<>();
     private HashMap<LeaderCard,Boolean> leaderCards = new HashMap<>();
-    private LeaderCard chosenLeader;
+    private ArrayList<ImageView> leaders = new ArrayList<>();
     private ArrayList<LeaderCard> restLeader;
+    private LeaderCard chosenLeaderDiscard;
     @FXML
     public void initialize(){
-        leader1.setImage(null);
-        leader2.setImage(null);
+        btm_play.setDisable(false);
+        leaders.add(leader1);
+        leaders.add(leader2);
         check_leader1.setToggleGroup(group);
         check_leader2.setToggleGroup(group);
         restLeader = allLeaderCards;
-        if(allLeaderCards.size()==2){
-            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (allLeaderCards.get(0).getId()-1) + ".png"));
-            Image image2 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (allLeaderCards.get(1).getId()-1) + ".png"));
-            leader1.setImage(image1);
-            leader2.setImage(image2);
+        int count =0;
+        for(LeaderCard ld: allLeaderCards){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
+            leaders.get(count).setImage(image);
+            count++;
         }
-        else if(allLeaderCards.size()==1){
-            leader2.setImage(null);
-            check_leader2.setDisable(true);
+        if(allLeaderCards.size()==1){
             check_leader2.setVisible(false);
-            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (allLeaderCards.get(0).getId()-1) + ".png"));
-            leader1.setImage(image1);
+            leaders.get(1).setVisible(false);
         }
+
+
         btm_play.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPlayBtm);
         btm_discard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onDiscardBtm);
 
     }
 
     private void onPlayBtm(Event event){
-        leader2.setImage(null);
-        leader1.setImage(null);
-        check_leader1.setDisable(true);
-        check_leader1.setVisible(false);
-        check_leader2.setVisible(false);
-        check_leader2.setDisable(true);
+
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
         String id = selectedRadioButton.getId();
+
         if(id.equals("leader1")){
             notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'p'));
         }
         else{
-            if (allLeaderCards.size()<2) {
-                restLeader.remove(allLeaderCards.get(0));
-                notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'p'));
-            }
-            else{
-                restLeader.remove(allLeaderCards.get(0));
-                notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'p'));
-
-            }
+            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'p'));
         }
 
     }
     private void onDiscardBtm(Event event){
-        leader2.setImage(null);
-        leader1.setImage(null);
-        check_leader1.setDisable(true);
-        check_leader1.setVisible(false);
-        check_leader2.setVisible(false);
-        check_leader2.setDisable(true);
+
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
         String id = selectedRadioButton.getId();
+
         if(id.equals("leader1")){
+            chosenLeaderDiscard = allLeaderCards.get(0);
             notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'd'));
         }
         else{
-            if (allLeaderCards.size()<2) {
-                notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'd'));
-            }
-            else{
-                notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'd'));
-
-            }
+            chosenLeaderDiscard = allLeaderCards.get(1);
+            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'd'));
         }
 
     }
 
-
+    public void updateLeaders(ArrayList<LeaderCard> leaders){
+        this.allLeaderCards = leaders;
+    }
+    public LeaderCard getChosenLeaderDiscard(){
+        return chosenLeaderDiscard;
+    }
     public void setAllLeaderCards(ArrayList<LeaderCard> allLeaderCards){
         this.allLeaderCards = allLeaderCards;
     }
