@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -339,15 +340,19 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
             if(leaderCards.get(ld) && i==0){
                 state_leader1.setText("ACTIVATED");
+                state_leader1.setTextFill(Color.RED);
             }
             else if(leaderCards.get(ld) && i==1){
                 state_leader2.setText("ACTIVATED");
+                state_leader2.setTextFill(Color.RED);
             }
             else if(!leaderCards.get(ld) && i==0){
                 state_leader1.setText("NOT ACTIVATED");
+                state_leader1.setTextFill(Color.GREEN);
             }
             else if(!leaderCards.get(ld) && i==1){
                 state_leader2.setText("NOT ACTIVATED");
+                state_leader2.setTextFill(Color.GREEN);
             }
             i++;
 
