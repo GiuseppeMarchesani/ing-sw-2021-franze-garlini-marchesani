@@ -78,7 +78,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLoginResult(String username, String gameId, boolean wasJoined) {
-       playerList.add(username);
+       Gui.playerList.add(username);
     }
 
     @Override
@@ -214,12 +214,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayerFaith(ArrayList<Integer> faith) {
-        if(playerList.size()>1) {
-            for(int i=0; i<playerList.size(); i++){
-                faithTrack.put(playerList.get(i), faith.get(i));
-
-            }
-        }
+        if(faith.size() ==1) faithTrack.put(playerList.get(0), faith.get(0));
         else {
             faithTrack.put(playerList.get(0), faith.get(0));
             faithTrack.put("Lorenzo il Magnifico", faith.get(1));
