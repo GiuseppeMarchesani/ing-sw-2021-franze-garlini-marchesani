@@ -453,19 +453,17 @@ public class GameController {
                     allVirtualView.get(getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), getActivePlayer());
                     startTurn();
                     break;
+                case ASK_PLAYER:
+                    allVirtualView.get(getActivePlayer()).showPlayerList(turnController.getPlayerOrder());
+                    break;
                 case SHOW_PLAYER:
-                    if(!(turnController.getPlayerOrder().contains(((ShowPlayerRequest) msg).getPlayer()))){
-                        allVirtualView.get(getActivePlayer()).showErrorMsg("Player does not exist.");
-                        startTurn();
-                    }
-                    else {
-                        player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
+
+                    player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
                         if((((ShowPlayerRequest) msg).getPlayer()).equals(getActivePlayer())) {
                             showPlayer(player, true);
                             startTurn();
                         }
                         else showPlayer(player, false);
-                    }
                     break;
                 case SHOW_PLAYER_FAITH:
                     allVirtualView.get(getActivePlayer()).showPlayerFaith(gameSession.getFaith(getActivePlayer()));

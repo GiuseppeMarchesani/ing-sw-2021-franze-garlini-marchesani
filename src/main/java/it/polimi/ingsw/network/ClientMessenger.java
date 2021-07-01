@@ -148,6 +148,9 @@ public class ClientMessenger implements Observer, ObserverView {
             case 12:
                 msg= new ActionRequest(username, MessageType.SHOW_PLAYER_FAITH);
                 break;
+            case 13:
+                msg= new ActionRequest(username, MessageType.ASK_PLAYER);
+                break;
             default:
                 msg= new ActionRequest(username, MessageType.END_TURN);
 
@@ -304,6 +307,9 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SHOW_PLAYED_LEADERS:
                 queue.execute(()-> view.showPlayedLeaderCards(((ShowPlayedLeadersMsg) msg).getPlayedLeaderCards(),((ShowPlayedLeadersMsg) msg).getActivePlayer()));
+                break;
+            case ASK_PLAYER:
+                queue.execute(()-> view.showPlayerList(((ShowPlayerListMsg) msg).getPlayers()));
                 break;
             case SHOW_PLAYER:
                 ShowPlayerReply player=(ShowPlayerReply) msg;

@@ -184,4 +184,6 @@ public class VirtualView implements View, Observer {
     public void showPlayerFaith(ArrayList<Integer> faith){
         clientHandler.sendMessage(new ShowPlayerFaithMsg(faith));
     }
+    @Override
+    public void showPlayerList(ArrayList<String> players){clientHandler.sendMessage(new ShowPlayerListMsg(players));}
 }

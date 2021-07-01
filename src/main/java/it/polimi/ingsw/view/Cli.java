@@ -139,19 +139,7 @@ public class Cli extends ObservableView implements View{
         try {
             while(true) {
                 String command = readLine();
-                if(command.equalsIgnoreCase("SHOW_PLAYER")){
-                    out.print("\nWhich player? ");
-                    try{
-                        String c=readLine();
-                        notifyObserver(obs -> obs.updateShowPlayer(c));
-                        break;
-                    }
-                    catch(Exception e){
-                        out.println(STR_WRONG_INPUT);
-                    }
-
-                }
-                else if(commandList.contains(command.toUpperCase())) {
+                if(commandList.contains(command.toUpperCase())) {
                     notifyObserver(obs -> obs.updateAction(commandList.indexOf(command.toUpperCase())));
                     break;
                 }
@@ -928,6 +916,30 @@ public class Cli extends ObservableView implements View{
         else return ANSI_RESET;
     }
 
+
+    @Override
+    public void showPlayerList(ArrayList<String> players){
+        String s;
+        while(true){
+            out.println("Insert a player's username. The following users are available: ");
+            for(String x: players){
+                out.println(x);
+            }
+            try {
+                s=readLine();
+                if(players.contains(s)){
+                    String finalS = s;
+                    notifyObserver(obs -> obs.updateShowPlayer(finalS));
+                    break;
+                }
+                else out.println(STR_WRONG_INPUT);
+            } catch (ExecutionException e) {
+                out.println(STR_WRONG_INPUT);
+            }
+
+        }
+
+    }
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String user){
 

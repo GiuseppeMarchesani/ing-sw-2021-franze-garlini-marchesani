@@ -115,7 +115,7 @@ public class TurnController {
      * Returns a list containing the usernames in player order
      * @returna the list containing the usernames in player order
      */
-    public List<String> getPlayerOrder(){
+    public ArrayList<String> getPlayerOrder(){
         return playerOrder;
     }
 

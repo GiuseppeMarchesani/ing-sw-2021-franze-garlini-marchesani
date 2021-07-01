@@ -17,6 +17,7 @@ public enum Command {
         SHOW_STRONGBOX("SHOW_STRONGBOX"),
         SHOW_VP("SHOW_VP"),
         SHOW_FAITH("SHOW_FAITH"),
+        SHOW_PLAYER("SHOW_PLAYER"),
         END_TURN("END_TURN");
 
     private String command;

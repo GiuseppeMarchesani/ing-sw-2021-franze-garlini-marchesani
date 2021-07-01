@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.Card.DevCardSlot;
@@ -184,4 +185,6 @@ public interface View {
     void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self);
 
     void showPlayerFaith(ArrayList<Integer> faith);
+
+    void showPlayerList(ArrayList<String> playerOrder);
 }
