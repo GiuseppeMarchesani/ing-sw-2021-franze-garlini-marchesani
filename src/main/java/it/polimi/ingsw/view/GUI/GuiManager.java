@@ -1,9 +1,10 @@
-package it.polimi.ingsw.view.GUI.scene;
+package it.polimi.ingsw.view.GUI;
 
 import com.sun.tools.javac.Main;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
-import it.polimi.ingsw.view.GUI.MainApp;
+import it.polimi.ingsw.view.GUI.scene.BoardSceneController;
+import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,7 +14,7 @@ import javafx.scene.Scene;
 import java.io.IOException;
 import java.util.List;
 
-public class SceneController extends ObservableView {
+public class GuiManager extends ObservableView {
 
     private static Scene scene;
     private static GenericSceneController activeController;
@@ -52,11 +53,11 @@ public class SceneController extends ObservableView {
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource(fxml + ".fxml"));
 
             loader.setController(controller);
-            SceneController.activeController = controller;
+            GuiManager.activeController = controller;
             Parent root = loader.load();
 
-            SceneController.scene = scene;
-            SceneController.scene.setRoot(root);
+            GuiManager.scene = scene;
+            GuiManager.scene.setRoot(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,7 +67,7 @@ public class SceneController extends ObservableView {
         T controller;
         if(mainController==null){
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/board_scene.fxml"));
-            Parent root = null;
+            Parent root;
             try {
                 root = loader.load();
                 controller = loader.getController();
@@ -102,7 +103,7 @@ public class SceneController extends ObservableView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        SceneController.scene.setRoot(root);
+        GuiManager.scene.setRoot(root);
     }
 
     public static Scene getScene() {
