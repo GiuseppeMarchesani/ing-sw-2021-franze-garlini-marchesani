@@ -120,6 +120,12 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     private ImageView img_slot2_card2;
     @FXML
     private Button btm_ok;
+    @FXML
+    private ImageView img_leader1;
+    @FXML
+    private ImageView img_leader2;
+    @FXML
+    private Label username;
 
     private String chosenPlayer;
     private int faithSpace;
@@ -129,6 +135,7 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     private DevCardSlot devCardSlot= new DevCardSlot();
     private ArrayList<LeaderCard> playedLeaderCards = new ArrayList<>();
     private String self;
+    private int remainingLeaderCards;
 
 
     @FXML
@@ -137,7 +144,8 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         updateSlots();
         updateStrongbox();
         updateWarehouse();
-
+        updateLeaderCard();
+        username.setText(chosenPlayer + " 's board");
         btm_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtm);
     }
 
@@ -145,6 +153,25 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         notifyObserver(obs-> obs.updateShowPlayer(self));
     }
 
+    private void updateLeaderCard(){
+        ArrayList<ImageView> leaderCards=new ArrayList<>();
+        leaderCards.add(img_leader1);
+        leaderCards.add(img_leader2);
+        int count = 0;
+        for(LeaderCard ld : playedLeaderCards){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
+            leaderCards.get(count).setImage(image);
+            count++;
+        }
+        if(playedLeaderCards.size()==0 && remainingLeaderCards == 0){
+            for (ImageView imageView : leaderCards){
+                imageView.setVisible(false);
+            }
+        }
+        else if(playedLeaderCards.size()==1 && remainingLeaderCards == 0){
+            leaderCards.get(1).setVisible(false);
+        }
+    }
     private void updateWarehouse(){
         img_depot1_res1.setImage(null);
         img_depot1_res2.setImage(null);
@@ -452,5 +479,8 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     public void setSelf(String self){
         this.self=self;
     }
+    public void setRemainingLeaderCards(int remainingLeaderCards){
+        this.remainingLeaderCards = remainingLeaderCards;
+     }
 }
 

@@ -209,6 +209,7 @@ public class Gui extends ObservableView implements View {
         spsc.setDevCardSlot(devCardSlot);
         spsc.setStrongbox(strongbox);
         spsc.setSelf(self);
+        spsc.setRemainingLeaderCards(remainingLeaderCards);
         Platform.runLater(() -> SceneController.changeRootPane(spsc, "/fxml/showPlayer_scene"));
 
     }
