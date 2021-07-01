@@ -198,7 +198,17 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self) {
-
+        ChoosePlayerSceneController cpsc = new ChoosePlayerSceneController();
+        cpsc.addAllObservers(observers);
+        cpsc.setPlayersList(playerList);
+        cpsc.setStrongbox(strongbox);
+        cpsc.setDepotToQuantity(depotToQuantity);
+        cpsc.setDepotToResource(depotToResource);
+        cpsc.setDevCardSlot(devCardSlot);
+        cpsc.setPlayedLeaderCards(playedLeaderCards);
+        cpsc.setFaithSpace(faithSpace);
+        cpsc.setSelf(self);
+        Platform.runLater(()-> SceneController.changeRootPane(cpsc, "/fxml/choose_player"));
     }
 
     @Override
