@@ -193,7 +193,6 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String user) {
-
         ShowPlayerSceneController spsc = new ShowPlayerSceneController();
         spsc.addAllObservers(observers);
         spsc.setChosenPlayer(username);
