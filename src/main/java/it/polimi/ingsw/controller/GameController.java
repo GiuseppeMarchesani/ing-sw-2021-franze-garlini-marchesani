@@ -358,7 +358,7 @@ public class GameController {
                     startTurn();
                     break;
                 case SIDE_LEADER:
-                    sendLeaderCards(player.getLeaderCardList());
+                    sendLeaderCards(player.getLeaderCards(), player.getLeaderCardList());
                     break;
                 case ACTIVATE_PRODUCTION:
                     turnController.setMainAction(true);
@@ -670,8 +670,14 @@ public class GameController {
      * Sends drawn leader cards to a player
      * @param cards the drawn cards
      */
-    public void sendLeaderCards(ArrayList<LeaderCard> cards){
-        allVirtualView.get(getActivePlayer()).askLeaderCardToPlay(cards);
+    public void sendLeaderCards(HashMap<LeaderCard, Boolean> cards, ArrayList<LeaderCard> allLeader){
+        if(allLeader.size()>0) {
+            allVirtualView.get(getActivePlayer()).askLeaderCardToPlay(cards, allLeader);
+        }
+        else{
+            allVirtualView.get(getActivePlayer()).showErrorMsg("All leader cards are activated or discarded");
+            startTurn();
+        }
     }
 
     /**

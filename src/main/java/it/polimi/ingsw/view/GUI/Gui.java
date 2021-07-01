@@ -17,7 +17,6 @@ public class Gui extends ObservableView implements View {
     private static ResourceType cornerMarble;
     private static ArrayList<DevCard> cardMarket = new ArrayList<>();
     private static ArrayList<String> playerList = new ArrayList<>();
-    private HashMap<LeaderCard, Boolean> leaderCards = new HashMap<>();
     private HashMap<LeaderCard, Boolean> chosenLeader = new HashMap<>();
     private static HashMap<String, Integer> faithTrack = new HashMap<>();
     private ArrayList<ResourceType> conversion = new ArrayList<>();
@@ -27,9 +26,10 @@ public class Gui extends ObservableView implements View {
     private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private boolean startGame = false;
     private HashMap<ResourceType, Integer> anyRes = new HashMap<>();
-    private HashMap<Boolean, Integer> faithZone = new HashMap<>();
+    private HashMap<Integer, Boolean> faithZone = new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
     private static ArrayList<Integer> remainingCards = new ArrayList<>();
+    private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
 
     @Override
     public void askConnect() {
@@ -59,13 +59,18 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askAction() {
+        if(faithZone.size()==0){
+            faithZone.put(0, false);
+            faithZone.put(1, false);
+            faithZone.put(2, false);
+        }
         if(!startGame){
             startGame = true;
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
         }
         else{
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, strongbox));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
         }
     }
@@ -120,6 +125,10 @@ public class Gui extends ObservableView implements View {
                     SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
             );
         }
+        /*
+        extraDepotRes = asc.getExtraDepotRes();
+
+         */
 
     }
 
@@ -164,6 +173,9 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
+        for(LeaderCard ld: playedLeaderCards){
+            chosenLeader.replace(ld, false, true);
+        }
 
     }
 
@@ -176,6 +188,9 @@ public class Gui extends ObservableView implements View {
     public void showPlayerFaith(ArrayList<Integer> faith) {
         for(int i=0; i<playerList.size(); i++){
             faithTrack.put(playerList.get(i), faith.get(i));
+            if(playerList.size()==1) {
+                faithTrack.put("Lorenzo il Magnifico", faith.get(i+1));
+            }
         }
     }
 
@@ -194,7 +209,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showFaithTrack( boolean wasZoneActivated, int whichZone) {
-        this.faithZone.put(wasZoneActivated, whichZone);
+        faithZone.replace(whichZone, wasZoneActivated);
     }
 
     @Override
@@ -229,7 +244,12 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
+    public void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> allLeaderCards) {
+        ChooseLeaderToPlay cltp = new ChooseLeaderToPlay();
+        cltp.addAllObservers(observers);
+        cltp.setAllLeaderCards(allLeaderCards);
+        cltp.setLeaderCards(leaderCards);
+        Platform.runLater(() -> SceneController.changeRootPane(cltp, "/fxml/choose_leaderToPlay"));
 
     }
 
@@ -267,7 +287,6 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
-        this.leaderCards = leaderCards;
     }
 
     public static ResourceType[][] getMarket() {
@@ -276,9 +295,5 @@ public class Gui extends ObservableView implements View {
 
     public static ResourceType getCornerMarble(){
         return cornerMarble;
-    }
-
-    public static ArrayList<String> getPlayerList(){
-        return playerList;
     }
 }

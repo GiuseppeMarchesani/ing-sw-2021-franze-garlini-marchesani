@@ -149,7 +149,7 @@ public interface View {
      * Allows the player to play a Leader Carder.
      * @param leaderCards the list of Leader Cards the player can activate.
      */
-    void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards);
+    void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> allLeader);
 
     /**
      * Allows the player to choose Leader Cards to keep.

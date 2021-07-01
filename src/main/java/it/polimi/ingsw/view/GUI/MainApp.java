@@ -1,25 +1,15 @@
 package it.polimi.ingsw.view.GUI;
 
 import it.polimi.ingsw.network.ClientMessenger;
-import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.observer.ObserverView;
-import it.polimi.ingsw.view.GUI.scene.BoardSceneController;
-import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
-import it.polimi.ingsw.view.GUI.scene.MessageSceneController;
 import it.polimi.ingsw.view.GUI.scene.StartSceneController;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.PopupControl;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 
 
 public class MainApp  extends Application {

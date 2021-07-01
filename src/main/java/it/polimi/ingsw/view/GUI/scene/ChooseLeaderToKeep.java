@@ -70,11 +70,6 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
         imgLeader2.setImage(image2);
         imgLeader3.setImage(image3);
         imgLeader4.setImage(image4);
-        imgLeader1.setVisible(true);
-        imgLeader2.setVisible(true);
-        imgLeader3.setVisible(true);
-        imgLeader4.setVisible(true);
-
 
         configureCheckBox(leader1);
         configureCheckBox(leader2);
@@ -114,7 +109,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
             for (LeaderCard ld : allLeaders) {
                 restLeader.put(ld, false);
             }
-            notifyObserver(obs -> obs.updateDiscardLeader(chosenLeader));
+            notifyObserver(obs -> obs.updateDiscardLeader(allLeaders));
         }
         else {
             Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -122,10 +117,6 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
             errorAlert.setContentText("You must select two Leader Cards!");
             errorAlert.showAndWait();
         }
-        /*leader1.setDisable(true);
-        leader2.setDisable(true);
-        leader3.setDisable(true);
-        leader4.setDisable(true);*/
     }
 
     private void configureCheckBox(CheckBox checkBox) {

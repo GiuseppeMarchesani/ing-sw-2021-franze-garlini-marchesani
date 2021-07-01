@@ -277,7 +277,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 queue.execute(() -> view.showSlots(((ShowSlotsMsg) msg).getDevCardSlot(), ((ShowSlotsMsg) msg).getUsername()));
                 break;
             case SIDE_LEADER:
-                queue.execute(() -> view.askLeaderCardToPlay(((SideLeaderReply) msg).getLeaderCards()));
+                queue.execute(() -> view.askLeaderCardToPlay(((SideLeaderReply) msg).getLeaderCards(), ((SideLeaderReply) msg).getAllLeaderCards()));
                 break;
             case WIN:
                 queue.execute(() -> view.showWinMessage(((WinMessage) msg).getFinalPoints()));
