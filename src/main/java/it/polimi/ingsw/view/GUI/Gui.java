@@ -186,18 +186,13 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
         for(LeaderCard ld: playedLeaderCards){
-            for(LeaderCard ld1 : chosenLeader.keySet()){
-                if(ld1.getId() == ld.getId()){
-                    chosenLeader.remove(ld1);
-                    chosenLeader.put(ld, true);
-                }
-            }
+           chosenLeader.put(ld, true);
+        }
     }
 
-    }
 
     @Override
-    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self) {
+    public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String user) {
 
         ShowPlayerSceneController spsc = new ShowPlayerSceneController();
         spsc.addAllObservers(observers);
@@ -208,8 +203,7 @@ public class Gui extends ObservableView implements View {
         spsc.setPlayedLeaderCards(playedLeaderCards);
         spsc.setDevCardSlot(devCardSlot);
         spsc.setStrongbox(strongbox);
-        spsc.setSelf(self);
-        spsc.setRemainingLeaderCards(remainingLeaderCards);
+        spsc.setSelf(user);
         Platform.runLater(() -> SceneController.changeRootPane(spsc, "/fxml/showPlayer_scene"));
 
     }
