@@ -65,9 +65,9 @@ public class AskProductionSceneController extends ObservableView implements Gene
     @FXML
     private Label ava_strong_res4;
     @FXML
-    private Label lblCards1;
+    private Label lblcards1;
     @FXML
-    private Label lblCards2;
+    private Label lblcards2;
     @FXML
     private CheckBox check_card1;
     @FXML
@@ -112,8 +112,8 @@ public class AskProductionSceneController extends ObservableView implements Gene
         check_card4.setVisible(false);
         check_card5.setVisible(false);
         check_scroll.setVisible(false);
-        lblCards1.setVisible(false);
-        lblCards2.setVisible(false);
+        lblcards1.setVisible(false);
+        lblcards2.setVisible(false);
         btn_ok.setVisible(false);
 
         lblAvaStrong = new ArrayList<>();
