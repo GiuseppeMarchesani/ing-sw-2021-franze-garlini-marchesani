@@ -772,7 +772,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> allLeaderCards) {
+    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
         LeaderCard chosenLeader = null;
         int id = -1;
         boolean checkId =true;
@@ -781,7 +781,7 @@ public class Cli extends ObservableView implements View{
             if(!checkId) out.println(STR_WRONG_INPUT);
             checkId=false;
             out.println("\nChoose between one of these Leader Card by typing its id.\n");
-            for(LeaderCard leader: allLeaderCards) {
+            for(LeaderCard leader: leaderCards) {
                 out.println(leader.toString());
             }
             out.print("Choose card: ");
@@ -791,7 +791,7 @@ public class Cli extends ObservableView implements View{
                 out.println(STR_WRONG_INPUT);
             }
 
-            for(LeaderCard leaderCard: allLeaderCards) {
+            for(LeaderCard leaderCard: leaderCards) {
                 if(leaderCard.getId() == id) {
                     checkId = true;
                     chosenLeader = leaderCard;

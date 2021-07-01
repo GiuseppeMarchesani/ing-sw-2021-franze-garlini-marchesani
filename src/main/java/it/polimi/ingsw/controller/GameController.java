@@ -358,7 +358,7 @@ public class GameController {
                     startTurn();
                     break;
                 case SIDE_LEADER:
-                    sendLeaderCards(player.getLeaderCards(), player.getLeaderCardList());
+                    sendLeaderCards((player.getLeaderCardList()));
                     break;
                 case ACTIVATE_PRODUCTION:
                     turnController.setMainAction(true);
@@ -416,7 +416,9 @@ public class GameController {
                         getMarketResources((GetMarketResRequest) msg,player);
                     break;
                 case END_TURN:
-                    endTurn();
+                    if(isMainActionDone()) endTurn();
+                    else {allVirtualView.get(getActivePlayer()).showMessage("You Need to do a main action before ending your turn!");
+                    startTurn();}
 
                     break;
                 case SHOW_FAITH_TRACK:
@@ -667,12 +669,12 @@ public class GameController {
     }
 
     /**
-     * Sends drawn leader cards to a player
-     * @param cards the drawn cards
+     * Sends the leader cards in the hand to a player
+     * @param leader the cards
      */
-    public void sendLeaderCards(HashMap<LeaderCard, Boolean> cards, ArrayList<LeaderCard> allLeader){
-        if(allLeader.size()>0) {
-            allVirtualView.get(getActivePlayer()).askLeaderCardToPlay(cards, allLeader);
+    public void sendLeaderCards(ArrayList<LeaderCard> leader){
+        if(leader.size()>0) {
+            allVirtualView.get(getActivePlayer()).askLeaderCardToPlay(leader);
         }
         else{
             allVirtualView.get(getActivePlayer()).showErrorMsg("All leader cards are activated or discarded");
