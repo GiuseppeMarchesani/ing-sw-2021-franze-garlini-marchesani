@@ -251,7 +251,7 @@ public class GameController {
     public void placeResWarehouse(Player player, HashMap<Integer,ResourceType> depotToResource, HashMap<Integer,Integer> depotToQuantity, ArrayList<Integer> resourceToLeader, int discard){
         player.getWarehouse().replaceResources(depotToResource, depotToQuantity, resourceToLeader);
         allVirtualView.get(getActivePlayer()).showWarehouse(player.getWarehouse().getDepotToQuantity(), player.getWarehouse().getDepotToResource(), getActivePlayer());
-
+    if (discard!=0)
         increaseFaith(discard, false);
     }
 
@@ -590,8 +590,11 @@ public class GameController {
     public void increaseFaith(int faithQuantity, boolean activateOnYourself){
         boolean trigger =gameSession.increaseFaith(faithQuantity, activateOnYourself, getActivePlayer());
 
-        for(VirtualView vv: allVirtualView.values()){
-            vv.showFaithTrack(trigger,gameSession.lastActivatedFaithZone() );
+        for(String s: allVirtualView.keySet()){
+            allVirtualView.get(s).showFaithTrack(trigger,gameSession.lastActivatedFaithZone() );
+            if(!activateOnYourself&&!(s.equals(getActivePlayer()))){
+                allVirtualView.get(s).showPlayerFaith(gameSession.getFaith(s));
+            }
         }
         if(activateOnYourself|| maxPlayers==1) allVirtualView.get(getActivePlayer()).showPlayerFaith(gameSession.getFaith(getActivePlayer()));
 
