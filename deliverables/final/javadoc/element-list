@@ -1,0 +1,12 @@
+it.polimi.ingsw.controller
+it.polimi.ingsw.messages
+it.polimi.ingsw.model
+it.polimi.ingsw.model.Action
+it.polimi.ingsw.model.Board
+it.polimi.ingsw.model.Card
+it.polimi.ingsw.model.enumeration
+it.polimi.ingsw.network
+it.polimi.ingsw.observer
+it.polimi.ingsw.view
+it.polimi.ingsw.view.GUI
+it.polimi.ingsw.view.GUI.scene

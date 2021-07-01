@@ -104,7 +104,7 @@ public class Lobby {
 
     /**
      *Returns a list of inactive players.
-     * @returna list of inactive players.
+     * @return list of inactive players.
      */
     public List<String> getInactivePlayers(){
         return gameController.getInactivePlayers();
