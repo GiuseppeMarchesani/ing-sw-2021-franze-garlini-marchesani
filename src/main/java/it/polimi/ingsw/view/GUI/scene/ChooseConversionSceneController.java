@@ -3,6 +3,8 @@ package it.polimi.ingsw.view.GUI.scene;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;
+import it.polimi.ingsw.view.GUI.GuiManager;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -50,7 +52,12 @@ public class ChooseConversionSceneController extends ObservableView implements G
             chosen = conversions.get(0);
         }
         else chosen = conversions.get(1);
-
+        MarketSceneController msc = new MarketSceneController();
+        msc.addAllObservers(observers);
+        msc.setConversion(chosen);
+        Platform.runLater(() ->
+                GuiManager.changeRootPane(msc, "/fxml/market_scene")
+        );
 
     }
 

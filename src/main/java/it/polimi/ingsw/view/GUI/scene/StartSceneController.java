@@ -1,7 +1,7 @@
 package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.MainApp;
+import it.polimi.ingsw.view.GUI.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -19,7 +19,7 @@ public class StartSceneController extends ObservableView implements GenericScene
     private void onPlayBtnClick(Event event){
         btmNext.setDisable(true);
 
-        SceneController.changeRootPane(observers, event,"/fxml/init_scene");
+        GuiManager.changeRootPane(observers, event,"/fxml/init_scene");
 
 
     }

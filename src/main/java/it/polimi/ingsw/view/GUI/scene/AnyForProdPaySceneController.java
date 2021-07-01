@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.GuiManager;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -11,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -61,7 +61,7 @@ public class AnyForProdPaySceneController extends ObservableView implements Gene
             apsc.setWarehouse(warehouse);
             apsc.setPrice(price);
             apsc.setAnyProduce(anyProduce);
-            Platform.runLater(() -> SceneController.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
+            Platform.runLater(() -> GuiManager.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
         }
         else {
             Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);

@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.GUI.scene;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;
+import it.polimi.ingsw.view.GUI.GuiManager;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,7 +14,6 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.ResourceBundle;
 
 public class AskProductionSceneController extends ObservableView implements GenericSceneController{
     @FXML
@@ -250,7 +250,7 @@ public class AskProductionSceneController extends ObservableView implements Gene
                 apisc.setStrongbox(newStrongbox);
                 apisc.setWarehouse(paymentWarehouse);
                 apisc.setAnyProduce(anyProduce);
-                Platform.runLater(() -> SceneController.changeRootPane(apisc, "/fxml/anyForProduction_scene"));
+                Platform.runLater(() -> GuiManager.changeRootPane(apisc, "/fxml/anyForProduction_scene"));
             }
             else notifyObserver(obs -> obs.updateGetProdRes(newStrongbox, paymentWarehouse));
         }

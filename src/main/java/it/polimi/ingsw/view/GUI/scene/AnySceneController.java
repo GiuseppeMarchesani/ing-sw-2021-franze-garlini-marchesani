@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.view.GUI.GuiManager;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -61,7 +62,7 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
         prsc.addAllObservers(observers);
         prsc.setResToPlace(resToPlace);
         Platform.runLater(() ->
-                SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
+                GuiManager.changeRootPane(prsc, "/fxml/place_resources_scene")
         );
     }
 
