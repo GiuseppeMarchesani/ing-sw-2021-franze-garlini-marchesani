@@ -32,10 +32,9 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
     private Label vp4;
 
     private HashMap<String, Integer> finalVp = new HashMap<>();
-    private ArrayList<String> usernameList = new ArrayList<>();
     @FXML
     public void initialize(){
-        usernameList.addAll(finalVp.keySet());
+        ArrayList<String> usernameList = new ArrayList<>(finalVp.keySet());
 
         if(finalVp.size() == 1){
             username.setText(usernameList.get(0));

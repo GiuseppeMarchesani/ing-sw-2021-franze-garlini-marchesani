@@ -117,7 +117,12 @@ public class Game {
         Collections.sort(values);
         Collections.reverse(values);
         Collections.sort(keys);
-
+        int tie=-1;
+        for(int i : values){
+            if(i==values.get(0)){
+                tie++;
+            }
+        }
         HashMap<String,Integer> sortedPoints= new HashMap<>();
 
         Iterator<Integer> sortInt = values.iterator();
@@ -137,7 +142,23 @@ public class Game {
                 }
             }
         }
-        return sortedPoints;
+        int max=0;
+        int index=0;
+        ArrayList<String> users=new ArrayList<>(sortedPoints.keySet());
+        for(int i=0; i<tie;i++){
+            if(getPlayer(users.get(i+0)).getResourceNum()>max){
+                max=getPlayer(users.get(i+0)).getResourceNum();
+                index=i;
+            }
+        }
+        HashMap<String,Integer> finalSorted=new HashMap<>();
+        finalSorted.put(users.get(index), sortedPoints.get(users.get(index)));
+        for(String s: sortedPoints.keySet()){
+            if(!s.equals(users.get(index)) ){
+                finalSorted.put(s, sortedPoints.get(s));
+            }
+        }
+        return finalSorted;
     }
 
     /**

@@ -78,6 +78,17 @@ public class Player {
     }
 
     /**
+     * Returns the total number of resources
+     * @return the number of resources owned
+     */
+    public int getResourceNum(){
+        int res=0;
+        for(ResourceType r: getAllResources().keySet()){
+            res+=getAllResources().get(r);
+        }
+        return res;
+    }
+    /**
      * Returns the number of leadercards in a player's hand.
      * @return the number of leadercards in a player's hand.
      */

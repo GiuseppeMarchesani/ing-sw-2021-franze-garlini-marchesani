@@ -848,23 +848,13 @@ public class Cli extends ObservableView implements View{
 
     @Override
     public void showWinMessage(HashMap<String, Integer> finalPoints) {
-        List<Integer> points = new ArrayList<>();
-
-        //Creating an ArrayList of VictoryPoints
-        for(String username: finalPoints.keySet()) {
-            points.add(finalPoints.get(username));
-        }
-
-        Collections.sort(points);
-
+        ArrayList<String> users = new ArrayList<>(finalPoints.keySet());
         //Printing results
         out.println("\nFinal results.");
-        for(int i=0; i< points.size(); i++) {
-            for(String username: finalPoints.keySet()) {
-                if(finalPoints.get(username) == points.get(i)) {
-                    out.println((i+1) + ". " + username + " - Victory Points: " + points.get(i) + (i==0 ? " - WINNER." : ""));
-                }
-            }
+        for(String s: users ) {
+
+                    out.println(s + "'s Victory Points: " + finalPoints.get(s) + (s.equals(users.get(0)) ? " - WINNER." : ""));
+
         }
 
         out.print("\nPress Enter key to exit.");
