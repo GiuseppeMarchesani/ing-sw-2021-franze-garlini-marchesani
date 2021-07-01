@@ -119,7 +119,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
 
     private HashMap<ResourceType, Integer> resToPlace = new HashMap<>();
-    private ArrayList<ResourceType> extraDepot = new ArrayList<>();
+    private ArrayList<Integer> extraDepot = new ArrayList<>();
     private ArrayList<Integer> resQuantity = new ArrayList<>();
     private ArrayList<Image> imgRes = new ArrayList<>();
     private HashMap<Integer, ResourceType> floorResources = new HashMap<>();
@@ -483,7 +483,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
             }
         }
 
-        notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscard));
+        notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, extraDepot, finalDiscard));
     }
 
     private void enableButton(int k, int i) {
@@ -616,7 +616,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     public void setResToPlace(HashMap<ResourceType, Integer> resToPlace){
         this.resToPlace=resToPlace;
     }
-    public void setExtraDepot(ArrayList<ResourceType> extraDepot){
+    public void setExtraDepot(ArrayList<Integer> extraDepot){
         this.extraDepot=extraDepot;
     }
 

@@ -32,6 +32,7 @@ public class Gui extends ObservableView implements View {
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
 
 
+
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -68,10 +69,10 @@ public class Gui extends ObservableView implements View {
         if(!startGame){
             startGame = true;
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
         }
         else{
-            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot));
+            Platform.runLater(() -> SceneController.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
             Platform.runLater(()-> SceneController.changeRootMainScene(observers));
         }
     }
@@ -108,7 +109,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askResourceToWarehouse(HashMap<ResourceType, Integer> resToPlace, int numAny, ArrayList<ResourceType> extraDepot) {
-        if (numAny > 0) {
+         if(numAny > 0) {
             for(int i=0; i<numAny; i++){
                 AnySceneController asc = new AnySceneController();
                 asc.addAllObservers(observers);
@@ -117,19 +118,22 @@ public class Gui extends ObservableView implements View {
                 Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/any_scene"));
             }
         }
+        if(extraDepot.size()>0){
+            ExtraDepotSceneController edsc = new ExtraDepotSceneController();
+            edsc.addAllObservers(observers);
+            edsc.setExtraDepot(extraDepot);
+            edsc.setResToPlace(resToPlace);
+            Platform.runLater(() -> SceneController.changeRootPane(edsc, "/fxml/extraDepot_scene"));
+            extraDepotRes = edsc.getExtraDepotRes();
+        }
         else {
             PlaceResourcesSceneController prsc = new PlaceResourcesSceneController();
             prsc.addAllObservers(observers);
             prsc.setResToPlace(resToPlace);
-            prsc.setExtraDepot(extraDepot);
             Platform.runLater(() ->
                     SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
             );
         }
-        /*
-        extraDepotRes = asc.getExtraDepotRes();
-
-         */
 
     }
 

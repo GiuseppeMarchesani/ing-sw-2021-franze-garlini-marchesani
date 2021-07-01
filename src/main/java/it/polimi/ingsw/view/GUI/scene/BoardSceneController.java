@@ -236,24 +236,31 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private ImageView img_slot2_card1;
     @FXML
     private ImageView img_slot2_card2;
-
+    @FXML
+    private ImageView extra_leader1_res1;
+    @FXML
+    private ImageView extra_leader1_res2;
+    @FXML
+    private ImageView extra_leader2_res1;
+    @FXML
+    private ImageView extra_leader2_res2;
 
     private ArrayList<ImageView> cards = new ArrayList<>();
     private ArrayList<ImageView> market = new ArrayList<>();
     private ResourceType[][] marbleMarket = new ResourceType[4][3];
     private ResourceType cornerMarket;
     private ArrayList<DevCard> cardMarket = new ArrayList<>();
-    private ArrayList <String> numPlayer = new ArrayList<>();
     private HashMap<LeaderCard, Boolean> leaderCards = new HashMap<>();
     private ArrayList<ImageView> imgLeader = new ArrayList<>();
     private HashMap<String, Integer> faithTrack = new HashMap<>();
     private HashMap<Integer, Integer> depotQuantity = new HashMap<>();
     private HashMap<Integer, ResourceType> depotResource = new HashMap<>();
     private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
-    private int leaderAction = 0;
     private ArrayList<Integer> remainingCards = new ArrayList<>();
     private HashMap<Integer, Boolean> faithZone= new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
+    private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
+
 
     @FXML
     public void initialize(){
@@ -346,13 +353,42 @@ public class BoardSceneController extends ObservableView implements GenericScene
             imgLeader.get(i).setImage(image);
             imgLeader.get(i).setVisible(true);
 
+
             if(leaderCards.get(ld) && i==0){
                 state_leader1.setText("ACTIVATED");
                 state_leader1.setTextFill(Color.RED);
+                if(ld.getId()>=51 && ld.getId()<=54){
+                    if(extraDepotRes.containsKey(ld.getResourceAbility())){
+                        Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+
+                        if(extraDepotRes.get(ld.getResourceAbility()) ==1){
+                            extra_leader1_res1.setImage(image1);
+
+                        }
+                        else if(extraDepotRes.get(ld.getResourceAbility())==2){
+                            extra_leader1_res1.setImage(image1);
+                            extra_leader1_res2.setImage(image1);
+
+                        }
+                    }
+                }
             }
             else if(leaderCards.get(ld) && i==1){
                 state_leader2.setText("ACTIVATED");
                 state_leader2.setTextFill(Color.RED);
+                if(ld.getId()>=51 && ld.getId()<=54){
+                    if(extraDepotRes.containsKey(ld.getResourceAbility())){
+                        Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+                        if(extraDepotRes.get(ld.getResourceAbility()) ==1){
+                            extra_leader2_res1.setImage(image1);
+                        }
+                        else if(extraDepotRes.get(ld.getResourceAbility())==2){
+                            extra_leader2_res1.setImage(image1);
+                            extra_leader2_res2.setImage(image1);
+
+                        }
+                    }
+                }
             }
             else if(!leaderCards.get(ld) && i==0){
                 state_leader1.setText("NOT ACTIVATED");
@@ -883,7 +919,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, ArrayList<Integer> remainingCards, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, HashMap<String, Integer> faithTrack,
-                       HashMap<Integer, Boolean> faithZone, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot){
+                       HashMap<Integer, Boolean> faithZone, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, HashMap<ResourceType, Integer> extraDepotRes){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;
         this.depotQuantity = activeDepotQ;
@@ -893,6 +929,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
         this.strongbox = strongbox;
         this.remainingCards = remainingCards;
         this.devCardSlot = devCardSlot;
+        this.extraDepotRes = extraDepotRes;
         for(int i=0; i<4; i++){
             for(int j=0; j<3; j++){
                 this.marbleMarket[i][j]= market[i][j];
