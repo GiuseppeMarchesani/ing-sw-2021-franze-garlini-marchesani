@@ -182,9 +182,29 @@ public interface View {
      */
     void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer);
 
+    /**
+     * Shows all data pertaining to a player
+     * @param username the player's username
+     * @param faithSpace the player's faith
+     * @param depotToResource the player's Depot-Resource Map
+     * @param depotToQuantity the player's Depot-Quantity Map
+     * @param strongbox the player's strongbox
+     * @param devCardSlot the player's devcardslot
+     * @param playedLeaderCards the player's played leader cards.
+     * @param remainingLeaderCards the player's remaining cards
+     * @param self the requester username
+     */
     void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self);
 
+    /**
+     * Shows the player's faith and the blackcross faith if the game is single player.
+     * @param faith the array of faiths
+     */
     void showPlayerFaith(ArrayList<Integer> faith);
 
+    /**
+     * shows the list of all players
+     * @param playerOrder the list of all players
+     */
     void showPlayerList(ArrayList<String> playerOrder);
 }

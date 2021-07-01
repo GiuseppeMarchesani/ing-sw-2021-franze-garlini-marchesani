@@ -113,7 +113,7 @@ public class TurnController {
 
     /**
      * Returns a list containing the usernames in player order
-     * @returna the list containing the usernames in player order
+     * @return the list containing the usernames in player order
      */
     public ArrayList<String> getPlayerOrder(){
         return playerOrder;
