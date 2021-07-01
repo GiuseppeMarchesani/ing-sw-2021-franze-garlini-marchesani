@@ -352,9 +352,8 @@
             <ImageView fx:id="extra_leader2_res2" fitHeight="27.0" fitWidth="28.0" layoutX="61.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <GridPane alignment="CENTER" layoutX="859.0" layoutY="485.0" prefHeight="174.0" prefWidth="407.0">
+      <GridPane alignment="CENTER" layoutX="981.0" layoutY="472.0" prefHeight="187.0" prefWidth="285.0">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="137.6666463216146" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="165.0" minWidth="10.0" prefWidth="136.33335367838538" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="139.3333740234375" minWidth="10.0" prefWidth="139.3333740234375" />
          </columnConstraints>
@@ -365,12 +364,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btm_vp" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Victory points" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Bell MT" size="14.0" />
-               </font>
-            </Button>
-            <Button fx:id="btmPlayers" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Show players" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Button fx:id="btmPlayers" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Show players" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
@@ -380,22 +374,22 @@
                   <Font name="Bell MT" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btmLeader" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Leader" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="btmLeader" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Leader" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btmResources" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Resources" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="btmResources" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Resources" textFill="WHITE">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btmProduction" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Production" textFill="WHITE" GridPane.columnIndex="2">
+            <Button fx:id="btmProduction" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Production" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="btmDevCard" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Buy dev card" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button fx:id="btmDevCard" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Buy dev card" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>

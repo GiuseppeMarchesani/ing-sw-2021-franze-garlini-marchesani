@@ -40,9 +40,13 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
         if(finalVp.size() == 1){
             username.setText(usernameList.get(0));
             username1.setText(usernameList.get(0));
-            vp1.setText(usernameList.get(0));
-            username2.setVisible(false);
+            vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
             vp2.setVisible(false);
+            username2.setVisible(false);
+            vp3.setVisible(false);
+            username3.setVisible(false);
+            vp4.setVisible(false);
+            username4.setVisible(false);
         }
         else if(finalVp.size() == 2){
             username.setText(usernameList.get(0));
@@ -50,6 +54,10 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
             vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
             username2.setText(usernameList.get(1));
             vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
+            vp3.setVisible(false);
+            username3.setVisible(false);
+            vp4.setVisible(false);
+            username4.setVisible(false);
         }
         else if(finalVp.size() == 3){
             username.setText(usernameList.get(0));
@@ -59,6 +67,8 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
             vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
             username3.setText(usernameList.get(2));
             vp3.setText(String.valueOf(finalVp.get(usernameList.get(3))));
+            vp4.setVisible(false);
+            username4.setVisible(false);
         }
         else if(finalVp.size() == 4){
             username.setText(usernameList.get(0));

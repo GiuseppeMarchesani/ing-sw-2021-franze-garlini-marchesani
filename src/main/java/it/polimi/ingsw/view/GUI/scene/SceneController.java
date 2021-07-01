@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.GUI.scene;
 
+import com.sun.tools.javac.Main;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.GUI.MainApp;
@@ -91,6 +92,17 @@ public class SceneController extends ObservableView {
     public static <T> T changeRootPane(List<ObserverView> observerList, Event event, String fxml) {
         Scene newScene = ((Node) event.getSource()).getScene();
         return changeRootPane(observerList, newScene, fxml);
+    }
+
+    public static void setScene(String fxml){
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SceneController.scene.setRoot(root);
     }
 
     public static Scene getScene() {

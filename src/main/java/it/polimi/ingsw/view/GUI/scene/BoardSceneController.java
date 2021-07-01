@@ -179,8 +179,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
     @FXML
     private Button btmLeader;
     @FXML
-    private Button btm_vp;
-    @FXML
     private Button btmPlayers;
     @FXML
     private ImageView img_depot1_res1;
@@ -264,7 +262,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         btmResources.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onResourcesBtm);
         btmProduction.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onProductionBtm);
         btmLeader.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onLeaderBtm);
-        btm_vp.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onVpBtm);
         btmPlayers.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPlayerBtm);
         end_turn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEndTurnBtm);
     }
@@ -281,19 +278,26 @@ public class BoardSceneController extends ObservableView implements GenericScene
     public void onLeaderBtm(Event event){
         notifyObserver(obs -> obs.updateAction(3));
     }
-    public void onVpBtm(Event event){
-        notifyObserver(obs -> obs.updateAction(11));
-    }
 
     public void onPlayerBtm(Event event){
         notifyObserver(obs -> obs.updateAction(13));
     }
     public void onEndTurnBtm(Event event){
+        btmLeader.setDisable(true);
+        btmProduction.setDisable(true);
+        btmResources.setDisable(true);
+        btmPlayers.setDisable(true);
+        btmDevCard.setDisable(true);
         notifyObserver(obs -> obs.updateAction(14));
     }
 
     private void updateCardMarket(){
 
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
         cards.add(card0x0);
         cards.add(card0x1);
         cards.add(card0x2);
@@ -328,6 +332,11 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
 
     private void updateLeader(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
 
         imgLeader.add(img_leader1);
         imgLeader.add(img_leader2);
@@ -359,6 +368,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateMarket(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
+
         int n=0;
 
         market.add(res0x0);
@@ -423,6 +438,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateWarehouse(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
+
         img_depot1_res1.setImage(null);
         img_depot1_res2.setImage(null);
         img_depot2_res3.setImage(null);
@@ -467,6 +488,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
     private void updateFaithTrack(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
+
         img_space1.setImage(null);
         img_space2.setImage(null);
         img_space3.setImage(null);
@@ -754,6 +781,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateStrongbox(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
+
         int n=0;
         for(ResourceType res: strongbox.keySet()){
             Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
@@ -778,6 +811,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     private void updateSlots(){
+        btmLeader.setDisable(false);
+        btmProduction.setDisable(false);
+        btmResources.setDisable(false);
+        btmPlayers.setDisable(false);
+        btmDevCard.setDisable(false);
+
         for(int i=0; i<devCardSlot.getSlotDev().size(); i++){
             if(i==0){
                 if(devCardSlot.getSlotDev().get(i).size() == 1){

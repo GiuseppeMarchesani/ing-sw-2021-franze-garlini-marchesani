@@ -165,6 +165,7 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         }
         if(playedLeaderCards.size()==0 && remainingLeaderCards == 0){
             for (ImageView imageView : leaderCards){
+                imageView.setOpacity(1);
                 imageView.setVisible(false);
             }
         }

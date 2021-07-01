@@ -306,7 +306,7 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLoseMessage() {
-
+        Platform.runLater(() -> SceneController.setScene("/fxml/lose_scene"));
     }
 
     private ResourceType askAnyResource(){
