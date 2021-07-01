@@ -188,6 +188,7 @@ public class GameControllerTest {
         gameControllerMulti.getMessage(new GetMarketResRequest("0", 'r', 3, ResourceType.EMPTY));
         assertFalse(gameControllerMulti.isMainActionDone());
         gameControllerMulti.getMessage(new GetMarketResRequest("2", 'r', 2, ResourceType.EMPTY));
+        gameControllerMulti.getMessage(new ActionRequest("2", MessageType.MAIN_MARBLE));
         gameControllerMulti.getMessage(new ActionRequest("2", MessageType.END_TURN));
 
         assertEquals("ricco", gameControllerMulti.getActivePlayer());
