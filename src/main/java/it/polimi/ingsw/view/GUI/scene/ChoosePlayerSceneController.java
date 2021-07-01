@@ -75,17 +75,7 @@ public class ChoosePlayerSceneController extends ObservableView implements Gener
             errorAlert.showAndWait();
         }
 
-        ShowPlayerSceneController spsc = new ShowPlayerSceneController();
-        spsc.addAllObservers(observers);
-        spsc.setChosenPlayer(name);
-        spsc.setDepotToQuantity(depotToQuantity);
-        spsc.setDepotToResource(depotToResource);
-        spsc.setFaithSpace(faithSpace);
-        spsc.setPlayedLeaderCards(playedLeaderCards);
-        spsc.setDevCardSlot(devCardSlot);
-        spsc.setStrongbox(strongbox);
-        Platform.runLater(() -> SceneController.changeRootPane(spsc, "/fxml/showPlayer_scene"));
-
+        notifyObserver(obs -> obs.updateShowPlayer(name));
     }
     public void setPlayersList(ArrayList<String> playersList){
         this.playersList = playersList;

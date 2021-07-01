@@ -5,10 +5,13 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,6 +118,8 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     private ImageView img_slot2_card1;
     @FXML
     private ImageView img_slot2_card2;
+    @FXML
+    private Button btm_ok;
 
     private String chosenPlayer;
     private int faithSpace;
@@ -131,6 +136,12 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         updateSlots();
         updateStrongbox();
         updateWarehouse();
+
+        btm_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtm);
+    }
+
+    private void onOkBtm(Event event){
+
     }
 
     private void updateWarehouse(){

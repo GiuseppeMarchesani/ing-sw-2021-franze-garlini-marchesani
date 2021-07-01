@@ -276,7 +276,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(0));
     }
     public void onProductionBtm(Event event){
-
         notifyObserver(obs -> obs.updateAction(2));
     }
     public void onLeaderBtm(Event event){
@@ -287,7 +286,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     }
 
     public void onPlayerBtm(Event event){
-
+        notifyObserver(obs -> obs.updateAction(13));
     }
     public void onEndTurnBtm(Event event){
         notifyObserver(obs -> obs.updateAction(13));

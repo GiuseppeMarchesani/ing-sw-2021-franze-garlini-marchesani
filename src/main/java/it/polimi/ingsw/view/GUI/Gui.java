@@ -198,17 +198,18 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self) {
-        ChoosePlayerSceneController cpsc = new ChoosePlayerSceneController();
-        cpsc.addAllObservers(observers);
-        cpsc.setPlayersList(playerList);
-        cpsc.setStrongbox(strongbox);
-        cpsc.setDepotToQuantity(depotToQuantity);
-        cpsc.setDepotToResource(depotToResource);
-        cpsc.setDevCardSlot(devCardSlot);
-        cpsc.setPlayedLeaderCards(playedLeaderCards);
-        cpsc.setFaithSpace(faithSpace);
-        cpsc.setSelf(self);
-        Platform.runLater(()-> SceneController.changeRootPane(cpsc, "/fxml/choose_player"));
+
+        ShowPlayerSceneController spsc = new ShowPlayerSceneController();
+        spsc.addAllObservers(observers);
+        spsc.setChosenPlayer(username);
+        spsc.setDepotToQuantity(depotToQuantity);
+        spsc.setDepotToResource(depotToResource);
+        spsc.setFaithSpace(faithSpace);
+        spsc.setPlayedLeaderCards(playedLeaderCards);
+        spsc.setDevCardSlot(devCardSlot);
+        spsc.setStrongbox(strongbox);
+        Platform.runLater(() -> SceneController.changeRootPane(spsc, "/fxml/showPlayer_scene"));
+
     }
 
     @Override
@@ -219,6 +220,15 @@ public class Gui extends ObservableView implements View {
                 faithTrack.put("Lorenzo il Magnifico", faith.get(i+1));
             }
         }
+    }
+
+    @Override
+    public void showPlayerList(ArrayList<String> playerOrder) {
+        ChoosePlayerSceneController cpsc = new ChoosePlayerSceneController();
+        cpsc.addAllObservers(observers);
+        cpsc.setPlayersList(playerOrder);
+        Platform.runLater(()-> SceneController.changeRootPane(cpsc, "/fxml/choose_player"));
+
     }
 
     @Override
