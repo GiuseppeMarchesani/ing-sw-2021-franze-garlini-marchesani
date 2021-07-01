@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.6">
          <image>
@@ -18,18 +14,18 @@
       </ImageView>
       <AnchorPane prefHeight="720.0" prefWidth="1280.0" GridPane.columnIndex="1">
          <children>
-            <RadioButton fx:id="check_leader1" layoutX="757.0" layoutY="128.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="73.0" selected="true">
+            <RadioButton fx:id="check_leader2" layoutX="757.0" layoutY="128.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="73.0">
                <graphic>
-                  <ImageView fx:id="leader1" fitHeight="304.0" fitWidth="217.0">
+                  <ImageView fx:id="leader2" fitHeight="304.0" fitWidth="217.0">
                      <image>
                         <Image url="@../images/BackCard.png" />
                      </image>
                   </ImageView>
                </graphic>
             </RadioButton>
-            <RadioButton fx:id="check_leader2" layoutX="277.0" layoutY="128.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="68.0">
+            <RadioButton fx:id="check_leader1" layoutX="277.0" layoutY="128.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="68.0" selected="true">
                <graphic>
-                  <ImageView fx:id="leader2" fitHeight="304.0" fitWidth="217.0" preserveRatio="true">
+                  <ImageView fx:id="leader1" fitHeight="304.0" fitWidth="217.0" preserveRatio="true">
                      <image>
                         <Image url="@../images/BackCard.png" />
                      </image>

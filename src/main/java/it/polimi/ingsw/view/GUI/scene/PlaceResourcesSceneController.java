@@ -152,6 +152,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private int finalDiscard = 0;
     private ArrayList<ResourceType> resType = new ArrayList<>();
     private final Image imgEmpty = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
+    private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
     @FXML
 
     private void initialize(){
@@ -237,7 +238,42 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         radio0_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res3);
         radio0_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res4);
     }
+    private void onRadioExtra0Res1(Event event){
 
+    }
+    private void onRadioExtra1Res1(Event event){
+
+    }
+    private void onRadioExtra2Res1(Event event){
+
+    }
+    private void onRadioExtra0Res2(Event event){
+
+    }
+    private void onRadioExtra1Res2(Event event){
+
+    }
+    private void onRadioExtra2Res2(Event event){
+
+    }
+    private void onRadioExtra0Res3(Event event){
+
+    }
+    private void onRadioExtra1Res3(Event event){
+
+    }
+    private void onRadioExtra2Res3(Event event){
+
+    }
+    private void onRadioExtra0Res4(Event event){
+
+    }
+    private void onRadioExtra1Res4(Event event){
+
+    }
+    private void onRadioExtra2Res4(Event event){
+
+    }
     private void onRadioDepot1Res1(Event event) {
         radio0_res1.setSelected(false);
         radio_depot1_res2.setDisable(true);

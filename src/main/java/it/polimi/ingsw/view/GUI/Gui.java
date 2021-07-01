@@ -17,7 +17,6 @@ public class Gui extends ObservableView implements View {
     private static ResourceType cornerMarble;
     private static ArrayList<DevCard> cardMarket = new ArrayList<>();
     private static ArrayList<String> playerList = new ArrayList<>();
-    private HashMap<LeaderCard, Boolean> leaderCards = new HashMap<>();
     private HashMap<LeaderCard, Boolean> chosenLeader = new HashMap<>();
     private static HashMap<String, Integer> faithTrack = new HashMap<>();
     private ArrayList<ResourceType> conversion = new ArrayList<>();
@@ -30,6 +29,8 @@ public class Gui extends ObservableView implements View {
     private HashMap<Integer, Boolean> faithZone = new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
     private static ArrayList<Integer> remainingCards = new ArrayList<>();
+    private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
+
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -124,6 +125,10 @@ public class Gui extends ObservableView implements View {
                     SceneController.changeRootPane(prsc, "/fxml/place_resources_scene")
             );
         }
+        /*
+        extraDepotRes = asc.getExtraDepotRes();
+
+         */
 
     }
 
@@ -168,6 +173,9 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
+        for(LeaderCard ld: playedLeaderCards){
+            chosenLeader.replace(ld, false, true);
+        }
 
     }
 
@@ -236,11 +244,13 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
+    public void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> allLeaderCards) {
         ChooseLeaderToPlay cltp = new ChooseLeaderToPlay();
         cltp.addAllObservers(observers);
+        cltp.setAllLeaderCards(allLeaderCards);
         cltp.setLeaderCards(leaderCards);
         Platform.runLater(() -> SceneController.changeRootPane(cltp, "/fxml/choose_leaderToPlay"));
+
     }
 
     @Override
@@ -277,7 +287,6 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
-        this.leaderCards = leaderCards;
     }
 
     public static ResourceType[][] getMarket() {
@@ -286,9 +295,5 @@ public class Gui extends ObservableView implements View {
 
     public static ResourceType getCornerMarble(){
         return cornerMarble;
-    }
-
-    public static ArrayList<String> getPlayerList(){
-        return playerList;
     }
 }

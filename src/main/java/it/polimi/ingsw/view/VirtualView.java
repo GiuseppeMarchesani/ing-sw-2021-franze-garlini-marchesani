@@ -128,8 +128,8 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void askLeaderCardToPlay(ArrayList<LeaderCard> leaderCards) {
-        clientHandler.sendMessage(new SideLeaderReply(leaderCards));
+    public void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> AllleaderCards) {
+        clientHandler.sendMessage(new SideLeaderReply(leaderCards, AllleaderCards));
     }
 
     @Override
