@@ -74,7 +74,7 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
             notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'p'));
         }
         else{
-            if (leaderCards.size()<2) {
+            if (allLeaderCards.size()<2) {
                 restLeader.remove(allLeaderCards.get(0));
                 notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'p'));
             }
@@ -113,8 +113,5 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
 
     public void setAllLeaderCards(ArrayList<LeaderCard> allLeaderCards){
         this.allLeaderCards = allLeaderCards;
-    }
-    public void setLeaderCards(HashMap<LeaderCard, Boolean> leaderChosen){
-        this.leaderCards = leaderCards;
     }
 }

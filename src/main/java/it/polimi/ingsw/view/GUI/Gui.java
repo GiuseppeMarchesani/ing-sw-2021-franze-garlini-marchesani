@@ -143,7 +143,7 @@ public class Gui extends ObservableView implements View {
             afp.setPrice(price);
             afp.setAnyPayment(anyPayment);
             afp.setAnyProduce(anyProduce);
-            Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/anyForProduction_scene"));
+            Platform.runLater(() -> SceneController.changeRootPane(afp, "/fxml/anyForProduction_scene"));
         }
         else {
             AskProductionSceneController apsc = new AskProductionSceneController();
@@ -152,7 +152,7 @@ public class Gui extends ObservableView implements View {
             apsc.setWarehouse(warehouse);
             apsc.setPrice(price);
             apsc.setAnyProduce(anyProduce);
-            Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/chooseCard_production_scene"));
+            Platform.runLater(() -> SceneController.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
         }
     }
 
@@ -256,11 +256,10 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void askLeaderCardToPlay(HashMap<LeaderCard, Boolean> leaderCards, ArrayList<LeaderCard> allLeaderCards) {
+    public void askLeaderCardToPlay(ArrayList<LeaderCard> allLeaderCards) {
         ChooseLeaderToPlay cltp = new ChooseLeaderToPlay();
         cltp.addAllObservers(observers);
         cltp.setAllLeaderCards(allLeaderCards);
-        cltp.setLeaderCards(leaderCards);
         Platform.runLater(() -> SceneController.changeRootPane(cltp, "/fxml/choose_leaderToPlay"));
 
     }
