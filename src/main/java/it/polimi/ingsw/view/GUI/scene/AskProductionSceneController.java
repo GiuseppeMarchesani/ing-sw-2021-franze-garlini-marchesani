@@ -157,13 +157,17 @@ public class AskProductionSceneController extends ObservableView implements Gene
             }
         }
 
+        price.remove(ResourceType.ANY);
+
+        if(price.get(ResourceType.COIN)==0) price.remove(ResourceType.COIN);
+        if(price.get(ResourceType.SHIELD)==0) price.remove(ResourceType.SHIELD);
+        if(price.get(ResourceType.STONE)==0) price.remove(ResourceType.STONE);
+        if(price.get(ResourceType.SERVANT)==0) price.remove(ResourceType.SERVANT);
         for(ResourceType res: price.keySet()){
-            if(!res.equals(ResourceType.ANY)) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
-                imgRes.add(image);
-                resQuantity.add(price.get(res));
-                resType.add(res);
-            }
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
+            imgRes.add(image);
+            resQuantity.add(price.get(res));
+            resType.add(res);
         }
 
         while (imgRes.size()<4){

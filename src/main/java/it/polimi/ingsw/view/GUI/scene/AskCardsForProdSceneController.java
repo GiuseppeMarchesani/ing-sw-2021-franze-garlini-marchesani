@@ -104,6 +104,7 @@ public class AskCardsForProdSceneController extends ObservableView implements Ge
     public void onBtnOk(Event event) {
         ArrayList<DevCard> chosenCards = new ArrayList<>();
         if(check_scroll.isSelected()) chosenCards.add(devCardList.get(0));
+        devCardList.remove(0);
         for(CheckBox chk: checkCards) {
             if(chk.isSelected()) chosenCards.add(devCardList.get(checkCards.indexOf(chk)));
         }

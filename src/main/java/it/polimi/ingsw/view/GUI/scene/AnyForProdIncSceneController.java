@@ -37,6 +37,7 @@ public class AnyForProdIncSceneController extends ObservableView implements Gene
 
     public void initialize() {
         lblNumAny.setText("" + anyProduce);
+        lblReason.setText("Choose your Any conversions for income.");
         txtRes = new HashMap<>();
         txtRes.put(ResourceType.STONE, txtStone);
         txtRes.put(ResourceType.SHIELD, txtShield);

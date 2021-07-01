@@ -131,7 +131,7 @@
             <ImageView fx:id="img_depot2_res2" fitHeight="36.0" fitWidth="35.0" layoutX="117.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_depot2_res1" fitHeight="36.0" fitWidth="35.0" layoutX="70.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="img_depot3_res1" fitHeight="36.0" fitWidth="35.0" layoutX="99.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-            <GridPane layoutX="27.0" layoutY="190.0" prefHeight="120.0" prefWidth="86.0">
+            <GridPane layoutX="27.0" layoutY="190.0" prefHeight="120.0" prefWidth="135.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -149,36 +149,36 @@
                   <ImageView fx:id="strong_res4" fitHeight="27.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
-                        <Label fx:id="strong_quantity1" layoutX="11.0" layoutY="5.0" prefHeight="21.0" prefWidth="21.0">
+                        <Label fx:id="strong_quantity1" layoutX="11.0" layoutY="5.0" prefHeight="21.0" prefWidth="50.0" textFill="#00eeff">
                            <font>
-                              <Font name="Bell MT" size="12.0" />
+                              <Font name="Bell MT" size="16.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="strong_quantity2" layoutX="11.0" layoutY="4.0" prefHeight="21.0" prefWidth="21.0">
+                        <Label fx:id="strong_quantity2" layoutX="11.0" layoutY="4.0" prefHeight="21.0" prefWidth="50.0" textFill="#00eeff">
                            <font>
-                              <Font name="Bell MT" size="12.0" />
+                              <Font name="Bell MT" size="16.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <Label fx:id="strong_quantity3" layoutX="9.0" layoutY="4.0" prefHeight="21.0" prefWidth="21.0">
+                        <Label fx:id="strong_quantity3" layoutX="9.0" layoutY="4.0" prefHeight="21.0" prefWidth="56.0" textFill="#00eeff">
                            <font>
-                              <Font name="Bell MT" size="12.0" />
+                              <Font name="Bell MT" size="16.0" />
                            </font>
                         </Label>
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <Label fx:id="strong_quantity4" layoutX="7.0" prefHeight="21.0" prefWidth="21.0">
+                        <Label fx:id="strong_quantity4" layoutX="7.0" prefHeight="21.0" prefWidth="56.0" textFill="#00eeff">
                            <font>
-                              <Font name="Bell MT" size="12.0" />
+                              <Font name="Bell MT" size="16.0" />
                            </font>
                         </Label>
                      </children>
