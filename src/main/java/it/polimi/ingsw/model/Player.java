@@ -99,7 +99,7 @@ public class Player {
      * @param leader the card to be played
      */
     public void playLeader(LeaderCard leader){
-
+                discardLeader(leader.getId());
                 leaderCards.put(leader, true);
                 leader.activateAbility(this);
 
