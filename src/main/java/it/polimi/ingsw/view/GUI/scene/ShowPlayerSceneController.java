@@ -128,6 +128,7 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     private HashMap<ResourceType, Integer> strongbox = new HashMap<>();
     private DevCardSlot devCardSlot= new DevCardSlot();
     private ArrayList<LeaderCard> playedLeaderCards = new ArrayList<>();
+    private String self;
 
 
     @FXML
@@ -141,7 +142,7 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
     }
 
     private void onOkBtm(Event event){
-
+        notifyObserver(obs-> obs.updateShowPlayer(self));
     }
 
     private void updateWarehouse(){
@@ -446,6 +447,10 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
 
     public void setPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards){
         this.playedLeaderCards = playedLeaderCards;
+    }
+
+    public void setSelf(String self){
+        this.self=self;
     }
 }
 
