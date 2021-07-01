@@ -18,7 +18,7 @@ public class BootServer {
         if (args.length < 2) {
             System.out.println("Error: Arguments missing. Using default port 4000 and localhost as default.");
             port=4000;
-            address="25.40.202.240";
+            address="localhost";
         }
 
         else {
