@@ -25,14 +25,14 @@
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
                <children>
-                  <RadioButton layoutX="167.0" layoutY="37.0" mnemonicParsing="false">
+                  <RadioButton fx:id="chkConv1" layoutX="167.0" layoutY="37.0" mnemonicParsing="false">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgConv1" fitHeight="60.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </RadioButton>
-                  <RadioButton layoutX="359.0" layoutY="37.0" mnemonicParsing="false">
+                  <RadioButton fx:id="chkConv2" layoutX="359.0" layoutY="37.0" mnemonicParsing="false">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imgConv2" fitHeight="60.0" fitWidth="72.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </RadioButton>
                </children>
