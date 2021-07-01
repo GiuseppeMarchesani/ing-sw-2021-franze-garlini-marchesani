@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.enumeration.ResourceType;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**
@@ -72,6 +73,7 @@ public class Player {
                 cards.add(card);
             }
         }
+        Collections.reverse(cards);
         return cards;
     }
 
