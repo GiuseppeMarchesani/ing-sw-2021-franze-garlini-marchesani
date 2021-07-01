@@ -115,6 +115,7 @@ public class Game {
         ArrayList<String> keys = new ArrayList<>(userPoints.keySet());
         ArrayList<Integer> values = new ArrayList<>(userPoints.values());
         Collections.sort(values);
+        Collections.reverse(values);
         Collections.sort(keys);
 
         HashMap<String,Integer> sortedPoints= new HashMap<>();

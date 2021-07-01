@@ -331,7 +331,7 @@ public class GameController {
         allVirtualView.put(username, virtualView);
         turnController.reconnect(username);
         broadcastMessage(username + " has reconnected.");
-        showPlayer(gameSession.getPlayer(username),true);
+        showPlayer(gameSession.getPlayer(username),username);
         allVirtualView.get(username).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
         allVirtualView.get(username).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
 
@@ -460,10 +460,10 @@ public class GameController {
 
                     player=gameSession.getPlayer((((ShowPlayerRequest) msg).getPlayer()));
                         if((((ShowPlayerRequest) msg).getPlayer()).equals(getActivePlayer())) {
-                            showPlayer(player, true);
+                            showPlayer(player, getActivePlayer());
                             startTurn();
                         }
-                        else showPlayer(player, false);
+                        else showPlayer(player, getActivePlayer());
                     break;
                 case SHOW_PLAYER_FAITH:
                     allVirtualView.get(getActivePlayer()).showPlayerFaith(gameSession.getFaith(getActivePlayer()));
@@ -828,10 +828,10 @@ public class GameController {
     /**
      * Shows a player
      * @param player The player to show
-     * @param isYou is the shown player the same one who requested to show.
+     * @param username the username of the player who requested to show.
      */
-    public void showPlayer(Player player, boolean isYou){
-        allVirtualView.get(getActivePlayer()).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(), getActivePlayer());
+    public void showPlayer(Player player, String username){
+        allVirtualView.get(username).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(), username);
 
     }
 }
