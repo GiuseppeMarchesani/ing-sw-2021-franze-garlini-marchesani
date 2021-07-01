@@ -100,11 +100,19 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askMarketLineToGet(ArrayList<ResourceType> conversion) {
-        MarketSceneController msc = new MarketSceneController();
-        msc.addAllObservers(observers);
-        Platform.runLater(()->
-                SceneController.changeRootPane(msc,"/fxml/market_scene")
-        );
+        if(conversion.size()>1){
+            ChooseConversionSceneController ccsc = new ChooseConversionSceneController();
+            ccsc.addAllObservers(observers);
+            ccsc.setConversions(conversion);
+            Platform.runLater(() -> SceneController.changeRootPane(ccsc, "/fxml/choose_marbleConversion_scene"));
+        }
+        else {
+            MarketSceneController msc = new MarketSceneController();
+            msc.addAllObservers(observers);
+            Platform.runLater(() ->
+                    SceneController.changeRootPane(msc, "/fxml/market_scene")
+            );
+        }
     }
 
     @Override
