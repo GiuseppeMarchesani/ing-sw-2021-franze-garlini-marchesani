@@ -289,7 +289,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(13));
     }
     public void onEndTurnBtm(Event event){
-        notifyObserver(obs -> obs.updateAction(13));
+        notifyObserver(obs -> obs.updateAction(14));
     }
 
     private void updateCardMarket(){
