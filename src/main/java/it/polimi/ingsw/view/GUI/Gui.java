@@ -214,16 +214,21 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showPlayerFaith(ArrayList<Integer> faith) {
-        for(int i=0; i<playerList.size(); i++){
-            faithTrack.put(playerList.get(i), faith.get(i));
-            if(playerList.size()==1) {
-                faithTrack.put("Lorenzo il Magnifico", faith.get(i+1));
+        if(playerList.size()>1) {
+            for(int i=0; i<playerList.size(); i++){
+                faithTrack.put(playerList.get(i), faith.get(i));
+
             }
+        }
+        else {
+            faithTrack.put(playerList.get(0), faith.get(0));
+            faithTrack.put("Lorenzo il Magnifico", faith.get(1));
         }
     }
 
     @Override
     public void showPlayerList(ArrayList<String> playerOrder) {
+        //playerList = new ArrayList<>(playerOrder);
         ChoosePlayerSceneController cpsc = new ChoosePlayerSceneController();
         cpsc.addAllObservers(observers);
         cpsc.setPlayersList(playerOrder);
