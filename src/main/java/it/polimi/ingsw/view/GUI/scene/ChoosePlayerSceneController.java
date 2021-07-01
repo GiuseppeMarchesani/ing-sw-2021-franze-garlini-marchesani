@@ -65,7 +65,7 @@ public class ChoosePlayerSceneController extends ObservableView implements Gener
         boolean wrongInput = false;
         String name;
         name = chosenPlayer.getText();
-        if(!playersList.contains(name) && name.equals(self)){
+        if(!playersList.contains(name) || name.equals(self)){
             wrongInput = true;
         }
         if(wrongInput){
