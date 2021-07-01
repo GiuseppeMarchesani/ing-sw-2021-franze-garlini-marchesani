@@ -35,6 +35,7 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
     private ArrayList<LeaderCard> allLeaderCards = new ArrayList<>();
     private HashMap<LeaderCard,Boolean> leaderCards = new HashMap<>();
     private ArrayList<ImageView> leaders = new ArrayList<>();
+    private ArrayList<RadioButton> radioLead = new ArrayList<>();
     private ArrayList<LeaderCard> restLeader;
     private LeaderCard chosenLeaderDiscard;
     @FXML
@@ -42,6 +43,8 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
         btm_play.setDisable(false);
         leaders.add(leader1);
         leaders.add(leader2);
+        radioLead.add(check_leader1);
+        radioLead.add(check_leader2);
         check_leader1.setToggleGroup(group);
         check_leader2.setToggleGroup(group);
         restLeader = allLeaderCards;
@@ -65,29 +68,18 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
     private void onPlayBtm(Event event){
 
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
-        String id = selectedRadioButton.getId();
 
-        if(id.equals("leader1")){
-            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'p'));
-        }
-        else{
-            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'p'));
-        }
+        int numLead = radioLead.indexOf(selectedRadioButton);
+        notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(numLead), 'p'));
+
 
     }
     private void onDiscardBtm(Event event){
 
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
-        String id = selectedRadioButton.getId();
 
-        if(id.equals("leader1")){
-            chosenLeaderDiscard = allLeaderCards.get(0);
-            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(0), 'd'));
-        }
-        else{
-            chosenLeaderDiscard = allLeaderCards.get(1);
-            notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(1), 'd'));
-        }
+        int numLead = radioLead.indexOf(selectedRadioButton);
+        notifyObserver(obs -> obs.updatePlayLeaderCard(allLeaderCards.get(numLead), 'd'));
 
     }
 
