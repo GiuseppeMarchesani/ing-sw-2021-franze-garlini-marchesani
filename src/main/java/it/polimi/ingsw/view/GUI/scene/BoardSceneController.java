@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -258,7 +259,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
     @FXML
     public void initialize(){
-        end_turn.setDisable(true);
 
         btmDevCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBuyCardBtm);
         btmResources.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onResourcesBtm);
@@ -273,10 +273,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(1));
     }
     public void onResourcesBtm(Event event){
-        btmProduction.setDisable(true);
-        btmResources.setDisable(true);
-        btmDevCard.setDisable(true);
-        end_turn.setDisable(false);
         notifyObserver(obs -> obs.updateAction(0));
     }
     public void onProductionBtm(Event event){
@@ -284,10 +280,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(2));
     }
     public void onLeaderBtm(Event event){
-        leaderAction++;
-        if(leaderAction==2){
-            btmLeader.setDisable(true);
-        }
         notifyObserver(obs -> obs.updateAction(3));
     }
     public void onVpBtm(Event event){
@@ -298,10 +290,6 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
     }
     public void onEndTurnBtm(Event event){
-        btmResources.setDisable(false);
-        btmDevCard.setDisable(false);
-        btmLeader.setDisable(false);
-        btmProduction.setDisable(false);
         notifyObserver(obs -> obs.updateAction(13));
     }
 
@@ -352,15 +340,19 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
             if(leaderCards.get(ld) && i==0){
                 state_leader1.setText("ACTIVATED");
+                state_leader1.setTextFill(Color.RED);
             }
             else if(leaderCards.get(ld) && i==1){
                 state_leader2.setText("ACTIVATED");
+                state_leader2.setTextFill(Color.RED);
             }
             else if(!leaderCards.get(ld) && i==0){
                 state_leader1.setText("NOT ACTIVATED");
+                state_leader1.setTextFill(Color.GREEN);
             }
             else if(!leaderCards.get(ld) && i==1){
                 state_leader2.setText("NOT ACTIVATED");
+                state_leader2.setTextFill(Color.GREEN);
             }
             i++;
 
