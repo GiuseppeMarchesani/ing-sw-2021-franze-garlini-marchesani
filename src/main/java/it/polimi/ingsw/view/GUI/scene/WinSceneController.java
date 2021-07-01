@@ -35,51 +35,29 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
     @FXML
     public void initialize(){
         ArrayList<String> usernameList = new ArrayList<>(finalVp.keySet());
+        vp2.setVisible(false);
+        username2.setVisible(false);
+        vp3.setVisible(false);
+        username3.setVisible(false);
+        vp4.setVisible(false);
+        username4.setVisible(false);
+        switch(finalVp.size()){
+            case 4:
+                username4.setText(usernameList.get(3));
+                vp4.setText(String.valueOf(finalVp.get(usernameList.get(3))));
+            case 3:
+                username3.setText(usernameList.get(2));
+                vp3.setText(String.valueOf(finalVp.get(usernameList.get(2))));
+            case 2:
+                username2.setText(usernameList.get(1));
+                vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
+            case 1:
+                username.setText(usernameList.get(0));
+                username1.setText(usernameList.get(0));
+                vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
 
-        if(finalVp.size() == 1){
-            username.setText(usernameList.get(0));
-            username1.setText(usernameList.get(0));
-            vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
-            vp2.setVisible(false);
-            username2.setVisible(false);
-            vp3.setVisible(false);
-            username3.setVisible(false);
-            vp4.setVisible(false);
-            username4.setVisible(false);
         }
-        else if(finalVp.size() == 2){
-            username.setText(usernameList.get(0));
-            username1.setText(usernameList.get(0));
-            vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
-            username2.setText(usernameList.get(1));
-            vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
-            vp3.setVisible(false);
-            username3.setVisible(false);
-            vp4.setVisible(false);
-            username4.setVisible(false);
-        }
-        else if(finalVp.size() == 3){
-            username.setText(usernameList.get(0));
-            username1.setText(usernameList.get(0));
-            vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
-            username2.setText(usernameList.get(1));
-            vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
-            username3.setText(usernameList.get(2));
-            vp3.setText(String.valueOf(finalVp.get(usernameList.get(3))));
-            vp4.setVisible(false);
-            username4.setVisible(false);
-        }
-        else if(finalVp.size() == 4){
-            username.setText(usernameList.get(0));
-            username1.setText(usernameList.get(0));
-            vp1.setText(String.valueOf(finalVp.get(usernameList.get(0))));
-            username2.setText(usernameList.get(1));
-            vp2.setText(String.valueOf(finalVp.get(usernameList.get(1))));
-            username3.setText(usernameList.get(2));
-            vp3.setText(String.valueOf(finalVp.get(usernameList.get(3))));
-            username4.setText(usernameList.get(3));
-            vp4.setText(String.valueOf(finalVp.get(usernameList.get(4))));
-        }
+
     }
 
     public void setFinalVp(HashMap<String, Integer> finalVp){
