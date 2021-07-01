@@ -31,6 +31,7 @@ public class Gui extends ObservableView implements View {
     private static ArrayList<Integer> remainingCards = new ArrayList<>();
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
 
+
     @Override
     public void askConnect() {
         InitSceneController isc = new InitSceneController();
@@ -134,14 +135,25 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void askProduction(HashMap<ResourceType, Integer> strongbox, HashMap<ResourceType, Integer> warehouse, HashMap<ResourceType, Integer> price, int anyPayment, int anyProduce) {
-        AskProductionSceneController apsc = new AskProductionSceneController();
-        apsc.addAllObservers(observers);
-        apsc.setStrongbox(strongbox);
-        apsc.setWarehouse(warehouse);
-        apsc.setPrice(price);
-        apsc.setAnyPayment(anyPayment);
-        apsc.setAnyProduce(anyProduce);
-        Platform.runLater(() -> SceneController.changeRootPane(apsc, "/fxml/chooseCard_production_scene"));
+        if (anyPayment > 0) {
+            AnyForProdPaySceneController afp = new AnyForProdPaySceneController();
+            afp.addAllObservers(observers);
+            afp.setStrongbox(strongbox);
+            afp.setWarehouse(warehouse);
+            afp.setPrice(price);
+            afp.setAnyPayment(anyPayment);
+            afp.setAnyProduce(anyProduce);
+            Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/anyForProduction_scene"));
+        }
+        else {
+            AskProductionSceneController apsc = new AskProductionSceneController();
+            apsc.addAllObservers(observers);
+            apsc.setStrongbox(strongbox);
+            apsc.setWarehouse(warehouse);
+            apsc.setPrice(price);
+            apsc.setAnyProduce(anyProduce);
+            Platform.runLater(() -> SceneController.changeRootPane(observers, "/fxml/chooseCard_production_scene"));
+        }
     }
 
     @Override
