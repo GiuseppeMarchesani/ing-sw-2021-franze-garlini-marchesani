@@ -83,8 +83,6 @@ public class AskProductionSceneController extends ObservableView implements Gene
     @FXML
     private Button btn_ok;
     @FXML
-    private Button btn_pay;
-    @FXML
     private Button btn_next;
 
     private HashMap<ResourceType, Integer> strongbox;
@@ -160,10 +158,12 @@ public class AskProductionSceneController extends ObservableView implements Gene
         }
 
         for(ResourceType res: price.keySet()){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
-            imgRes.add(image);
-            resQuantity.add(price.get(res));
-            resType.add(res);
+            if(!res.equals(ResourceType.ANY)) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
+                imgRes.add(image);
+                resQuantity.add(price.get(res));
+                resType.add(res);
+            }
         }
 
         while (imgRes.size()<4){
@@ -202,7 +202,7 @@ public class AskProductionSceneController extends ObservableView implements Gene
             }
             else lblAvaWare.get(i).setText(warehouse.get(resType.get(i)).toString());
         }
-        btn_pay.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnPay);
+        btn_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnPay);
     }
 
     public void onBtnPay(Event event) {
