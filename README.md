@@ -1,7 +1,7 @@
 # Software Engineering Final 2020-2021
 ###Developed by:
 - [__Martina Franzè__](https://github.com/martina-franze)
-- [__Andrea Lanzi__](https://github.com/GiuseppeMarchesani)
+- [__Giuseppe Marchesani__](https://github.com/GiuseppeMarchesani)
 - [__Marco Garlini__](https://github.com/Gommarlo)
 
 ![alt text](deliverables/logo.jpg)
