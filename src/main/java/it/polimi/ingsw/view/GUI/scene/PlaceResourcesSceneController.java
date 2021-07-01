@@ -91,30 +91,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     @FXML
     private Label quantity_res4;
     @FXML
-    private RadioButton radio2_extra_res4;
-    @FXML
-    private RadioButton radio1_extra_res4;
-    @FXML
-    private RadioButton radio0_extra_res4;
-    @FXML
-    private RadioButton radio2_extra_res3;
-    @FXML
-    private RadioButton radio1_extra_res3;
-    @FXML
-    private RadioButton radio0_extra_res3;
-    @FXML
-    private RadioButton radio2_extra_res2;
-    @FXML
-    private RadioButton radio1_extra_res2;
-    @FXML
-    private RadioButton radio0_extra_res2;
-    @FXML
-    private RadioButton radio2_extra_res1;
-    @FXML
-    private RadioButton radio1_extra_res1;
-    @FXML
-    private RadioButton radio0_extra_res1;
-    @FXML
     private Button btm_next;
     @FXML
     private ToggleGroup depot_res1;
@@ -157,20 +133,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void initialize(){
 
-
-        radio0_extra_res4.setDisable(true);
-        radio1_extra_res4.setDisable(true);
-        radio2_extra_res4.setDisable(true);
-        radio0_extra_res3.setDisable(true);
-        radio1_extra_res3.setDisable(true);
-        radio2_extra_res3.setDisable(true);
-        radio0_extra_res2.setDisable(true);
-        radio1_extra_res2.setDisable(true);
-        radio2_extra_res2.setDisable(true);
-        radio0_extra_res1.setDisable(true);
-        radio1_extra_res1.setDisable(true);
-        radio2_extra_res1.setDisable(true);
-
         for(ResourceType res : resToPlace.keySet()){
            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
            imgRes.add(image);
@@ -195,24 +157,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         quantity_res3.setText(String.valueOf(resQuantity.get(2)));
         quantity_res4.setText(String.valueOf(resQuantity.get(3)));
 
-
-        int n=0;
-        if(extraDepot.size()==1){
-            for(ResourceType res: resToPlace.keySet()){
-                if(res.equals(extraDepot.get(0))){
-                    activeExtraButton(n);
-                }
-               n++;
-            }
-        }
-        else if(extraDepot.size()==2){
-            for(ResourceType res: resToPlace.keySet()) {
-                if (res.equals(extraDepot.get(0)) || res.equals(extraDepot.get(1))) {
-                   activeExtraButton(n);
-                }
-                n++;
-            }
-        }
         int k = 0;
         for(Image image: imgRes){
             if(image.equals(imgEmpty)){
@@ -238,42 +182,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         radio0_res3.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res3);
         radio0_res4.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onRadio0Res4);
     }
-    private void onRadioExtra0Res1(Event event){
 
-    }
-    private void onRadioExtra1Res1(Event event){
-
-    }
-    private void onRadioExtra2Res1(Event event){
-
-    }
-    private void onRadioExtra0Res2(Event event){
-
-    }
-    private void onRadioExtra1Res2(Event event){
-
-    }
-    private void onRadioExtra2Res2(Event event){
-
-    }
-    private void onRadioExtra0Res3(Event event){
-
-    }
-    private void onRadioExtra1Res3(Event event){
-
-    }
-    private void onRadioExtra2Res3(Event event){
-
-    }
-    private void onRadioExtra0Res4(Event event){
-
-    }
-    private void onRadioExtra1Res4(Event event){
-
-    }
-    private void onRadioExtra2Res4(Event event){
-
-    }
     private void onRadioDepot1Res1(Event event) {
         radio0_res1.setSelected(false);
         radio_depot1_res2.setDisable(true);
@@ -575,29 +484,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         }
 
         notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, leaderDepotQuantity, finalDiscard));
-    }
-
-    private void activeExtraButton(int n) {
-            if(n==0){
-                radio0_extra_res1.setDisable(false);
-                radio1_extra_res1.setDisable(false);
-                radio2_extra_res1.setDisable(false);
-            }
-            else if(n==1){
-                radio0_extra_res2.setDisable(false);
-                radio1_extra_res2.setDisable(false);
-                radio2_extra_res2.setDisable(false);
-            }
-            else if (n==2){
-                radio0_extra_res3.setDisable(false);
-                radio1_extra_res3.setDisable(false);
-                radio2_extra_res3.setDisable(false);
-            }
-            else if(n==3) {
-                radio0_extra_res4.setDisable(false);
-                radio1_extra_res4.setDisable(false);
-                radio2_extra_res4.setDisable(false);
-            }
     }
 
     private void enableButton(int k, int i) {

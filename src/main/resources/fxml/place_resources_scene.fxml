@@ -29,7 +29,6 @@
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.6666488647461" minWidth="10.0" prefWidth="121.6666488647461" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.33333333333331" minWidth="10.0" prefWidth="139.00001780192054" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.33331298828125" minWidth="10.0" prefWidth="142.6666971842448" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.33331298828125" minWidth="10.0" prefWidth="188.00004069010419" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.6666259765625" minWidth="10.0" prefWidth="182.6666259765625" />
                     </columnConstraints>
@@ -59,7 +58,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+                        <AnchorPane prefHeight="95.0" prefWidth="228.0" GridPane.columnIndex="2">
                            <children>
                               <Label layoutX="9.0" layoutY="33.0" prefHeight="31.0" prefWidth="175.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Choose which depot">
                                  <font>
@@ -68,7 +67,7 @@
                               </Label>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <children>
                               <RadioButton fx:id="radio_depot1_res1" layoutX="5.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -102,7 +101,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
                            <children>
                               <Label layoutX="10.0" layoutY="33.0" prefHeight="31.0" prefWidth="161.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Choose how many">
                                  <font>
@@ -135,7 +134,7 @@
                               <Font name="Bell MT" size="18.0" />
                            </font>
                         </Label>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <children>
                               <RadioButton fx:id="radio_depot1_res2" layoutX="7.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -169,7 +168,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                            <children>
                               <RadioButton fx:id="radio_depot1_res3" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -203,7 +202,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                            <children>
                               <RadioButton fx:id="radio_depot1_res4" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="63.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -240,7 +239,7 @@
                               <Cursor fx:constant="DEFAULT" />
                            </cursor>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <children>
                               <RadioButton fx:id="radio1_res1" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -282,7 +281,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                            <children>
                               <RadioButton fx:id="radio1_res2" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -324,7 +323,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
                            <children>
                               <RadioButton fx:id="radio1_res3" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -366,7 +365,7 @@
                               </RadioButton>
                            </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4">
                            <children>
                               <RadioButton fx:id="radio1_res4" layoutX="51.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE">
                                  <font>
@@ -399,156 +398,6 @@
                                  </cursor>
                               </RadioButton>
                               <RadioButton fx:id="radio0_res4" layoutX="11.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE" toggleGroup="$quantity4">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="91.0" prefWidth="157.0" GridPane.columnIndex="2">
-                           <children>
-                              <Label layoutX="21.0" layoutY="14.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="Extra depot">
-                                 <font>
-                                    <Font name="Bell MT" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label alignment="CENTER" layoutX="21.0" layoutY="41.0" prefHeight="31.0" prefWidth="106.0" style="-fx-background-color: white; -fx-background-radius: 10;" text="quantity">
-                                 <font>
-                                    <Font name="Bell MT" size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <children>
-                              <RadioButton fx:id="radio0_extra_res1" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="extraDepot1" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="radio1_extra_res1" layoutX="53.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot1">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                              <RadioButton fx:id="radio2_extra_res1" contentDisplay="CENTER" layoutX="106.0" layoutY="33.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$extraDepot1">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <children>
-                              <RadioButton fx:id="radio0_extra_res2" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="extraDepot2" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="radio1_extra_res2" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot2">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                              <RadioButton fx:id="radio2_extra_res2" contentDisplay="CENTER" layoutX="106.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$extraDepot2">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <children>
-                              <RadioButton fx:id="radio0_extra_res3" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="extraDepot3" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="radio1_extra_res3" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot3">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                              <RadioButton fx:id="radio2_extra_res3" contentDisplay="CENTER" layoutX="106.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$extraDepot3">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                           <children>
-                              <RadioButton fx:id="radio0_extra_res4" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="0" textFill="WHITE">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="extraDepot4" />
-                                 </toggleGroup>
-                              </RadioButton>
-                              <RadioButton fx:id="radio1_extra_res4" layoutX="54.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="1" textFill="WHITE" toggleGroup="$extraDepot4">
-                                 <font>
-                                    <Font name="Bell MT" size="11.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </RadioButton>
-                              <RadioButton fx:id="radio2_extra_res4" contentDisplay="CENTER" layoutX="106.0" layoutY="34.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="39.0" style="-fx-background-color: #7a5245; -fx-background-radius: 10;" text="2" textFill="WHITE" toggleGroup="$extraDepot4">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
                                  <font>
                                     <Font name="Bell MT" size="11.0" />
                                  </font>
