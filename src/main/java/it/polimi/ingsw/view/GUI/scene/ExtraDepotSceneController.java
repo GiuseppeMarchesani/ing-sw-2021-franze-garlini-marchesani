@@ -103,7 +103,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
                 if(Integer.parseInt(txt_coin.getText())>2){
                     wrongInput=true;
                 }
-                else if(Integer.parseInt(txt_coin.getText())>resToPlace.get(res)){
+                else if(Integer.parseInt(txt_coin.getText())>(resToPlace.get(res)!=null? resToPlace.get(res):0)){
                     wrongInput = true;
                 }
                 else {
@@ -117,7 +117,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
                 if(Integer.parseInt(txt_stone.getText())>2){
                     wrongInput=true;
                 }
-                else if(Integer.parseInt(txt_stone.getText())>resToPlace.get(res)){
+                else if(Integer.parseInt(txt_stone.getText())> (resToPlace.get(res)!=null? resToPlace.get(res):0)){
                     wrongInput = true;
                 }
                 else {
@@ -131,7 +131,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
                 if(Integer.parseInt(txt_shield.getText())>2){
                     wrongInput=true;
                 }
-                else if(Integer.parseInt(txt_shield.getText())>resToPlace.get(res)){
+                else if(Integer.parseInt(txt_shield.getText())>(resToPlace.get(res)!=null? resToPlace.get(res):0)){
                     wrongInput = true;
                 }
                 else {
@@ -146,7 +146,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
                 if(Integer.parseInt(txt_servant.getText())>2){
                     wrongInput=true;
                 }
-                else if(Integer.parseInt(txt_servant.getText())>resToPlace.get(res)){
+                else if(Integer.parseInt(txt_servant.getText())>(resToPlace.get(res)!=null? resToPlace.get(res):0)){
                     wrongInput = true;
                 }
                 else {

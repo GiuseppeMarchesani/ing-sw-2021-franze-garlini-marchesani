@@ -111,6 +111,7 @@ public class Gui extends ObservableView implements View {
         else {
             MarketSceneController msc = new MarketSceneController();
             msc.addAllObservers(observers);
+            msc.setConversion(conversion.size()==1? conversion.get(0):null);
             Platform.runLater(() ->
                     GuiManager.changeRootPane(msc, "/fxml/market_scene")
             );
