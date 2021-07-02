@@ -132,6 +132,13 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     @FXML
 
     private void initialize(){
+        ArrayList<ResourceType> toRemove = new ArrayList<>();
+        for(ResourceType res: resToPlace.keySet()) {
+            if(resToPlace.get(res)==0) toRemove.add(res);
+        }
+        for(ResourceType res: toRemove) {
+            resToPlace.remove(res);
+        }
 
         for(ResourceType res : resToPlace.keySet()){
            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));

@@ -48,7 +48,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
                <children>
-                  <Button layoutX="500.0" layoutY="75.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="71.0" style="-fx-background-color: #7a5245; -fx-background-radius: 5;" text="NEXT" textFill="WHITE">
+                  <Button fx:id="btnNext" layoutX="500.0" layoutY="75.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="71.0" style="-fx-background-color: #7a5245; -fx-background-radius: 5;" text="NEXT" textFill="WHITE">
                      <font>
                         <Font name="Bell MT" size="14.0" />
                      </font>

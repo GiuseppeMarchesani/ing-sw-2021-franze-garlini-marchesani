@@ -196,7 +196,9 @@ public class Gui extends ObservableView implements View {
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer){
         for(LeaderCard ld: playedLeaderCards){
-           chosenLeader.put(ld, true);
+            for(LeaderCard lead: chosenLeader.keySet()) {
+                if(ld.getId()==lead.getId()) chosenLeader.replace(lead, true);
+            }
         }
     }
 

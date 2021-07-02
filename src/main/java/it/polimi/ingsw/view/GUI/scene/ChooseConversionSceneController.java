@@ -39,7 +39,7 @@ public class ChooseConversionSceneController extends ObservableView implements G
 
         Image image2 = new Image(MainApp.class.getResourceAsStream("/images/" + conversions.get(1).toString() + ".png"));
         imgConv2.setImage(image2);
-
+        toggle = new ToggleGroup();
         chkConv1.setToggleGroup(toggle);
         chkConv2.setToggleGroup(toggle);
         chkConv1.setSelected(true);

@@ -260,7 +260,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<Integer, Boolean> faithZone= new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
-
+    private int idLead1, idLead2;
 
     @FXML
     public void initialize(){
@@ -345,15 +345,18 @@ public class BoardSceneController extends ObservableView implements GenericScene
         btmPlayers.setDisable(false);
         btmDevCard.setDisable(false);
 
-        imgLeader.add(img_leader1);
-        imgLeader.add(img_leader2);
+        if(imgLeader.size()!=2) {
+            imgLeader.add(img_leader1);
+            imgLeader.add(img_leader2);
+        }
         int i=0;
+
         for(LeaderCard ld: leaderCards.keySet()){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId()-1) + ".png"));
-            imgLeader.get(i).setImage(image);
-            imgLeader.get(i).setVisible(true);
-
-
+            if(imgLeader.get(i).getImage()==null) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/leaderCards/leader_Id" + (ld.getId() - 1) + ".png"));
+                imgLeader.get(i).setImage(image);
+                imgLeader.get(i).setVisible(true);
+            }
             if(leaderCards.get(ld) && i==0){
                 state_leader1.setText("ACTIVATED");
                 state_leader1.setTextFill(Color.RED);
