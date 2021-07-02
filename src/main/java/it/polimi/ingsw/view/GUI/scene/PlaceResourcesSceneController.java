@@ -5,10 +5,7 @@ import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -460,48 +457,54 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
      * @param event the mouse click event.
      */
     private void onNextBtm(Event event){
+        boolean invalidInput = false;
         for(int j=0; j<3; j++) {
             floorQuantity.put(j, 0);
             floorResources.put(j, ResourceType.EMPTY);
         }
 
         for(int i=0; i<imgRes.size(); i++) {
+
             if(!imgRes.get(i).equals(imgEmpty)) {
-                if(i==0 && !radio0_res1.isSelected()) {
+                if(i==0 && !radio0_res1.isSelected() && depot_res1.getSelectedToggle()!=null && quantity1.getSelectedToggle()!=null) {
                     RadioButton selectedDepotRes1 = (RadioButton) depot_res1.getSelectedToggle();
                     int numDepot = Integer.parseInt(selectedDepotRes1.getText()) -1;
                     RadioButton selectedQuantityRes1 = (RadioButton) quantity1.getSelectedToggle();
                     int numRes = Integer.parseInt(selectedQuantityRes1.getText());
+                    int quantityDep = 3 - numDepot;
                     floorResources.put(numDepot, resType.get(i));
-                    floorQuantity.put(numDepot, numRes);
-                    finalDiscard += Integer.parseInt(quantity_res1.getText()) - numRes;
+                    floorQuantity.put(numDepot, Math.min(numRes, quantityDep));
+                    finalDiscard += Integer.parseInt(quantity_res1.getText()) - Math.min(numRes, quantityDep);
                 }
-                else if(i==1 && !radio0_res2.isSelected()) {
+                else if(i==1 && !radio0_res2.isSelected() && depot_res2.getSelectedToggle()!=null && quantity2.getSelectedToggle()!=null) {
                     RadioButton selectedDepotRes2 = (RadioButton) depot_res2.getSelectedToggle();
                     int numDepot = Integer.parseInt(selectedDepotRes2.getText()) -1;
                     RadioButton selectedQuantityRes2 = (RadioButton) quantity2.getSelectedToggle();
                     int numRes = Integer.parseInt(selectedQuantityRes2.getText());
+                    int quantityDep = 3 - numDepot;
                     floorResources.put(numDepot, resType.get(i));
-                    floorQuantity.put(numDepot, numRes);
-                    finalDiscard += Integer.parseInt(quantity_res2.getText()) - numRes;
+                    floorQuantity.put(numDepot, Math.min(numRes, quantityDep));
+                    finalDiscard += Integer.parseInt(quantity_res2.getText()) - Math.min(numRes, quantityDep);
                 }
-                else if(i==2 && !radio0_res3.isSelected()) {
+                else if(i==2 && !radio0_res3.isSelected() && depot_res3.getSelectedToggle()!=null && quantity3.getSelectedToggle()!=null) {
                     RadioButton selectedDepotRes3 = (RadioButton) depot_res3.getSelectedToggle();
                     int numDepot = Integer.parseInt(selectedDepotRes3.getText()) -1;
                     RadioButton selectedQuantityRes3 = (RadioButton) quantity3.getSelectedToggle();
                     int numRes = Integer.parseInt(selectedQuantityRes3.getText());
+                    int quantityDep = 3 - numDepot;
                     floorResources.put(numDepot, resType.get(i));
-                    floorQuantity.put(numDepot, numRes);
-                    finalDiscard += Integer.parseInt(quantity_res3.getText()) - numRes;
+                    floorQuantity.put(numDepot, Math.min(numRes, quantityDep));
+                    finalDiscard += Integer.parseInt(quantity_res3.getText()) - Math.min(numRes, quantityDep);
                 }
-                else if(i==3 && !radio0_res4.isSelected()) {
+                else if(i==3 && !radio0_res4.isSelected() && depot_res4.getSelectedToggle()!=null && quantity4.getSelectedToggle()!=null) {
                     RadioButton selectedDepotRes4 = (RadioButton) depot_res4.getSelectedToggle();
                     int numDepot = Integer.parseInt(selectedDepotRes4.getText()) -1;
                     RadioButton selectedQuantityRes4 = (RadioButton) quantity4.getSelectedToggle();
                     int numRes = Integer.parseInt(selectedQuantityRes4.getText());
+                    int quantityDep = 3 - numDepot;
                     floorResources.put(numDepot, resType.get(i));
-                    floorQuantity.put(numDepot, numRes);
-                    finalDiscard += Integer.parseInt(quantity_res4.getText()) - numRes;
+                    floorQuantity.put(numDepot, Math.min(numRes, quantityDep));
+                    finalDiscard += Integer.parseInt(quantity_res4.getText()) - Math.min(numRes, quantityDep);
                 }
                 else if(radio0_res1.isSelected()) {
                     finalDiscard += Integer.parseInt(quantity_res1.getText());
@@ -515,11 +518,16 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
                 else if(radio0_res4.isSelected()) {
                     finalDiscard += Integer.parseInt(quantity_res4.getText());
                 }
-
+                else {
+                    invalidInput = true;
+                    Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+                    errorAlert.setHeaderText("Input not valid");
+                    errorAlert.setContentText("You must choose a slot!");
+                    errorAlert.showAndWait();
+                }
             }
         }
-
-        notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, extraDepot, finalDiscard));
+        if(!invalidInput) notifyObserver(obs -> obs.updateWarehouse(floorResources, floorQuantity, extraDepot, finalDiscard));
     }
 
     private void enableButton(int k, int i) {
