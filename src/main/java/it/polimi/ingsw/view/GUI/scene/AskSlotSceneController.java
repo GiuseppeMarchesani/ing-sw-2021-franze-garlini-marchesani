@@ -158,8 +158,22 @@ public class AskSlotSceneController extends ObservableView implements GenericSce
         btn_next.setDisable(true);
 
         for(ResourceType res: cardCost.keySet()){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
-            imgRes.add(image);
+            if(res.equals(ResourceType.SHIELD)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+                imgRes.add(image);
+            }
+            else if(res.equals(ResourceType.SERVANT)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+                imgRes.add(image);
+            }
+            else if(res.equals(ResourceType.STONE)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+                imgRes.add(image);
+            }
+            else if(res.equals(ResourceType.COIN)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+                imgRes.add(image);
+            }
             resQuantity.add(cardCost.get(res));
             resType.add(res);
         }

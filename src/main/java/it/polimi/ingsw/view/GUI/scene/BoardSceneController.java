@@ -407,7 +407,20 @@ public class BoardSceneController extends ObservableView implements GenericScene
                     state_leader1.setTextFill(Color.RED);
                     if (ld.getId() >= 53 && ld.getId() <= 56) {
                         if (extraDepotRes.containsKey(ld.getResourceAbility())) {
-                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+                            String resource;
+                            if(ld.getResourceAbility().equals(ResourceType.COIN)){
+                                resource = "COIN";
+                            }
+                            else if(ld.getResourceAbility().equals(ResourceType.STONE)){
+                                resource = "STONE";
+                            }
+                            else if(ld.getResourceAbility().equals(ResourceType.SERVANT)){
+                                resource = "SERVANT";
+                            }
+                            else{
+                                resource = "SHIELD";
+                            }
+                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + resource + ".png"));
 
                             if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
                                 extra_leader1_res1.setImage(image1);
@@ -434,7 +447,20 @@ public class BoardSceneController extends ObservableView implements GenericScene
                     state_leader2.setTextFill(Color.RED);
                     if (ld.getId() >= 53 && ld.getId() <= 56) {
                         if (extraDepotRes.containsKey(ld.getResourceAbility())) {
-                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+                            String resource;
+                            if(ld.getResourceAbility().equals(ResourceType.COIN)){
+                                resource = "COIN";
+                            }
+                            else if(ld.getResourceAbility().equals(ResourceType.STONE)){
+                                resource = "STONE";
+                            }
+                            else if(ld.getResourceAbility().equals(ResourceType.SERVANT)){
+                                resource = "SERVANT";
+                            }
+                            else{
+                                resource = "SHIELD";
+                            }
+                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + resource + ".png"));
                             if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
                                 extra_leader2_res1.setImage(image1);
                                 extra_leader2_res1.setVisible(true);
@@ -564,8 +590,22 @@ public class BoardSceneController extends ObservableView implements GenericScene
         img_depot3_res1.setImage(null);
         for (Integer depot : depotResource.keySet()) {
             for (int i = 1; i <= depotQuantity.get(depot); i++) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + depotResource.get(depot).toString() + ".png"));
-                setImage(depot, depotQuantity.get(depot), image);
+                if(depotResource.get(depot).equals(ResourceType.SHIELD)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+                    setImage(depot, depotQuantity.get(depot), image);
+                }
+                else if(depotResource.get(depot).equals(ResourceType.SERVANT)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+                    setImage(depot, depotQuantity.get(depot), image);
+                }
+                else if(depotResource.get(depot).equals(ResourceType.STONE)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+                    setImage(depot, depotQuantity.get(depot), image);
+                }
+                else if(depotResource.get(depot).equals(ResourceType.COIN)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+                    setImage(depot, depotQuantity.get(depot), image);
+                }
             }
         }
     }
@@ -914,8 +954,22 @@ public class BoardSceneController extends ObservableView implements GenericScene
         btmDevCard.setDisable(false);
 
         int n=0;
+
         for(ResourceType res: strongbox.keySet()){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
+            String resource;
+            if(res.equals(ResourceType.COIN)){
+                resource = "COIN";
+            }
+            else if(res.equals(ResourceType.STONE)){
+                resource = "STONE";
+            }
+            else if(res.equals(ResourceType.SERVANT)){
+                resource = "SERVANT";
+            }
+            else{
+                resource = "SHIELD";
+            }
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + resource + ".png"));
             if(n==0){
                 strong_res1.setImage(image);
                 strong_quantity1.setText(String.valueOf(strongbox.get(res)));

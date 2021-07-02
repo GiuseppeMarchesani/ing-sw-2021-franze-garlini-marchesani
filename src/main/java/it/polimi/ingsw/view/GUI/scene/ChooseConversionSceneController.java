@@ -37,11 +37,36 @@ public class ChooseConversionSceneController extends ObservableView implements G
 
     @FXML
     public void initialize() {
-
-        Image image = new Image(MainApp.class.getResourceAsStream("/images/" + conversions.get(0).toString() + ".png"));
+        String resource;
+        if(conversions.get(0).equals(ResourceType.COIN)){
+            resource = "COIN";
+        }
+        else if(conversions.get(0).equals(ResourceType.STONE)){
+            resource = "STONE";
+        }
+        else if(conversions.get(0).equals(ResourceType.SERVANT)){
+            resource = "SERVANT";
+        }
+        else{
+            resource = "SHIELD";
+        }
+        Image image = new Image(MainApp.class.getResourceAsStream("/images/" + resource + ".png"));
         imgConv1.setImage(image);
 
-        Image image2 = new Image(MainApp.class.getResourceAsStream("/images/" + conversions.get(1).toString() + ".png"));
+        String res;
+        if(conversions.get(1).equals(ResourceType.COIN)){
+            res = "COIN";
+        }
+        else if(conversions.get(1).equals(ResourceType.STONE)){
+            res = "STONE";
+        }
+        else if(conversions.get(1).equals(ResourceType.SERVANT)){
+            res = "SERVANT";
+        }
+        else{
+            res = "SHIELD";
+        }
+        Image image2 = new Image(MainApp.class.getResourceAsStream("/images/" + res + ".png"));
         imgConv2.setImage(image2);
         toggle = new ToggleGroup();
         chkConv1.setToggleGroup(toggle);
