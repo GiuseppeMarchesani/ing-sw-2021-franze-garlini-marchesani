@@ -28,6 +28,15 @@ The different libraries and add-ons which were required during the development o
 - JavaFX
 - JUnit
 
+##Functionalities
+
+The developed functionalites are:
+- Singleplayer Game
+- Multiplayer Game (up to 4 players)
+- CLI
+- GUI
+- Multiple concurrent games
+- Client Disconnection Resilience
 ##Execution
 
 ###Client
@@ -38,6 +47,23 @@ java -jar masters-client.jar
 The user can then choose between the CLI and the GUI by simply typing their acronym.
 
 Due to the presence of ANSI colors, the CLI can be correctly used in UNIX environments or in Windows 10 build 16257 (or later) with the ENABLE_VIRTUAL_TERMINAL_PROCESSING flag enabled.
+###CLI Commands
+- MARKET
+    
+- DEVCARD
+- PRODUCTION
+- LEADER
+- SHOW_LEADER
+- SHOW_MARKET
+- SHOW_DEV_MARKET
+- SHOW_FAITH_TRACK
+- SHOW_SLOT
+- SHOW_WAREHOUSE
+- SHOW_STRONGBOX
+- SHOW_VP
+- SHOW_FAITH
+- SHOW_PLAYER
+- END_TURN
 ###Server
 The server can be executed by typing from the terminal the following command which starts the server on port 4000 and on the localhost:
 ```
@@ -47,3 +73,4 @@ If the user would like to specify a different port and ip, he can do so by typin
 ```
 java -jar masters-client.jar <port_number> <ip_address>
 ```
+
