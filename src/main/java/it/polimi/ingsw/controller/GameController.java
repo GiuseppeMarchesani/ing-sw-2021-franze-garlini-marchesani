@@ -142,6 +142,11 @@ public class GameController {
             for(VirtualView vv: allVirtualView.values()){
                 vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
                 vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
+                for(String s: allVirtualView.keySet()){
+                    if (!s.equals(getActivePlayer())){
+                        allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+                    }
+                }
             }
         }
         startTurn();
@@ -171,11 +176,7 @@ public class GameController {
      */
     public void startTurn(){
         tempCards.clear();
-        for(String s: allVirtualView.keySet()){
-            if (!s.equals(getActivePlayer())){
-                allVirtualView.get(s).showPlayerTurn(getActivePlayer());
-            }
-        }
+
         switch(gameState){
             case DRAWLEADER:
                 drawLeaderCards();
@@ -206,6 +207,11 @@ public class GameController {
      *Gives 4 leader cards to a player for him to discard.
      */
     private void drawLeaderCards(){
+        for(String s: allVirtualView.keySet()){
+            if (!s.equals(getActivePlayer())){
+                allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+            }
+        }
         ArrayList<LeaderCard> leaderCards= new ArrayList<>();
         for(int j=0; j<4; j++){
             leaderCards.add(gameSession.drawCard());
@@ -220,6 +226,11 @@ public class GameController {
      */
     private boolean choseInitialRes(){
         String activePlayer= getActivePlayer();
+        for(String s: allVirtualView.keySet()){
+            if (!s.equals(getActivePlayer())){
+                allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+            }
+        }
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
@@ -242,6 +253,11 @@ public class GameController {
             gameState=GameState.IN_GAME;
 
             turnController.proxPlayer();
+            for(String s: allVirtualView.keySet()){
+                if (!s.equals(getActivePlayer())){
+                    allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+                }
+            }
             return true;
         }
     }
@@ -304,6 +320,11 @@ public class GameController {
                         break;
                     case GIVERES:
                         setGameState(GameState.IN_GAME);
+                        for(String s: allVirtualView.keySet()){
+                            if (!s.equals(getActivePlayer())){
+                                allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+                            }
+                        }
                         break;
                     default:
                         //None
@@ -802,6 +823,11 @@ public class GameController {
             countFinalVictoryPoints();
         }
         else {
+            for(String s: allVirtualView.keySet()){
+                if (!s.equals(getActivePlayer())){
+                    allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+                }
+            }
             startTurn();
         }
     }
