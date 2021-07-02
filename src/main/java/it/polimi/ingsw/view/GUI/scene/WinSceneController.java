@@ -1,11 +1,12 @@
 package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
-import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
+import it.polimi.ingsw.observer.ObserverView;
+import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,8 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
     private Label vp3;
     @FXML
     private Label vp4;
+    @FXML
+    private Button btm_close;
 
     private HashMap<String, Integer> finalVp = new HashMap<>();
     @FXML
@@ -66,8 +69,13 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
 
         }
 
+        btm_close.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onBtmClose);
+
     }
 
+    private void onBtmClose(Event event){
+        notifyObserver(ObserverView::updateDisconnect);
+    }
     public void setFinalVp(HashMap<String, Integer> finalVp){
         this.finalVp = finalVp;
     }

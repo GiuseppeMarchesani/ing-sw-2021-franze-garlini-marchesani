@@ -266,6 +266,10 @@ public class AskSlotSceneController extends ObservableView implements GenericSce
             errorAlert.showAndWait();
         }
         else {
+            btn_next.setDisable(true);
+            radio_slot1.setDisable(true);
+            radio_slot2.setDisable(true);
+            radio_slot3.setDisable(true);
             int finalChosenSlot = chosenSlot;
             notifyObserver(obs -> obs.updatePlaceDevCard(paymentWarehouse, newStrongbox, finalChosenSlot));
         }

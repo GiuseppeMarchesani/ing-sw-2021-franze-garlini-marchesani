@@ -374,35 +374,52 @@
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="end_turn" defaultButton="true" layoutX="145.0" layoutY="83.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="End turn" textFill="WHITE" GridPane.rowIndex="3">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="btmLeader" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Leader" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="btmResources" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Resources" textFill="WHITE">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="btmProduction" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Production" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="btmDevCard" defaultButton="true" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="Buy dev card" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="Bell MT" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </GridPane>
-      <ImageView fx:id="imgInkwell" fitHeight="107.0" fitWidth="128.0" layoutX="1135.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="state_leader1" alignment="CENTER" layoutX="728.0" layoutY="289.0" prefHeight="21.0" prefWidth="110.0" textFill="RED">
          <font>
             <Font name="Bell MT" size="12.0" />

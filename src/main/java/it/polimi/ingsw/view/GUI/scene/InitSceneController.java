@@ -23,7 +23,8 @@ public class InitSceneController extends ObservableView implements GenericSceneC
     }
 
     private void onConnectBtm(Event event){
-
+        serverAddressField.setDisable(true);
+        serverPortField.setDisable(true);
         String address = serverAddressField.getText();
         Integer chosenPort = Integer.parseInt(serverPortField.getText());
         btm_next.setDisable(true);

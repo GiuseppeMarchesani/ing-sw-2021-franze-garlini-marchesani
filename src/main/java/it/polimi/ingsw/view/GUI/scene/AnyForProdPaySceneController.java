@@ -55,6 +55,11 @@ public class AnyForProdPaySceneController extends ObservableView implements Gene
                 if(price.get(res)!=null) price.replace(res, price.get(res) + Integer.parseInt(txtRes.get(res).getText()));
                 else price.put(res, Integer.parseInt(txtRes.get(res).getText()));
             }
+            btn_next.setDisable(true);
+            txtCoin.setDisable(true);
+            txtServant.setDisable(true);
+            txtShield.setDisable(true);
+            txtStone.setDisable(true);
             AskProductionSceneController apsc = new AskProductionSceneController();
             apsc.addAllObservers(observers);
             apsc.setStrongbox(strongbox);

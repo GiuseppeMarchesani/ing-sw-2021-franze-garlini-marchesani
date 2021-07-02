@@ -25,6 +25,8 @@ public class LobbySceneController extends ObservableView implements GenericScene
 
     private void onJoinBtm(Event event){
         btnNext.setDisable(true);
+        txtGameId.setDisable(true);
+        txtUsername.setDisable(true);
         String username = txtUsername.getText();
         String game = txtGameId.getText();
 

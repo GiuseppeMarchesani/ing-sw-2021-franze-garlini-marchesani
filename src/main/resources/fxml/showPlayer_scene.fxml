@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
@@ -77,7 +83,7 @@
             <ImageView fx:id="pope3" fitHeight="61.0" fitWidth="63.0" layoutX="640.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Pane id="resources" layoutX="169.0" layoutY="311.0" prefHeight="340.0" prefWidth="217.0">
+      <Pane id="resources" layoutX="155.0" layoutY="221.0" prefHeight="340.0" prefWidth="217.0">
          <children>
             <ImageView fitHeight="340.0" fitWidth="210.0">
                <image>
@@ -146,7 +152,7 @@
             </GridPane>
          </children>
       </Pane>
-      <Pane layoutX="386.0" layoutY="311.0" prefHeight="340.0" prefWidth="495.0">
+      <Pane layoutX="372.0" layoutY="221.0" prefHeight="340.0" prefWidth="495.0">
          <children>
             <ImageView fx:id="devSlots" fitHeight="340.0" fitWidth="496.0">
                <image>
@@ -164,7 +170,7 @@
             <ImageView fx:id="img_slot2_card2" fitHeight="164.0" fitWidth="110.0" layoutX="333.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Pane fx:id="leaderSlot1" layoutX="897.0" layoutY="407.0" prefHeight="164.0" prefWidth="110.0">
+      <Pane fx:id="leaderSlot1" layoutX="883.0" layoutY="317.0" prefHeight="164.0" prefWidth="110.0">
          <children>
             <ImageView fitHeight="164.0" fitWidth="110.0">
                <image>
@@ -176,7 +182,7 @@
             <ImageView fx:id="extra_leader1_res2" fitHeight="27.0" fitWidth="28.0" layoutX="62.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
-      <Pane fx:id="leaderSlot2" layoutX="1029.0" layoutY="407.0" prefHeight="164.0" prefWidth="110.0">
+      <Pane fx:id="leaderSlot2" layoutX="1015.0" layoutY="317.0" prefHeight="164.0" prefWidth="110.0">
          <children>
             <ImageView fitHeight="164.0" fitWidth="110.0">
                <image>
@@ -198,10 +204,13 @@
             <Font name="Bell MT" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="btm_ok" defaultButton="true" layoutX="1084.0" layoutY="633.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="OK" textFill="WHITE">
+      <Button fx:id="btm_ok" defaultButton="true" layoutX="1058.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="135.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="OK" textFill="WHITE">
          <font>
-            <Font name="Bell MT" size="14.0" />
+            <Font name="Bell MT" size="36.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
       <Label fx:id="username" layoutX="9.0" layoutY="38.0" prefHeight="54.0" prefWidth="210.0">
          <font>

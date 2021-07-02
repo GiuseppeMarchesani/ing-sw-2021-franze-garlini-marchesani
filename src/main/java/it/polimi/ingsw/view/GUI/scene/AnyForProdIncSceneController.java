@@ -48,11 +48,17 @@ public class AnyForProdIncSceneController extends ObservableView implements Gene
     }
 
     public void onBtnNext(Event event) {
+
         if(anyProduce == Integer.parseInt(txtCoin.getText()) + Integer.parseInt(txtShield.getText()) + Integer.parseInt(txtServant.getText()) + Integer.parseInt(txtStone.getText())) {
             for(ResourceType res: txtRes.keySet()) {
                 if(strongbox.get(res)!=null) strongbox.replace(res, strongbox.get(res) + Integer.parseInt(txtRes.get(res).getText()));
                 else strongbox.put(res, Integer.parseInt(txtRes.get(res).getText()));
             }
+            btn_next.setDisable(true);
+            txtCoin.setDisable(true);
+            txtServant.setDisable(true);
+            txtShield.setDisable(true);
+            txtStone.setDisable(true);
             notifyObserver(obs -> obs.updateGetProdRes(strongbox, warehouse));
         }
         else {

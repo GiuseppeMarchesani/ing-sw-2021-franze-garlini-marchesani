@@ -47,6 +47,9 @@ public class ChooseConversionSceneController extends ObservableView implements G
     }
 
     public void onNextBtn(Event event) {
+        btnNext.setDisable(true);
+        chkConv1.setDisable(true);
+        chkConv2.setDisable(true);
         RadioButton selected = (RadioButton) toggle.getSelectedToggle();
         if(selected.equals(chkConv1)) {
             chosen = conversions.get(0);

@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane prefHeight="579.0" prefWidth="911.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.StartSceneController">
+<StackPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.StartSceneController">
     <children>
-      <ImageView fitHeight="579.0" fitWidth="911.0" opacity="0.39">
+      <ImageView fitHeight="720.0" fitWidth="1280.0" opacity="0.39">
          <image>
             <Image url="@../images/playerBoard_bw.png" />
          </image>

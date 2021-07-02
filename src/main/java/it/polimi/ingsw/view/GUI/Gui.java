@@ -324,6 +324,9 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLoseMessage() {
+        LoseSceneController lsc = new LoseSceneController();
+        lsc.addAllObservers(observers);
+        Platform.runLater(() -> GuiManager.changeRootPane(observers, "/fxml/lose_scene"));
     }
 
     private ResourceType askAnyResource(){

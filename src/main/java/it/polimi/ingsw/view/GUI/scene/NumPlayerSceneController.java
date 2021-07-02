@@ -32,6 +32,11 @@ public class NumPlayerSceneController extends ObservableView implements GenericS
     }
 
     private void onConnectBtm(Event event){
+        choose1.setDisable(true);
+        choose2.setDisable(true);
+        choose3.setDisable(true);
+        choose4.setDisable(true);
+        btmNext.setDisable(true);
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
         String id= selectedRadioButton.getId();
         Integer numPlayer;

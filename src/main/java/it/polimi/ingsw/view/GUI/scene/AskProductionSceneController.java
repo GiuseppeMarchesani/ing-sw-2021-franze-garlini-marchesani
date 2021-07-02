@@ -244,6 +244,13 @@ public class AskProductionSceneController extends ObservableView implements Gene
             errorAlert.setContentText("Check your payment option!");
             errorAlert.showAndWait();
         } else{
+            btn_next.setDisable(true);
+            for (TextField txt : textStrongbox){
+                txt.setDisable(true);
+            }
+            for (TextField txt : textWarehouse){
+                txt.setDisable(true);
+            }
             if(anyProduce > 0) {
                 AnyForProdIncSceneController apisc = new AnyForProdIncSceneController();
                 apisc.addAllObservers(observers);

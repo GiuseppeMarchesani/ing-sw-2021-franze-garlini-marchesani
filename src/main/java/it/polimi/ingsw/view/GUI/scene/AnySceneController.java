@@ -40,6 +40,11 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
     }
 
     private void onNextBtm(Event event){
+        coin.setDisable(true);
+        stone.setDisable(true);
+        shield.setDisable(true);
+        servant.setDisable(true);
+        btm_next.setDisable(true);
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
         String id = selectedRadioButton.getId();
         switch (id){

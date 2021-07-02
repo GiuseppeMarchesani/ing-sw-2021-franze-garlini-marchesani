@@ -85,6 +85,7 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
                 unselectedCheckBoxes.forEach(cb -> cb.setDisable(false));
             }
         });
+
         btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onNextBtm);
 
     }
@@ -109,6 +110,11 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
             for (LeaderCard ld : allLeaders) {
                 restLeader.put(ld, false);
             }
+            leader1.setDisable(true);
+            leader2.setDisable(true);
+            leader3.setDisable(true);
+            leader4.setDisable(true);
+            btmNext.setDisable(true);
             notifyObserver(obs -> obs.updateDiscardLeader(allLeaders));
         }
         else {

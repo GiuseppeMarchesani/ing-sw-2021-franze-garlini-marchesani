@@ -114,7 +114,16 @@ public class AskCardsForProdSceneController extends ObservableView implements Ge
             errorAlert.setContentText("You must choose a card!");
             errorAlert.showAndWait();
         }
-        else notifyObserver(obs -> obs.updateChosenProdCards(chosenCards));
+        else{
+            check_card1.setDisable(true);
+            check_card2.setDisable(true);
+            check_card3.setDisable(true);
+            check_card4.setDisable(true);
+            check_card5.setDisable(true);
+            check_scroll.setDisable(true);
+            btn_ok.setDisable(true);
+            notifyObserver(obs -> obs.updateChosenProdCards(chosenCards));
+        }
     }
 
     public void setDevCardList(ArrayList<DevCard> devCardList) {
