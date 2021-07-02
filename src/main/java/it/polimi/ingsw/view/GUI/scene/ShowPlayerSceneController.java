@@ -389,27 +389,81 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         String resimg="";
         int n=0;
         for(ResourceType res: strongbox.keySet()){
-
-            if(res.equals(ResourceType.COIN)) resimg="COIN";
-            else if(res.equals(ResourceType.SHIELD)) resimg="SHIELD";
-            else if(res.equals(ResourceType.STONE)) resimg="STONE";
-            else if(res.equals(ResourceType.SERVANT)) resimg="SERVANT";
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + resimg + ".png"));
-            if(n==0){
-                strong_res1.setImage(image);
-                strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+            if(res.equals(ResourceType.SHIELD)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
+                if(n==0){
+                    strong_res1.setImage(image);
+                    strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==1){
+                    strong_res2.setImage(image);
+                    strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==2){
+                    strong_res3.setImage(image);
+                    strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+                }
+                else{
+                    strong_res4.setImage(image);
+                    strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+                }
             }
-            else if(n==1){
-                strong_res2.setImage(image);
-                strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+            else if(res.equals(ResourceType.SERVANT)) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
+                if(n==0){
+                    strong_res1.setImage(image);
+                    strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==1){
+                    strong_res2.setImage(image);
+                    strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==2){
+                    strong_res3.setImage(image);
+                    strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+                }
+                else{
+                    strong_res4.setImage(image);
+                    strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+                }
             }
-            else if(n==2){
-                strong_res3.setImage(image);
-                strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+            else if(res.equals(ResourceType.STONE)){
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
+                if(n==0){
+                    strong_res1.setImage(image);
+                    strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==1){
+                    strong_res2.setImage(image);
+                    strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==2){
+                    strong_res3.setImage(image);
+                    strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+                }
+                else{
+                    strong_res4.setImage(image);
+                    strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+                }
             }
-            else{
-                strong_res4.setImage(image);
-                strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+            else if(res.equals(ResourceType.COIN)) {
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
+                if(n==0){
+                    strong_res1.setImage(image);
+                    strong_quantity1.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==1){
+                    strong_res2.setImage(image);
+                    strong_quantity2.setText(String.valueOf(strongbox.get(res)));
+                }
+                else if(n==2){
+                    strong_res3.setImage(image);
+                    strong_quantity3.setText(String.valueOf(strongbox.get(res)));
+                }
+                else{
+                    strong_res4.setImage(image);
+                    strong_quantity4.setText(String.valueOf(strongbox.get(res)));
+                }
             }
             n++;
         }
