@@ -192,7 +192,14 @@ public class PlayerTest {
 
         vp = testPlayer.getLeaderCardList().get(0).getVP();
         vp += testPlayer.getLeaderCardList().get(1).getVP();
-        for(LeaderCard leader: testPlayer.getLeaderCards().keySet()) testPlayer.playLeader(leader);
+
+        ArrayList<LeaderCard> toBePlayed = new ArrayList<>();
+        for(LeaderCard leader: testPlayer.getLeaderCards().keySet()) {
+            toBePlayed.add(leader);
+        }
+        for(LeaderCard leader: toBePlayed) {
+            testPlayer.playLeader(leader);
+        }
         assertEquals(8, testPlayer.getLeaderVp());
     }
 }
