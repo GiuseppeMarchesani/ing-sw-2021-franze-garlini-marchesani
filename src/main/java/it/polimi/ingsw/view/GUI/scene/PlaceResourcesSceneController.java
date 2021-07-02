@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.GUI.scene;
 
+import com.sun.tools.javac.Main;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;;
@@ -137,19 +138,19 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         }
         for(ResourceType res : resToPlace.keySet()){
             if(res.equals(ResourceType.SHIELD)){
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
                 imgRes.add(image);
             }
             else if(res.equals(ResourceType.SERVANT)) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
                 imgRes.add(image);
             }
             else if(res.equals(ResourceType.STONE)){
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
                 imgRes.add(image);
             }
             else if(res.equals(ResourceType.COIN)) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
                 imgRes.add(image);
             }
             resQuantity.add(resToPlace.get(res));

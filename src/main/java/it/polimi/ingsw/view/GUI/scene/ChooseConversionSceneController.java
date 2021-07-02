@@ -38,36 +38,36 @@ public class ChooseConversionSceneController extends ObservableView implements G
     @FXML
     public void initialize() {
         if(conversions.get(0).equals(ResourceType.COIN)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
             imgConv1.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.STONE)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
             imgConv1.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.SERVANT)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
             imgConv1.setImage(image);
         }
         else{
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
             imgConv1.setImage(image);
         }
 
         if(conversions.get(0).equals(ResourceType.COIN)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
             imgConv2.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.STONE)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
             imgConv2.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.SERVANT)){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
             imgConv2.setImage(image);
         }
         else{
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
             imgConv2.setImage(image);
         }
 
