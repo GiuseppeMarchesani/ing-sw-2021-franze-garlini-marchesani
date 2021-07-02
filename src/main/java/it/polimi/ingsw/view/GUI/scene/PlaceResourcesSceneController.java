@@ -135,13 +135,12 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         for(ResourceType res: toRemove) {
             resToPlace.remove(res);
         }
-
         for(ResourceType res : resToPlace.keySet()){
             if(res.equals(ResourceType.SHIELD)){
                 Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
                 imgRes.add(image);
             }
-            else if(res.equals(ResourceType.SERVANT)){
+            else if(res.equals(ResourceType.SERVANT)) {
                 Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
                 imgRes.add(image);
             }
@@ -149,7 +148,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
                 Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
                 imgRes.add(image);
             }
-            else if(res.equals(ResourceType.COIN)){
+            else if(res.equals(ResourceType.COIN)) {
                 Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
                 imgRes.add(image);
             }
