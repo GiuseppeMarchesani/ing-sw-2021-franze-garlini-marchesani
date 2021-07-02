@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 
+/**
+ * This Scene Controller is used to ask the player how many players he wants.
+ */
 public class NumPlayerSceneController extends ObservableView implements GenericSceneController {
 
     private final ToggleGroup group = new ToggleGroup();
@@ -31,6 +34,10 @@ public class NumPlayerSceneController extends ObservableView implements GenericS
         btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
     }
 
+    /**
+     * Handles the click on Next button.
+     * @param event the mouse click event.
+     */
     private void onConnectBtm(Event event){
         choose1.setDisable(true);
         choose2.setDisable(true);
