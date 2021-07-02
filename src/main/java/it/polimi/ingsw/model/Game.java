@@ -106,7 +106,7 @@ public class Game {
      * Ends the game and communicate the result.
      * @return the results in a Hash Map.
      */
-    public HashMap<String, Integer> endGame() {
+    public LinkedHashMap<String, Integer> endGame() {
         //Turn has already let players to play the last turn.
         HashMap<String, Integer> userPoints=new HashMap<>();
         for(Player player : playersList){
@@ -123,7 +123,7 @@ public class Game {
                 tie++;
             }
         }
-        HashMap<String,Integer> sortedPoints= new HashMap<>();
+        LinkedHashMap<String,Integer> sortedPoints= new LinkedHashMap<>();
 
         Iterator<Integer> sortInt = values.iterator();
         while (sortInt.hasNext()) {
@@ -151,7 +151,7 @@ public class Game {
                 index=i;
             }
         }
-        HashMap<String,Integer> finalSorted=new HashMap<>();
+        LinkedHashMap<String,Integer> finalSorted=new LinkedHashMap<>();
         finalSorted.put(users.get(index), sortedPoints.get(users.get(index)));
         for(String s: sortedPoints.keySet()){
             if(!s.equals(users.get(index)) ){

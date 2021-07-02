@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import it.polimi.ingsw.model.Card.DevCard;
@@ -162,7 +163,7 @@ public interface View {
      * Shows the final results ant ends the game.
      * @param finalPoints the usernames and points of the players.
      */
-    void showWinMessage(HashMap<String, Integer> finalPoints);
+    void showWinMessage(LinkedHashMap<String, Integer> finalPoints);
 
     /**
      * Shows the final results for a Single Player match and ends the game.

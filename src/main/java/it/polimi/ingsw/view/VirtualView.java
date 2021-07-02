@@ -12,6 +12,7 @@ import it.polimi.ingsw.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  * Hides the network implementation from the controller.
@@ -138,7 +139,7 @@ public class VirtualView implements View, Observer {
     }
 
     @Override
-    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+    public void showWinMessage(LinkedHashMap<String, Integer> finalPoints) {
         clientHandler.sendMessage(new WinMessage(finalPoints));
     }
 
