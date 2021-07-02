@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.GUI.scene.LoseSceneController">
+    <children>
+        <ImageView fitHeight="720.0" fitWidth="1280.0">
+            <image>
+                <Image url="@../images/background2.png" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="170.0" layoutY="142.0" prefHeight="391.0" prefWidth="847.0">
+            <children>
+                <Label layoutX="171.0" layoutY="210.0" text="YOU LOSE" textFill="RED">
+                    <font>
+                        <Font name="Bell MT" size="120.0" />
+                    </font>
+                </Label>
+            <Label text="Game over!">
+               <font>
+                  <Font name="Bell MT" size="200.0" />
+               </font>
+            </Label>
+            </children>
+        </AnchorPane>
+      <Button fx:id="btm_close" layoutX="924.0" layoutY="533.0" mnemonicParsing="false" style="-fx-background-color: #965f37; -fx-background-radius: 10; -fx-border-color: black; -fx-border-radius: 10;" text="close" textFill="WHITE">
+         <font>
+            <Font name="Bell MT" size="36.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+    </children>
+</AnchorPane>
