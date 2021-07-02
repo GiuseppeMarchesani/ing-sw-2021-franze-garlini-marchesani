@@ -364,7 +364,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
                 else {
                     state_leader1.setText("ACTIVATED");
                     state_leader1.setTextFill(Color.RED);
-                    if (ld.getId() >= 51 && ld.getId() <= 54) {
+                    if (ld.getId() >= 53 && ld.getId() <= 56) {
                         if (extraDepotRes.containsKey(ld.getResourceAbility())) {
                             Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
 
@@ -388,7 +388,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
                 else {
                     state_leader2.setText("ACTIVATED");
                     state_leader2.setTextFill(Color.RED);
-                    if (ld.getId() >= 51 && ld.getId() <= 54) {
+                    if (ld.getId() >= 53 && ld.getId() <= 56) {
                         if (extraDepotRes.containsKey(ld.getResourceAbility())) {
                             Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
                             if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
