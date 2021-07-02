@@ -4,7 +4,7 @@
 - [__Giuseppe Marchesani__](https://github.com/GiuseppeMarchesani)
 - [__Marco Garlini__](https://github.com/Gommarlo)
 
-![alt text](deliverables/logo.jpg)
+![alt text](deliverables/final/uml/logo.jpg)
 
 This project is an implementation of Cranio Creations' board game "Masters of Renaissance".
 
