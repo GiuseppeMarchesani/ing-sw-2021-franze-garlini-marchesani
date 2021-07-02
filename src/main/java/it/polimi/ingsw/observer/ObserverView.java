@@ -103,5 +103,14 @@ public interface ObserverView {
      */
     public void updatePlayLeaderCard(LeaderCard card, char dOrP);
 
+    /**
+     * Shows a player
+     * @param indexOf the username of the player
+     */
     public void updateShowPlayer(String indexOf);
+
+    /**
+     * Disconnects from the game.
+     */
+    public void updateDisconnect();
 }

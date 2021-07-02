@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.model.enumeration.ResourceType;
 import it.polimi.ingsw.observer.ObservableView;
+import it.polimi.ingsw.observer.ObserverView;
 
 import java.io.PrintStream;
 import java.util.*;
@@ -860,7 +861,7 @@ public class Cli extends ObservableView implements View{
         out.print("\nPress Enter key to exit.");
         try {
             int key = System.in.read();
-            System.exit(0);
+            notifyObserver(ObserverView::updateDisconnect);
         } catch(Exception e)
         {
 

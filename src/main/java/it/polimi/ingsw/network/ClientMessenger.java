@@ -222,6 +222,9 @@ public class ClientMessenger implements Observer, ObserverView {
         client.sendMessage(new LeaderActionRequest(username, card, dOrP=='p'));
     }
 
+    public void updateDisconnect(){
+        client.disconnect();
+    }
 
     /**
      *Notifies the view when a message is received
@@ -284,7 +287,7 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case WIN:
                 queue.execute(() -> view.showWinMessage(((WinMessage) msg).getFinalPoints()));
-                client.disconnect();
+
                 break;
             case ERROR:
                 queue.execute(()-> view.showErrorMsg(((ErrorMsg) msg).getMessage()));
