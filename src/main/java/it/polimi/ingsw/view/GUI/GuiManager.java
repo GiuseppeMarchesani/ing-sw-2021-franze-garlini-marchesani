@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.GUI;
 
-import com.sun.tools.javac.Main;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.observer.ObserverView;
 import it.polimi.ingsw.view.GUI.scene.BoardSceneController;

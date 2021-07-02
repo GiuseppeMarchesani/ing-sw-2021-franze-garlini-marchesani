@@ -134,7 +134,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
 
     @FXML
-    private void initialize(){
+    public void initialize() {
         ArrayList<ResourceType> toRemove = new ArrayList<>();
         for(ResourceType res: resToPlace.keySet()) {
             if(resToPlace.get(res)==0) toRemove.add(res);
