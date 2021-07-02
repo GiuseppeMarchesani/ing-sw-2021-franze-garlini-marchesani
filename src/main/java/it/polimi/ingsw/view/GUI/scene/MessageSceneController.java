@@ -2,6 +2,9 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import javafx.scene.control.Alert;
 
+/**
+ * Shows a generic message.
+ */
 public class MessageSceneController {
 
     public static void display(String title, String message){

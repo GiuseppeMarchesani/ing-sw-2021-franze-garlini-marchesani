@@ -12,6 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * This Scene allow the player to get resources from market.
+ */
 public class MarketSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -57,6 +60,7 @@ public class MarketSceneController extends ObservableView implements GenericScen
 
     private final ArrayList<ImageView> market = new ArrayList<>();
     private ResourceType conversion;
+
     @FXML
     public void initialize(){
         int n=0;

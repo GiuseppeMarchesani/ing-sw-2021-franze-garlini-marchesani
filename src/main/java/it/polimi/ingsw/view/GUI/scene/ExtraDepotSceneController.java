@@ -15,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller allows the player to store resources in the extra depot.
+ */
 public class ExtraDepotSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -94,6 +97,10 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
         btn_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onBtnOk);
     }
 
+    /**
+     * Handles the click on the Ok button.
+     * @param event the mouse click event.
+     */
     private void onBtnOk(Event event){
         boolean wrongInput = false;
         ArrayList<Integer> tmp= new ArrayList<>();
@@ -177,6 +184,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
     public HashMap<ResourceType, Integer> getExtraDepotRes(){
         return extraDepotRes;
     }
+
     public void setExtraDepot(ArrayList<ResourceType> extraDepot) {
         this.extraDepot = extraDepot;
     }

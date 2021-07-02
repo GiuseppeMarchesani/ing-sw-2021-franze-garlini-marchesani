@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.GUI.scene;
 
-import com.sun.tools.javac.Main;
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;
@@ -16,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller allows the player to choose the leader card to be played or discarded.
+ */
 public class ChooseLeaderToPlay extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -37,7 +39,7 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
     private ArrayList<ImageView> leaders = new ArrayList<>();
     private ArrayList<RadioButton> radioLead = new ArrayList<>();
     private ArrayList<LeaderCard> restLeader;
-    private LeaderCard chosenLeaderDiscard;
+
     @FXML
     public void initialize(){
         btm_play.setDisable(false);
@@ -65,6 +67,10 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
 
     }
 
+    /**
+     * Handles the click on the Play button.
+     * @param event the mouse click event.
+     */
     private void onPlayBtm(Event event){
 
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
@@ -74,6 +80,11 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
 
 
     }
+
+    /**
+     * Handles the click on the Discard button.
+     * @param event the mouse click event.
+     */
     private void onDiscardBtm(Event event){
 
         RadioButton selectedRadioButton = (RadioButton) group.getSelectedToggle();
@@ -83,12 +94,6 @@ public class ChooseLeaderToPlay extends ObservableView implements GenericSceneCo
 
     }
 
-    public void updateLeaders(ArrayList<LeaderCard> leaders){
-        this.allLeaderCards = leaders;
-    }
-    public LeaderCard getChosenLeaderDiscard(){
-        return chosenLeaderDiscard;
-    }
     public void setAllLeaderCards(ArrayList<LeaderCard> allLeaderCards){
         this.allLeaderCards = allLeaderCards;
     }

@@ -2,7 +2,6 @@ package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.model.Card.LeaderCard;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
 import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
@@ -20,6 +19,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller manages the initial choice between four Leader Cards.
+ */
 public class ChooseLeaderToKeep extends ObservableView implements GenericSceneController {
     @FXML
     private ImageView imgLeader1;
@@ -90,6 +92,10 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
 
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     private void onNextBtm(Event event) {
 
         HashMap<LeaderCard, CheckBox> checkBoxes = new HashMap<>();
@@ -125,6 +131,10 @@ public class ChooseLeaderToKeep extends ObservableView implements GenericSceneCo
         }
     }
 
+    /**
+     * Configures the passed chech box.
+     * @param checkBox the check box to be configured.
+     */
     private void configureCheckBox(CheckBox checkBox) {
 
         if (checkBox.isSelected()) {
