@@ -5,10 +5,7 @@ import it.polimi.ingsw.observer.ObservableView;
 import it.polimi.ingsw.view.GUI.MainApp;;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -460,11 +457,37 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
      * @param event the mouse click event.
      */
     private void onNextBtm(Event event){
+        boolean wrongInput = false;
         for(int j=0; j<3; j++) {
             floorQuantity.put(j, 0);
             floorResources.put(j, ResourceType.EMPTY);
         }
+        switch (resToPlace.size()){
+            case(4):
+                if(!quantity4.getSelectedToggle().equals(radio0_res4) && depot_res4.getSelectedToggle() == null){
+                    wrongInput = true;
+                }
+            case(3):
+                if(!quantity3.getSelectedToggle().equals(radio0_res3) && depot_res3.getSelectedToggle()==null){
+                    wrongInput = true;
+                }
+            case(2):
+                if(!quantity2.getSelectedToggle().equals(radio0_res2) && depot_res2.getSelectedToggle() == null){
+                    wrongInput = true;
+                }
+            case(1):
+                if(!quantity1.getSelectedToggle().equals(radio0_res1) && depot_res1.getSelectedToggle()==null){
+                    wrongInput = true;
+                }
+        }
 
+
+        if(wrongInput){
+            Alert errorAlert = new Alert(Alert.AlertType.INFORMATION);
+            errorAlert.setHeaderText("Input not valid");
+            errorAlert.setContentText("You can't choose resources you don't own!");
+            errorAlert.showAndWait();
+        }
         for(int i=0; i<imgRes.size(); i++) {
             if(!imgRes.get(i).equals(imgEmpty)) {
                 if(i==0 && !radio0_res1.isSelected()) {
