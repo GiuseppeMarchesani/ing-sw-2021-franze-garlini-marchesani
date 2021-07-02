@@ -81,6 +81,8 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
      * @param event the mouse click event.
      */
     private void onBtmClose(Event event){
+
+        System.exit(0);
         notifyObserver(ObserverView::updateDisconnect);
     }
     public void setFinalVp(HashMap<String, Integer> finalVp){
