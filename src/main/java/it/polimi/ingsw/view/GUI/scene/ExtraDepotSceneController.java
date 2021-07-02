@@ -59,6 +59,10 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
         txt_coin.setDisable(true);
         txt_shield.setDisable(true);
         txt_stone.setDisable(true);
+        txt_servant.setText("0");
+        txt_coin.setText("0");
+        txt_shield.setText("0");
+        txt_stone.setText("0");
         for(ResourceType res: resToPlace.keySet()){
             if(res.equals(ResourceType.COIN)){
                 num_coin.setText(String.valueOf(resToPlace.get(res)));
@@ -67,7 +71,7 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
                 num_stone.setText(String.valueOf(resToPlace.get(res)));
             }
             else if(res.equals(ResourceType.SHIELD)){
-                num_stone.setText(String.valueOf(resToPlace.get(res)));
+                num_shield.setText(String.valueOf(resToPlace.get(res)));
             }
             else {
                 num_servant.setText(String.valueOf(resToPlace.get(res)));
