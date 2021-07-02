@@ -45,12 +45,14 @@ public class GameController {
      * @param username username of the Player's Virtual View.
      * @param gameId id belonging to the game the Player just joined.
      * @param virtualView Player's Virtual View.
+     * @return if the player joined succesfully
      */
-    public void newPlayer(String username, String gameId, VirtualView virtualView) {
+    public boolean newPlayer(String username, String gameId, VirtualView virtualView) {
         if(allVirtualView.isEmpty()){
             allVirtualView.put(username, virtualView);
             virtualView.showLoginResult(username,gameId, true);
             virtualView.askPlayersNumber();
+            return true;
         }
         else if(allVirtualView.size()<maxPlayers){
             this.gameSession.addPlayer(new Player(username));
@@ -59,8 +61,10 @@ public class GameController {
             if(allVirtualView.size()==maxPlayers){
                 startGame();
             }
+            return true;
         }
         else virtualView.showLoginResult(username, gameId,false);
+        return false;
 
     }
 
@@ -138,7 +142,6 @@ public class GameController {
             for(VirtualView vv: allVirtualView.values()){
                 vv.showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
                 vv.showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
-                broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             }
         }
         startTurn();
@@ -168,6 +171,11 @@ public class GameController {
      */
     public void startTurn(){
         tempCards.clear();
+        for(String s: allVirtualView.keySet()){
+            if (!s.equals(getActivePlayer())){
+                allVirtualView.get(s).showPlayerTurn(getActivePlayer());
+            }
+        }
         switch(gameState){
             case DRAWLEADER:
                 drawLeaderCards();
@@ -198,7 +206,6 @@ public class GameController {
      *Gives 4 leader cards to a player for him to discard.
      */
     private void drawLeaderCards(){
-        broadcastMessage("It's "+ getActivePlayer()+"'s turn to discard leader cards.");
         ArrayList<LeaderCard> leaderCards= new ArrayList<>();
         for(int j=0; j<4; j++){
             leaderCards.add(gameSession.drawCard());
@@ -213,7 +220,6 @@ public class GameController {
      */
     private boolean choseInitialRes(){
         String activePlayer= getActivePlayer();
-        broadcastMessage("It's "+getActivePlayer()+"'s turn to choose resources.");
         try {
             if (activePlayer.equals(turnController.getPlayerOrder().get(1))) {
                 allVirtualView.get(activePlayer).askInitialRes(1);
@@ -236,7 +242,6 @@ public class GameController {
             gameState=GameState.IN_GAME;
 
             turnController.proxPlayer();
-            broadcastMessage("It's "+getActivePlayer()+"'s turn!");
             return true;
         }
     }
@@ -299,7 +304,6 @@ public class GameController {
                         break;
                     case GIVERES:
                         setGameState(GameState.IN_GAME);
-                        broadcastMessage("It's "+getActivePlayer()+"'s turn!");
                         break;
                     default:
                         //None
@@ -334,6 +338,7 @@ public class GameController {
         showPlayer(gameSession.getPlayer(username),username);
         allVirtualView.get(username).showMarket(gameSession.getMarket().getMarketTray(), gameSession.getMarket().getCornerMarble());
         allVirtualView.get(username).showDevMarket(gameSession.getCardMarket().availableCards(), gameSession.getCardMarket().remainingCards());
+        allVirtualView.get(username).showPlayerTurn(getActivePlayer());
 
     }
     /**Sends a string message to every player in the game
@@ -695,6 +700,7 @@ public class GameController {
 
             player.discardLeader(card.getId());
             broadcastMessage(player.getUsername() + " has discarded a leader card.");
+            allVirtualView.get(getActivePlayer()).showLeaderCards(player.getLeaderCards());
         }
         else{
             switch(card.getCostType()){
@@ -796,7 +802,6 @@ public class GameController {
             countFinalVictoryPoints();
         }
         else {
-            broadcastMessage("It's "+getActivePlayer()+"'s turn");
             startTurn();
         }
     }
@@ -834,4 +839,5 @@ public class GameController {
         allVirtualView.get(username).showPlayer(player.getUsername(),player.getFaithSpace(),player.getWarehouse().getDepotToResource(),player.getWarehouse().getDepotToQuantity(),player.getStrongbox(),player.getDevCardSlot(),player.getPlayedLeaderCards(), player.remainingLeaderCards(), username);
 
     }
+
 }

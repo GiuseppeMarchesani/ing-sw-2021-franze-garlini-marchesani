@@ -208,4 +208,10 @@ public interface View {
      * @param playerOrder the list of all players
      */
     void showPlayerList(ArrayList<String> playerOrder);
+
+    /**
+     * Shows whose turn is
+     * @param activePlayer the turn player
+     */
+    void showPlayerTurn(String activePlayer);
 }

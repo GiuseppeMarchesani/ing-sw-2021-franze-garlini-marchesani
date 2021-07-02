@@ -952,4 +952,8 @@ public class Cli extends ObservableView implements View{
         }
 
     }
+    @Override
+    public void showPlayerTurn(String activePlayer){
+        System.out.println("It's "+activePlayer+"'s turn...");
+    }
 }

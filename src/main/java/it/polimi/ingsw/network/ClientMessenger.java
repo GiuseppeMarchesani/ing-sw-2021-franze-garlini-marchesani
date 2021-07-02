@@ -320,6 +320,9 @@ public class ClientMessenger implements Observer, ObserverView {
                 break;
             case SHOW_PLAYER_FAITH:
                 queue.execute(()->view.showPlayerFaith(((ShowPlayerFaithMsg) msg).getFaith()));
+                break;
+            case OTHER_PLAYER_TURN:
+                queue.execute(()-> view.showPlayerTurn(((ShowPlayerTurnMsg) msg).getActivePlayer()));
         }
     }
 

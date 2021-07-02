@@ -47,7 +47,10 @@ public class Lobby {
                     i++;
                 }
                 clientHandlerMap.put(clientHandler, s);
-                    gameController.newPlayer(s, gameId, virtualView);
+                if(!gameController.newPlayer(s, gameId, virtualView)){
+                    clientHandlerMap.remove(clientHandler);
+                }
+
             }
             else if(hasInactivePLayers()){
                 List<String> inactive =getInactivePlayers();

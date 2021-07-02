@@ -187,4 +187,6 @@ public class VirtualView implements View, Observer {
     }
     @Override
     public void showPlayerList(ArrayList<String> players){clientHandler.sendMessage(new ShowPlayerListMsg(players));}
+    @Override
+    public void showPlayerTurn(String activePlayer){clientHandler.sendMessage(new ShowPlayerTurnMsg(activePlayer));}
 }
