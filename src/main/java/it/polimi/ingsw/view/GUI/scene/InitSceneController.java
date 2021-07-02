@@ -1,13 +1,15 @@
 package it.polimi.ingsw.view.GUI.scene;
 
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.scene.GenericSceneController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.TextField;
 import javafx.event.Event;
 
+/**
+ * Allows a player to connect to a server.
+ */
 public class InitSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -22,6 +24,10 @@ public class InitSceneController extends ObservableView implements GenericSceneC
         btm_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this :: onConnectBtm);
     }
 
+    /**
+     * Handles the click on the Connect button.
+     * @param event the mouse click event.
+     */
     private void onConnectBtm(Event event){
         serverAddressField.setDisable(true);
         serverPortField.setDisable(true);

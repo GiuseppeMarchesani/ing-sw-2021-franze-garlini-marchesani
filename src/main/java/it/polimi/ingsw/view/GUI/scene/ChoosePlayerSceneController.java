@@ -16,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller allows the player to see another player's board.
+ */
 public class ChoosePlayerSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -61,6 +64,11 @@ public class ChoosePlayerSceneController extends ObservableView implements Gener
         }
         btm_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtm);
     }
+
+    /**
+     * Handles the click on the Ok button.
+     * @param event the mouse click event.
+     */
     private void onOkBtm(Event event){
         boolean wrongInput = false;
         String name;
