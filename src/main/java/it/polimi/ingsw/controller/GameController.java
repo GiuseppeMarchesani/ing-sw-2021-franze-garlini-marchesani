@@ -545,7 +545,7 @@ public class GameController {
             any=card.getCardCost().get(ResourceType.ANY);
         }
         if (player.checkPriceCanBePaid(discountedPrice)){
-            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), card.getCardCost(), any, slots);
+            allVirtualView.get(msg.getUsername()).askSlot(player.getStrongbox(), player.getWarehouse().getAllResources(), discountedPrice, any, slots);
             turnController.setMainAction(true);
         }
         else{
