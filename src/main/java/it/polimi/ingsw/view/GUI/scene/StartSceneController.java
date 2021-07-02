@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.event.Event;
 
+/**
+ * This Scene Controller is used to start the game.
+ */
 public class StartSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -16,6 +19,10 @@ public class StartSceneController extends ObservableView implements GenericScene
         btmNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onPlayBtnClick);
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     private void onPlayBtnClick(Event event){
         btmNext.setDisable(true);
 

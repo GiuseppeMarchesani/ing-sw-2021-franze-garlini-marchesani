@@ -16,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to ask the player to choose where he wants place resources in warehouse.
+ */
 public class PlaceResourcesSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -129,8 +132,8 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private ArrayList<ResourceType> resType = new ArrayList<>();
     private final Image imgEmpty = new Image(MainApp.class.getResourceAsStream("/images/xblack.png"));
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
-    @FXML
 
+    @FXML
     private void initialize(){
         ArrayList<ResourceType> toRemove = new ArrayList<>();
         for(ResourceType res: resToPlace.keySet()) {
@@ -430,6 +433,10 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
         radio_depot3_res4.setSelected(false);
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     private void onNextBtm(Event event){
         for(int j=0; j<3; j++) {
             floorQuantity.put(j, 0);

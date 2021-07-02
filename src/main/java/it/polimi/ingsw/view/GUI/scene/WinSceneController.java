@@ -11,6 +11,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to show at the player the winner and final victory points
+  */
 public class WinSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -73,6 +76,10 @@ public class WinSceneController extends ObservableView implements GenericSceneCo
 
     }
 
+    /**
+     * Handles the click on the close button.
+     * @param event the mouse click event.
+     */
     private void onBtmClose(Event event){
         notifyObserver(ObserverView::updateDisconnect);
     }

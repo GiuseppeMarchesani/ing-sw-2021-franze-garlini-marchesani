@@ -16,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to show the requested player's board.
+ */
 public class ShowPlayerSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -149,10 +152,17 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         btm_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onOkBtm);
     }
 
+    /**
+     * Handles the click on the Ok button.
+     * @param event the mouse click event.
+     */
     private void onOkBtm(Event event){
         notifyObserver(obs-> obs.updateShowPlayer(self));
     }
 
+    /**
+     * Updates the images of leaders cards.
+     */
     private void updateLeaderCard(){
         ArrayList<ImageView> leaderCards=new ArrayList<>();
         leaderCards.add(img_leader1);
@@ -173,6 +183,10 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
             leaderCards.get(1).setVisible(false);
         }
     }
+
+    /**
+     * Updates the images of resources in warehouse.
+     */
     private void updateWarehouse(){
         img_depot1_res1.setImage(null);
         img_depot1_res2.setImage(null);
@@ -218,6 +232,9 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         }
     }
 
+    /**
+     * Updates the position on the faith track.
+     */
     private void updateFaithTrack(){
         img_space1.setImage(null);
         img_space2.setImage(null);
@@ -360,6 +377,9 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         }
     }
 
+    /**
+     * Updates the images of resources in strongbox.
+     */
     private void updateStrongbox(){
         int n=0;
         for(ResourceType res: strongbox.keySet()){
@@ -384,6 +404,9 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         }
     }
 
+    /**
+     * Updates the images of cards in slots.
+     */
     private void updateSlots(){
         for(int i=0; i<devCardSlot.getSlotDev().size(); i++){
             if(i==0){
