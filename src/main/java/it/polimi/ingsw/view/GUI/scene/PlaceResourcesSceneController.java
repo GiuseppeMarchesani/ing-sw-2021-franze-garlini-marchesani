@@ -111,14 +111,6 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private ToggleGroup quantity3;
     @FXML
     private ToggleGroup quantity4;
-    @FXML
-    private ToggleGroup extraDepot1;
-    @FXML
-    private ToggleGroup extraDepot2;
-    @FXML
-    private ToggleGroup extraDepot3;
-    @FXML
-    private ToggleGroup extraDepot4;
 
 
     private HashMap<ResourceType, Integer> resToPlace = new HashMap<>();
@@ -134,8 +126,12 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
 
     @FXML
-    private void initialize(){
+    public void initialize(){
         ArrayList<ResourceType> toRemove = new ArrayList<>();
+        radio1_res1.setSelected(true);
+        radio1_res2.setSelected(true);
+        radio1_res3.setSelected(true);
+        radio1_res4.setSelected(true);
         for(ResourceType res: resToPlace.keySet()) {
             if(resToPlace.get(res)==0) toRemove.add(res);
         }
@@ -195,6 +191,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot1Res1(Event event) {
         radio0_res1.setSelected(false);
+        radio1_res1.setSelected(true);
         radio_depot1_res2.setDisable(true);
         radio_depot1_res3.setDisable(true);
         radio_depot1_res4.setDisable(true);
@@ -213,6 +210,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot1Res2(Event event) {
         radio0_res2.setSelected(false);
+        radio1_res2.setSelected(true);
         radio_depot1_res1.setDisable(true);
         radio_depot1_res3.setDisable(true);
         radio_depot1_res4.setDisable(true);
@@ -231,6 +229,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot1Res3(Event event) {
         radio0_res3.setSelected(false);
+        radio1_res3.setSelected(true);
         radio_depot1_res2.setDisable(true);
         radio_depot1_res1.setDisable(true);
         radio_depot1_res4.setDisable(true);
@@ -249,6 +248,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot1Res4(Event event) {
         radio0_res4.setSelected(false);
+        radio1_res4.setSelected(true);
         radio_depot1_res2.setDisable(true);
         radio_depot1_res3.setDisable(true);
         radio_depot1_res1.setDisable(true);
@@ -267,6 +267,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot2Res1(Event event) {
         radio0_res1.setSelected(false);
+        radio1_res1.setSelected(true);
         radio_depot2_res2.setDisable(true);
         radio_depot2_res3.setDisable(true);
         radio_depot2_res4.setDisable(true);
@@ -285,6 +286,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot2Res2(Event event) {
         radio0_res2.setSelected(false);
+        radio1_res2.setSelected(true);
         radio_depot2_res1.setDisable(true);
         radio_depot2_res3.setDisable(true);
         radio_depot2_res4.setDisable(true);
@@ -303,6 +305,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot2Res3(Event event) {
         radio0_res3.setSelected(false);
+        radio1_res3.setSelected(true);
         radio_depot2_res2.setDisable(true);
         radio_depot2_res1.setDisable(true);
         radio_depot2_res4.setDisable(true);
@@ -321,6 +324,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot2Res4(Event event) {
         radio0_res4.setSelected(false);
+        radio1_res4.setSelected(true);
         radio_depot2_res2.setDisable(true);
         radio_depot2_res1.setDisable(true);
         radio_depot2_res3.setDisable(true);
@@ -339,6 +343,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot3Res1(Event event) {
         radio0_res1.setSelected(false);
+        radio1_res1.setSelected(true);
         radio_depot3_res2.setDisable(true);
         radio_depot3_res3.setDisable(true);
         radio_depot3_res4.setDisable(true);
@@ -357,6 +362,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot3Res2(Event event) {
         radio0_res2.setSelected(false);
+        radio1_res2.setSelected(true);
         radio_depot3_res1.setDisable(true);
         radio_depot3_res3.setDisable(true);
         radio_depot3_res4.setDisable(true);
@@ -375,6 +381,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot3Res3(Event event) {
         radio0_res3.setSelected(false);
+        radio1_res3.setSelected(true);
         radio_depot3_res1.setDisable(true);
         radio_depot3_res2.setDisable(true);
         radio_depot3_res4.setDisable(true);
@@ -393,6 +400,7 @@ public class PlaceResourcesSceneController extends ObservableView implements Gen
 
     private void onRadioDepot3Res4(Event event) {
         radio0_res4.setSelected(false);
+        radio1_res4.setSelected(true);
         radio_depot3_res1.setDisable(true);
         radio_depot3_res2.setDisable(true);
         radio_depot3_res3.setDisable(true);
