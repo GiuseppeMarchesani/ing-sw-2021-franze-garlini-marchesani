@@ -31,6 +31,7 @@ public class Gui extends ObservableView implements View {
     private DevCardSlot devCardSlot = new DevCardSlot();
     private static ArrayList<Integer> remainingCards = new ArrayList<>();
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
+    private ArrayList<LeaderCard> discardedLead = new ArrayList<>();
 
 
 
@@ -70,10 +71,10 @@ public class Gui extends ObservableView implements View {
         if(!startGame){
             startGame = true;
             Platform.runLater(()-> GuiManager.changeRootMainScene(observers));
-            Platform.runLater(() -> GuiManager.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
+            Platform.runLater(() -> GuiManager.getMainScene().update(market, cornerMarble, cardMarket, remainingCards, activeDepotQ, activeDepotT, chosenLeader, discardedLead, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
         }
         else{
-            Platform.runLater(() -> GuiManager.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
+            Platform.runLater(() -> GuiManager.getMainScene().update(market, cornerMarble, cardMarket, remainingCards,  activeDepotQ, activeDepotT, chosenLeader, discardedLead, faithTrack, faithZone, strongbox, devCardSlot, extraDepotRes));
             Platform.runLater(()-> GuiManager.changeRootMainScene(observers));
         }
     }
@@ -240,6 +241,11 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
+    public void showPlayerTurn(String activePlayer) {
+
+    }
+
+    @Override
     public void askCardsToActivateProd(ArrayList<DevCard> devCardList) {
         AskCardsForProdSceneController acsc = new AskCardsForProdSceneController();
         acsc.addAllObservers(observers);
@@ -329,6 +335,18 @@ public class Gui extends ObservableView implements View {
 
     @Override
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
+        ArrayList<LeaderCard> toRemove = new ArrayList<>();
+        /*discarded = chosen
+                discarde rem0ve elementi di leader*/
+        discardedLead = new ArrayList<>(chosenLeader.keySet());
+        for(LeaderCard lead: leaderCards.keySet()) {
+            for(LeaderCard ld: discardedLead) {
+                if(lead.getId()==ld.getId()) toRemove.add(ld);
+            }
+        }
+        for(LeaderCard ld: toRemove) {
+            discardedLead.remove(ld);
+        }
     }
 
     public static ResourceType[][] getMarket() {

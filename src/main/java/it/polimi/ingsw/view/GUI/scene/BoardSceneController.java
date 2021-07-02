@@ -260,9 +260,8 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<Integer, Boolean> faithZone= new HashMap<>();
     private DevCardSlot devCardSlot = new DevCardSlot();
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
-    private int idLead1, idLead2;
+    private ArrayList<LeaderCard> discarded = new ArrayList<>();
 
-    @FXML
     public void initialize(){
 
         btmDevCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBuyCardBtm);
@@ -358,48 +357,69 @@ public class BoardSceneController extends ObservableView implements GenericScene
                 imgLeader.get(i).setVisible(true);
             }
             if(leaderCards.get(ld) && i==0){
-                state_leader1.setText("ACTIVATED");
-                state_leader1.setTextFill(Color.RED);
-                if(ld.getId()>=51 && ld.getId()<=54){
-                    if(extraDepotRes.containsKey(ld.getResourceAbility())){
-                        Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+                if(discarded.contains(ld)) {
+                    state_leader1.setText("DISCARDED");
+                    state_leader1.setTextFill(Color.RED);
+                }
+                else {
+                    state_leader1.setText("ACTIVATED");
+                    state_leader1.setTextFill(Color.RED);
+                    if (ld.getId() >= 51 && ld.getId() <= 54) {
+                        if (extraDepotRes.containsKey(ld.getResourceAbility())) {
+                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
 
-                        if(extraDepotRes.get(ld.getResourceAbility()) ==1){
-                            extra_leader1_res1.setImage(image1);
+                            if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
+                                extra_leader1_res1.setImage(image1);
 
-                        }
-                        else if(extraDepotRes.get(ld.getResourceAbility())==2){
-                            extra_leader1_res1.setImage(image1);
-                            extra_leader1_res2.setImage(image1);
+                            } else if (extraDepotRes.get(ld.getResourceAbility()) == 2) {
+                                extra_leader1_res1.setImage(image1);
+                                extra_leader1_res2.setImage(image1);
 
+                            }
                         }
                     }
                 }
             }
             else if(leaderCards.get(ld) && i==1){
-                state_leader2.setText("ACTIVATED");
-                state_leader2.setTextFill(Color.RED);
-                if(ld.getId()>=51 && ld.getId()<=54){
-                    if(extraDepotRes.containsKey(ld.getResourceAbility())){
-                        Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
-                        if(extraDepotRes.get(ld.getResourceAbility()) ==1){
-                            extra_leader2_res1.setImage(image1);
-                        }
-                        else if(extraDepotRes.get(ld.getResourceAbility())==2){
-                            extra_leader2_res1.setImage(image1);
-                            extra_leader2_res2.setImage(image1);
-
+                if(discarded.contains(ld)) {
+                    state_leader2.setText("DISCARDED");
+                    state_leader2.setTextFill(Color.RED);
+                }
+                else {
+                    state_leader2.setText("ACTIVATED");
+                    state_leader2.setTextFill(Color.RED);
+                    if (ld.getId() >= 51 && ld.getId() <= 54) {
+                        if (extraDepotRes.containsKey(ld.getResourceAbility())) {
+                            Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
+                            if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
+                                extra_leader2_res1.setImage(image1);
+                            } else if (extraDepotRes.get(ld.getResourceAbility()) == 2) {
+                                extra_leader2_res1.setImage(image1);
+                                extra_leader2_res2.setImage(image1);
+                            }
                         }
                     }
                 }
             }
             else if(!leaderCards.get(ld) && i==0){
-                state_leader1.setText("NOT ACTIVATED");
-                state_leader1.setTextFill(Color.GREEN);
+                if(discarded.contains(ld)) {
+                    state_leader1.setText("DISCARDED");
+                    state_leader1.setTextFill(Color.RED);
+                }
+                else {
+                    state_leader1.setText("NOT ACTIVATED");
+                    state_leader1.setTextFill(Color.GREEN);
+                }
             }
             else if(!leaderCards.get(ld) && i==1){
-                state_leader2.setText("NOT ACTIVATED");
-                state_leader2.setTextFill(Color.GREEN);
+                if(discarded.contains(ld)) {
+                    state_leader2.setText("DISCARDED");
+                    state_leader2.setTextFill(Color.RED);
+                }
+                else {
+                    state_leader2.setText("NOT ACTIVATED");
+                    state_leader2.setTextFill(Color.GREEN);
+                }
             }
             i++;
 
@@ -921,13 +941,14 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
-    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, ArrayList<Integer> remainingCards, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, HashMap<String, Integer> faithTrack,
+    public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, ArrayList<Integer> remainingCards, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, ArrayList<LeaderCard> discarded, HashMap<String, Integer> faithTrack,
                        HashMap<Integer, Boolean> faithZone, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, HashMap<ResourceType, Integer> extraDepotRes){
         this.cornerMarket = cornerMarble;
         this.cardMarket = cardMarket;
         this.depotQuantity = activeDepotQ;
         this.depotResource = activeDepotT;
         this.leaderCards = chosenLeader;
+        this.discarded = discarded;
         this.faithTrack = faithTrack;
         this.strongbox = strongbox;
         this.remainingCards = remainingCards;
