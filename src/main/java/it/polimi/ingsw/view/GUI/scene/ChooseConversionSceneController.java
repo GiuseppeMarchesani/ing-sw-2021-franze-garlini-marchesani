@@ -37,37 +37,40 @@ public class ChooseConversionSceneController extends ObservableView implements G
 
     @FXML
     public void initialize() {
-        String resource;
         if(conversions.get(0).equals(ResourceType.COIN)){
-            resource = "COIN";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+            imgConv1.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.STONE)){
-            resource = "STONE";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+            imgConv1.setImage(image);
         }
         else if(conversions.get(0).equals(ResourceType.SERVANT)){
-            resource = "SERVANT";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+            imgConv1.setImage(image);
         }
         else{
-            resource = "SHIELD";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+            imgConv1.setImage(image);
         }
-        Image image = new Image(MainApp.class.getResourceAsStream("/images/" + resource + ".png"));
-        imgConv1.setImage(image);
 
-        String res;
-        if(conversions.get(1).equals(ResourceType.COIN)){
-            res = "COIN";
+        if(conversions.get(0).equals(ResourceType.COIN)){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/COIN.png"));
+            imgConv2.setImage(image);
         }
-        else if(conversions.get(1).equals(ResourceType.STONE)){
-            res = "STONE";
+        else if(conversions.get(0).equals(ResourceType.STONE)){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/STONE.png"));
+            imgConv2.setImage(image);
         }
-        else if(conversions.get(1).equals(ResourceType.SERVANT)){
-            res = "SERVANT";
+        else if(conversions.get(0).equals(ResourceType.SERVANT)){
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/SERVANT.png"));
+            imgConv2.setImage(image);
         }
         else{
-            res = "SHIELD";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/SHIELD.png"));
+            imgConv2.setImage(image);
         }
-        Image image2 = new Image(MainApp.class.getResourceAsStream("/images/" + res + ".png"));
-        imgConv2.setImage(image2);
+
         toggle = new ToggleGroup();
         chkConv1.setToggleGroup(toggle);
         chkConv2.setToggleGroup(toggle);
