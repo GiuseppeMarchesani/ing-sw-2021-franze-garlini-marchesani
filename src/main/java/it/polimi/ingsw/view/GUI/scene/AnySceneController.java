@@ -14,7 +14,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * This Scene Controller is used to asks the initial resources the player wants to get.
+ */
 public class AnySceneController extends ObservableView implements GenericSceneController {
     private final ToggleGroup group = new ToggleGroup();
     private ResourceType anyRes;
@@ -39,6 +41,10 @@ public class AnySceneController extends ObservableView implements GenericSceneCo
         btm_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onNextBtm);
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     private void onNextBtm(Event event){
         coin.setDisable(true);
         stone.setDisable(true);

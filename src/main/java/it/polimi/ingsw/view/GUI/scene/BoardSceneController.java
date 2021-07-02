@@ -17,6 +17,9 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller manages the main scene of the game.
+ */
 public class BoardSceneController extends ObservableView implements GenericSceneController {
     @FXML
     private ImageView corner;
@@ -262,6 +265,7 @@ public class BoardSceneController extends ObservableView implements GenericScene
     private HashMap<ResourceType, Integer> extraDepotRes = new HashMap<>();
     private ArrayList<LeaderCard> discarded = new ArrayList<>();
 
+    @FXML
     public void initialize(){
 
         btmDevCard.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBuyCardBtm);
@@ -272,22 +276,50 @@ public class BoardSceneController extends ObservableView implements GenericScene
         end_turn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onEndTurnBtm);
     }
 
+    /**
+     * Handles the click on the BuyCard button.
+     * @param event the mouse click event.
+     */
     public void onBuyCardBtm(Event event){
         notifyObserver(obs -> obs.updateAction(1));
     }
+
+    /**
+     * Handles the click on the Resources button.
+     * @param event the mouse click event.
+     */
     public void onResourcesBtm(Event event){
         notifyObserver(obs -> obs.updateAction(0));
     }
+
+    /**
+     * Handles the click on the Production button.
+     * @param event the mouse click event.
+     */
     public void onProductionBtm(Event event){
         notifyObserver(obs -> obs.updateAction(2));
     }
+
+    /**
+     * Handles the click on the Leader button.
+     * @param event the mouse click event.
+     */
     public void onLeaderBtm(Event event){
         notifyObserver(obs -> obs.updateAction(3));
     }
 
+    /**
+     * Handles the click on the Player button.
+     * @param event the mouse click event.
+     */
     public void onPlayerBtm(Event event){
         notifyObserver(obs -> obs.updateAction(13));
     }
+
+    /**
+     * Handles the click on the EndTurn button.
+     * @param event the mouse click event.
+     */
     public void onEndTurnBtm(Event event){
         btmLeader.setDisable(true);
         btmProduction.setDisable(true);
@@ -297,8 +329,10 @@ public class BoardSceneController extends ObservableView implements GenericScene
         notifyObserver(obs -> obs.updateAction(14));
     }
 
+    /**
+     * Updates the Card Market.
+     */
     private void updateCardMarket(){
-
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
         btmResources.setDisable(false);
@@ -337,6 +371,9 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
         }
 
+    /**
+     * Updates the shown Leader Cards.
+     */
     private void updateLeader(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -436,6 +473,9 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    /**
+     * Updates the Market.
+     */
     private void updateMarket(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -506,6 +546,9 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    /**
+     * Updates the players' warehouse.
+     */
     private void updateWarehouse(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -526,6 +569,13 @@ public class BoardSceneController extends ObservableView implements GenericScene
             }
         }
     }
+
+    /**
+     * Used to set the resource's images in the warehouse.
+     * @param n number of the depot.
+     * @param quantity how many resources to be put.
+     * @param img the resource image.
+     */
     private void setImage(int n, int quantity, Image img) {
         switch (n) {
             case 0:
@@ -556,6 +606,10 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
         }
     }
+
+    /**
+     * Updates the Faith Track on the Board.
+     */
     private void updateFaithTrack(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -849,6 +903,9 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    /**
+     * Updates the player's strongbox.
+     */
     private void updateStrongbox(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -879,6 +936,9 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    /**
+     * Updates the DevCard slot.
+     */
     private void updateSlots(){
         btmLeader.setDisable(false);
         btmProduction.setDisable(false);
@@ -951,6 +1011,22 @@ public class BoardSceneController extends ObservableView implements GenericScene
         }
     }
 
+    /**
+     * General method for update. It calls all the other update methods.
+     * @param market the market.
+     * @param cornerMarble the corner marble in the market.
+     * @param cardMarket the card market.
+     * @param remainingCards the remainingCards in the market.
+     * @param activeDepotQ the active depot quantity.
+     * @param activeDepotT the active depot type.
+     * @param chosenLeader the player's leader.
+     * @param discarded the discarded leader cards.
+     * @param faithTrack the faith track.
+     * @param faithZone the faith zone.
+     * @param strongbox the player's strongbox.
+     * @param devCardSlot the development card slot.
+     * @param extraDepotRes the extra depot resources.
+     */
     public void update(ResourceType[][] market, ResourceType cornerMarble, ArrayList<DevCard> cardMarket, ArrayList<Integer> remainingCards, HashMap<Integer, Integer> activeDepotQ, HashMap<Integer, ResourceType> activeDepotT, HashMap<LeaderCard, Boolean> chosenLeader, ArrayList<LeaderCard> discarded, HashMap<String, Integer> faithTrack,
                        HashMap<Integer, Boolean> faithZone, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, HashMap<ResourceType, Integer> extraDepotRes){
         this.cornerMarket = cornerMarble;

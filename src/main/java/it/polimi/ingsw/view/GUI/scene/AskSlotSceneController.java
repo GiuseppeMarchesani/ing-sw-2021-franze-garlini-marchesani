@@ -13,7 +13,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * This Scene Controller is used to asks the player to pay resources and choose the slot to put the card they just bought.
+ */
 public class AskSlotSceneController extends ObservableView implements GenericSceneController {
     @FXML
     private ImageView img_res1;
@@ -203,6 +205,10 @@ public class AskSlotSceneController extends ObservableView implements GenericSce
         btn_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnNext);
     }
 
+    /**
+     * Handles the click on the Pay button.
+     * @param event the mouse click event.
+     */
     public void onBtnPay(Event event) {
         newStrongbox = new HashMap<>(strongbox);
         paymentWarehouse = new HashMap<>();

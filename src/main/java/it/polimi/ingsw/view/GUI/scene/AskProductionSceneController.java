@@ -15,6 +15,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to asks the player to choose how they want to play the production activation.
+ */
 public class AskProductionSceneController extends ObservableView implements GenericSceneController{
     @FXML
     private ImageView img_res1;
@@ -103,6 +106,7 @@ public class AskProductionSceneController extends ObservableView implements Gene
     private ArrayList<TextField> textWarehouse;
     private ArrayList<ImageView> imgList;
 
+    @FXML
     public void initialize() {
         check_card1.setVisible(false);
         check_card2.setVisible(false);
@@ -209,6 +213,10 @@ public class AskProductionSceneController extends ObservableView implements Gene
         btn_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnPay);
     }
 
+    /**
+     * Handles the click on the Pay button.
+     * @param event the mouse click event.
+     */
     public void onBtnPay(Event event) {
         HashMap<ResourceType, Integer> newStrongbox = new HashMap<>(strongbox);
         HashMap<ResourceType, Integer> paymentWarehouse = new HashMap<>();

@@ -163,7 +163,6 @@ public class VirtualView implements View, Observer {
         clientHandler.sendMessage(new ShowStrongboxMsg(strongbox, activePlayer));
     }
 
-
     @Override
     public void showLoseMessage() {
         clientHandler.sendMessage(new LoseMessage());
@@ -173,20 +172,25 @@ public class VirtualView implements View, Observer {
     public void showLeaderCards(HashMap<LeaderCard, Boolean> leaderCards) {
         clientHandler.sendMessage(new ShowLeaderCardsMsg(leaderCards));
     }
+
     @Override
     public void showPlayedLeaderCards(ArrayList<LeaderCard> playedLeaderCards, String activePlayer) {
         clientHandler.sendMessage(new ShowPlayedLeadersMsg(playedLeaderCards, activePlayer));
     }
+
     @Override
     public void showPlayer(String username, int faithSpace, HashMap<Integer, ResourceType> depotToResource, HashMap<Integer, Integer> depotToQuantity, HashMap<ResourceType, Integer> strongbox, DevCardSlot devCardSlot, ArrayList<LeaderCard> playedLeaderCards, int remainingLeaderCards, String self){
         clientHandler.sendMessage(new ShowPlayerReply(username, faithSpace,depotToResource,depotToQuantity,strongbox,devCardSlot,playedLeaderCards, remainingLeaderCards));
     }
+
     @Override
     public void showPlayerFaith(ArrayList<Integer> faith){
         clientHandler.sendMessage(new ShowPlayerFaithMsg(faith));
     }
+
     @Override
     public void showPlayerList(ArrayList<String> players){clientHandler.sendMessage(new ShowPlayerListMsg(players));}
+
     @Override
     public void showPlayerTurn(String activePlayer){clientHandler.sendMessage(new ShowPlayerTurnMsg(activePlayer));}
 }

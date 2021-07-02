@@ -16,6 +16,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
+/**
+ * This Scene Controller allows the player to choose between two available marble conversion.
+ */
 public class ChooseConversionSceneController extends ObservableView implements GenericSceneController {
     @FXML
     private RadioButton chkConv1;
@@ -32,6 +35,7 @@ public class ChooseConversionSceneController extends ObservableView implements G
     private ArrayList<ResourceType> conversions;
     private ResourceType chosen;
 
+    @FXML
     public void initialize() {
 
         Image image = new Image(MainApp.class.getResourceAsStream("/images/" + conversions.get(0).toString() + ".png"));
@@ -46,6 +50,10 @@ public class ChooseConversionSceneController extends ObservableView implements G
         btnNext.addEventHandler(MouseEvent.MOUSE_CLICKED, this:: onNextBtn);
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     public void onNextBtn(Event event) {
         btnNext.setDisable(true);
         chkConv1.setDisable(true);

@@ -12,8 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to asks the player to choose the cards they want to activate for production.
+ */
 public class AskCardsForProdSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -54,11 +56,11 @@ public class AskCardsForProdSceneController extends ObservableView implements Ge
     private ArrayList<CheckBox> checkCards;
     private ArrayList<ImageView> imgList;
 
+    @FXML
     public void initialize() {
         gridPayment.setDisable(true);
         btn_next.setDisable(true);
         lblMustPay.setDisable(true);
-
 
         checkCards = new ArrayList<>();
         checkCards.add(check_card1);
@@ -101,6 +103,10 @@ public class AskCardsForProdSceneController extends ObservableView implements Ge
         btn_ok.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnOk);
     }
 
+    /**
+     * Handles the click on the Ok button.
+     * @param event the mouse click event.
+     */
     public void onBtnOk(Event event) {
         ArrayList<DevCard> chosenCards = new ArrayList<>();
         if(check_scroll.isSelected()) chosenCards.add(devCardList.get(0));

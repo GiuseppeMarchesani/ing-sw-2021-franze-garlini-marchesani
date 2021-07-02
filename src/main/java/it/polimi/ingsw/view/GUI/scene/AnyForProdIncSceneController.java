@@ -13,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.HashMap;
 
+/**
+ * This Scene Controller is used to ask how the player wants to convert their income Any resources.
+ */
 public class AnyForProdIncSceneController extends ObservableView implements GenericSceneController {
     @FXML
     private TextField txtCoin;
@@ -32,9 +35,9 @@ public class AnyForProdIncSceneController extends ObservableView implements Gene
     private HashMap<ResourceType, Integer> strongbox;
     private HashMap<ResourceType, Integer> warehouse;
     private int anyProduce;
-
     private HashMap<ResourceType, TextField> txtRes;
 
+    @FXML
     public void initialize() {
         lblNumAny.setText("" + anyProduce);
         lblReason.setText("Choose your Any conversions for income.");
@@ -47,6 +50,10 @@ public class AnyForProdIncSceneController extends ObservableView implements Gene
         btn_next.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtnNext);
     }
 
+    /**
+     * Handles the click on the Next button.
+     * @param event the mouse click event.
+     */
     public void onBtnNext(Event event) {
 
         if(anyProduce == Integer.parseInt(txtCoin.getText()) + Integer.parseInt(txtShield.getText()) + Integer.parseInt(txtServant.getText()) + Integer.parseInt(txtStone.getText())) {

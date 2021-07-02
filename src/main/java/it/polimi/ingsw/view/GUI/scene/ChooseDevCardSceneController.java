@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.GUI.scene;
 import it.polimi.ingsw.model.Card.DevCard;
 import it.polimi.ingsw.model.enumeration.Color;
 import it.polimi.ingsw.observer.ObservableView;
-import it.polimi.ingsw.view.GUI.Gui;
 import it.polimi.ingsw.view.GUI.MainApp;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -14,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
+/**
+ * This Scene Controller allows the player to choose a card in the market.
+ */
 public class ChooseDevCardSceneController extends ObservableView implements GenericSceneController {
 
     @FXML
@@ -117,8 +119,6 @@ public class ChooseDevCardSceneController extends ObservableView implements Gene
                 counter++;
             }
         }
-
-
 
         btm_0x0.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x0);
         btm_0x1.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBtm0x1);
