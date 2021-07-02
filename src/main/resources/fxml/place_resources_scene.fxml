@@ -7,25 +7,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="608.0" fitWidth="807.0" layoutX="-1.0" layoutY="-3.0" opacity="0.6">
+      <ImageView fitHeight="728.0" fitWidth="1280.0" layoutX="-1.0" layoutY="-3.0" opacity="0.6">
          <image>
             <Image url="@../images/warehouse.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="-2.0" layoutY="-1.0" prefHeight="600.0" prefWidth="800.0">
+      <GridPane layoutX="-2.0" layoutY="-1.0" prefHeight="720.0" prefWidth="1280.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="494.0" minHeight="10.0" prefHeight="494.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="106.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="596.0000203450521" minHeight="10.0" prefHeight="584.6667073567709" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="294.0" minHeight="10.0" prefHeight="135.99995930989587" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <GridPane gridLinesVisible="true" layoutX="14.0" layoutY="14.0" prefHeight="487.0" prefWidth="789.0">
+                  <GridPane gridLinesVisible="true" layoutX="273.0" layoutY="44.0" prefHeight="496.0" prefWidth="733.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.6666488647461" minWidth="10.0" prefWidth="121.6666488647461" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="178.33333333333331" minWidth="10.0" prefWidth="139.00001780192054" />
@@ -411,19 +411,19 @@
                   </GridPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <AnchorPane prefHeight="152.0" prefWidth="890.0" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="btm_next" defaultButton="true" layoutX="671.0" layoutY="36.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="NEXT" textFill="WHITE">
+                  <Button fx:id="btm_next" defaultButton="true" layoutX="1045.0" layoutY="20.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" style="-fx-background-radius: 10; -fx-background-color: #7a5245;" text="NEXT" textFill="WHITE">
                      <font>
                         <Font name="Bell MT" size="14.0" />
                      </font>
                   </Button>
-                  <Label layoutX="174.0" layoutY="37.0" text="all the left resources will be discarded!">
+                  <Label layoutX="220.0" layoutY="37.0" text="all the left resources will be discarded!">
                      <font>
                         <Font name="Bell MT" size="26.0" />
                      </font>
                   </Label>
-                  <Label layoutX="4.0" layoutY="37.0" text="ATTENTION:" textFill="RED">
+                  <Label layoutX="44.0" layoutY="37.0" text="ATTENTION:" textFill="RED">
                      <font>
                         <Font name="Bell MT" size="26.0" />
                      </font>

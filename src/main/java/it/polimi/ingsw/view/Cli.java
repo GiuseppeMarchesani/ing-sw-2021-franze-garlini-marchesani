@@ -847,7 +847,7 @@ public class Cli extends ObservableView implements View{
     }
 
     @Override
-    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+    public void showWinMessage(LinkedHashMap<String, Integer> finalPoints) {
         ArrayList<String> users = new ArrayList<>(finalPoints.keySet());
         //Printing results
         out.println("\nFinal results.");

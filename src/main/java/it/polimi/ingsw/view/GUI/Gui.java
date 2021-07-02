@@ -10,6 +10,7 @@ import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Gui extends ObservableView implements View {
 
@@ -307,7 +308,7 @@ public class Gui extends ObservableView implements View {
     }
 
     @Override
-    public void showWinMessage(HashMap<String, Integer> finalPoints) {
+    public void showWinMessage(LinkedHashMap<String, Integer> finalPoints) {
         finalVip.putAll(finalPoints);
         WinSceneController wsc = new WinSceneController();
         wsc.addAllObservers(observers);
