@@ -188,6 +188,7 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
      * Updates the images of resources in warehouse.
      */
     private void updateWarehouse(){
+        String res="COIN";
         img_depot1_res1.setImage(null);
         img_depot1_res2.setImage(null);
         img_depot2_res3.setImage(null);
@@ -196,7 +197,11 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         img_depot3_res1.setImage(null);
         for (Integer depot : depotToResource.keySet()) {
             for (int i = 1; i <= depotToQuantity.get(depot); i++) {
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + depotToResource.get(depot).toString() + ".png"));
+                if(depotToResource.get(depot).equals(ResourceType.COIN)) res="COIN";
+                else if(depotToResource.get(depot).equals(ResourceType.SHIELD)) res="SHIELD";
+                else if(depotToResource.get(depot).equals(ResourceType.STONE)) res="STONE";
+                else if(depotToResource.get(depot).equals(ResourceType.SERVANT)) res="SERVANT";
+                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res + ".png"));
                 setImage(depot, depotToQuantity.get(depot), image);
             }
         }
@@ -381,9 +386,15 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
      * Updates the images of resources in strongbox.
      */
     private void updateStrongbox(){
+        String resimg="";
         int n=0;
         for(ResourceType res: strongbox.keySet()){
-            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res.toString() + ".png"));
+
+            if(res.equals(ResourceType.COIN)) resimg="COIN";
+            else if(res.equals(ResourceType.SHIELD)) resimg="SHIELD";
+            else if(res.equals(ResourceType.STONE)) resimg="STONE";
+            else if(res.equals(ResourceType.SERVANT)) resimg="SERVANT";
+            Image image = new Image(MainApp.class.getResourceAsStream("/images/" + resimg + ".png"));
             if(n==0){
                 strong_res1.setImage(image);
                 strong_quantity1.setText(String.valueOf(strongbox.get(res)));
