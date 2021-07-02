@@ -197,12 +197,38 @@ public class ShowPlayerSceneController extends ObservableView implements Generic
         img_depot3_res1.setImage(null);
         for (Integer depot : depotToResource.keySet()) {
             for (int i = 1; i <= depotToQuantity.get(depot); i++) {
-                if(depotToResource.get(depot).equals(ResourceType.COIN)) res="COIN";
-                else if(depotToResource.get(depot).equals(ResourceType.SHIELD)) res="SHIELD";
-                else if(depotToResource.get(depot).equals(ResourceType.STONE)) res="STONE";
-                else if(depotToResource.get(depot).equals(ResourceType.SERVANT)) res="SERVANT";
-                Image image = new Image(MainApp.class.getResourceAsStream("/images/" + res + ".png"));
-                setImage(depot, depotToQuantity.get(depot), image);
+                if(depotToResource.get(depot).equals(ResourceType.SHIELD)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.SERVANT)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.STONE)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.COIN)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+
+                if(depotToResource.get(depot).equals(ResourceType.SHIELD)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/shield.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.SERVANT)) {
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/servant.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.STONE)){
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/stone.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);
+                }
+                else if(depotToResource.get(depot).equals(ResourceType.COIN)) {
+                    Image image = new Image(MainApp.class.getResourceAsStream("/images/coin.png"));
+                    setImage(depot, depotToQuantity.get(depot), image);                }
             }
         }
     }
