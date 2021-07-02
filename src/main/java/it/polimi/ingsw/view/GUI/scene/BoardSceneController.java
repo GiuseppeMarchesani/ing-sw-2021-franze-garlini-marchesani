@@ -343,6 +343,10 @@ public class BoardSceneController extends ObservableView implements GenericScene
         btmResources.setDisable(false);
         btmPlayers.setDisable(false);
         btmDevCard.setDisable(false);
+        extra_leader1_res1.setVisible(false);
+        extra_leader1_res2.setVisible(false);
+        extra_leader2_res1.setVisible(false);
+        extra_leader2_res2.setVisible(false);
 
         if(imgLeader.size()!=2) {
             imgLeader.add(img_leader1);
@@ -370,10 +374,13 @@ public class BoardSceneController extends ObservableView implements GenericScene
 
                             if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
                                 extra_leader1_res1.setImage(image1);
+                                extra_leader1_res1.setVisible(true);
 
                             } else if (extraDepotRes.get(ld.getResourceAbility()) == 2) {
                                 extra_leader1_res1.setImage(image1);
                                 extra_leader1_res2.setImage(image1);
+                                extra_leader1_res1.setVisible(true);
+                                extra_leader1_res2.setVisible(true);
 
                             }
                         }
@@ -393,9 +400,12 @@ public class BoardSceneController extends ObservableView implements GenericScene
                             Image image1 = new Image(MainApp.class.getResourceAsStream("/images/" + ld.getResourceAbility().toString() + ".png"));
                             if (extraDepotRes.get(ld.getResourceAbility()) == 1) {
                                 extra_leader2_res1.setImage(image1);
+                                extra_leader2_res1.setVisible(true);
                             } else if (extraDepotRes.get(ld.getResourceAbility()) == 2) {
                                 extra_leader2_res1.setImage(image1);
                                 extra_leader2_res2.setImage(image1);
+                                extra_leader2_res1.setVisible(true);
+                                extra_leader2_res2.setVisible(true);
                             }
                         }
                     }

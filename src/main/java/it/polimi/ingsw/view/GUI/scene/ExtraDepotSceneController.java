@@ -43,6 +43,14 @@ public class ExtraDepotSceneController extends ObservableView implements Generic
 
     @FXML
     public void initialize(){
+        ArrayList<ResourceType> toRemove = new ArrayList<>();
+        for(ResourceType res: resToPlace.keySet()) {
+            if(resToPlace.get(res)==0) toRemove.add(res);
+        }
+        for(ResourceType res: toRemove) {
+            resToPlace.remove(res);
+        }
+
         chosenQuantity.add(txt_coin);
         chosenQuantity.add(txt_stone);
         chosenQuantity.add(txt_shield);
