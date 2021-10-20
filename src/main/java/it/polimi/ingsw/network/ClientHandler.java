@@ -80,6 +80,7 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("invalid stream from client");
             disconnect();
         }
@@ -98,6 +99,7 @@ public class ClientHandler implements Runnable, ClientHandlerInterface {
            }
        }
        catch(IOException e){
+           e.printStackTrace();
            Thread.currentThread().interrupt();
            disconnect();
        }

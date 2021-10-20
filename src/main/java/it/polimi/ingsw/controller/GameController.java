@@ -333,6 +333,7 @@ public class GameController {
             turnController.disconnect(username);
             startTurn();
         }
+        allVirtualView.remove(username);
         turnController.disconnect(username);
     }
     /**
@@ -496,9 +497,7 @@ public class GameController {
                     startTurn();
             }
         }
-        else{
-            allVirtualView.get(msg.getUsername()).showErrorMsg("Not your turn!");
-        }
+
     }
 
     /**Asks the player in which depots he would like to store the resources obtained with a market action.
